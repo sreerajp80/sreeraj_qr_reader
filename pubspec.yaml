@@ -1,0 +1,48 @@
+name: sreeraj_qr_reader
+description: A comprehensive QR and Barcode scanner application
+version: 1.4.0+1
+
+environment:
+  sdk: '>=3.11.1 <4.0.0'
+  flutter: '>=3.41.4'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # QR/Barcode scanning
+  mobile_scanner: ^7.2.0
+
+  # URL verification and HTTP requests
+  http: ^1.6.0
+  url_launcher: ^6.3.2
+
+  # Clipboard functionality - using Flutter's built-in API (no package needed)
+
+  # Sharing functionality
+  share_plus: ^12.0.1
+
+  # Permissions
+  permission_handler: ^12.0.1
+
+  # State management
+  provider: ^6.1.5
+
+  # Package info for version reading
+  package_info_plus: ^9.0.0
+
+  flutter_secure_storage: ^10.0.0  # For secure, encrypted storage of API key
+  shared_preferences: ^2.5.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+
+  # App icon configuration will be handled separately for each platform
