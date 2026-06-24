@@ -4,31 +4,59 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sreeraj_qr_reader/models/safety_check_result.dart';
 
 class UrlSafetyService {
+  /// SharedPreferences key for the opt-in "active online checks" setting.
+  /// When false (the default) the service never connects to the scanned
+  /// server, so the device IP and User-Agent are not exposed to it.
+  static const String activeProbingPrefKey = 'active_probing_enabled';
+
   final http.Client _httpClient;
   final FlutterSecureStorage _secureStorage;
 
   UrlSafetyService({
     http.Client? httpClient,
     FlutterSecureStorage? secureStorage,
-  })  : _httpClient = httpClient ?? http.Client(),
+  })  : _httpClient = httpClient ?? _privacyClient(),
         _secureStorage = secureStorage ?? const FlutterSecureStorage();
 
+  /// Production HTTP client used when none is injected. The inner [HttpClient]
+  /// has `userAgent = null`, so outbound requests carry **no** User-Agent
+  /// header at all — denying the scanned server the `Dart/<version> (dart:io)`
+  /// fingerprint that reveals Device/Browser/OS. (The public IP is inherent to
+  /// a direct connection and cannot be hidden here.)
+  static http.Client _privacyClient() => IOClient(HttpClient()..userAgent = null);
+
   Future<List<SafetyCheckResult>> runAllChecks(String url) async {
+    final activeProbing = await isActiveProbingEnabled();
     return [
-      await checkSslCertificate(url),
-      await checkUrlRedirects(url),
+      await checkSslCertificate(url, activeProbing: activeProbing),
+      await checkUrlRedirects(url, activeProbing: activeProbing),
       await checkSuspiciousPatterns(url),
-      await checkUrlShorteners(url),
+      await checkUrlShorteners(url, activeProbing: activeProbing),
       await checkHomographAttacks(url),
       await checkGoogleSafeBrowsing(url),
     ];
   }
 
-  Future<SafetyCheckResult> checkSslCertificate(String url) async {
+  /// Whether the user has opted into active online checks (default false).
+  /// Exposed so the UI can tell the user when links were checked privately.
+  Future<bool> isActiveProbingEnabled() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getBool(activeProbingPrefKey) ?? false;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<SafetyCheckResult> checkSslCertificate(
+    String url, {
+    bool activeProbing = false,
+  }) async {
     try {
       final uri = Uri.parse(url);
 
@@ -40,7 +68,20 @@ class UrlSafetyService {
         );
       }
 
+      // Privacy: without active probing we do not open a socket to the scanned
+      // server (which would expose the device IP and User-Agent). We only
+      // confirm the URL uses an encrypted (https) scheme.
+      if (!activeProbing) {
+        return const SafetyCheckResult(
+          checkName: 'SSL/TLS Certificate',
+          passed: true,
+          message: 'Uses HTTPS (live certificate not checked in private mode)',
+        );
+      }
+
       final client = HttpClient();
+      // Don't leak the default `Dart/<version> (dart:io)` fingerprint.
+      client.userAgent = null;
       var certificateValid = true;
       var certMessage = 'Valid SSL certificate';
 
@@ -88,7 +129,20 @@ class UrlSafetyService {
     }
   }
 
-  Future<SafetyCheckResult> checkUrlRedirects(String url) async {
+  Future<SafetyCheckResult> checkUrlRedirects(
+    String url, {
+    bool activeProbing = false,
+  }) async {
+    // Privacy: following redirects requires contacting the destination (and
+    // each hop), exposing the device IP/User-Agent. Skip it unless the user
+    // explicitly opted into active online checks.
+    if (!activeProbing) {
+      return const SafetyCheckResult(
+        checkName: 'Redirect Analysis',
+        passed: true,
+        message: 'Skipped in private mode (destination server not contacted)',
+      );
+    }
     try {
       var redirectCount = 0;
       var currentUrl = url;
@@ -199,7 +253,10 @@ class UrlSafetyService {
     }
   }
 
-  Future<SafetyCheckResult> checkUrlShorteners(String url) async {
+  Future<SafetyCheckResult> checkUrlShorteners(
+    String url, {
+    bool activeProbing = false,
+  }) async {
     try {
       final uri = Uri.parse(url);
       final domain = uri.host.toLowerCase();
@@ -252,32 +309,38 @@ class UrlSafetyService {
         }
       }
 
+      // Privacy: the network probe below contacts the scanned server (leaking
+      // IP/User-Agent). Only run it when the user opted into active checks;
+      // otherwise rely on the local known-list and heuristics above.
       var networkCheckCompleted = false;
-      try {
-        final response =
-            await _httpClient.head(uri).timeout(const Duration(seconds: 5));
-        networkCheckCompleted = true;
+      if (activeProbing) {
+        try {
+          final response = await _httpClient
+              .head(uri)
+              .timeout(const Duration(seconds: 5));
+          networkCheckCompleted = true;
 
-        if (response.isRedirect && domain.length <= 12) {
-          final location = response.headers['location'];
-          if (location != null) {
-            final redirectUri = Uri.parse(
-              location.startsWith('http')
-                  ? location
-                  : '${uri.scheme}://${uri.host}$location',
-            );
-            if (redirectUri.host != uri.host) {
-              return SafetyCheckResult(
-                checkName: 'URL Shortener Check',
-                passed: false,
-                message:
-                    'Detected URL shortener (redirects to ${redirectUri.host})',
+          if (response.isRedirect && domain.length <= 12) {
+            final location = response.headers['location'];
+            if (location != null) {
+              final redirectUri = Uri.parse(
+                location.startsWith('http')
+                    ? location
+                    : '${uri.scheme}://${uri.host}$location',
               );
+              if (redirectUri.host != uri.host) {
+                return SafetyCheckResult(
+                  checkName: 'URL Shortener Check',
+                  passed: false,
+                  message:
+                      'Detected URL shortener (redirects to ${redirectUri.host})',
+                );
+              }
             }
           }
+        } catch (e) {
+          if (kDebugMode) debugPrint('Could not check redirect for shortener detection: $e');
         }
-      } catch (e) {
-        if (kDebugMode) debugPrint('Could not check redirect for shortener detection: $e');
       }
 
       if (isSuspiciousShortener) {
@@ -286,7 +349,7 @@ class UrlSafetyService {
           passed: false,
           message: 'Possible URL shortener: $reason',
         );
-      } else if (!networkCheckCompleted) {
+      } else if (activeProbing && !networkCheckCompleted) {
         return const SafetyCheckResult(
           checkName: 'URL Shortener Check',
           passed: false,

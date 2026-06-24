@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sreeraj_qr_reader/services/url_safety_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -18,6 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _isLoading = true;
   bool _hasApiKey = false;
   bool _isObscured = true;
+  bool _activeProbing = false;
   int _requestsToday = 0;
   String? _lastResetDate;
 
@@ -67,6 +69,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
       setState(() {
         _hasApiKey = apiKey != null && apiKey.isNotEmpty;
+        _activeProbing =
+            prefs.getBool(UrlSafetyService.activeProbingPrefKey) ?? false;
       });
     } catch (e) {
       if (kDebugMode) debugPrint('Error loading settings: $e');
@@ -193,6 +197,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  _buildSectionHeader('Privacy'),
+                  const SizedBox(height: 8),
+                  _buildActiveProbingCard(),
+                  const SizedBox(height: 32),
+
                   _buildSectionHeader('Google Safe Browsing API'),
                   const SizedBox(height: 8),
                   _buildInfoCard(),
@@ -213,6 +222,80 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
+    );
+  }
+
+  Future<void> _setActiveProbing(bool value) async {
+    setState(() => _activeProbing = value);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(UrlSafetyService.activeProbingPrefKey, value);
+    } catch (e) {
+      if (kDebugMode) debugPrint('Error saving active probing setting: $e');
+    }
+  }
+
+  Widget _buildActiveProbingCard() {
+    return Card(
+      color: _activeProbing ? Colors.orange[50] : Colors.blue[50],
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            SwitchListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+              value: _activeProbing,
+              onChanged: _setActiveProbing,
+              title: const Text(
+                'Active online checks',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: const Text(
+                'Off: scanned links are checked privately — the destination '
+                'server is never contacted.',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    _activeProbing
+                        ? Icons.warning_amber
+                        : Icons.lock_outline,
+                    size: 20,
+                    color: _activeProbing
+                        ? Colors.orange[700]
+                        : Colors.blue[700],
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      _activeProbing
+                          ? 'When on, the SSL, redirect and shortener checks '
+                              'connect directly to the scanned site. This '
+                              'exposes your IP address (and therefore your '
+                              'approximate location and mobile carrier) to that '
+                              'server before you open the link.'
+                          : 'SSL, redirect and shortener checks run from local '
+                              'rules only. Malicious-content lookup still uses '
+                              'Google Safe Browsing (the link is sent only to '
+                              'Google, never to the scanned site).',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: _activeProbing
+                            ? Colors.orange[900]
+                            : Colors.blue[900],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

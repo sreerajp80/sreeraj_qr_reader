@@ -9,6 +9,7 @@ class ScanProvider extends ChangeNotifier {
   bool _isUrl = false;
   bool _isSafeUrl = true;
   bool _isLoading = false;
+  bool _activeProbingEnabled = false;
   List<SafetyCheckResult> _safetyChecks = [];
 
   final UrlSafetyService _urlSafetyService;
@@ -21,6 +22,10 @@ class ScanProvider extends ChangeNotifier {
   bool get isUrl => _isUrl;
   bool get isSafeUrl => _isSafeUrl;
   bool get isLoading => _isLoading;
+
+  /// Whether the last safety run used active online probing. When false, the
+  /// scanned site was never contacted (links checked from local rules only).
+  bool get activeProbingEnabled => _activeProbingEnabled;
   List<SafetyCheckResult> get safetyChecks => List.unmodifiable(_safetyChecks);
 
   bool get hasNetworkError => _safetyChecks.any(
@@ -52,6 +57,7 @@ class ScanProvider extends ChangeNotifier {
 
     _isLoading = true;
     _safetyChecks = [];
+    _activeProbingEnabled = await _urlSafetyService.isActiveProbingEnabled();
     notifyListeners();
 
     try {

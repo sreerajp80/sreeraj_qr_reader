@@ -168,6 +168,20 @@ class _AboutScreenState extends State<AboutScreen> {
               ),
             ),
 
+            const SizedBox(height: 8),
+
+            // Made with love
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Made with ❤️ from India',
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+                textAlign: TextAlign.center,
+              ),
+            ),
+
             const SizedBox(height: 40),
           ],
         ),

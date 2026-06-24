@@ -118,7 +118,10 @@ void main() {
     test('passes when server returns 200 with no redirect', () async {
       final client = MockClient((_) async => http.Response('', 200));
       final service = UrlSafetyService(httpClient: client);
-      final result = await service.checkUrlRedirects('https://example.com');
+      final result = await service.checkUrlRedirects(
+        'https://example.com',
+        activeProbing: true,
+      );
       expect(result.passed, true);
       expect(result.message, 'No redirects detected');
     });
@@ -137,7 +140,10 @@ void main() {
         return http.Response('', 200);
       });
       final service = UrlSafetyService(httpClient: client);
-      final result = await service.checkUrlRedirects('https://example.com');
+      final result = await service.checkUrlRedirects(
+        'https://example.com',
+        activeProbing: true,
+      );
       expect(result.passed, true);
       expect(result.message, contains('1 redirect'));
     });
@@ -156,7 +162,10 @@ void main() {
         return http.Response('', 200);
       });
       final service = UrlSafetyService(httpClient: client);
-      final result = await service.checkUrlRedirects('https://example.com');
+      final result = await service.checkUrlRedirects(
+        'https://example.com',
+        activeProbing: true,
+      );
       expect(result.passed, false);
       expect(result.message, contains('Suspicious redirect chain'));
     });
@@ -169,9 +178,62 @@ void main() {
             headers: {'location': 'https://example.com'},
           ));
       final service = UrlSafetyService(httpClient: client);
-      final result = await service.checkUrlRedirects('https://example.com');
+      final result = await service.checkUrlRedirects(
+        'https://example.com',
+        activeProbing: true,
+      );
       expect(result.passed, false);
       expect(result.message, 'Redirect loop detected');
+    });
+
+    test('does NOT contact the server when active probing is disabled', () async {
+      var called = false;
+      final client = MockClient((_) async {
+        called = true;
+        return http.Response('', 200);
+      });
+      final service = UrlSafetyService(httpClient: client);
+      // Default (activeProbing: false) — privacy mode.
+      final result = await service.checkUrlRedirects('https://example.com');
+      expect(called, false, reason: 'no request should be made in private mode');
+      expect(result.passed, true);
+      expect(result.message, contains('private mode'));
+    });
+  });
+
+  group('UrlSafetyService privacy mode (active probing disabled)', () {
+    test('checkSslCertificate confirms https without opening a connection',
+        () async {
+      final service = UrlSafetyService();
+      final result = await service.checkSslCertificate('https://example.com');
+      expect(result.passed, true);
+      expect(result.message, contains('HTTPS'));
+    });
+
+    test('checkSslCertificate still fails plain http', () async {
+      final service = UrlSafetyService();
+      final result = await service.checkSslCertificate('http://example.com');
+      expect(result.passed, false);
+    });
+
+    test('checkUrlShorteners runs heuristics without contacting the server',
+        () async {
+      var called = false;
+      final client = MockClient((_) async {
+        called = true;
+        return http.Response('', 200);
+      });
+      final service = UrlSafetyService(httpClient: client);
+      final result = await service.checkUrlShorteners('https://example.com/path');
+      expect(called, false, reason: 'no request should be made in private mode');
+      expect(result.checkName, 'URL Shortener Check');
+    });
+
+    test('checkUrlShorteners still flags a known shortener locally', () async {
+      final service = UrlSafetyService();
+      final result = await service.checkUrlShorteners('https://bit.ly/abc');
+      expect(result.passed, false);
+      expect(result.message, contains('shortener'));
     });
   });
 

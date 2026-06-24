@@ -255,6 +255,12 @@ class _ResultScreenState extends State<ResultScreen> {
               ),
             ],
 
+            // Privacy / probing-mode notice
+            if (!provider.isLoading) ...[
+              const SizedBox(height: 12),
+              _buildProbingModeBanner(provider.activeProbingEnabled),
+            ],
+
             // Additional warning for issues
             if (!provider.isLoading && hasIssues) ...[
               const SizedBox(height: 12),
@@ -311,6 +317,48 @@ class _ResultScreenState extends State<ResultScreen> {
             ],
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildProbingModeBanner(bool activeProbing) {
+    final color = activeProbing ? Colors.amber : Colors.blue;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color[50],
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color[200]!),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            activeProbing ? Icons.public : Icons.lock_outline,
+            color: color[700],
+            size: 20,
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              activeProbing
+                  ? 'Active online checks are ON: SSL, redirect and shortener '
+                      'checks contacted this site directly, exposing your IP '
+                      'address to it. Turn off "Active online checks" in '
+                      'Settings to check links privately.'
+                  : 'Private mode: this link was analysed using local rules and '
+                      'Google Safe Browsing only — the site itself was never '
+                      'contacted, so your IP and device were not exposed. Enable '
+                      '"Active online checks" in Settings for live SSL/redirect '
+                      'verification.',
+              style: TextStyle(
+                fontSize: 13,
+                color: color[900],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

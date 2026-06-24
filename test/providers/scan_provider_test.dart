@@ -42,6 +42,10 @@ void main() {
       test('hasNetworkError is false', () {
         expect(provider.hasNetworkError, false);
       });
+
+      test('activeProbingEnabled defaults to false', () {
+        expect(provider.activeProbingEnabled, false);
+      });
     });
 
     group('setScanResult – URL detection', () {
