@@ -22,9 +22,7 @@ class SreerajQRReaderApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           primaryColor: const Color(0xFF2196F3),
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
-          ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
           appBarTheme: const AppBarTheme(
             centerTitle: true,

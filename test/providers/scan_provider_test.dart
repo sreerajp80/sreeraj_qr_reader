@@ -97,7 +97,10 @@ void main() {
       });
 
       test('does not flag WiFi credential string as URL', () {
-        provider.setScanResult('WIFI:T:WPA;S:MyNetwork;P:password;;', BarcodeType.wifi);
+        provider.setScanResult(
+          'WIFI:T:WPA;S:MyNetwork;P:password;;',
+          BarcodeType.wifi,
+        );
         expect(provider.isUrl, false);
       });
 

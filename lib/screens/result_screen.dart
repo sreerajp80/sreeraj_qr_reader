@@ -343,14 +343,14 @@ class _ResultScreenState extends State<ResultScreen> {
             child: Text(
               activeProbing
                   ? 'Active online checks are ON: SSL, redirect and shortener '
-                      'checks contacted this site directly, exposing your IP '
-                      'address to it. Turn off "Active online checks" in '
-                      'Settings to check links privately.'
+                        'checks contacted this site directly, exposing your IP '
+                        'address to it. Turn off "Active online checks" in '
+                        'Settings to check links privately.'
                   : 'Private mode: this link was analysed using local rules and '
-                      'Google Safe Browsing only — the site itself was never '
-                      'contacted, so your IP and device were not exposed. Enable '
-                      '"Active online checks" in Settings for live SSL/redirect '
-                      'verification.',
+                        'Google Safe Browsing only — the site itself was never '
+                        'contacted, so your IP and device were not exposed. Enable '
+                        '"Active online checks" in Settings for live SSL/redirect '
+                        'verification.',
               style: TextStyle(
                 fontSize: 13,
                 color: color[900],

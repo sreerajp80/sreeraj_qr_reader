@@ -261,9 +261,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(
-                    _activeProbing
-                        ? Icons.warning_amber
-                        : Icons.lock_outline,
+                    _activeProbing ? Icons.warning_amber : Icons.lock_outline,
                     size: 20,
                     color: _activeProbing
                         ? Colors.orange[700]
@@ -274,14 +272,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Text(
                       _activeProbing
                           ? 'When on, the SSL, redirect and shortener checks '
-                              'connect directly to the scanned site. This '
-                              'exposes your IP address (and therefore your '
-                              'approximate location and mobile carrier) to that '
-                              'server before you open the link.'
+                                'connect directly to the scanned site. This '
+                                'exposes your IP address (and therefore your '
+                                'approximate location and mobile carrier) to that '
+                                'server before you open the link.'
                           : 'SSL, redirect and shortener checks run from local '
-                              'rules only. Malicious-content lookup still uses '
-                              'Google Safe Browsing (the link is sent only to '
-                              'Google, never to the scanned site).',
+                                'rules only. Malicious-content lookup still uses '
+                                'Google Safe Browsing (the link is sent only to '
+                                'Google, never to the scanned site).',
                       style: TextStyle(
                         fontSize: 13,
                         color: _activeProbing

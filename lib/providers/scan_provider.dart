@@ -15,7 +15,7 @@ class ScanProvider extends ChangeNotifier {
   final UrlSafetyService _urlSafetyService;
 
   ScanProvider({UrlSafetyService? urlSafetyService})
-      : _urlSafetyService = urlSafetyService ?? UrlSafetyService();
+    : _urlSafetyService = urlSafetyService ?? UrlSafetyService();
 
   String? get scanResult => _scanResult;
   BarcodeType? get scanType => _scanType;
@@ -29,13 +29,13 @@ class ScanProvider extends ChangeNotifier {
   List<SafetyCheckResult> get safetyChecks => List.unmodifiable(_safetyChecks);
 
   bool get hasNetworkError => _safetyChecks.any(
-        (c) => c.message.contains(
-          RegExp(
-            r'Unable to|Error|network|timeout|certificate check failed',
-            caseSensitive: false,
-          ),
-        ),
-      );
+    (c) => c.message.contains(
+      RegExp(
+        r'Unable to|Error|network|timeout|certificate check failed',
+        caseSensitive: false,
+      ),
+    ),
+  );
 
   void setScanResult(String result, BarcodeType type) {
     _scanResult = result;

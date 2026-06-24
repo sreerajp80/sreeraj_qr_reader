@@ -20,15 +20,16 @@ class UrlSafetyService {
   UrlSafetyService({
     http.Client? httpClient,
     FlutterSecureStorage? secureStorage,
-  })  : _httpClient = httpClient ?? _privacyClient(),
-        _secureStorage = secureStorage ?? const FlutterSecureStorage();
+  }) : _httpClient = httpClient ?? _privacyClient(),
+       _secureStorage = secureStorage ?? const FlutterSecureStorage();
 
   /// Production HTTP client used when none is injected. The inner [HttpClient]
   /// has `userAgent = null`, so outbound requests carry **no** User-Agent
   /// header at all — denying the scanned server the `Dart/<version> (dart:io)`
   /// fingerprint that reveals Device/Browser/OS. (The public IP is inherent to
   /// a direct connection and cannot be hidden here.)
-  static http.Client _privacyClient() => IOClient(HttpClient()..userAgent = null);
+  static http.Client _privacyClient() =>
+      IOClient(HttpClient()..userAgent = null);
 
   Future<List<SafetyCheckResult>> runAllChecks(String url) async {
     final activeProbing = await isActiveProbingEnabled();
@@ -101,8 +102,9 @@ class UrlSafetyService {
       };
 
       try {
-        final request =
-            await client.getUrl(uri).timeout(const Duration(seconds: 5));
+        final request = await client
+            .getUrl(uri)
+            .timeout(const Duration(seconds: 5));
         request.followRedirects = false;
         final response = await request.close();
         await response.drain<void>();
@@ -263,10 +265,25 @@ class UrlSafetyService {
       final path = uri.path;
 
       const knownShorteners = [
-        'bit.ly', 'tinyurl.com', 'goo.gl', 't.co', 'ow.ly', 'is.gd',
-        'buff.ly', 'adf.ly', 'short.link', 'cutt.ly', 'rb.gy', 'tiny.cc',
-        'cli.gs', 'lnkd.in', 'bitly.com', 'j.mp', 'tinyarrows.com',
-        'shortened.link', 's.id',
+        'bit.ly',
+        'tinyurl.com',
+        'goo.gl',
+        't.co',
+        'ow.ly',
+        'is.gd',
+        'buff.ly',
+        'adf.ly',
+        'short.link',
+        'cutt.ly',
+        'rb.gy',
+        'tiny.cc',
+        'cli.gs',
+        'lnkd.in',
+        'bitly.com',
+        'j.mp',
+        'tinyarrows.com',
+        'shortened.link',
+        's.id',
       ];
 
       for (final shortener in knownShorteners) {
@@ -298,11 +315,12 @@ class UrlSafetyService {
 
       if (path.length > 1 && path.length <= 10) {
         final pathWithoutSlash = path.substring(1);
-        final hasOnlyAlphanumeric =
-            RegExp(r'^[a-zA-Z0-9]+$').hasMatch(pathWithoutSlash);
+        final hasOnlyAlphanumeric = RegExp(
+          r'^[a-zA-Z0-9]+$',
+        ).hasMatch(pathWithoutSlash);
         final hasUpperAndLower =
             RegExp(r'[a-z]').hasMatch(pathWithoutSlash) &&
-                RegExp(r'[A-Z]').hasMatch(pathWithoutSlash);
+            RegExp(r'[A-Z]').hasMatch(pathWithoutSlash);
         if (hasOnlyAlphanumeric && hasUpperAndLower && domain.length <= 12) {
           isSuspiciousShortener = true;
           reason = 'Random character pattern in short path';
@@ -339,7 +357,9 @@ class UrlSafetyService {
             }
           }
         } catch (e) {
-          if (kDebugMode) debugPrint('Could not check redirect for shortener detection: $e');
+          if (kDebugMode) {
+            debugPrint('Could not check redirect for shortener detection: $e');
+          }
         }
       }
 
@@ -382,10 +402,25 @@ class UrlSafetyService {
       final domain = rawHost.toLowerCase();
 
       const suspiciousChars = {
-        'ı': 'i', 'ł': 'l', 'о': 'o', 'а': 'a', 'е': 'e',
-        'с': 'c', 'р': 'p', 'х': 'x', 'у': 'y', 'ѕ': 's',
-        'һ': 'h', 'і': 'i', 'ј': 'j', 'ԁ': 'd', 'ԛ': 'q',
-        'ο': 'o', 'υ': 'u', 'ν': 'v', 'ρ': 'p',
+        'ı': 'i',
+        'ł': 'l',
+        'о': 'o',
+        'а': 'a',
+        'е': 'e',
+        'с': 'c',
+        'р': 'p',
+        'х': 'x',
+        'у': 'y',
+        'ѕ': 's',
+        'һ': 'h',
+        'і': 'i',
+        'ј': 'j',
+        'ԁ': 'd',
+        'ԛ': 'q',
+        'ο': 'o',
+        'υ': 'u',
+        'ν': 'v',
+        'ρ': 'p',
       };
 
       final foundChars = <String>[];
@@ -497,7 +532,9 @@ class UrlSafetyService {
             (data['matches'] as List).isNotEmpty) {
           final threats = data['matches'] as List<dynamic>;
           final threatTypes = threats
-              .map((t) => (t as Map)['threatType'].toString().replaceAll('_', ' '))
+              .map(
+                (t) => (t as Map)['threatType'].toString().replaceAll('_', ' '),
+              )
               .toSet()
               .join(', ');
           return SafetyCheckResult(
@@ -531,7 +568,9 @@ class UrlSafetyService {
         );
       }
     } catch (e) {
-      if (kDebugMode) debugPrint('Google Safe Browsing check error: ${e.runtimeType}');
+      if (kDebugMode) {
+        debugPrint('Google Safe Browsing check error: ${e.runtimeType}');
+      }
       return const SafetyCheckResult(
         checkName: 'Malicious Content Check',
         passed: false,

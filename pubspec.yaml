@@ -1,6 +1,6 @@
 name: sreeraj_qr_reader
 description: A comprehensive QR and Barcode scanner application
-version: 1.4.2+1
+version: 1.4.3+1
 
 environment:
   sdk: '>=3.11.1 <4.0.0'
