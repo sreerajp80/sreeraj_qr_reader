@@ -43,8 +43,8 @@ A comprehensive Flutter application for scanning QR codes and barcodes with adva
 ## Technical Specifications
 
 ### Flutter SDK
-- **Flutter Version**: 3.41.4+
-- **Dart SDK**: 3.11.1+
+- **Flutter Version**: 3.44.8+
+- **Dart SDK**: 3.12.2+
 - **Material Design**: Version 3
 - **Null Safety**: Fully enabled
 
@@ -136,21 +136,33 @@ A comprehensive Flutter application for scanning QR codes and barcodes with adva
 
 ### Project Structure
 ```
-lib/
-├── main.dart                      # App entry point
-├── config/
-│   └── build_config.dart          # Build metadata constants
-├── models/
-│   └── safety_check_result.dart   # Immutable result model
-├── providers/
-│   └── scan_provider.dart         # State management (ChangeNotifier)
-├── screens/
-│   ├── scanner_screen.dart        # QR/Barcode scanner UI
-│   ├── result_screen.dart         # Result display and actions
-│   ├── settings_screen.dart       # API key management
-│   └── about_screen.dart          # App info
-└── services/
-    └── url_safety_service.dart    # Six URL safety check algorithms
+sreeraj_qr_reader/
+├── assets/
+│   └── config/
+│       └── app_config.json        # About screen data (single source of truth)
+├── lib/
+│   ├── main.dart                  # App entry point
+│   ├── core/
+│   │   ├── config/
+│   │   │   ├── app_config.dart    # Typed About model & fallback
+│   │   │   └── config_service.dart# Config asset loader
+│   │   └── constants/
+│   │       └── app_constants.dart # Technical constants
+│   ├── models/
+│   │   └── safety_check_result.dart # Immutable result model
+│   ├── providers/
+│   │   └── scan_provider.dart     # State management (ChangeNotifier)
+│   ├── screens/
+│   │   ├── scanner_screen.dart    # QR/Barcode scanner UI
+│   │   ├── result_screen.dart     # Result display and actions
+│   │   ├── settings_screen.dart   # API key management
+│   │   └── about_screen.dart      # Data-driven App info screen
+│   └── services/
+│       └── url_safety_service.dart# Six URL safety check algorithms
+└── test/
+    └── core/
+        └── config/
+            └── app_config_test.dart
 ```
 
 ### Key Classes

@@ -1,4 +1,15 @@
-# Architecture
+# Architecture — Sreeraj P QR Reader
+
+This document defines the technical architecture, data flow, state management, and component boundaries for Sreeraj P QR Reader. Read this before modifying application structure, providers, services, models, or screens.
+
+**Read first:**
+- [CLAUDE.md](../CLAUDE.md)
+- [security.md](security.md)
+- [workflow_rules.md](workflow_rules.md)
+- [guidelines/architecture.md](guidelines/architecture.md)
+- [guidelines/flutter_project_engineering_standard.md](guidelines/flutter_project_engineering_standard.md)
+
+---
 
 ## 1. Scope
 
@@ -6,15 +17,17 @@
 - Repository type: application
 - Engineering standard profiles in force:
   - `Core Baseline`
-- Platforms: Android
+- Platforms: Android (minSdk 24, targetSdk 35)
+
+---
 
 ## 2. Goals And Non-Goals
 
 ### Goals
 
-- Scan QR codes and barcodes using the device camera
+- Scan QR codes and barcodes using device camera
 - Analyse scanned URLs across six security dimensions
-- Allow users to copy, share, or open scanned content
+- Allow users to copy, share, or open scanned content securely
 
 ### Non-Goals
 
@@ -22,9 +35,13 @@
 - Cloud sync or backend services
 - User accounts or authentication
 
+---
+
 ## 3. Architecture Summary
 
 The app uses a Tier 1 layer-first Flutter structure with Provider for state management. `ScannerScreen` delegates scan events to `ScanProvider`, which coordinates URL safety analysis through `UrlSafetyService`. Sensitive data (the Google Safe Browsing API key) is isolated behind `flutter_secure_storage`; non-sensitive counters use `SharedPreferences`. Widgets do not know HTTP, storage, or cryptography.
+
+---
 
 ## 4. Repository Structure
 
@@ -38,9 +55,16 @@ The app uses a Tier 1 layer-first Flutter structure with Provider for state mana
 ### Top-Level Source Layout
 
 ```text
+assets/
+`-- config/
+    `-- app_config.json          # About screen values (single source of truth)
 lib/
-|-- config/
-|   `-- build_config.dart
+|-- core/
+|   |-- config/
+|   |   |-- app_config.dart      # AppConfig model & fallback
+|   |   `-- config_service.dart  # Config asset loader
+|   `-- constants/
+|       `-- app_constants.dart   # Technical constants
 |-- models/
 |   `-- safety_check_result.dart
 |-- providers/
@@ -59,15 +83,19 @@ lib/
 
 | Path | Responsibility |
 |------|----------------|
-| `lib/config/` | Build-time constants |
+| `assets/config/` | Data source of truth for About metadata |
+| `lib/core/config/` | About screen data model (`AppConfig`) and loader service (`ConfigService`) |
+| `lib/core/constants/` | Technical app constants (`AppConstants`) |
 | `lib/models/` | Immutable data types shared across layers |
 | `lib/providers/` | ChangeNotifier state; bridges UI and service layer |
 | `lib/screens/` | UI-only widgets; no business logic |
 | `lib/services/` | Business logic and external API calls |
 
+---
+
 ## 5. State Management
 
-- Primary pattern: `Provider` (ChangeNotifier)
+- Primary pattern: `Provider` (`ChangeNotifier`)
 - Why this pattern was chosen:
   - Fits the simple linear data flow of scan → analyse → display
   - Flutter-native; no dependency beyond the `provider` package
@@ -75,6 +103,8 @@ lib/
   - Widgets own: UI-only state (copy feedback timer, scroll position)
   - `ScanProvider` owns: scan result, safety check results, loading flag
   - `UrlSafetyService` owns: stateless check logic only
+
+---
 
 ## 6. Data Flow
 
@@ -90,20 +120,24 @@ Widget -> ScanProvider -> UrlSafetyService -> HTTP / SecureStorage
 - `ScanProvider` must not know: navigation, UI copy
 - `UrlSafetyService` must not call `notifyListeners` or import widget classes
 
+---
+
 ## 7. Domain Model
 
 ### Core Models Or Entities
 
 | Type | Purpose | Mutable? | Notes |
 |------|---------|----------|-------|
-| `SafetyCheckResult` | Holds the outcome of one URL safety check | No | `const` constructor |
-| `BarcodeType` | Identifies the kind of barcode scanned | No | From `mobile_scanner` package |
+| `SafetyCheckResult` | Holds outcome of one URL safety check | No | `const` constructor |
+| `BarcodeType` | Identifies kind of barcode scanned | No | From `mobile_scanner` package |
 
 ### Serialization Strategy
 
 - JSON models: No (no persistence of domain entities)
 - Database models: No
 - Separate domain entities from transport models: No (Tier 1; single shape serves all purposes)
+
+---
 
 ## 8. Dependency Management And Injection
 
@@ -115,12 +149,16 @@ Widget -> ScanProvider -> UrlSafetyService -> HTTP / SecureStorage
   - Pass a `MockClient` (from `package:http/testing.dart`) via `UrlSafetyService(httpClient:)`
   - Pass a `UrlSafetyService` instance via `ScanProvider(urlSafetyService:)`
 
+---
+
 ## 9. Navigation
 
 - Navigation approach: Navigator 1.0 with named routes
 - Route definition location: `lib/main.dart`
 - Protected-route strategy: None (no authentication)
 - Deep-link support: No
+
+---
 
 ## 10. Persistence And External Systems
 
@@ -133,7 +171,7 @@ Widget -> ScanProvider -> UrlSafetyService -> HTTP / SecureStorage
 ### Network
 
 - Network client: `package:http` (injected into `UrlSafetyService`)
-- Offline behavior: online-only; individual checks degrade gracefully when network is unavailable
+- Offline behavior: online-only for API check; individual checks degrade gracefully when network is unavailable
 
 ### Platform Channels Or Native Integrations
 
@@ -143,21 +181,27 @@ Widget -> ScanProvider -> UrlSafetyService -> HTTP / SecureStorage
 - `url_launcher`: open URLs in the device browser
 - `share_plus`: system share sheet
 
+---
+
 ## 11. Environment And Build Model
 
-- Flavors used: None (single environment)
-- Runtime config mechanism: N/A
+- Flavors used: `dev` and `prod`
+- Runtime config mechanism: `FLUTTER_APP_FLAVOR`
 - Build outputs supported:
-  - Debug APK (`flutter build apk --debug`)
-  - Release split APKs (`flutter build apk --release --split-per-abi`)
-  - App Bundle (`flutter build appbundle --release`)
+  - Debug APK (`flutter build apk --flavor dev --debug`)
+  - Release split APKs (`flutter build apk --flavor prod --release --split-per-abi`)
+  - App Bundle (`flutter build appbundle --flavor prod --release`)
+
+---
 
 ## 12. UI System
 
 - Theme source of truth: `lib/main.dart`
 - Design tokens location: `lib/main.dart` (`ThemeData`)
 - Shared widget strategy: No shared widgets yet; all UI lives in screen files
-- Accessibility expectations: Standard Material tappable targets; no custom semantics implemented
+- Accessibility expectations: Standard Material tappable targets
+
+---
 
 ## 13. Testing Strategy
 
@@ -166,8 +210,6 @@ Widget -> ScanProvider -> UrlSafetyService -> HTTP / SecureStorage
 | Unit | `ScanProvider` state transitions and URL detection | No mocking required |
 | Unit | `UrlSafetyService` pattern/homograph checks | No mocking required |
 | Unit | `UrlSafetyService` network checks | Uses `MockClient` from `package:http/testing.dart` |
-| Widget | Screens | Not yet written |
-| Integration | Camera → scan → result flow | Not yet written |
 
 ### Test Layout
 
@@ -179,39 +221,12 @@ test/
     `-- url_safety_service_test.dart
 ```
 
-### Critical Test Areas
+---
 
-- URL detection regex in `ScanProvider`
-- Suspicious pattern detection in `UrlSafetyService`
-- Homograph attack detection in `UrlSafetyService`
-- Rate limiting in Google Safe Browsing check
+## 14. Related Documents
 
-## 14. Operational Constraints
-
-- Minimum supported OS versions: Android 7.0 (API 24)
-- Performance constraints: Camera preview must run at interactive frame rate
-- Regulatory or store constraints: None currently
-- Team constraints: Single developer
-
-## 15. Decisions And Tradeoffs
-
-| Decision | Chosen Option | Why | Tradeoff |
-|----------|---------------|-----|----------|
-| State management | Provider/ChangeNotifier | Flutter-native, minimal setup for single-domain app | Less ergonomic than Riverpod for larger codebases |
-| URL safety | 6 on-device heuristics + 1 optional API check | Privacy-friendly; API check is opt-in | No server-side intelligence without API key |
-| No build flavors | Single variant | App has one environment and no side-by-side install need | Any future env split requires flavor setup from scratch |
-| Tier 1 structure | Layer-first | Correct for current scope and complexity | Will need promotion to Tier 2 if independent features are added |
-
-## 16. Known Risks And Follow-Ups
-
-- Risk: `UrlSafetyService.checkSslCertificate` uses `dart:io` `HttpClient` which is not injectable
-  Mitigation: Wrap behind an interface if unit-test coverage of the SSL check becomes necessary
-- Risk: Release signing keystore is managed manually outside the repo
-  Mitigation: Document location; store in a password manager; integrate CI secret store before any automated release
-
-## 17. Related Documents
-
-- `README.md`
-- `docs/flutter_project_engineering_standard.md`
-- `docs/security.md`
-- `docs/release_process.md`
+- [CLAUDE.md](../CLAUDE.md)
+- [security.md](security.md)
+- [release_process.md](release_process.md)
+- [dependencies.md](dependencies.md)
+- [guidelines/architecture.md](guidelines/architecture.md)

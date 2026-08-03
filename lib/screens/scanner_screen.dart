@@ -1,8 +1,18 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+import 'package:sreeraj_qr_reader/main.dart';
+import 'package:sreeraj_qr_reader/providers/history_provider.dart';
 import 'package:sreeraj_qr_reader/providers/scan_provider.dart';
+import 'package:sreeraj_qr_reader/providers/theme_provider.dart';
+import 'package:sreeraj_qr_reader/screens/widgets/pdf_scan_results_sheet.dart';
+import 'package:sreeraj_qr_reader/screens/widgets/scan_overlay_widget.dart';
+import 'package:sreeraj_qr_reader/services/media_scan_service.dart';
 
 class ScannerScreen extends StatefulWidget {
   const ScannerScreen({super.key});
@@ -11,21 +21,45 @@ class ScannerScreen extends StatefulWidget {
   State<ScannerScreen> createState() => _ScannerScreenState();
 }
 
-class _ScannerScreenState extends State<ScannerScreen> {
+class _ScannerScreenState extends State<ScannerScreen>
+    with WidgetsBindingObserver, RouteAware {
   MobileScannerController? controller;
   bool _isScanning = true;
   bool _hasPermission = false;
   bool _isInitialized = false;
 
+  // Viewport & camera control states
+  bool _isTorchOn = false;
+  bool _isFrontCamera = false;
+  double _zoomScale = 1.0;
+  double _baseZoomScale = 1.0;
+  bool _showZoomBar = false;
+  List<Offset>? _detectedCorners;
+
+  // Media scanning & Android share sheet target
+  late final MediaScanService _mediaScanService;
+  StreamSubscription<List<SharedMediaFile>>? _intentSubscription;
+
   @override
   void initState() {
     super.initState();
+    _mediaScanService = MediaScanService();
+    WidgetsBinding.instance.addObserver(this);
     _initializeScanner();
+    _listenToShareIntents();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final modalRoute = ModalRoute.of(context);
+    if (modalRoute is PageRoute) {
+      routeObserver.subscribe(this, modalRoute);
+    }
   }
 
   Future<void> _initializeScanner() async {
     await _checkPermissions();
-
     if (_hasPermission && mounted) {
       setState(() {
         controller = MobileScannerController(
@@ -56,13 +90,161 @@ class _ScannerScreenState extends State<ScannerScreen> {
     }
   }
 
+  void _listenToShareIntents() {
+    // Media shared while app is running in foreground/background
+    _intentSubscription = ReceiveSharingIntent.instance
+        .getMediaStream()
+        .listen(_handleSharedFiles, onError: (err) {
+      if (kDebugMode) debugPrint('Error receiving share intent stream: $err');
+    });
+
+    // Media shared when launching app from closed state
+    ReceiveSharingIntent.instance.getInitialMedia().then((files) {
+      if (files.isNotEmpty) {
+        _handleSharedFiles(files);
+        ReceiveSharingIntent.instance.reset();
+      }
+    });
+  }
+
+  Future<void> _handleSharedFiles(List<SharedMediaFile> files) async {
+    if (files.isEmpty || !mounted) return;
+    final sharedFile = files.first;
+
+    if (controller == null) {
+      await _initializeScanner();
+    }
+    if (controller == null) return;
+
+    final path = sharedFile.path;
+    if (path.toLowerCase().endsWith('.pdf') ||
+        sharedFile.mimeType == 'application/pdf') {
+      _scanPdfPath(path);
+    } else {
+      _scanImagePath(path);
+    }
+  }
+
   @override
   void dispose() {
+    _intentSubscription?.cancel();
+    routeObserver.unsubscribe(this);
+    WidgetsBinding.instance.removeObserver(this);
     controller?.dispose();
     super.dispose();
   }
 
-  void _handleBarcode(BarcodeCapture capture) {
+  @override
+  void didPushNext() {
+    try {
+      if (controller != null &&
+          controller!.value.isInitialized &&
+          controller!.value.isRunning) {
+        controller?.stop();
+      }
+    } catch (_) {}
+  }
+
+  @override
+  void didPopNext() async {
+    if (mounted &&
+        _isScanning &&
+        controller != null &&
+        controller!.value.isInitialized) {
+      await Future.delayed(const Duration(milliseconds: 300));
+      if (mounted && _isScanning && controller != null) {
+        try {
+          if (!controller!.value.isRunning) {
+            await controller!.start();
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            debugPrint('didPopNext camera start failed, retrying: $e');
+          }
+          await Future.delayed(const Duration(milliseconds: 400));
+          if (mounted &&
+              _isScanning &&
+              controller != null &&
+              !controller!.value.isRunning) {
+            try {
+              await controller!.start();
+            } catch (_) {}
+          }
+        }
+      }
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (controller == null || !controller!.value.isInitialized) return;
+    switch (state) {
+      case AppLifecycleState.detached:
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+        try {
+          if (controller!.value.isRunning) {
+            controller?.stop();
+          }
+        } catch (_) {}
+        break;
+      case AppLifecycleState.resumed:
+        if (_isScanning) {
+          try {
+            if (!controller!.value.isRunning) {
+              controller?.start();
+            }
+          } catch (_) {}
+        }
+        break;
+      case AppLifecycleState.inactive:
+        break;
+    }
+  }
+
+  Future<void> _navigateToRoute(String routeName) async {
+    try {
+      if (controller != null &&
+          controller!.value.isInitialized &&
+          controller!.value.isRunning) {
+        await controller!.stop();
+      }
+    } catch (e) {
+      if (kDebugMode) debugPrint('Error stopping camera before navigation: $e');
+    }
+
+    if (!mounted) return;
+    await Navigator.pushNamed(context, routeName);
+
+    if (mounted &&
+        _isScanning &&
+        controller != null &&
+        controller!.value.isInitialized) {
+      await Future.delayed(const Duration(milliseconds: 300));
+      if (mounted && _isScanning && controller != null) {
+        try {
+          if (!controller!.value.isRunning) {
+            await controller!.start();
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            debugPrint('Initial camera start failed, retrying: $e');
+          }
+          await Future.delayed(const Duration(milliseconds: 400));
+          if (mounted &&
+              _isScanning &&
+              controller != null &&
+              !controller!.value.isRunning) {
+            try {
+              await controller!.start();
+            } catch (_) {}
+          }
+        }
+      }
+    }
+  }
+
+  void _handleBarcode(BarcodeCapture capture) async {
     if (!_isScanning) return;
 
     final List<Barcode> barcodes = capture.barcodes;
@@ -71,25 +253,223 @@ class _ScannerScreenState extends State<ScannerScreen> {
     final barcode = barcodes.first;
     if (barcode.rawValue == null) return;
 
+    _processSingleBarcode(barcode.rawValue!, barcode.type, corners: barcode.corners);
+  }
+
+  void _processSingleBarcode(
+    String rawValue,
+    BarcodeType format, {
+    List<Offset>? corners,
+  }) async {
+    final scanProvider = Provider.of<ScanProvider>(context, listen: false);
+
+    // Haptic & Audible Feedback based on user configuration
+    if (scanProvider.isVibrationEnabled) {
+      HapticFeedback.mediumImpact();
+    }
+    if (scanProvider.isSoundEnabled) {
+      SystemSound.play(SystemSoundType.click);
+    }
+
+    if (corners != null && corners.isNotEmpty) {
+      setState(() {
+        _detectedCorners = corners;
+      });
+    }
+
     setState(() {
       _isScanning = false;
     });
 
-    final scanProvider = Provider.of<ScanProvider>(context, listen: false);
-    scanProvider.setScanResult(barcode.rawValue!, barcode.type);
+    scanProvider.setScanResult(rawValue, format);
 
-    if (scanProvider.isUrl) {
-      scanProvider.checkUrlSafety(barcode.rawValue!);
+    final record = scanProvider.createScanRecord();
+    if (record != null) {
+      Provider.of<HistoryProvider>(
+        context,
+        listen: false,
+      ).addScanRecord(record);
     }
 
-    Navigator.pushNamed(context, '/result').then((_) {
+    if (scanProvider.isUrl) {
+      scanProvider.checkUrlSafety(rawValue);
+    }
+
+    try {
+      if (controller != null &&
+          controller!.value.isInitialized &&
+          controller!.value.isRunning) {
+        await controller!.stop();
+      }
+    } catch (_) {}
+    if (!mounted) return;
+
+    Navigator.pushNamed(context, '/result').then((_) async {
       // Reset scanning state when returning from result screen
       if (mounted) {
         setState(() {
           _isScanning = true;
+          _detectedCorners = null;
         });
+        if (controller != null &&
+            controller!.value.isInitialized &&
+            !controller!.value.isRunning) {
+          try {
+            await controller!.start();
+          } catch (_) {}
+        }
       }
     });
+  }
+
+  Future<void> _scanGalleryImage() async {
+    if (controller == null) return;
+    final result = await _mediaScanService.pickAndScanImage(controller!);
+    _processMediaScanResult(result);
+  }
+
+  Future<void> _scanImagePath(String path) async {
+    if (controller == null) return;
+    final result = await _mediaScanService.scanImageFile(controller!, path);
+    _processMediaScanResult(result);
+  }
+
+  Future<void> _scanPdfDocument() async {
+    if (controller == null) return;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const AlertDialog(
+        content: Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(width: 20),
+            Expanded(child: Text('Extracting & scanning PDF pages...')),
+          ],
+        ),
+      ),
+    );
+
+    final result = await _mediaScanService.pickAndScanPdf(controller!);
+
+    if (mounted) {
+      Navigator.of(context, rootNavigator: true).pop(); // Dismiss progress
+      _processMediaScanResult(result);
+    }
+  }
+
+  Future<void> _scanPdfPath(String pdfPath) async {
+    if (controller == null) return;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const AlertDialog(
+        content: Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(width: 20),
+            Expanded(child: Text('Scanning shared PDF document...')),
+          ],
+        ),
+      ),
+    );
+
+    final result = await _mediaScanService.scanPdfFile(controller!, pdfPath);
+
+    if (mounted) {
+      Navigator.of(context, rootNavigator: true).pop(); // Dismiss progress
+      _processMediaScanResult(result);
+    }
+  }
+
+  void _processMediaScanResult(MediaScanResult result) {
+    if (!mounted) return;
+
+    if (!result.hasBarcodes) {
+      if (result.errorMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result.errorMessage!),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+      return;
+    }
+
+    if (result.isPdf && result.pdfBarcodes.length > 1) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (context) => PdfScanResultsSheet(
+          pdfBarcodes: result.pdfBarcodes,
+          onSelect: (selectedBarcode) {
+            _processSingleBarcode(
+              selectedBarcode.rawValue,
+              selectedBarcode.format,
+            );
+          },
+        ),
+      );
+    } else if (result.isPdf && result.pdfBarcodes.isNotEmpty) {
+      final first = result.pdfBarcodes.first;
+      _processSingleBarcode(first.rawValue, first.format);
+    } else if (result.barcodes.isNotEmpty) {
+      final first = result.barcodes.first;
+      if (first.rawValue != null) {
+        _processSingleBarcode(first.rawValue!, first.type);
+      }
+    }
+  }
+
+  Future<void> _toggleTorch() async {
+    try {
+      await controller?.toggleTorch();
+      setState(() {
+        _isTorchOn = !_isTorchOn;
+      });
+    } catch (e) {
+      if (kDebugMode) debugPrint('Error toggling torch: $e');
+    }
+  }
+
+  Future<void> _switchCamera() async {
+    try {
+      await controller?.switchCamera();
+      setState(() {
+        _isFrontCamera = !_isFrontCamera;
+      });
+    } catch (e) {
+      if (kDebugMode) debugPrint('Error switching camera: $e');
+    }
+  }
+
+  Future<void> _setZoom(double zoom) async {
+    setState(() {
+      _zoomScale = zoom;
+    });
+    try {
+      final zoomFactor = ((zoom - 1.0) / 7.0).clamp(0.0, 1.0);
+      await controller?.setZoomScale(zoomFactor);
+    } catch (e) {
+      if (kDebugMode) debugPrint('Error setting zoom: $e');
+    }
+  }
+
+  void _toggleScanning() {
+    setState(() {
+      _isScanning = !_isScanning;
+    });
+    if (_isScanning) {
+      controller?.start();
+    } else {
+      controller?.stop();
+    }
   }
 
   @override
@@ -100,24 +480,81 @@ class _ScannerScreenState extends State<ScannerScreen> {
         elevation: 2,
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, '/settings');
-            },
-            tooltip: 'Settings',
+            icon: const Icon(Icons.photo_library),
+            onPressed: _scanGalleryImage,
+            tooltip: 'Scan Image from Gallery',
           ),
           IconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: () {
-              Navigator.pushNamed(context, '/about');
-            },
-            tooltip: 'About',
+            icon: const Icon(Icons.picture_as_pdf),
+            onPressed: _scanPdfDocument,
+            tooltip: 'Scan PDF Document',
+          ),
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert),
+            tooltip: 'More options',
+            onSelected: _navigateToRoute,
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: '/ar_codevision',
+                child: Row(
+                  children: [
+                    Icon(Icons.view_in_ar),
+                    SizedBox(width: 12),
+                    Text('AR CodeVision HUD'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem<String>(
+                value: '/air_qr',
+                child: Row(
+                  children: [
+                    Icon(Icons.sensors),
+                    SizedBox(width: 12),
+                    Text('AirQR Stream Receiver'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem<String>(
+                value: '/history',
+                child: Row(
+                  children: [
+                    Icon(Icons.history),
+                    SizedBox(width: 12),
+                    Text('History'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem<String>(
+                value: '/settings',
+                child: Row(
+                  children: [
+                    Icon(Icons.settings),
+                    SizedBox(width: 12),
+                    Text('Settings'),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
-      body: _hasPermission && _isInitialized && controller != null
-          ? _buildScanner()
-          : _buildPermissionRequest(),
+      body: !_hasPermission
+          ? _buildPermissionRequest()
+          : (_isInitialized && controller != null
+              ? _buildScanner()
+              : const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      SizedBox(height: 16),
+                      Text(
+                        'Initializing camera...',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ],
+                  ),
+                )),
       floatingActionButton: _hasPermission && _isInitialized
           ? FloatingActionButton(
               onPressed: _toggleScanning,
@@ -128,50 +565,178 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   Widget _buildScanner() {
-    return Stack(
-      children: [
-        MobileScanner(controller: controller!, onDetect: _handleBarcode),
-        // Scanning overlay
-        Center(
-          child: Container(
-            width: 250,
-            height: 250,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 2),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Stack(
-              children: [
-                // Corner indicators
-                _buildCornerIndicator(true, true),
-                _buildCornerIndicator(true, false),
-                _buildCornerIndicator(false, true),
-                _buildCornerIndicator(false, false),
-              ],
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    return GestureDetector(
+      onScaleStart: (details) {
+        _baseZoomScale = _zoomScale;
+      },
+      onScaleUpdate: (details) {
+        final newZoom = (_baseZoomScale * details.scale).clamp(1.0, 8.0);
+        _setZoom(newZoom);
+      },
+      child: Stack(
+        children: [
+          MobileScanner(
+            controller: controller!,
+            onDetect: _handleBarcode,
+            errorBuilder: (context, error) {
+              return const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.camera_alt_outlined,
+                      size: 48,
+                      color: Colors.amber,
+                    ),
+                    SizedBox(height: 12),
+                    Text(
+                      'Initializing camera feed...',
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          // Dynamic customizable scanning overlay & barcode focus box
+          Center(
+            child: ScanOverlayWidget(
+              style: themeProvider.scanOverlayStyle,
+              detectedCorners: _detectedCorners,
             ),
           ),
-        ),
-        // Instructions
-        Positioned(
-          bottom: 100,
-          left: 0,
-          right: 0,
-          child: Center(
+          // Viewport Controls Suite Bar (Top Overlay)
+          Positioned(
+            top: 16,
+            left: 16,
+            right: 16,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(20),
+                color: Colors.black.withValues(alpha: 0.65),
+                borderRadius: BorderRadius.circular(30),
               ),
-              child: const Text(
-                'Position QR code or barcode within the frame',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-                textAlign: TextAlign.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      _isTorchOn ? Icons.flash_on : Icons.flash_off,
+                      color: _isTorchOn ? Colors.amber : Colors.white,
+                    ),
+                    onPressed: _toggleTorch,
+                    tooltip: 'Flashlight / Torch',
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      _showZoomBar ? Icons.zoom_in_map : Icons.search,
+                      color: _showZoomBar
+                          ? Theme.of(context).colorScheme.primary
+                          : Colors.white,
+                    ),
+                    onPressed: () {
+                      setState(() => _showZoomBar = !_showZoomBar);
+                    },
+                    tooltip: 'Zoom slider',
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      '${_zoomScale.toStringAsFixed(1)}x',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.cameraswitch,
+                      color: _isFrontCamera ? Colors.cyanAccent : Colors.white,
+                    ),
+                    onPressed: _switchCamera,
+                    tooltip: 'Flip Camera (Front/Back)',
+                  ),
+                ],
               ),
             ),
           ),
-        ),
-      ],
+          // Visual Zoom Slider Bar (Collapsible)
+          if (_showZoomBar)
+            Positioned(
+              top: 76,
+              left: 24,
+              right: 24,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black87,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  children: [
+                    const Text(
+                      '1.0x',
+                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                    ),
+                    Expanded(
+                      child: Slider(
+                        value: _zoomScale,
+                        min: 1.0,
+                        max: 8.0,
+                        divisions: 28,
+                        label: '${_zoomScale.toStringAsFixed(1)}x',
+                        onChanged: (val) {
+                          _setZoom(val);
+                        },
+                      ),
+                    ),
+                    const Text(
+                      '8.0x',
+                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          // Viewport instructions
+          Positioned(
+            bottom: 100,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Text(
+                  'Position QR code or barcode within the frame',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -197,46 +762,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
             child: const Text('Grant Permission'),
           ),
         ],
-      ),
-    );
-  }
-
-  void _toggleScanning() {
-    setState(() {
-      _isScanning = !_isScanning;
-      if (_isScanning) {
-        controller?.start();
-      } else {
-        controller?.stop();
-      }
-    });
-  }
-
-  Widget _buildCornerIndicator(bool isTop, bool isLeft) {
-    return Positioned(
-      top: isTop ? -2 : null,
-      bottom: isTop ? null : -2,
-      left: isLeft ? -2 : null,
-      right: isLeft ? null : -2,
-      child: Container(
-        width: 20,
-        height: 20,
-        decoration: BoxDecoration(
-          border: Border(
-            top: isTop
-                ? const BorderSide(color: Colors.greenAccent, width: 3)
-                : BorderSide.none,
-            left: isLeft
-                ? const BorderSide(color: Colors.greenAccent, width: 3)
-                : BorderSide.none,
-            bottom: !isTop
-                ? const BorderSide(color: Colors.greenAccent, width: 3)
-                : BorderSide.none,
-            right: !isLeft
-                ? const BorderSide(color: Colors.greenAccent, width: 3)
-                : BorderSide.none,
-          ),
-        ),
       ),
     );
   }

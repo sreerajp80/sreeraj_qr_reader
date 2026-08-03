@@ -1,10 +1,10 @@
 name: sreeraj_qr_reader
-description: A comprehensive QR and Barcode scanner application
-version: 1.4.3+1
+description: A privacy-first QR/barcode scanner with link safety checks, tamper detection, StegoQR, AR CodeVision, and offline smart tools
+version: 2.6.11+18
 
 environment:
-  sdk: '>=3.11.1 <4.0.0'
-  flutter: '>=3.41.4'
+  sdk: '>=3.12.2 <4.0.0'
+  flutter: '>=3.44.8'
 
 dependencies:
   flutter:
@@ -28,21 +28,47 @@ dependencies:
   # State management
   provider: ^6.1.5
 
+  # Theme and Material You
+  dynamic_color: ^1.7.0
+
   # Package info for version reading
   package_info_plus: ^9.0.0
 
   flutter_secure_storage: ^10.0.0  # For secure, encrypted storage of API key
   shared_preferences: ^2.5.5
 
+  # Biometrics and Encryption for StegoQR
+  local_auth: ^2.3.0
+  flutter_plugin_android_lifecycle: ^2.0.24
+  encrypt: ^5.0.3
+  pointycastle: ^3.9.1
+
+  # Database & File storage
+  sqflite: ^2.4.1
+  path_provider: ^2.1.5
+  path: ^1.9.0
+  crypto: ^3.0.6
+
+  # PDF report generation
+  pdf: ^3.11.1
+
+  # Gallery Image & PDF scanning and system share sheet target
+  image_picker: ^1.1.2
+  file_picker: ^8.1.7
+  pdfx: ^2.7.0
+  receive_sharing_intent: ^1.8.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  sqflite_common_ffi: ^2.3.4
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/
+    - assets/config/
 
   # App icon configuration will be handled separately for each platform

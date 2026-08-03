@@ -1,191 +1,193 @@
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:sreeraj_qr_reader/config/build_config.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:sreeraj_qr_reader/core/config/app_config.dart';
+import 'package:sreeraj_qr_reader/core/config/config_service.dart';
 
 class AboutScreen extends StatefulWidget {
-  const AboutScreen({super.key});
+  final ConfigService? configService;
+
+  const AboutScreen({super.key, this.configService});
 
   @override
   State<AboutScreen> createState() => _AboutScreenState();
 }
 
 class _AboutScreenState extends State<AboutScreen> {
-  String _version = 'Loading...';
-  final String _buildDate = buildDate; // This should be updated during build
+  late final ConfigService _service;
+  AppConfig _config = AppConfig.fallback;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadPackageInfo();
+    _service = widget.configService ?? ConfigService();
+    _loadConfig();
   }
 
-  Future<void> _loadPackageInfo() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      _version = packageInfo.version;
-    });
+  Future<void> _loadConfig() async {
+    final loaded = await _service.loadAndVerify();
+    if (mounted) {
+      setState(() {
+        _config = loaded;
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _openMail(String email) async {
+    final uri = Uri.parse('mailto:$email');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    }
+  }
+
+  IconData _getIconForKey(String key) {
+    final lowerKey = key.trim().toLowerCase();
+    if (lowerKey.contains('author') || lowerKey.contains('developer')) {
+      return Icons.person;
+    }
+    if (lowerKey.contains('email')) {
+      return Icons.email;
+    }
+    if (lowerKey.contains('build') || lowerKey.contains('date')) {
+      return Icons.calendar_today;
+    }
+    if (lowerKey.contains('ai')) {
+      return Icons.psychology;
+    }
+    if (lowerKey.contains('ide')) {
+      return Icons.code;
+    }
+    if (lowerKey.contains('license')) {
+      return Icons.gavel;
+    }
+    return Icons.info_outline;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('About')),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-
-            // App Icon
-            Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.2),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.qr_code_scanner,
-                size: 64,
-                color: Colors.white,
-              ),
-            ),
-
-            const SizedBox(height: 24),
-
-            // App Name
-            Text(
-              appName,
-              style: Theme.of(
-                context,
-              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
-            ),
-
-            const SizedBox(height: 8),
-
-            // Version Info
-            Text(
-              'Version $_version',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
-            ),
-
-            const SizedBox(height: 32),
-
-            // Info Cards
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildInfoCard(
-                    context,
-                    icon: Icons.person,
-                    title: 'Developer',
-                    content: developer,
+                  const SizedBox(height: 40),
+
+                  // App Icon
+                  Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.qr_code_scanner,
+                      size: 64,
+                      color: Colors.white,
+                    ),
                   ),
-                  const SizedBox(height: 12),
-                  _buildInfoCard(
-                    context,
-                    icon: Icons.psychology,
-                    title: 'AI Technology',
-                    content: ai,
+
+                  const SizedBox(height: 24),
+
+                  // App Name
+                  Text(
+                    _config.appName,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 12),
-                  _buildInfoCard(
-                    context,
-                    icon: Icons.calendar_today,
-                    title: 'Build Date',
-                    content: _buildDate,
+
+                  const SizedBox(height: 8),
+
+                  // Description
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Text(
+                      _config.description,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey[700]),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  const SizedBox(height: 12),
-                  _buildInfoCard(
-                    context,
-                    icon: Icons.info_outline,
-                    title: 'About',
-                    content:
-                        'A comprehensive QR and Barcode scanner with URL safety detection, supporting multiple barcode formats.',
+
+                  const SizedBox(height: 8),
+
+                  // Version Info
+                  Text(
+                    'Version ${_config.version}+${_config.build}',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
                   ),
+
+                  const SizedBox(height: 32),
+
+                  // Dynamic Info Cards from details map
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        for (final entry in _config.details.entries)
+                          if (entry.key.trim().isNotEmpty &&
+                              entry.value.trim().isNotEmpty) ...[
+                            _buildInfoCard(
+                              context,
+                              icon: _getIconForKey(entry.key),
+                              title: entry.key,
+                              content: entry.value,
+                              onTap: entry.key.trim().toLowerCase() == 'email'
+                                  ? () => _openMail(entry.value)
+                                  : null,
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Copyright & Made with love
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      '© ${DateTime.now().year} Sreeraj P. All rights reserved.',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'Made with ❤️ from India',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
-
-            const SizedBox(height: 32),
-
-            // Features Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Card(
-                elevation: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Features',
-                            style: Theme.of(context).textTheme.titleMedium
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      _buildFeatureItem('QR Code & Barcode scanning'),
-                      _buildFeatureItem('URL safety detection'),
-                      _buildFeatureItem('Multiple format support'),
-                      _buildFeatureItem('Copy & Share functionality'),
-                      _buildFeatureItem('Real-time camera scanning'),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 32),
-
-            // Copyright
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                '© ${DateTime.now().year} Sreeraj P. All rights reserved.',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
-                textAlign: TextAlign.center,
-              ),
-            ),
-
-            const SizedBox(height: 8),
-
-            // Made with love
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Made with ❤️ from India',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
-                textAlign: TextAlign.center,
-              ),
-            ),
-
-            const SizedBox(height: 40),
-          ],
-        ),
-      ),
     );
   }
 
@@ -194,63 +196,58 @@ class _AboutScreenState extends State<AboutScreen> {
     required IconData icon,
     required String title,
     required String content,
+    VoidCallback? onTap,
   }) {
     return Card(
       elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  icon,
+                  color: Theme.of(context).primaryColor,
+                  size: 24,
+                ),
               ),
-              child: Icon(
-                icon,
-                color: Theme.of(context).primaryColor,
-                size: 24,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.w500,
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    content,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
+                    const SizedBox(height: 4),
+                    Text(
+                      content,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: onTap != null
+                            ? Theme.of(context).primaryColor
+                            : null,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildFeatureItem(String feature) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        children: [
-          Icon(Icons.check_circle, size: 20, color: Colors.green[600]),
-          const SizedBox(width: 12),
-          Expanded(child: Text(feature, style: const TextStyle(fontSize: 14))),
-        ],
       ),
     );
   }
