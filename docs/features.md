@@ -16,8 +16,11 @@ source here — they have not been updated to match the current code.
 ## What this app is
 
 Sreeraj P QR Reader is an Android-only, offline-first Flutter app for
-scanning QR codes and barcodes. It is a **reader**, not a generator or sender
-app. Beyond plain decoding, every scanned link is checked for safety against
+scanning QR codes and barcodes. It is primarily a privacy-first **reader** and
+barcode security analyzer. While it does not generate standard standalone contact
+or URL QR images, it includes a built-in AirQR Optical Data Stream Transmitter
+that converts text into animated QR code sequences (5–25 FPS) for optical
+transmission. Beyond plain decoding, every scanned link is checked for safety against
 phishing and fake sites using a 6-layer check, and the user can preview the
 destination page itself in a safe, script-disabled sandbox before ever
 opening it. Every scanned code can also be checked for physical tampering
@@ -26,8 +29,8 @@ content (Wi-Fi logins, contact cards, locations, calendar invites, payment
 links, 2FA codes) and turns them into one-tap actions, supports a
 hidden/encrypted QR format unlocked by fingerprint or password, keeps a
 searchable local scan history with export and encrypted backup/restore, and
-includes two extra tools: an optical "air-gapped" data transfer mode (no
-network or Bluetooth needed) and a live camera view that can track and label
+includes two extra tools: an optical "air-gapped" data transfer mode (transmitter &
+receiver; no network or Bluetooth needed) and a live camera view that can track and label
 many codes at once. Scanning also works beyond the live camera — codes can
 be read from a gallery photo, a multi-page PDF, or a file/image shared in
 from another app. There is no cloud sync and no user account — everything
@@ -150,17 +153,19 @@ action cards instead of plain text:
 
 - **Wi-Fi** — shows network name and password (hidden by default, tap to
   reveal/copy), with a "Connect to Wi-Fi" button.
-- **Contact card** — shows name, company, phone numbers (tap to call),
-  emails (tap to email), and addresses, with a "Save to Contacts" button.
-- **Location** — shows a map preview and an "Open in Google Maps" button.
-- **Calendar event** — shows the event details and an "Add to Calendar"
-  button.
-- **Payment links** — supports UPI, SEPA bank transfer, and crypto (Bitcoin,
-  Ethereum, Solana) payment links; shows the payee, amount, and account/wallet,
-  with a "Pay" button and a copy button.
-- **2FA / authenticator codes** — reads `otpauth://` codes and shows a live,
-  auto-refreshing 6-digit code with a countdown, plus an option to import it
-  into an authenticator app.
+- **Contact card** — supports both vCard (`BEGIN:VCARD`) and MeCard (`MECARD:`) formats;
+  shows name, organization, title, phone numbers (tap to call), emails (tap to email),
+  addresses, and website URL, with a "Save to Contacts" button.
+- **Location** — parses `geo:lat,lng` coordinates with optional labels/queries; shows a
+  map preview and an "Open in Google Maps" button.
+- **Calendar event** — parses iCalendar (`BEGIN:VEVENT`); shows event summary, description,
+  location, start/end date and time, and an "Add to Calendar" button.
+- **Payment links** — supports UPI (`upi://pay`), SEPA bank transfer (EPC QR / `BCD\n` / `sepa:`),
+  and crypto (Bitcoin, Ethereum, Solana) payment links; shows the payee, amount, currency, note,
+  and transaction reference ID, with a "Pay" button and copy buttons.
+- **2FA / authenticator codes** — reads `otpauth://totp/` codes; computes live,
+  auto-refreshing 6-digit TOTP codes with a 30-second countdown using HMAC-SHA1 algorithms and
+  secret key parsing, plus options to copy or import into an authenticator app.
 
 All action buttons fail gracefully with an on-screen message if the target
 app isn't installed.
@@ -177,24 +182,22 @@ app isn't installed.
   URLs, Wi-Fi, Contacts, Text, Barcodes), and pull-to-refresh.
 - Tap an entry to see full details, add notes, or tag a location.
 - Export history to CSV, JSON, TXT, or a PDF report.
-- Back up and restore history as a password-protected encrypted file.
-- History data is stored encrypted (AES-256) in a local database, not in
+- Back up and restore history as a password-protected encrypted file (`.sreerajqr` container).
+- History data is stored encrypted (AES-256) in a local SQLite database, not in
   plain text.
 
 ---
 
 ## AirQR — optical data transfer (no network needed)
 
-A way to send data between two phones using only the camera and screen — no
+A way to send and receive data between two phones using only the camera and screen — no
 Wi-Fi, Bluetooth, or internet required.
 
-- The sending phone turns any text/data into a stream of animated QR codes
-  (5–25 frames per second).
-- The receiving phone's camera reads the stream and reassembles the
-  original data, using error-correction so a few missed frames don't break
-  the transfer.
-- Shows live progress: frames captured, frames per second, and a progress
-  bar, with the final result shown once complete.
+- **Transmitter mode (`AirQrTransmitterScreen`)** — turns any text or data into an animated
+  stream of QR code frames (configurable speed from 5 to 25 frames per second) to send data optically.
+- **Receiver mode (`AirQrScreen`)** — reads the animated QR stream via camera, tracks frame chunks,
+  uses error-correction to recover missing frames, displays live progress (captured frames, FPS,
+  progress bar), and reassembles the complete original text payload.
 
 ---
 
@@ -207,22 +210,23 @@ screen at the same time, instead of scanning one at a time.
 - Two modes: **Warehouse mode** (shows price/batch info, lets you check off
   items) and **Safety mode** (shows a green/red safety badge per code, using
   the same link-safety checks as normal scanning).
-- Supports selecting several codes at once for a batch action.
+- Supports selecting several codes at once for batch actions (e.g. "Save Selected to History",
+  "Copy All Scanned Barcodes").
 
 ---
 
 ## Appearance and settings
 
 - Material 3 theme with 4 options: follow system, Light, Dark, and a true
-  pure-black (OLED-friendly) dark mode.
+  pure-black (OLED-friendly) dark mode (#000000).
 - "Material You" dynamic color — the app can match the colors of the
-  phone's wallpaper (Android 12+).
+  phone's wallpaper (Android 12+ Monet engine).
 - Settings screen organized into cards: Appearance & Theme, Scan Overlay
   style, Scan Feedback (sound/vibration), Privacy & Online Probing, Google
   Safe Browsing API key, Permissions overview, Help & Feature Guides, and
   About.
-- About screen shows app name, description, version, build number, author,
-  contact email, license, and last build date.
+- About screen shows app name, description, version (2.6.11), build number (18), author,
+  contact email, license, AI tools used (Claude, Gemini, ChatGPT), IDE used, and a "Made with ❤️ from India" footer.
 - A Permissions screen explains, in plain terms, every permission the app
   can use and why (camera, biometric unlock, internet, vibration, and
   optional features like active probing or the Safe Browsing key).
@@ -259,18 +263,18 @@ screen at the same time, instead of scanning one at a time.
 |------|-------|
 | Platform | Android only (no iOS, web, or desktop) |
 | Framework | Flutter (>=3.44.8), Dart (>=3.12.2 <4.0.0) |
-| App package | `in.sreeraj.qr_reader` |
-| Min SDK / Compile SDK | minSdk 24 / compileSdk 37 |
+| App package | `in.sreerajp.qr_reader` |
+| Min SDK / Compile SDK / Target SDK | minSdk 24 / compileSdk 37 / targetSdk 35 |
 | State management | `provider` package (`ChangeNotifier`) — no Riverpod/Redux/BLoC |
-| Network behaviour | Offline-first; core scanning, payload parsing, Quishing Guard, StegoQR, and history all work fully offline. Online checks (active URL probing, Safe Browsing, DOM sandbox preview, WHOIS) are opt-in or triggered only by a link scan |
+| Network behaviour | Offline-first; core scanning, payload parsing, Quishing Guard, StegoQR, AirQR transmitter/receiver, and history all work fully offline. Online checks (active URL probing, Safe Browsing, DOM sandbox preview, WHOIS) are opt-in or triggered only by a link scan |
 | Cloud sync / accounts | None — no user accounts, no server, no cloud backup |
-| Local storage | `sqflite` (encrypted scan history), `flutter_secure_storage` (API key, secrets), `shared_preferences` (simple settings/counters) |
-| Build flavors | `dev` (debug keystore, `.dev` app id) and `prod` (release keystore) |
+| Local storage | `sqflite` (encrypted scan history database), `flutter_secure_storage` (API key, secrets), `shared_preferences` (simple settings/counters) |
+| Build flavors | `dev` (`in.sreerajp.qr_reader.dev`, debug keystore) and `prod` (`in.sreerajp.qr_reader`, release keystore) |
 | Navigation | Named routes (Navigator 1.0), no deep links |
-| Notable packages | `mobile_scanner`, `local_auth`, `encrypt`, `pointycastle`, `sqflite`, `image_picker`, `file_picker`, `pdfx`, `pdf`, `receive_sharing_intent`, `dynamic_color`, `url_launcher`, `share_plus`, `permission_handler` |
+| Notable packages | `mobile_scanner`, `local_auth`, `encrypt`, `pointycastle`, `sqflite`, `image_picker`, `file_picker`, `pdfx`, `pdf`, `receive_sharing_intent`, `dynamic_color`, `url_launcher`, `share_plus`, `permission_handler`, `crypto`, `package_info_plus` |
 
 ---
 
-*Last generated: 2026-08-03. Keep this file in sync by updating it whenever
+*Last generated: 2026-08-12. Keep this file in sync by updating it whenever
 a new feature is added — the `change_log/` folder is the most reliable place
 to check for anything added after this date.*
