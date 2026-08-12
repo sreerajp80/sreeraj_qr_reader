@@ -196,7 +196,9 @@ class ContactActionCard extends StatelessWidget {
                   ),
                 ),
                 onPressed: () async {
-                  final launched = await PayloadActionService.saveContact(contact);
+                  final launched = await PayloadActionService.saveContact(
+                    contact,
+                  );
                   if (!launched && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

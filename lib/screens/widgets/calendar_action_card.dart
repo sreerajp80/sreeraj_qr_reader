@@ -48,7 +48,11 @@ class CalendarActionCard extends StatelessWidget {
                     color: isDark ? const Color(0xFF3F2B0D) : Colors.orange[50],
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.event, color: isDark ? Colors.orange[300] : Colors.orange[800], size: 28),
+                  child: Icon(
+                    Icons.event,
+                    color: isDark ? Colors.orange[300] : Colors.orange[800],
+                    size: 28,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -60,7 +64,9 @@ class CalendarActionCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: isDark ? Colors.orange[300] : Colors.orange[900],
+                          color: isDark
+                              ? Colors.orange[300]
+                              : Colors.orange[900],
                         ),
                       ),
                       Text(
@@ -105,7 +111,9 @@ class CalendarActionCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
-                          color: isDark ? theme.colorScheme.onSurface : Colors.black87,
+                          color: isDark
+                              ? theme.colorScheme.onSurface
+                              : Colors.black87,
                         ),
                       ),
                     ],
@@ -117,7 +125,9 @@ class CalendarActionCard extends StatelessWidget {
                         Icon(
                           Icons.access_time_filled,
                           size: 18,
-                          color: isDark ? Colors.orange[300] : Colors.orange[900],
+                          color: isDark
+                              ? Colors.orange[300]
+                              : Colors.orange[900],
                         ),
                         const SizedBox(width: 8),
                         Text(
@@ -125,7 +135,9 @@ class CalendarActionCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
-                            color: isDark ? theme.colorScheme.onSurface : Colors.black87,
+                            color: isDark
+                                ? theme.colorScheme.onSurface
+                                : Colors.black87,
                           ),
                         ),
                       ],
@@ -193,7 +205,9 @@ class CalendarActionCard extends StatelessWidget {
                   ),
                 ),
                 onPressed: () async {
-                  final launched = await PayloadActionService.addToCalendar(event);
+                  final launched = await PayloadActionService.addToCalendar(
+                    event,
+                  );
                   if (!launched && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

@@ -92,11 +92,12 @@ class _ScannerScreenState extends State<ScannerScreen>
 
   void _listenToShareIntents() {
     // Media shared while app is running in foreground/background
-    _intentSubscription = ReceiveSharingIntent.instance
-        .getMediaStream()
-        .listen(_handleSharedFiles, onError: (err) {
-      if (kDebugMode) debugPrint('Error receiving share intent stream: $err');
-    });
+    _intentSubscription = ReceiveSharingIntent.instance.getMediaStream().listen(
+      _handleSharedFiles,
+      onError: (err) {
+        if (kDebugMode) debugPrint('Error receiving share intent stream: $err');
+      },
+    );
 
     // Media shared when launching app from closed state
     ReceiveSharingIntent.instance.getInitialMedia().then((files) {
@@ -253,7 +254,11 @@ class _ScannerScreenState extends State<ScannerScreen>
     final barcode = barcodes.first;
     if (barcode.rawValue == null) return;
 
-    _processSingleBarcode(barcode.rawValue!, barcode.type, corners: barcode.corners);
+    _processSingleBarcode(
+      barcode.rawValue!,
+      barcode.type,
+      corners: barcode.corners,
+    );
   }
 
   void _processSingleBarcode(
@@ -541,20 +546,20 @@ class _ScannerScreenState extends State<ScannerScreen>
       body: !_hasPermission
           ? _buildPermissionRequest()
           : (_isInitialized && controller != null
-              ? _buildScanner()
-              : const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(),
-                      SizedBox(height: 16),
-                      Text(
-                        'Initializing camera...',
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                    ],
-                  ),
-                )),
+                ? _buildScanner()
+                : const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                        SizedBox(height: 16),
+                        Text(
+                          'Initializing camera...',
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                      ],
+                    ),
+                  )),
       floatingActionButton: _hasPermission && _isInitialized
           ? FloatingActionButton(
               onPressed: _toggleScanning,

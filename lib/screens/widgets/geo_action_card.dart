@@ -137,7 +137,9 @@ class GeoActionCard extends StatelessWidget {
                   ),
                 ),
                 onPressed: () async {
-                  final launched = await PayloadActionService.openGoogleMaps(geo);
+                  final launched = await PayloadActionService.openGoogleMaps(
+                    geo,
+                  );
                   if (!launched && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

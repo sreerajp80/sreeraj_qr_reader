@@ -41,7 +41,7 @@ class MediaScanService {
   final ImagePicker _imagePicker;
 
   MediaScanService({ImagePicker? imagePicker})
-      : _imagePicker = imagePicker ?? ImagePicker();
+    : _imagePicker = imagePicker ?? ImagePicker();
 
   /// Pick an image from gallery and analyze it for barcodes using [controller].
   Future<MediaScanResult> pickAndScanImage(
@@ -174,10 +174,7 @@ class MediaScanService {
         );
       }
 
-      return MediaScanResult(
-        isPdf: true,
-        pdfBarcodes: pdfBarcodes,
-      );
+      return MediaScanResult(isPdf: true, pdfBarcodes: pdfBarcodes);
     } catch (e) {
       if (kDebugMode) debugPrint('Error scanning PDF file: $e');
       return MediaScanResult(

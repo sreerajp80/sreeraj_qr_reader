@@ -113,10 +113,7 @@ void main() {
         find.text('Quishing Guard (Physical QR Sticker Tamper Check)'),
         findsOneWidget,
       );
-      expect(
-        find.text('URL Safety & Link Tamper Engine'),
-        findsOneWidget,
-      );
+      expect(find.text('URL Safety & Link Tamper Engine'), findsOneWidget);
     });
 
     testWidgets('Navigates to About screen on card tap', (tester) async {

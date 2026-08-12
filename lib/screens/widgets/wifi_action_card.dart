@@ -43,7 +43,11 @@ class _WifiActionCardState extends State<WifiActionCard> {
                     color: isDark ? const Color(0xFF0D253F) : Colors.blue[50],
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.wifi, color: isDark ? Colors.blue[300] : Colors.blue[700], size: 28),
+                  child: Icon(
+                    Icons.wifi,
+                    color: isDark ? Colors.blue[300] : Colors.blue[700],
+                    size: 28,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -116,7 +120,9 @@ class _WifiActionCardState extends State<WifiActionCard> {
                     Icon(
                       Icons.lock_outline,
                       size: 20,
-                      color: isDark ? theme.colorScheme.onSurfaceVariant : Colors.grey,
+                      color: isDark
+                          ? theme.colorScheme.onSurfaceVariant
+                          : Colors.grey,
                     ),
                     const SizedBox(width: 8),
                     Expanded(
@@ -126,7 +132,9 @@ class _WifiActionCardState extends State<WifiActionCard> {
                           fontFamily: 'monospace',
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
-                          color: isDark ? theme.colorScheme.onSurface : Colors.black87,
+                          color: isDark
+                              ? theme.colorScheme.onSurface
+                              : Colors.black87,
                         ),
                       ),
                     ),
@@ -176,7 +184,8 @@ class _WifiActionCardState extends State<WifiActionCard> {
                   if (wifi.password.isNotEmpty && !_isCopied) {
                     await _copyPassword(wifi.password);
                   }
-                  final launched = await PayloadActionService.openWifiSettings();
+                  final launched =
+                      await PayloadActionService.openWifiSettings();
                   if (!launched && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

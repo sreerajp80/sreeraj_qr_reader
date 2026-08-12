@@ -210,7 +210,9 @@ class _TotpActionCardState extends State<TotpActionCard> {
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: Theme.of(context).brightness == Brightness.dark
-                      ? Theme.of(context).colorScheme.outline.withValues(alpha: 0.3)
+                      ? Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.3)
                       : Colors.grey[300]!,
                 ),
               ),
@@ -269,7 +271,8 @@ class _TotpActionCardState extends State<TotpActionCard> {
                   ),
                 ),
                 onPressed: () async {
-                  final launched = await PayloadActionService.importToAuthenticator(totp);
+                  final launched =
+                      await PayloadActionService.importToAuthenticator(totp);
                   if (!launched && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

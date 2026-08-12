@@ -1236,7 +1236,10 @@ class PermissionsSettingsScreen extends StatelessWidget {
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.camera_alt_outlined, color: Colors.blue),
+                    leading: Icon(
+                      Icons.camera_alt_outlined,
+                      color: Colors.blue,
+                    ),
                     title: Text(
                       'Camera Access (android.permission.CAMERA)',
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -1291,7 +1294,10 @@ class PermissionsSettingsScreen extends StatelessWidget {
                   ),
                   Divider(height: 1),
                   ListTile(
-                    leading: Icon(Icons.photo_library_outlined, color: Colors.indigo),
+                    leading: Icon(
+                      Icons.photo_library_outlined,
+                      color: Colors.indigo,
+                    ),
                     title: Text(
                       'Scoped Media Photo Picker',
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -1324,7 +1330,10 @@ class PermissionsSettingsScreen extends StatelessWidget {
                   ),
                   Divider(height: 1),
                   ListTile(
-                    leading: Icon(Icons.cloud_sync_outlined, color: Colors.lightBlue),
+                    leading: Icon(
+                      Icons.cloud_sync_outlined,
+                      color: Colors.lightBlue,
+                    ),
                     title: Text(
                       'Google Safe Browsing API (API Key Setting)',
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -1335,7 +1344,10 @@ class PermissionsSettingsScreen extends StatelessWidget {
                   ),
                   Divider(height: 1),
                   ListTile(
-                    leading: Icon(Icons.touch_app_outlined, color: Colors.deepOrange),
+                    leading: Icon(
+                      Icons.touch_app_outlined,
+                      color: Colors.deepOrange,
+                    ),
                     title: Text(
                       'Scan Feedback Vibrations (Alert Setting)',
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -1506,10 +1518,7 @@ class HelpSettingsScreen extends StatelessWidget {
         childrenPadding: const EdgeInsets.all(16),
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            description,
-            style: const TextStyle(fontSize: 14, height: 1.4),
-          ),
+          Text(description, style: const TextStyle(fontSize: 14, height: 1.4)),
           const SizedBox(height: 12),
           const Text(
             'Key Capabilities:',
@@ -1546,4 +1555,3 @@ class HelpSettingsScreen extends StatelessWidget {
     );
   }
 }
-
