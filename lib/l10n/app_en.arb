@@ -450,5 +450,135 @@
   "historySaveChanges": "Save Metadata Changes",
   "@historySaveChanges": {
     "description": "Button that saves the edited note and location"
+  },
+
+  "closeButton": "Close",
+  "@closeButton": {
+    "description": "Button that closes a dialog, used on several screens"
+  },
+
+  "exportDialogTitle": "Export & Cloud Backup",
+  "@exportDialogTitle": {
+    "description": "Title of the dialog when it is exporting scan history"
+  },
+  "restoreDialogTitle": "Restore Encrypted Backup",
+  "@restoreDialogTitle": {
+    "description": "Title of the dialog when it is restoring a backup"
+  },
+  "exportRecordsTab": "Export Records",
+  "@exportRecordsTab": {
+    "description": "Button that switches the dialog to export mode"
+  },
+  "restoreBackupTab": "Restore Backup",
+  "@restoreBackupTab": {
+    "description": "Button that switches the dialog to restore mode"
+  },
+  "exportFormatHeading": "Select Export Format:",
+  "@exportFormatHeading": {
+    "description": "Heading above the list of export file formats"
+  },
+  "exportCsvTitle": "CSV Format (.csv)",
+  "@exportCsvTitle": {
+    "description": "Name of the CSV export option"
+  },
+  "exportCsvSubtitle": "Compatible with Excel and Sheets",
+  "@exportCsvSubtitle": {
+    "description": "Short explanation of the CSV export option"
+  },
+  "exportJsonTitle": "JSON Dataset (.json)",
+  "@exportJsonTitle": {
+    "description": "Name of the JSON export option"
+  },
+  "exportJsonSubtitle": "Structured developer format",
+  "@exportJsonSubtitle": {
+    "description": "Short explanation of the JSON export option"
+  },
+  "exportTxtTitle": "Formatted TXT Report (.txt)",
+  "@exportTxtTitle": {
+    "description": "Name of the plain text export option"
+  },
+  "exportTxtSubtitle": "Human readable summary document",
+  "@exportTxtSubtitle": {
+    "description": "Short explanation of the plain text export option"
+  },
+  "exportPdfTitle": "PDF Document Report (.pdf)",
+  "@exportPdfTitle": {
+    "description": "Name of the PDF export option"
+  },
+  "exportPdfSubtitle": "Formatted printable report table",
+  "@exportPdfSubtitle": {
+    "description": "Short explanation of the PDF export option"
+  },
+  "exportBackupHeading": "Encrypted Local Backup File (.sreerajqr)",
+  "@exportBackupHeading": {
+    "description": "Heading above the encrypted backup controls"
+  },
+  "exportPassphraseLabel": "Backup Encryption Passphrase",
+  "@exportPassphraseLabel": {
+    "description": "Label of the field for the backup password"
+  },
+  "exportPassphraseHint": "Enter secret passphrase...",
+  "@exportPassphraseHint": {
+    "description": "Hint inside the empty backup password field"
+  },
+  "exportPassphraseRequired": "Please enter a password to encrypt your backup file.",
+  "@exportPassphraseRequired": {
+    "description": "Message shown when the user tries to back up without a password"
+  },
+  "exportCreateBackupButton": "Create Encrypted Backup File",
+  "@exportCreateBackupButton": {
+    "description": "Button that builds and shares the encrypted backup file"
+  },
+  "exportShareText": "Sreeraj QR Reader Scan History Export",
+  "@exportShareText": {
+    "description": "Message attached when sharing an exported history file"
+  },
+  "exportSharePdfText": "Sreeraj QR Reader Scan History Report (PDF)",
+  "@exportSharePdfText": {
+    "description": "Message attached when sharing the PDF history report"
+  },
+
+  "exportShareBackupText": "Sreeraj QR Reader Encrypted Backup File",
+  "@exportShareBackupText": {
+    "description": "Message attached when sharing the encrypted backup file"
+  },
+
+  "restoreHeading": "Restore History from Encrypted Backup File:",
+  "@restoreHeading": {
+    "description": "Heading above the restore controls"
+  },
+  "restorePassphraseLabel": "Backup Decryption Passphrase",
+  "@restorePassphraseLabel": {
+    "description": "Label of the field for the password that unlocks a backup"
+  },
+  "restorePayloadLabel": "Encrypted Backup Payload (.sreerajqr)",
+  "@restorePayloadLabel": {
+    "description": "Label of the field holding the backup file content"
+  },
+  "restorePayloadHint": "Paste backup JSON payload string here...",
+  "@restorePayloadHint": {
+    "description": "Hint inside the empty backup content field"
+  },
+  "restoreFieldsRequired": "Please provide both the password and backup content.",
+  "@restoreFieldsRequired": {
+    "description": "Message shown when a restore is tried with a missing field"
+  },
+  "restoreButton": "Decrypt & Restore History",
+  "@restoreButton": {
+    "description": "Button that unlocks a backup and restores the scans in it"
+  },
+  "restoreSuccess": "Successfully restored {count} scan records!",
+  "@restoreSuccess": {
+    "description": "Message shown after a backup is restored",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "restoreFailed": "Restore failed: {reason}",
+  "@restoreFailed": {
+    "description": "Message shown when a backup could not be restored",
+    "placeholders": {
+      "reason": { "type": "String" }
+    }
   }
 }

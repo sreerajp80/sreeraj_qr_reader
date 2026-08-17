@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sreeraj_qr_reader/providers/history_provider.dart';
 
@@ -26,6 +27,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
   }
 
   Future<void> _handleExport(BuildContext context, ExportFormat format) async {
+    final l10n = AppLocalizations.of(context);
     final provider = Provider.of<HistoryProvider>(context, listen: false);
     final result = await provider.exportData(format);
 
@@ -40,7 +42,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
           mimeType: 'application/pdf',
           name: 'Sreeraj_QR_History.pdf',
         ),
-      ], text: 'Sreeraj QR Reader Scan History Report (PDF)');
+      ], text: l10n.exportSharePdfText);
     } else {
       final textResult = result as String;
       final mimeType = format == ExportFormat.csv
@@ -61,18 +63,17 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
           mimeType: mimeType,
           name: fileName,
         ),
-      ], text: 'Sreeraj QR Reader Scan History Export');
+      ], text: l10n.exportShareText);
     }
   }
 
   Future<void> _handleEncryptedBackup(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
     final passphrase = _passphraseController.text.trim();
     if (passphrase.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter a password to encrypt your backup file.'),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.exportPassphraseRequired)));
       return;
     }
 
@@ -87,12 +88,13 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
         mimeType: 'application/json',
         name: 'sreeraj_qr_backup.sreerajqr',
       ),
-    ], text: 'Sreeraj QR Reader Encrypted Backup File');
+    ], text: l10n.exportShareBackupText);
 
     if (mounted) navigator.pop();
   }
 
   Future<void> _handleRestore(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
     final passphrase = _passphraseController.text.trim();
     final backupData = _backupPayloadController.text.trim();
     final messenger = ScaffoldMessenger.of(context);
@@ -100,9 +102,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
 
     if (passphrase.isEmpty || backupData.isEmpty) {
       messenger.showSnackBar(
-        const SnackBar(
-          content: Text('Please provide both the password and backup content.'),
-        ),
+        SnackBar(content: Text(l10n.restoreFieldsRequired)),
       );
       return;
     }
@@ -115,7 +115,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
       );
       if (mounted) {
         messenger.showSnackBar(
-          SnackBar(content: Text('Successfully restored $count scan records!')),
+          SnackBar(content: Text(l10n.restoreSuccess(count))),
         );
         navigator.pop();
       }
@@ -124,7 +124,9 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
         messenger.showSnackBar(
           SnackBar(
             content: Text(
-              'Restore failed: ${e.toString().replaceAll("FormatException: ", "")}',
+              l10n.restoreFailed(
+                e.toString().replaceAll('FormatException: ', ''),
+              ),
             ),
           ),
         );
@@ -134,6 +136,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     return AlertDialog(
@@ -145,9 +148,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
           ),
           const SizedBox(width: 8),
           Text(
-            _isRestoreMode
-                ? 'Restore Encrypted Backup'
-                : 'Export & Cloud Backup',
+            _isRestoreMode ? l10n.restoreDialogTitle : l10n.exportDialogTitle,
           ),
         ],
       ),
@@ -160,7 +161,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
               children: [
                 Expanded(
                   child: FilterChip(
-                    label: const Text('Export Records'),
+                    label: Text(l10n.exportRecordsTab),
                     selected: !_isRestoreMode,
                     onSelected: (val) => setState(() => _isRestoreMode = false),
                   ),
@@ -168,7 +169,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: FilterChip(
-                    label: const Text('Restore Backup'),
+                    label: Text(l10n.restoreBackupTab),
                     selected: _isRestoreMode,
                     onSelected: (val) => setState(() => _isRestoreMode = true),
                   ),
@@ -178,7 +179,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
             const SizedBox(height: 16),
             if (!_isRestoreMode) ...[
               Text(
-                'Select Export Format:',
+                l10n.exportFormatHeading,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -186,31 +187,31 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
               const SizedBox(height: 8),
               ListTile(
                 leading: const Icon(Icons.table_chart, color: Colors.green),
-                title: const Text('CSV Format (.csv)'),
-                subtitle: const Text('Compatible with Excel and Sheets'),
+                title: Text(l10n.exportCsvTitle),
+                subtitle: Text(l10n.exportCsvSubtitle),
                 onTap: () => _handleExport(context, ExportFormat.csv),
               ),
               ListTile(
                 leading: const Icon(Icons.code, color: Colors.blue),
-                title: const Text('JSON Dataset (.json)'),
-                subtitle: const Text('Structured developer format'),
+                title: Text(l10n.exportJsonTitle),
+                subtitle: Text(l10n.exportJsonSubtitle),
                 onTap: () => _handleExport(context, ExportFormat.json),
               ),
               ListTile(
                 leading: const Icon(Icons.description, color: Colors.orange),
-                title: const Text('Formatted TXT Report (.txt)'),
-                subtitle: const Text('Human readable summary document'),
+                title: Text(l10n.exportTxtTitle),
+                subtitle: Text(l10n.exportTxtSubtitle),
                 onTap: () => _handleExport(context, ExportFormat.txt),
               ),
               ListTile(
                 leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
-                title: const Text('PDF Document Report (.pdf)'),
-                subtitle: const Text('Formatted printable report table'),
+                title: Text(l10n.exportPdfTitle),
+                subtitle: Text(l10n.exportPdfSubtitle),
                 onTap: () => _handleExport(context, ExportFormat.pdf),
               ),
               const Divider(height: 24),
               Text(
-                'Encrypted Local Backup File (.sreerajqr)',
+                l10n.exportBackupHeading,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -219,11 +220,11 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
               TextField(
                 controller: _passphraseController,
                 obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Backup Encryption Passphrase',
-                  hintText: 'Enter secret passphrase...',
-                  prefixIcon: Icon(Icons.lock_outline),
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: l10n.exportPassphraseLabel,
+                  hintText: l10n.exportPassphraseHint,
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 10),
@@ -231,7 +232,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.security),
-                  label: const Text('Create Encrypted Backup File'),
+                  label: Text(l10n.exportCreateBackupButton),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colorScheme.primaryContainer,
                     foregroundColor: theme.colorScheme.onPrimaryContainer,
@@ -241,7 +242,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
               ),
             ] else ...[
               Text(
-                'Restore History from Encrypted Backup File:',
+                l10n.restoreHeading,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -250,10 +251,10 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
               TextField(
                 controller: _passphraseController,
                 obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Backup Decryption Passphrase',
-                  prefixIcon: Icon(Icons.lock_outline),
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: l10n.restorePassphraseLabel,
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 10),
@@ -261,8 +262,8 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
                 controller: _backupPayloadController,
                 maxLines: 4,
                 decoration: InputDecoration(
-                  labelText: 'Encrypted Backup Payload (.sreerajqr)',
-                  hintText: 'Paste backup JSON payload string here...',
+                  labelText: l10n.restorePayloadLabel,
+                  hintText: l10n.restorePayloadHint,
                   prefixIcon: const Icon(Icons.paste),
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
@@ -283,7 +284,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.restore),
-                  label: const Text('Decrypt & Restore History'),
+                  label: Text(l10n.restoreButton),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colorScheme.primary,
                     foregroundColor: theme.colorScheme.onPrimary,
@@ -298,7 +299,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Close'),
+          child: Text(l10n.closeButton),
         ),
       ],
     );

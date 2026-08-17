@@ -335,4 +335,101 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get historySaveChanges => 'Save Metadata Changes';
+
+  @override
+  String get closeButton => 'Close';
+
+  @override
+  String get exportDialogTitle => 'Export & Cloud Backup';
+
+  @override
+  String get restoreDialogTitle => 'Restore Encrypted Backup';
+
+  @override
+  String get exportRecordsTab => 'Export Records';
+
+  @override
+  String get restoreBackupTab => 'Restore Backup';
+
+  @override
+  String get exportFormatHeading => 'Select Export Format:';
+
+  @override
+  String get exportCsvTitle => 'CSV Format (.csv)';
+
+  @override
+  String get exportCsvSubtitle => 'Compatible with Excel and Sheets';
+
+  @override
+  String get exportJsonTitle => 'JSON Dataset (.json)';
+
+  @override
+  String get exportJsonSubtitle => 'Structured developer format';
+
+  @override
+  String get exportTxtTitle => 'Formatted TXT Report (.txt)';
+
+  @override
+  String get exportTxtSubtitle => 'Human readable summary document';
+
+  @override
+  String get exportPdfTitle => 'PDF Document Report (.pdf)';
+
+  @override
+  String get exportPdfSubtitle => 'Formatted printable report table';
+
+  @override
+  String get exportBackupHeading => 'Encrypted Local Backup File (.sreerajqr)';
+
+  @override
+  String get exportPassphraseLabel => 'Backup Encryption Passphrase';
+
+  @override
+  String get exportPassphraseHint => 'Enter secret passphrase...';
+
+  @override
+  String get exportPassphraseRequired =>
+      'Please enter a password to encrypt your backup file.';
+
+  @override
+  String get exportCreateBackupButton => 'Create Encrypted Backup File';
+
+  @override
+  String get exportShareText => 'Sreeraj QR Reader Scan History Export';
+
+  @override
+  String get exportSharePdfText =>
+      'Sreeraj QR Reader Scan History Report (PDF)';
+
+  @override
+  String get exportShareBackupText => 'Sreeraj QR Reader Encrypted Backup File';
+
+  @override
+  String get restoreHeading => 'Restore History from Encrypted Backup File:';
+
+  @override
+  String get restorePassphraseLabel => 'Backup Decryption Passphrase';
+
+  @override
+  String get restorePayloadLabel => 'Encrypted Backup Payload (.sreerajqr)';
+
+  @override
+  String get restorePayloadHint => 'Paste backup JSON payload string here...';
+
+  @override
+  String get restoreFieldsRequired =>
+      'Please provide both the password and backup content.';
+
+  @override
+  String get restoreButton => 'Decrypt & Restore History';
+
+  @override
+  String restoreSuccess(int count) {
+    return 'Successfully restored $count scan records!';
+  }
+
+  @override
+  String restoreFailed(String reason) {
+    return 'Restore failed: $reason';
+  }
 }

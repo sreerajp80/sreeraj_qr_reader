@@ -657,6 +657,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save Metadata Changes'**
   String get historySaveChanges;
+
+  /// Button that closes a dialog, used on several screens
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get closeButton;
+
+  /// Title of the dialog when it is exporting scan history
+  ///
+  /// In en, this message translates to:
+  /// **'Export & Cloud Backup'**
+  String get exportDialogTitle;
+
+  /// Title of the dialog when it is restoring a backup
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Encrypted Backup'**
+  String get restoreDialogTitle;
+
+  /// Button that switches the dialog to export mode
+  ///
+  /// In en, this message translates to:
+  /// **'Export Records'**
+  String get exportRecordsTab;
+
+  /// Button that switches the dialog to restore mode
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Backup'**
+  String get restoreBackupTab;
+
+  /// Heading above the list of export file formats
+  ///
+  /// In en, this message translates to:
+  /// **'Select Export Format:'**
+  String get exportFormatHeading;
+
+  /// Name of the CSV export option
+  ///
+  /// In en, this message translates to:
+  /// **'CSV Format (.csv)'**
+  String get exportCsvTitle;
+
+  /// Short explanation of the CSV export option
+  ///
+  /// In en, this message translates to:
+  /// **'Compatible with Excel and Sheets'**
+  String get exportCsvSubtitle;
+
+  /// Name of the JSON export option
+  ///
+  /// In en, this message translates to:
+  /// **'JSON Dataset (.json)'**
+  String get exportJsonTitle;
+
+  /// Short explanation of the JSON export option
+  ///
+  /// In en, this message translates to:
+  /// **'Structured developer format'**
+  String get exportJsonSubtitle;
+
+  /// Name of the plain text export option
+  ///
+  /// In en, this message translates to:
+  /// **'Formatted TXT Report (.txt)'**
+  String get exportTxtTitle;
+
+  /// Short explanation of the plain text export option
+  ///
+  /// In en, this message translates to:
+  /// **'Human readable summary document'**
+  String get exportTxtSubtitle;
+
+  /// Name of the PDF export option
+  ///
+  /// In en, this message translates to:
+  /// **'PDF Document Report (.pdf)'**
+  String get exportPdfTitle;
+
+  /// Short explanation of the PDF export option
+  ///
+  /// In en, this message translates to:
+  /// **'Formatted printable report table'**
+  String get exportPdfSubtitle;
+
+  /// Heading above the encrypted backup controls
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypted Local Backup File (.sreerajqr)'**
+  String get exportBackupHeading;
+
+  /// Label of the field for the backup password
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Encryption Passphrase'**
+  String get exportPassphraseLabel;
+
+  /// Hint inside the empty backup password field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter secret passphrase...'**
+  String get exportPassphraseHint;
+
+  /// Message shown when the user tries to back up without a password
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a password to encrypt your backup file.'**
+  String get exportPassphraseRequired;
+
+  /// Button that builds and shares the encrypted backup file
+  ///
+  /// In en, this message translates to:
+  /// **'Create Encrypted Backup File'**
+  String get exportCreateBackupButton;
+
+  /// Message attached when sharing an exported history file
+  ///
+  /// In en, this message translates to:
+  /// **'Sreeraj QR Reader Scan History Export'**
+  String get exportShareText;
+
+  /// Message attached when sharing the PDF history report
+  ///
+  /// In en, this message translates to:
+  /// **'Sreeraj QR Reader Scan History Report (PDF)'**
+  String get exportSharePdfText;
+
+  /// Message attached when sharing the encrypted backup file
+  ///
+  /// In en, this message translates to:
+  /// **'Sreeraj QR Reader Encrypted Backup File'**
+  String get exportShareBackupText;
+
+  /// Heading above the restore controls
+  ///
+  /// In en, this message translates to:
+  /// **'Restore History from Encrypted Backup File:'**
+  String get restoreHeading;
+
+  /// Label of the field for the password that unlocks a backup
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Decryption Passphrase'**
+  String get restorePassphraseLabel;
+
+  /// Label of the field holding the backup file content
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypted Backup Payload (.sreerajqr)'**
+  String get restorePayloadLabel;
+
+  /// Hint inside the empty backup content field
+  ///
+  /// In en, this message translates to:
+  /// **'Paste backup JSON payload string here...'**
+  String get restorePayloadHint;
+
+  /// Message shown when a restore is tried with a missing field
+  ///
+  /// In en, this message translates to:
+  /// **'Please provide both the password and backup content.'**
+  String get restoreFieldsRequired;
+
+  /// Button that unlocks a backup and restores the scans in it
+  ///
+  /// In en, this message translates to:
+  /// **'Decrypt & Restore History'**
+  String get restoreButton;
+
+  /// Message shown after a backup is restored
+  ///
+  /// In en, this message translates to:
+  /// **'Successfully restored {count} scan records!'**
+  String restoreSuccess(int count);
+
+  /// Message shown when a backup could not be restored
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed: {reason}'**
+  String restoreFailed(String reason);
 }
 
 class _AppLocalizationsDelegate
