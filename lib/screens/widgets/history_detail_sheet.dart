@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/scan_record.dart';
 
 /// Modal bottom sheet displaying detailed scan record metadata with note editing and location tagging.
@@ -40,6 +41,7 @@ class _HistoryDetailSheetState extends State<HistoryDetailSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     return Container(
@@ -73,7 +75,7 @@ class _HistoryDetailSheetState extends State<HistoryDetailSheet> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Scan Record Details',
+                  l10n.historyDetailTitle,
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -99,7 +101,7 @@ class _HistoryDetailSheetState extends State<HistoryDetailSheet> {
                 ),
                 const Spacer(),
                 Text(
-                  '🛡️ ${widget.record.safetyScore}% Safe',
+                  l10n.historySafetyBadge(widget.record.safetyScore),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: widget.record.safetyScore < 70
@@ -111,7 +113,7 @@ class _HistoryDetailSheetState extends State<HistoryDetailSheet> {
             ),
             const SizedBox(height: 12),
             Text(
-              'Scanned Content:',
+              l10n.historyScannedContent,
               style: theme.textTheme.labelMedium?.copyWith(
                 color: Colors.grey.shade700,
               ),
@@ -135,14 +137,14 @@ class _HistoryDetailSheetState extends State<HistoryDetailSheet> {
               children: [
                 OutlinedButton.icon(
                   icon: const Icon(Icons.copy, size: 16),
-                  label: const Text('Copy'),
+                  label: Text(l10n.historyCopyButton),
                   onPressed: () async {
                     await Clipboard.setData(
                       ClipboardData(text: widget.record.rawContent),
                     );
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Copied to clipboard')),
+                        SnackBar(content: Text(l10n.copiedToClipboard)),
                       );
                     }
                   },
@@ -150,7 +152,7 @@ class _HistoryDetailSheetState extends State<HistoryDetailSheet> {
                 const SizedBox(width: 8),
                 OutlinedButton.icon(
                   icon: const Icon(Icons.share, size: 16),
-                  label: const Text('Share'),
+                  label: Text(l10n.historyShare),
                   // ignore: deprecated_member_use
                   onPressed: () => Share.share(widget.record.rawContent),
                 ),
@@ -159,22 +161,22 @@ class _HistoryDetailSheetState extends State<HistoryDetailSheet> {
             const SizedBox(height: 16),
             TextField(
               controller: _notesController,
-              decoration: const InputDecoration(
-                labelText: 'Custom User Notes',
-                hintText: 'Add personal notes or remarks about this scan...',
-                prefixIcon: Icon(Icons.note_alt_outlined),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.historyNotesLabel,
+                hintText: l10n.historyNotesHint,
+                prefixIcon: const Icon(Icons.note_alt_outlined),
+                border: const OutlineInputBorder(),
               ),
               maxLines: 2,
             ),
             const SizedBox(height: 12),
             TextField(
               controller: _locationController,
-              decoration: const InputDecoration(
-                labelText: 'Location Tag (Optional)',
-                hintText: 'e.g. Office Desk, Grocery Store, Conference',
-                prefixIcon: Icon(Icons.location_on_outlined),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.historyLocationLabel,
+                hintText: l10n.historyLocationHint,
+                prefixIcon: const Icon(Icons.location_on_outlined),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 20),
@@ -183,7 +185,7 @@ class _HistoryDetailSheetState extends State<HistoryDetailSheet> {
               height: 48,
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.save),
-                label: const Text('Save Metadata Changes'),
+                label: Text(l10n.historySaveChanges),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colorScheme.primary,
                   foregroundColor: theme.colorScheme.onPrimary,

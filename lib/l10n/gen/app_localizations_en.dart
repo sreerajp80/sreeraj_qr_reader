@@ -273,4 +273,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get arSafetyStatusUnknown => 'Safety Status: Analyzing link safety...';
+
+  @override
+  String get copiedToClipboard => 'Copied to clipboard';
+
+  @override
+  String historyTimestamp(String date, String time) {
+    return '$date • $time';
+  }
+
+  @override
+  String get historyStar => 'Star favorite';
+
+  @override
+  String get historyUnstar => 'Unstar';
+
+  @override
+  String get historyEditNotes => 'Edit Notes';
+
+  @override
+  String get historyCopyString => 'Copy String';
+
+  @override
+  String get historyShare => 'Share';
+
+  @override
+  String get historyDelete => 'Delete';
+
+  @override
+  String get historyDetailTitle => 'Scan Record Details';
+
+  @override
+  String historySafetyBadge(int score) {
+    return '🛡️ $score% Safe';
+  }
+
+  @override
+  String historyScoreBadge(int score) {
+    return '🛡️ $score%';
+  }
+
+  @override
+  String get historyScannedContent => 'Scanned Content:';
+
+  @override
+  String get historyCopyButton => 'Copy';
+
+  @override
+  String get historyNotesLabel => 'Custom User Notes';
+
+  @override
+  String get historyNotesHint =>
+      'Add personal notes or remarks about this scan...';
+
+  @override
+  String get historyLocationLabel => 'Location Tag (Optional)';
+
+  @override
+  String get historyLocationHint =>
+      'e.g. Office Desk, Grocery Store, Conference';
+
+  @override
+  String get historySaveChanges => 'Save Metadata Changes';
 }

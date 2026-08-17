@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/scan_record.dart';
 
 /// Card widget rendering a single scan history item with rich metadata badges and quick actions.
@@ -67,29 +69,19 @@ class HistoryCard extends StatelessWidget {
     }
   }
 
-  String _formatTimestamp(DateTime dt) {
-    final monthNames = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    final hour = dt.hour % 12 == 0 ? 12 : dt.hour % 12;
-    final minute = dt.minute.toString().padLeft(2, '0');
-    final period = dt.hour >= 12 ? 'PM' : 'AM';
-    return '${monthNames[dt.month - 1]} ${dt.day}, ${dt.year} • $hour:$minute $period';
+  /// Formats the scan time using the reader's own locale, so month names and
+  /// the 12- or 24-hour clock follow the device language.
+  String _formatTimestamp(AppLocalizations l10n, DateTime dt) {
+    final locale = l10n.localeName;
+    return l10n.historyTimestamp(
+      DateFormat.yMMMd(locale).format(dt),
+      DateFormat.jm(locale).format(dt),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final catColor = _getCategoryColor(context, record.category);
     final catIcon = _getCategoryIcon(record.category);
@@ -154,7 +146,7 @@ class HistoryCard extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: Text(
-                                  '🛡️ ${record.safetyScore}%',
+                                  l10n.historyScoreBadge(record.safetyScore),
                                   style: TextStyle(
                                     fontSize: 11,
                                     fontWeight: FontWeight.bold,
@@ -168,7 +160,7 @@ class HistoryCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          _formatTimestamp(record.timestamp),
+                          _formatTimestamp(l10n, record.timestamp),
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: Colors.grey.shade600,
                           ),
@@ -184,7 +176,9 @@ class HistoryCard extends StatelessWidget {
                           : Colors.grey,
                     ),
                     onPressed: onToggleFavorite,
-                    tooltip: record.isFavorite ? 'Unstar' : 'Star favorite',
+                    tooltip: record.isFavorite
+                        ? l10n.historyUnstar
+                        : l10n.historyStar,
                   ),
                   PopupMenuButton<String>(
                     icon: const Icon(Icons.more_vert),
@@ -197,9 +191,7 @@ class HistoryCard extends StatelessWidget {
                         );
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Copied to clipboard'),
-                            ),
+                            SnackBar(content: Text(l10n.copiedToClipboard)),
                           );
                         }
                       } else if (value == 'share') {
@@ -210,43 +202,50 @@ class HistoryCard extends StatelessWidget {
                       }
                     },
                     itemBuilder: (context) => [
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'edit',
                         child: Row(
                           children: [
-                            Icon(Icons.edit, size: 18),
-                            SizedBox(width: 8),
-                            Text('Edit Notes'),
+                            const Icon(Icons.edit, size: 18),
+                            const SizedBox(width: 8),
+                            Text(l10n.historyEditNotes),
                           ],
                         ),
                       ),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'copy',
                         child: Row(
                           children: [
-                            Icon(Icons.copy, size: 18),
-                            SizedBox(width: 8),
-                            Text('Copy String'),
+                            const Icon(Icons.copy, size: 18),
+                            const SizedBox(width: 8),
+                            Text(l10n.historyCopyString),
                           ],
                         ),
                       ),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'share',
                         child: Row(
                           children: [
-                            Icon(Icons.share, size: 18),
-                            SizedBox(width: 8),
-                            Text('Share'),
+                            const Icon(Icons.share, size: 18),
+                            const SizedBox(width: 8),
+                            Text(l10n.historyShare),
                           ],
                         ),
                       ),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'delete',
                         child: Row(
                           children: [
-                            Icon(Icons.delete, color: Colors.red, size: 18),
-                            SizedBox(width: 8),
-                            Text('Delete', style: TextStyle(color: Colors.red)),
+                            const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                              size: 18,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              l10n.historyDelete,
+                              style: const TextStyle(color: Colors.red),
+                            ),
                           ],
                         ),
                       ),

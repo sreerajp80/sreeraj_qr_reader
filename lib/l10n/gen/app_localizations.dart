@@ -549,6 +549,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Safety Status: Analyzing link safety...'**
   String get arSafetyStatusUnknown;
+
+  /// Message shown after content is copied, used on several screens
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get copiedToClipboard;
+
+  /// Date and time of a saved scan, joined by a dot
+  ///
+  /// In en, this message translates to:
+  /// **'{date} • {time}'**
+  String historyTimestamp(String date, String time);
+
+  /// Tooltip on the button that marks a saved scan as a favourite
+  ///
+  /// In en, this message translates to:
+  /// **'Star favorite'**
+  String get historyStar;
+
+  /// Tooltip on the button that removes a saved scan from favourites
+  ///
+  /// In en, this message translates to:
+  /// **'Unstar'**
+  String get historyUnstar;
+
+  /// Menu item that opens the notes editor for a saved scan
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Notes'**
+  String get historyEditNotes;
+
+  /// Menu item that copies the saved scan content
+  ///
+  /// In en, this message translates to:
+  /// **'Copy String'**
+  String get historyCopyString;
+
+  /// Button and menu item that shares the saved scan content
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get historyShare;
+
+  /// Menu item that deletes a saved scan
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get historyDelete;
+
+  /// Title of the sheet showing one saved scan in full
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Record Details'**
+  String get historyDetailTitle;
+
+  /// Safety score badge on a saved scan
+  ///
+  /// In en, this message translates to:
+  /// **'🛡️ {score}% Safe'**
+  String historySafetyBadge(int score);
+
+  /// Short safety score badge on a history card
+  ///
+  /// In en, this message translates to:
+  /// **'🛡️ {score}%'**
+  String historyScoreBadge(int score);
+
+  /// Label above the raw content of a saved scan
+  ///
+  /// In en, this message translates to:
+  /// **'Scanned Content:'**
+  String get historyScannedContent;
+
+  /// Button that copies the saved scan content
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get historyCopyButton;
+
+  /// Label of the field where the user writes their own note
+  ///
+  /// In en, this message translates to:
+  /// **'Custom User Notes'**
+  String get historyNotesLabel;
+
+  /// Hint inside the empty notes field
+  ///
+  /// In en, this message translates to:
+  /// **'Add personal notes or remarks about this scan...'**
+  String get historyNotesHint;
+
+  /// Label of the field where the user names the place of the scan
+  ///
+  /// In en, this message translates to:
+  /// **'Location Tag (Optional)'**
+  String get historyLocationLabel;
+
+  /// Hint inside the empty location field
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Office Desk, Grocery Store, Conference'**
+  String get historyLocationHint;
+
+  /// Button that saves the edited note and location
+  ///
+  /// In en, this message translates to:
+  /// **'Save Metadata Changes'**
+  String get historySaveChanges;
 }
 
 class _AppLocalizationsDelegate
