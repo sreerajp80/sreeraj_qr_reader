@@ -837,6 +837,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restore failed: {reason}'**
   String restoreFailed(String reason);
+
+  /// Badge saying the page preview ran with scripts blocked
+  ///
+  /// In en, this message translates to:
+  /// **'SANDBOXED'**
+  String get domSandboxedBadge;
+
+  /// Single letter shown in the site avatar when the page has no title
+  ///
+  /// In en, this message translates to:
+  /// **'W'**
+  String get domTitleInitialFallback;
+
+  /// Shown in place of the page title when the page has none
+  ///
+  /// In en, this message translates to:
+  /// **'Untitled Web Page'**
+  String get domUntitledPage;
+
+  /// Caption under the safe preview image of a scanned web page
+  ///
+  /// In en, this message translates to:
+  /// **'Visual Thumbnail Pre-Render (Script Execution Blocked)'**
+  String get domThumbnailCaption;
+
+  /// Badge counting the scripts and trackers the preview blocked
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked: {scripts} Scripts, {trackers} Trackers'**
+  String domBlockedBadge(int scripts, int trackers);
+
+  /// Badge warning that the site domain was registered very recently
+  ///
+  /// In en, this message translates to:
+  /// **'Newly Registered ({days}d)'**
+  String domNewlyRegistered(int days);
+
+  /// Badge showing how old the site domain is
+  ///
+  /// In en, this message translates to:
+  /// **'Domain Age: {days} days'**
+  String domDomainAge(int days);
+
+  /// Badge warning that the link forwards to another site
+  ///
+  /// In en, this message translates to:
+  /// **'Open Redirect Trap!'**
+  String get domOpenRedirectFound;
+
+  /// Badge saying the link does not forward to another site
+  ///
+  /// In en, this message translates to:
+  /// **'No Open Redirects'**
+  String get domNoOpenRedirect;
+
+  /// Button that opens the detailed page structure sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Inspect DOM Sandbox Structure'**
+  String get domInspectButton;
+
+  /// Title of the detailed page structure sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Zero-Trust DOM Sandbox Hierarchy'**
+  String get domInspectTitle;
+
+  /// Row label for the page title
+  ///
+  /// In en, this message translates to:
+  /// **'Page Title'**
+  String get domDetailPageTitle;
+
+  /// Shown when the page did not give a title
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified'**
+  String get domDetailNotSpecified;
+
+  /// Row label for the page description
+  ///
+  /// In en, this message translates to:
+  /// **'Meta Description'**
+  String get domDetailMetaDescription;
+
+  /// Shown when the page did not give a description
+  ///
+  /// In en, this message translates to:
+  /// **'None found'**
+  String get domDetailNoneFound;
+
+  /// Row label for how many headings the page had
+  ///
+  /// In en, this message translates to:
+  /// **'Headings Count'**
+  String get domDetailHeadingsCount;
+
+  /// How many headings were read from the page
+  ///
+  /// In en, this message translates to:
+  /// **'{count} headings extracted'**
+  String domDetailHeadingsValue(int count);
+
+  /// Row label for how many links the page had
+  ///
+  /// In en, this message translates to:
+  /// **'Links Found'**
+  String get domDetailLinksFound;
+
+  /// How many links were read from the page
+  ///
+  /// In en, this message translates to:
+  /// **'{count} URLs extracted'**
+  String domDetailLinksValue(int count);
+
+  /// Row label for blocked scripts
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Scripts'**
+  String get domDetailBlockedScripts;
+
+  /// How many scripts were removed before the preview
+  ///
+  /// In en, this message translates to:
+  /// **'{count} executable script tags/events stripped'**
+  String domDetailBlockedScriptsValue(int count);
+
+  /// Row label for blocked trackers
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Trackers'**
+  String get domDetailBlockedTrackers;
+
+  /// How many trackers were removed before the preview
+  ///
+  /// In en, this message translates to:
+  /// **'{count} tracking pixels stripped'**
+  String domDetailBlockedTrackersValue(int count);
+
+  /// Row label for blocked embedded frames
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Iframes'**
+  String get domDetailBlockedIframes;
+
+  /// How many embedded frames were removed before the preview
+  ///
+  /// In en, this message translates to:
+  /// **'{count} iframe/embed elements removed'**
+  String domDetailBlockedIframesValue(int count);
+
+  /// Heading above the cleaned page source snippet
+  ///
+  /// In en, this message translates to:
+  /// **'Sanitized HTML Preview Snippet:'**
+  String get domSanitizedSnippetHeading;
 }
 
 class _AppLocalizationsDelegate

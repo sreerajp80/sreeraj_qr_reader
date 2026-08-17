@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/dom_sandbox_result.dart';
 
 /// Widget rendering a Zero-Trust Sandboxed HTML Pre-Render Preview Card.
@@ -9,6 +10,7 @@ class DomSandboxPreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final headerColor = result.pageThemeColor ?? theme.colorScheme.primary;
 
@@ -90,18 +92,18 @@ class DomSandboxPreviewCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.teal.shade400),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.verified_user,
                         size: 12,
                         color: Colors.tealAccent,
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text(
-                        'SANDBOXED',
-                        style: TextStyle(
+                        l10n.domSandboxedBadge,
+                        style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
                           color: Colors.tealAccent,
@@ -141,7 +143,7 @@ class DomSandboxPreviewCard extends StatelessWidget {
                           (result.pageTitle != null &&
                                   result.pageTitle!.isNotEmpty)
                               ? result.pageTitle![0].toUpperCase()
-                              : 'W',
+                              : l10n.domTitleInitialFallback,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -154,7 +156,7 @@ class DomSandboxPreviewCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              result.pageTitle ?? 'Untitled Web Page',
+                              result.pageTitle ?? l10n.domUntitledPage,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
@@ -164,7 +166,7 @@ class DomSandboxPreviewCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
-                              'Visual Thumbnail Pre-Render (Script Execution Blocked)',
+                              l10n.domThumbnailCaption,
                               style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.grey.shade600,
@@ -244,8 +246,10 @@ class DomSandboxPreviewCard extends StatelessWidget {
                   children: [
                     _buildShieldBadge(
                       icon: Icons.shield,
-                      label:
-                          'Blocked: ${result.blockedScriptsCount} Scripts, ${result.blockedTrackersCount} Trackers',
+                      label: l10n.domBlockedBadge(
+                        result.blockedScriptsCount,
+                        result.blockedTrackersCount,
+                      ),
                       color: Colors.teal.shade800,
                       bgColor: Colors.teal.shade50,
                     ),
@@ -267,8 +271,8 @@ class DomSandboxPreviewCard extends StatelessWidget {
                             ? Icons.error_outline
                             : Icons.calendar_today,
                         label: result.isNewlyRegisteredDomain
-                            ? 'Newly Registered (${result.domainAgeDays}d)'
-                            : 'Domain Age: ${result.domainAgeDays} days',
+                            ? l10n.domNewlyRegistered(result.domainAgeDays!)
+                            : l10n.domDomainAge(result.domainAgeDays!),
                         color: result.isNewlyRegisteredDomain
                             ? Colors.red.shade800
                             : Colors.blue.shade800,
@@ -281,8 +285,8 @@ class DomSandboxPreviewCard extends StatelessWidget {
                           ? Icons.alt_route
                           : Icons.check_circle_outline,
                       label: result.hasOpenRedirect
-                          ? 'Open Redirect Trap!'
-                          : 'No Open Redirects',
+                          ? l10n.domOpenRedirectFound
+                          : l10n.domNoOpenRedirect,
                       color: result.hasOpenRedirect
                           ? Colors.red.shade800
                           : Colors.indigo.shade800,
@@ -345,7 +349,7 @@ class DomSandboxPreviewCard extends StatelessWidget {
                   width: double.infinity,
                   child: OutlinedButton.icon(
                     icon: const Icon(Icons.code, size: 18),
-                    label: const Text('Inspect DOM Sandbox Structure'),
+                    label: Text(l10n.domInspectButton),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: theme.primaryColor,
                       side: BorderSide(color: theme.primaryColor),
@@ -401,6 +405,7 @@ class DomSandboxPreviewCard extends StatelessWidget {
   }
 
   void _showDomInspectModal(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -429,13 +434,13 @@ class DomSandboxPreviewCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.terminal, color: Colors.teal),
-                    SizedBox(width: 8),
+                    const Icon(Icons.terminal, color: Colors.teal),
+                    const SizedBox(width: 8),
                     Text(
-                      'Zero-Trust DOM Sandbox Hierarchy',
-                      style: TextStyle(
+                      l10n.domInspectTitle,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
@@ -444,37 +449,42 @@ class DomSandboxPreviewCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 _buildDetailItem(
-                  'Page Title',
-                  result.pageTitle ?? 'Not specified',
+                  l10n.domDetailPageTitle,
+                  result.pageTitle ?? l10n.domDetailNotSpecified,
                 ),
                 _buildDetailItem(
-                  'Meta Description',
-                  result.metaDescription ?? 'None found',
+                  l10n.domDetailMetaDescription,
+                  result.metaDescription ?? l10n.domDetailNoneFound,
                 ),
                 _buildDetailItem(
-                  'Headings Count',
-                  '${result.headings.length} headings extracted',
+                  l10n.domDetailHeadingsCount,
+                  l10n.domDetailHeadingsValue(result.headings.length),
                 ),
                 _buildDetailItem(
-                  'Links Found',
-                  '${result.links.length} URLs extracted',
+                  l10n.domDetailLinksFound,
+                  l10n.domDetailLinksValue(result.links.length),
                 ),
                 _buildDetailItem(
-                  'Blocked Scripts',
-                  '${result.blockedScriptsCount} executable script tags/events stripped',
+                  l10n.domDetailBlockedScripts,
+                  l10n.domDetailBlockedScriptsValue(result.blockedScriptsCount),
                 ),
                 _buildDetailItem(
-                  'Blocked Trackers',
-                  '${result.blockedTrackersCount} tracking pixels stripped',
+                  l10n.domDetailBlockedTrackers,
+                  l10n.domDetailBlockedTrackersValue(
+                    result.blockedTrackersCount,
+                  ),
                 ),
                 _buildDetailItem(
-                  'Blocked Iframes',
-                  '${result.blockedIframesCount} iframe/embed elements removed',
+                  l10n.domDetailBlockedIframes,
+                  l10n.domDetailBlockedIframesValue(result.blockedIframesCount),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'Sanitized HTML Preview Snippet:',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                Text(
+                  l10n.domSanitizedSnippetHeading,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Container(

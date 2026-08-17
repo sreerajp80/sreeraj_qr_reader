@@ -580,5 +580,135 @@
     "placeholders": {
       "reason": { "type": "String" }
     }
+  },
+
+  "domSandboxedBadge": "SANDBOXED",
+  "@domSandboxedBadge": {
+    "description": "Badge saying the page preview ran with scripts blocked"
+  },
+  "domTitleInitialFallback": "W",
+  "@domTitleInitialFallback": {
+    "description": "Single letter shown in the site avatar when the page has no title"
+  },
+  "domUntitledPage": "Untitled Web Page",
+  "@domUntitledPage": {
+    "description": "Shown in place of the page title when the page has none"
+  },
+  "domThumbnailCaption": "Visual Thumbnail Pre-Render (Script Execution Blocked)",
+  "@domThumbnailCaption": {
+    "description": "Caption under the safe preview image of a scanned web page"
+  },
+  "domBlockedBadge": "Blocked: {scripts} Scripts, {trackers} Trackers",
+  "@domBlockedBadge": {
+    "description": "Badge counting the scripts and trackers the preview blocked",
+    "placeholders": {
+      "scripts": { "type": "int" },
+      "trackers": { "type": "int" }
+    }
+  },
+  "domNewlyRegistered": "Newly Registered ({days}d)",
+  "@domNewlyRegistered": {
+    "description": "Badge warning that the site domain was registered very recently",
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "domDomainAge": "Domain Age: {days} days",
+  "@domDomainAge": {
+    "description": "Badge showing how old the site domain is",
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "domOpenRedirectFound": "Open Redirect Trap!",
+  "@domOpenRedirectFound": {
+    "description": "Badge warning that the link forwards to another site"
+  },
+  "domNoOpenRedirect": "No Open Redirects",
+  "@domNoOpenRedirect": {
+    "description": "Badge saying the link does not forward to another site"
+  },
+  "domInspectButton": "Inspect DOM Sandbox Structure",
+  "@domInspectButton": {
+    "description": "Button that opens the detailed page structure sheet"
+  },
+  "domInspectTitle": "Zero-Trust DOM Sandbox Hierarchy",
+  "@domInspectTitle": {
+    "description": "Title of the detailed page structure sheet"
+  },
+  "domDetailPageTitle": "Page Title",
+  "@domDetailPageTitle": {
+    "description": "Row label for the page title"
+  },
+  "domDetailNotSpecified": "Not specified",
+  "@domDetailNotSpecified": {
+    "description": "Shown when the page did not give a title"
+  },
+  "domDetailMetaDescription": "Meta Description",
+  "@domDetailMetaDescription": {
+    "description": "Row label for the page description"
+  },
+  "domDetailNoneFound": "None found",
+  "@domDetailNoneFound": {
+    "description": "Shown when the page did not give a description"
+  },
+  "domDetailHeadingsCount": "Headings Count",
+  "@domDetailHeadingsCount": {
+    "description": "Row label for how many headings the page had"
+  },
+  "domDetailHeadingsValue": "{count} headings extracted",
+  "@domDetailHeadingsValue": {
+    "description": "How many headings were read from the page",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "domDetailLinksFound": "Links Found",
+  "@domDetailLinksFound": {
+    "description": "Row label for how many links the page had"
+  },
+  "domDetailLinksValue": "{count} URLs extracted",
+  "@domDetailLinksValue": {
+    "description": "How many links were read from the page",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "domDetailBlockedScripts": "Blocked Scripts",
+  "@domDetailBlockedScripts": {
+    "description": "Row label for blocked scripts"
+  },
+  "domDetailBlockedScriptsValue": "{count} executable script tags/events stripped",
+  "@domDetailBlockedScriptsValue": {
+    "description": "How many scripts were removed before the preview",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "domDetailBlockedTrackers": "Blocked Trackers",
+  "@domDetailBlockedTrackers": {
+    "description": "Row label for blocked trackers"
+  },
+  "domDetailBlockedTrackersValue": "{count} tracking pixels stripped",
+  "@domDetailBlockedTrackersValue": {
+    "description": "How many trackers were removed before the preview",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "domDetailBlockedIframes": "Blocked Iframes",
+  "@domDetailBlockedIframes": {
+    "description": "Row label for blocked embedded frames"
+  },
+  "domDetailBlockedIframesValue": "{count} iframe/embed elements removed",
+  "@domDetailBlockedIframesValue": {
+    "description": "How many embedded frames were removed before the preview",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "domSanitizedSnippetHeading": "Sanitized HTML Preview Snippet:",
+  "@domSanitizedSnippetHeading": {
+    "description": "Heading above the cleaned page source snippet"
   }
 }

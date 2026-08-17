@@ -432,4 +432,99 @@ class AppLocalizationsEn extends AppLocalizations {
   String restoreFailed(String reason) {
     return 'Restore failed: $reason';
   }
+
+  @override
+  String get domSandboxedBadge => 'SANDBOXED';
+
+  @override
+  String get domTitleInitialFallback => 'W';
+
+  @override
+  String get domUntitledPage => 'Untitled Web Page';
+
+  @override
+  String get domThumbnailCaption =>
+      'Visual Thumbnail Pre-Render (Script Execution Blocked)';
+
+  @override
+  String domBlockedBadge(int scripts, int trackers) {
+    return 'Blocked: $scripts Scripts, $trackers Trackers';
+  }
+
+  @override
+  String domNewlyRegistered(int days) {
+    return 'Newly Registered (${days}d)';
+  }
+
+  @override
+  String domDomainAge(int days) {
+    return 'Domain Age: $days days';
+  }
+
+  @override
+  String get domOpenRedirectFound => 'Open Redirect Trap!';
+
+  @override
+  String get domNoOpenRedirect => 'No Open Redirects';
+
+  @override
+  String get domInspectButton => 'Inspect DOM Sandbox Structure';
+
+  @override
+  String get domInspectTitle => 'Zero-Trust DOM Sandbox Hierarchy';
+
+  @override
+  String get domDetailPageTitle => 'Page Title';
+
+  @override
+  String get domDetailNotSpecified => 'Not specified';
+
+  @override
+  String get domDetailMetaDescription => 'Meta Description';
+
+  @override
+  String get domDetailNoneFound => 'None found';
+
+  @override
+  String get domDetailHeadingsCount => 'Headings Count';
+
+  @override
+  String domDetailHeadingsValue(int count) {
+    return '$count headings extracted';
+  }
+
+  @override
+  String get domDetailLinksFound => 'Links Found';
+
+  @override
+  String domDetailLinksValue(int count) {
+    return '$count URLs extracted';
+  }
+
+  @override
+  String get domDetailBlockedScripts => 'Blocked Scripts';
+
+  @override
+  String domDetailBlockedScriptsValue(int count) {
+    return '$count executable script tags/events stripped';
+  }
+
+  @override
+  String get domDetailBlockedTrackers => 'Blocked Trackers';
+
+  @override
+  String domDetailBlockedTrackersValue(int count) {
+    return '$count tracking pixels stripped';
+  }
+
+  @override
+  String get domDetailBlockedIframes => 'Blocked Iframes';
+
+  @override
+  String domDetailBlockedIframesValue(int count) {
+    return '$count iframe/embed elements removed';
+  }
+
+  @override
+  String get domSanitizedSnippetHeading => 'Sanitized HTML Preview Snippet:';
 }
