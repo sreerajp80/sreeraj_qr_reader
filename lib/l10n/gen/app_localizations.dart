@@ -1671,6 +1671,816 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Always verify the source before opening URLs from QR codes.\n\nDo you want to open this URL?'**
   String get cautionDialogMessage;
+
+  /// Name of the laser line scan overlay style
+  ///
+  /// In en, this message translates to:
+  /// **'Laser Line'**
+  String get overlayLaserLine;
+
+  /// Name of the pulsing corners scan overlay style
+  ///
+  /// In en, this message translates to:
+  /// **'Pulsing Corners'**
+  String get overlayPulsingCorners;
+
+  /// Name of the grid scan overlay style
+  ///
+  /// In en, this message translates to:
+  /// **'Cybernetic Grid'**
+  String get overlayCyberneticGrid;
+
+  /// Name of the dot matrix scan overlay style
+  ///
+  /// In en, this message translates to:
+  /// **'Subtle Dot Matrix'**
+  String get overlaySubtleDotMatrix;
+
+  /// Explanation of the laser line overlay style
+  ///
+  /// In en, this message translates to:
+  /// **'Scanning box with an animated vertical laser beam and glow line'**
+  String get overlayLaserLineDesc;
+
+  /// Explanation of the pulsing corners overlay style
+  ///
+  /// In en, this message translates to:
+  /// **'Breathing corner reticles with color glow and scale animation'**
+  String get overlayPulsingCornersDesc;
+
+  /// Explanation of the grid overlay style
+  ///
+  /// In en, this message translates to:
+  /// **'Sci-fi grid overlay pattern with target crosshair reticle'**
+  String get overlayCyberneticGridDesc;
+
+  /// Explanation of the dot matrix overlay style
+  ///
+  /// In en, this message translates to:
+  /// **'Minimalist corner dot matrix pattern with pulsing accents'**
+  String get overlaySubtleDotMatrixDesc;
+
+  /// Theme setting that follows the device
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get themeSystemDefault;
+
+  /// Light theme setting
+  ///
+  /// In en, this message translates to:
+  /// **'Light Theme'**
+  String get themeLight;
+
+  /// Dark theme setting
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Theme'**
+  String get themeDark;
+
+  /// Pure black theme setting for OLED screens
+  ///
+  /// In en, this message translates to:
+  /// **'OLED Pure Black'**
+  String get themeOled;
+
+  /// Heading above the theme choice buttons
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Mode'**
+  String get themeModeHeading;
+
+  /// Short theme button that follows the device
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get themeChipSystem;
+
+  /// Short theme button for the light theme
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeChipLight;
+
+  /// Short theme button for the dark theme
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeChipDark;
+
+  /// Short theme button for the pure black theme
+  ///
+  /// In en, this message translates to:
+  /// **'OLED'**
+  String get themeChipOled;
+
+  /// Setting that takes colours from the device wallpaper
+  ///
+  /// In en, this message translates to:
+  /// **'Material You Dynamic Colors'**
+  String get themeDynamicColorsTitle;
+
+  /// Explanation of the wallpaper colour setting
+  ///
+  /// In en, this message translates to:
+  /// **'Sample system wallpaper colors on Android 12+ (Monet engine)'**
+  String get themeDynamicColorsSubtitle;
+
+  /// Explanation shown for the system theme
+  ///
+  /// In en, this message translates to:
+  /// **'Follow System Settings'**
+  String get themeDescSystem;
+
+  /// Explanation shown for the light theme
+  ///
+  /// In en, this message translates to:
+  /// **'Standard Light Mode'**
+  String get themeDescLight;
+
+  /// Explanation shown for the dark theme
+  ///
+  /// In en, this message translates to:
+  /// **'Standard Dark Mode'**
+  String get themeDescDark;
+
+  /// Explanation shown for the pure black theme
+  ///
+  /// In en, this message translates to:
+  /// **'True OLED Pure Black (Battery Saving)'**
+  String get themeDescOled;
+
+  /// Title of the settings screen
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// Settings card that opens the theme options
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance & Theme'**
+  String get settingsAppearanceTitle;
+
+  /// Settings card that opens the scan overlay options
+  ///
+  /// In en, this message translates to:
+  /// **'Customizable Scan Overlay'**
+  String get settingsOverlayTitle;
+
+  /// Settings card that opens the vibration and sound options
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Feedback & Alerts'**
+  String get settingsFeedbackTitle;
+
+  /// Settings card that opens the privacy options
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & Online Probing'**
+  String get settingsPrivacyTitle;
+
+  /// Settings card that opens the Safe Browsing key options
+  ///
+  /// In en, this message translates to:
+  /// **'Google Safe Browsing API'**
+  String get settingsSafeBrowsingTitle;
+
+  /// Settings card that opens the permissions overview
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions'**
+  String get settingsPermissionsTitle;
+
+  /// Explanation under the permissions card
+  ///
+  /// In en, this message translates to:
+  /// **'Explicit, implicit & setting-dependent details'**
+  String get settingsPermissionsSubtitle;
+
+  /// Settings card that opens the feature guides
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Feature Guides'**
+  String get settingsHelpTitle;
+
+  /// Explanation under the help card
+  ///
+  /// In en, this message translates to:
+  /// **'AR CodeVision, AirQR, Quishing Guard & URL Safety'**
+  String get settingsHelpSubtitle;
+
+  /// Explanation under the about card
+  ///
+  /// In en, this message translates to:
+  /// **'App version, developer & license details'**
+  String get settingsAboutSubtitle;
+
+  /// Setting that turns scan vibration on or off
+  ///
+  /// In en, this message translates to:
+  /// **'Vibration Feedback'**
+  String get feedbackVibrationTitle;
+
+  /// Explanation of the vibration setting
+  ///
+  /// In en, this message translates to:
+  /// **'Vibrate phone upon successful barcode recognition'**
+  String get feedbackVibrationSubtitle;
+
+  /// Setting that turns the scan beep on or off
+  ///
+  /// In en, this message translates to:
+  /// **'Audible Beep Sound'**
+  String get feedbackSoundTitle;
+
+  /// Explanation of the beep setting
+  ///
+  /// In en, this message translates to:
+  /// **'Play audio beep signal upon successful code recognition'**
+  String get feedbackSoundSubtitle;
+
+  /// Title of the privacy settings screen
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & Network Probing'**
+  String get privacyScreenTitle;
+
+  /// Setting that allows contacting the scanned site directly
+  ///
+  /// In en, this message translates to:
+  /// **'Active online checks'**
+  String get privacyActiveChecksTitle;
+
+  /// Summary shown on the settings card when online checks are on
+  ///
+  /// In en, this message translates to:
+  /// **'Active online checks enabled'**
+  String get privacySummaryOn;
+
+  /// Summary shown on the settings card when online checks are off
+  ///
+  /// In en, this message translates to:
+  /// **'Private offline checks only'**
+  String get privacySummaryOff;
+
+  /// Shown when a Safe Browsing key is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Configured'**
+  String get apiKeyConfigured;
+
+  /// Shown when no Safe Browsing key is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Not configured'**
+  String get apiKeyNotConfigured;
+
+  /// Message shown after the key is saved
+  ///
+  /// In en, this message translates to:
+  /// **'API key saved securely'**
+  String get apiKeySaved;
+
+  /// Message shown after the key is deleted
+  ///
+  /// In en, this message translates to:
+  /// **'API key deleted'**
+  String get apiKeyDeleted;
+
+  /// Title of the dialog and button for deleting the key
+  ///
+  /// In en, this message translates to:
+  /// **'Delete API Key'**
+  String get apiKeyDeleteTitle;
+
+  /// Button that confirms deleting something
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteButton;
+
+  /// Heading of the panel explaining the Safe Browsing service
+  ///
+  /// In en, this message translates to:
+  /// **'About Safe Browsing API'**
+  String get apiAboutHeading;
+
+  /// Title shown when a key is in place
+  ///
+  /// In en, this message translates to:
+  /// **'API Key Configured'**
+  String get apiKeyConfiguredTitle;
+
+  /// Explanation shown when a key is in place
+  ///
+  /// In en, this message translates to:
+  /// **'Malicious URL checking is enabled'**
+  String get apiKeyConfiguredSubtitle;
+
+  /// Shown when the free daily lookups are used up
+  ///
+  /// In en, this message translates to:
+  /// **'Daily limit reached. Resets tomorrow.'**
+  String get apiLimitReached;
+
+  /// Shown when few free daily lookups are left
+  ///
+  /// In en, this message translates to:
+  /// **'Approaching daily limit'**
+  String get apiLimitApproaching;
+
+  /// Label of the field holding the Safe Browsing key
+  ///
+  /// In en, this message translates to:
+  /// **'API Key'**
+  String get apiKeyFieldLabel;
+
+  /// Hint inside the empty key field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Google Safe Browsing API key'**
+  String get apiKeyFieldHint;
+
+  /// Validation message when the key field is empty
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter an API key'**
+  String get apiKeyRequired;
+
+  /// Validation message when the key looks wrong
+  ///
+  /// In en, this message translates to:
+  /// **'API key appears to be too short'**
+  String get apiKeyTooShort;
+
+  /// Button that stores the key
+  ///
+  /// In en, this message translates to:
+  /// **'Save API Key'**
+  String get apiKeySaveButton;
+
+  /// Heading of the step-by-step key instructions
+  ///
+  /// In en, this message translates to:
+  /// **'How to get an API key'**
+  String get apiHowToHeading;
+
+  /// First step of getting a key
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Google Cloud Console'**
+  String get apiStep1Title;
+
+  /// Explanation of the first step
+  ///
+  /// In en, this message translates to:
+  /// **'Visit console.cloud.google.com'**
+  String get apiStep1Desc;
+
+  /// Second step of getting a key
+  ///
+  /// In en, this message translates to:
+  /// **'Create or select a project'**
+  String get apiStep2Title;
+
+  /// Explanation of the second step
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an existing project or create a new one'**
+  String get apiStep2Desc;
+
+  /// Third step of getting a key
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Safe Browsing API'**
+  String get apiStep3Title;
+
+  /// Fourth step of getting a key
+  ///
+  /// In en, this message translates to:
+  /// **'Create credentials'**
+  String get apiStep4Title;
+
+  /// Explanation of the fourth step
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Credentials → Create Credentials → API Key'**
+  String get apiStep4Desc;
+
+  /// Fifth step of getting a key
+  ///
+  /// In en, this message translates to:
+  /// **'Copy and paste'**
+  String get apiStep5Title;
+
+  /// Explanation of the fifth step
+  ///
+  /// In en, this message translates to:
+  /// **'Copy the generated API key and paste it above'**
+  String get apiStep5Desc;
+
+  /// Note about the free daily allowance
+  ///
+  /// In en, this message translates to:
+  /// **'Free tier includes 10,000 requests per day'**
+  String get apiFreeTierNote;
+
+  /// Title of the permissions screen
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions Overview'**
+  String get permissionsScreenTitle;
+
+  /// Heading for permissions the user is asked for
+  ///
+  /// In en, this message translates to:
+  /// **'Explicit Permissions (Runtime / Manifest)'**
+  String get permissionsExplicitHeading;
+
+  /// Name of the camera permission
+  ///
+  /// In en, this message translates to:
+  /// **'Camera Access (android.permission.CAMERA)'**
+  String get permissionCameraTitle;
+
+  /// What the camera permission is used for
+  ///
+  /// In en, this message translates to:
+  /// **'Requested on-demand at point of use. Required for live scanning, AR CodeVision HUD overlay, and AirQR optical stream decoding.'**
+  String get permissionCameraDesc;
+
+  /// Name of the fingerprint and face permission
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric Authentication (android.permission.USE_BIOMETRIC)'**
+  String get permissionBiometricTitle;
+
+  /// What the biometric permission is used for
+  ///
+  /// In en, this message translates to:
+  /// **'Requested when unlocking biometric secure vaults or encrypted QR code payloads.'**
+  String get permissionBiometricDesc;
+
+  /// Heading for permissions granted by the system
+  ///
+  /// In en, this message translates to:
+  /// **'Implicit & System Permissions'**
+  String get permissionsImplicitHeading;
+
+  /// Name of the internet permission
+  ///
+  /// In en, this message translates to:
+  /// **'Internet Access (android.permission.INTERNET)'**
+  String get permissionInternetTitle;
+
+  /// What the internet permission is used for
+  ///
+  /// In en, this message translates to:
+  /// **'Declared in Android Manifest. Used only when Active Online Probing or Google Safe Browsing API lookup is enabled.'**
+  String get permissionInternetDesc;
+
+  /// Name of the vibration permission
+  ///
+  /// In en, this message translates to:
+  /// **'Vibration & Haptics (android.permission.VIBRATE)'**
+  String get permissionVibrateTitle;
+
+  /// What the vibration permission is used for
+  ///
+  /// In en, this message translates to:
+  /// **'System permission. Triggers haptic vibration feedback during scan alerts and button taps.'**
+  String get permissionVibrateDesc;
+
+  /// Name of the photo picker access
+  ///
+  /// In en, this message translates to:
+  /// **'Scoped Media Photo Picker'**
+  String get permissionPhotoPickerTitle;
+
+  /// What the photo picker access is used for
+  ///
+  /// In en, this message translates to:
+  /// **'System photo picker access. Allows selecting QR images or videos from gallery without requesting full storage access.'**
+  String get permissionPhotoPickerDesc;
+
+  /// Heading for permissions that depend on a setting
+  ///
+  /// In en, this message translates to:
+  /// **'Setting-Dependent Permissions'**
+  String get permissionsSettingHeading;
+
+  /// Name of the active online checks setting
+  ///
+  /// In en, this message translates to:
+  /// **'Active Online Probing (Privacy Setting)'**
+  String get permissionProbingTitle;
+
+  /// What active online checks do
+  ///
+  /// In en, this message translates to:
+  /// **'Active only when enabled. Performs outbound HTTP HEAD requests to follow URL redirects and check SSL certificates. When disabled, checks are 100% offline.'**
+  String get permissionProbingDesc;
+
+  /// Name of the Safe Browsing lookup setting
+  ///
+  /// In en, this message translates to:
+  /// **'Google Safe Browsing API (API Key Setting)'**
+  String get permissionSafeBrowsingTitle;
+
+  /// What the Safe Browsing lookup does
+  ///
+  /// In en, this message translates to:
+  /// **'Active only when API key is configured. Queries Google Threat API for malware & phishing checks.'**
+  String get permissionSafeBrowsingDesc;
+
+  /// Name of the scan vibration setting
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Feedback Vibrations (Alert Setting)'**
+  String get permissionFeedbackTitle;
+
+  /// When scan vibration is used
+  ///
+  /// In en, this message translates to:
+  /// **'Active only when Vibration is enabled in Scan Feedback & Alerts settings.'**
+  String get permissionFeedbackDesc;
+
+  /// Badge on the AR CodeVision help card
+  ///
+  /// In en, this message translates to:
+  /// **'Augmented Reality'**
+  String get helpArBadge;
+
+  /// Summary of the AR CodeVision feature
+  ///
+  /// In en, this message translates to:
+  /// **'Real-time camera overlay feature that highlights and visualizes barcode and QR code data directly within the 3D viewfinder.'**
+  String get helpArDesc;
+
+  /// AR CodeVision capability
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-Target Detection: Automatically detects, indexes, and tracks multiple barcodes simultaneously in real time.'**
+  String get helpArPoint1;
+
+  /// AR CodeVision capability
+  ///
+  /// In en, this message translates to:
+  /// **'Spatial Bounding Boxes: Overlays dynamic AR reticles and interactive floating chips above each detected code.'**
+  String get helpArPoint2;
+
+  /// AR CodeVision capability
+  ///
+  /// In en, this message translates to:
+  /// **'Interactive Action Sheet: Tap any detected AR chip to inspect payload details, copy data, or execute smart actions without exiting the camera.'**
+  String get helpArPoint3;
+
+  /// AR CodeVision capability
+  ///
+  /// In en, this message translates to:
+  /// **'Camera Viewport Suite: Built-in torch toggle, front/rear camera switching, and pinch-to-zoom controls.'**
+  String get helpArPoint4;
+
+  /// Badge on the AirQR help card
+  ///
+  /// In en, this message translates to:
+  /// **'Optical Data Protocol'**
+  String get helpAirQrBadge;
+
+  /// Summary of the AirQR feature
+  ///
+  /// In en, this message translates to:
+  /// **'High-speed optical data transfer receiver designed to reconstruct large multi-part payloads serialized across animated QR code loops.'**
+  String get helpAirQrDesc;
+
+  /// AirQR capability
+  ///
+  /// In en, this message translates to:
+  /// **'Sequential Frame Assembly: Scans animated QR streams (AirQR format) frame-by-frame and stitches chunks back into complete files or text.'**
+  String get helpAirQrPoint1;
+
+  /// AirQR capability
+  ///
+  /// In en, this message translates to:
+  /// **'Real-Time Live Progress: Interactive progress indicator displaying completed percentage, total payload size, missing chunk count, and decoding speed.'**
+  String get helpAirQrPoint2;
+
+  /// AirQR capability
+  ///
+  /// In en, this message translates to:
+  /// **'Dual Input Modes: Supports live scanning through the camera feed or offline processing by importing saved video recordings/images from gallery.'**
+  String get helpAirQrPoint3;
+
+  /// AirQR capability
+  ///
+  /// In en, this message translates to:
+  /// **'AirQR Transmitter: Reverse mode allowing payload generation and animated QR stream transmission to other devices.'**
+  String get helpAirQrPoint4;
+
+  /// Title of the tamper check help card
+  ///
+  /// In en, this message translates to:
+  /// **'Quishing Guard (Physical QR Sticker Tamper Check)'**
+  String get helpQuishingTitle;
+
+  /// Badge on the tamper check help card
+  ///
+  /// In en, this message translates to:
+  /// **'On-Device Computer Vision'**
+  String get helpQuishingBadge;
+
+  /// Summary of the tamper check feature
+  ///
+  /// In en, this message translates to:
+  /// **'On-device computer vision engine that detects physical QR code sticker tampering, fake code overlays, and print alterations before processing payloads.'**
+  String get helpQuishingDesc;
+
+  /// Tamper check capability
+  ///
+  /// In en, this message translates to:
+  /// **'100% Offline & Private Guarantee: Operates entirely on-device using local camera frame computer vision with zero internet connection required.'**
+  String get helpQuishingPoint1;
+
+  /// Tamper check capability
+  ///
+  /// In en, this message translates to:
+  /// **'Physical Sticker & Overlay Detection: Identifies physical stickers pasted over legitimate printed QR codes.'**
+  String get helpQuishingPoint2;
+
+  /// Tamper check capability
+  ///
+  /// In en, this message translates to:
+  /// **'Edge & Alignment Anomaly Analysis: Checks for suspicious boundaries, cutouts, and alignment discrepancies.'**
+  String get helpQuishingPoint3;
+
+  /// Tamper check capability
+  ///
+  /// In en, this message translates to:
+  /// **'Print Texture & Contrast Verification: Analyzes visual print artifacts, reflectivity shifts, and paper texture inconsistencies.'**
+  String get helpQuishingPoint4;
+
+  /// Title of the link safety help card
+  ///
+  /// In en, this message translates to:
+  /// **'URL Safety & Link Tamper Engine'**
+  String get helpUrlTitle;
+
+  /// Badge on the link safety help card
+  ///
+  /// In en, this message translates to:
+  /// **'6-Layer Digital Safety'**
+  String get helpUrlBadge;
+
+  /// Summary of the link safety feature
+  ///
+  /// In en, this message translates to:
+  /// **'Comprehensive digital link analysis suite protecting against malicious web links, phishing (Quishing), and URL payload tampering.'**
+  String get helpUrlDesc;
+
+  /// Link safety capability
+  ///
+  /// In en, this message translates to:
+  /// **'Homograph & IDN Attack Detection: Identifies spoofed domain names using mixed-script Cyrillic or lookalike Unicode characters.'**
+  String get helpUrlPoint1;
+
+  /// Link safety capability
+  ///
+  /// In en, this message translates to:
+  /// **'Zero-Width Space & Character Tamper Detector: Detects hidden zero-width spaces, non-printable control characters, or obfuscated payloads embedded in links.'**
+  String get helpUrlPoint2;
+
+  /// Link safety capability
+  ///
+  /// In en, this message translates to:
+  /// **'IP Literal & Userinfo Verification: Flags suspicious IP address hostnames and dangerous embedded credentials (e.g. user:pass@host).'**
+  String get helpUrlPoint3;
+
+  /// Link safety capability
+  ///
+  /// In en, this message translates to:
+  /// **'Suspicious TLD & Pattern Analysis: Scans for risky top-level domains, excessive subdomains, and unencrypted HTTP connections carrying login/payment data.'**
+  String get helpUrlPoint4;
+
+  /// Link safety capability
+  ///
+  /// In en, this message translates to:
+  /// **'URL Shortener Unrolling & Redirect Tracing: Identifies shortened links (bit.ly, t.co) and traces redirect chains (Active Probing required for live HTTP inspection).'**
+  String get helpUrlPoint5;
+
+  /// Link safety capability
+  ///
+  /// In en, this message translates to:
+  /// **'Google Safe Browsing Cloud Lookup: Optional cloud check against Google threat database when configured with an API key.'**
+  String get helpUrlPoint6;
+
+  /// Link safety capability
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy First Guarantee: Core 5 pattern checks run 100% offline on your device without sending URLs anywhere.'**
+  String get helpUrlPoint7;
+
+  /// Heading above the list of what a feature can do
+  ///
+  /// In en, this message translates to:
+  /// **'Key Capabilities:'**
+  String get helpCapabilitiesHeading;
+
+  /// Word shown when a setting is turned on
+  ///
+  /// In en, this message translates to:
+  /// **'On'**
+  String get onLabel;
+
+  /// Word shown when a setting is turned off
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get offLabel;
+
+  /// Shown when a value is not known
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknownLabel;
+
+  /// Explanation under the active online checks switch
+  ///
+  /// In en, this message translates to:
+  /// **'Off: scanned links are checked privately — the destination server is never contacted.'**
+  String get privacyActiveChecksSubtitle;
+
+  /// Longer explanation shown when active online checks are on
+  ///
+  /// In en, this message translates to:
+  /// **'When on, the SSL, redirect and shortener checks connect directly to the scanned site. This exposes your IP address (and therefore your approximate location and mobile carrier) to that server before you open the link.'**
+  String get privacyExplainerOn;
+
+  /// Longer explanation shown when active online checks are off
+  ///
+  /// In en, this message translates to:
+  /// **'SSL, redirect and shortener checks run from local rules only. Malicious-content lookup still uses Google Safe Browsing (the link is sent only to Google, never to the scanned site).'**
+  String get privacyExplainerOff;
+
+  /// Warning shown before the Safe Browsing key is deleted
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your Google Safe Browsing API key? URL malicious content checking will be disabled.'**
+  String get apiKeyDeleteMessage;
+
+  /// Explanation of what the Safe Browsing service does
+  ///
+  /// In en, this message translates to:
+  /// **'The Google Safe Browsing API helps detect malicious URLs including phishing, malware, and unwanted software. Your API key is stored securely and encrypted on your device.'**
+  String get apiAboutBody;
+
+  /// Heading above how many lookups were used today
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Usage'**
+  String get apiTodaysUsage;
+
+  /// Explanation of the third step of getting a key
+  ///
+  /// In en, this message translates to:
+  /// **'Search for \"Safe Browsing API\" and enable it'**
+  String get apiStep3Desc;
+
+  /// Summary of the scan feedback settings shown on the settings card
+  ///
+  /// In en, this message translates to:
+  /// **'Vibration: {vibration} • Sound: {sound}'**
+  String feedbackSummary(String vibration, String sound);
+
+  /// Whether a Safe Browsing key is saved, shown on the settings card
+  ///
+  /// In en, this message translates to:
+  /// **'API Key: {status}'**
+  String settingsApiKeySubtitle(String status);
+
+  /// Message shown when the key could not be saved
+  ///
+  /// In en, this message translates to:
+  /// **'Error saving API key: {error}'**
+  String apiKeySaveFailed(String error);
+
+  /// Message shown when the key could not be deleted
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting API key: {error}'**
+  String apiKeyDeleteFailed(String error);
+
+  /// How many free lookups are allowed each day
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Limit: {count} requests per day'**
+  String apiDailyLimit(int count);
+
+  /// When the daily lookup count starts again
+  ///
+  /// In en, this message translates to:
+  /// **'Resets: {date}'**
+  String apiResets(String date);
 }
 
 class _AppLocalizationsDelegate

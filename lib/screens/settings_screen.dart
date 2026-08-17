@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/providers/scan_provider.dart';
 import 'package:sreeraj_qr_reader/providers/theme_provider.dart';
 import 'package:sreeraj_qr_reader/screens/about_screen.dart';
@@ -50,35 +51,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
     final scanProvider = Provider.of<ScanProvider>(context);
 
     final overlayStyleName = switch (themeProvider.scanOverlayStyle) {
-      ScanOverlayStyle.laserLine => 'Laser Line',
-      ScanOverlayStyle.pulsingCorners => 'Pulsing Corners',
-      ScanOverlayStyle.cyberneticGrid => 'Cybernetic Grid',
-      ScanOverlayStyle.subtleDotMatrix => 'Subtle Dot Matrix',
+      ScanOverlayStyle.laserLine => l10n.overlayLaserLine,
+      ScanOverlayStyle.pulsingCorners => l10n.overlayPulsingCorners,
+      ScanOverlayStyle.cyberneticGrid => l10n.overlayCyberneticGrid,
+      ScanOverlayStyle.subtleDotMatrix => l10n.overlaySubtleDotMatrix,
     };
 
     final themeModeName = switch (themeProvider.themeMode) {
-      AppThemeMode.system => 'System Default',
-      AppThemeMode.light => 'Light Theme',
-      AppThemeMode.dark => 'Dark Theme',
-      AppThemeMode.oled => 'OLED Pure Black',
+      AppThemeMode.system => l10n.themeSystemDefault,
+      AppThemeMode.light => l10n.themeLight,
+      AppThemeMode.dark => l10n.themeDark,
+      AppThemeMode.oled => l10n.themeOled,
     };
 
-    final feedbackStatus =
-        'Vibration: ${scanProvider.isVibrationEnabled ? 'On' : 'Off'} • '
-        'Sound: ${scanProvider.isSoundEnabled ? 'On' : 'Off'}';
+    final feedbackStatus = l10n.feedbackSummary(
+      scanProvider.isVibrationEnabled ? l10n.onLabel : l10n.offLabel,
+      scanProvider.isSoundEnabled ? l10n.onLabel : l10n.offLabel,
+    );
 
     final privacyStatus = _activeProbing
-        ? 'Active online checks enabled'
-        : 'Private offline checks only';
+        ? l10n.privacySummaryOn
+        : l10n.privacySummaryOff;
 
-    final apiStatus = _hasApiKey ? 'Configured' : 'Not configured';
+    final apiStatus = _hasApiKey
+        ? l10n.apiKeyConfigured
+        : l10n.apiKeyNotConfigured;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -88,7 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _buildSettingsCard(
                     context: context,
                     icon: Icons.palette_outlined,
-                    title: 'Appearance & Theme',
+                    title: l10n.settingsAppearanceTitle,
                     subtitle: '$themeModeName • Dynamic colors',
                     onTap: () async {
                       await Navigator.push(
@@ -104,7 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _buildSettingsCard(
                     context: context,
                     icon: Icons.layers_outlined,
-                    title: 'Customizable Scan Overlay',
+                    title: l10n.settingsOverlayTitle,
                     subtitle: overlayStyleName,
                     onTap: () async {
                       await Navigator.push(
@@ -120,7 +125,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _buildSettingsCard(
                     context: context,
                     icon: Icons.vibration,
-                    title: 'Scan Feedback & Alerts',
+                    title: l10n.settingsFeedbackTitle,
                     subtitle: feedbackStatus,
                     onTap: () async {
                       await Navigator.push(
@@ -136,7 +141,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _buildSettingsCard(
                     context: context,
                     icon: Icons.security,
-                    title: 'Privacy & Online Probing',
+                    title: l10n.settingsPrivacyTitle,
                     subtitle: privacyStatus,
                     onTap: () async {
                       await Navigator.push(
@@ -151,8 +156,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _buildSettingsCard(
                     context: context,
                     icon: Icons.shield_outlined,
-                    title: 'Google Safe Browsing API',
-                    subtitle: 'API Key: $apiStatus',
+                    title: l10n.settingsSafeBrowsingTitle,
+                    subtitle: l10n.settingsApiKeySubtitle(apiStatus),
                     onTap: () async {
                       await Navigator.push(
                         context,
@@ -167,8 +172,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _buildSettingsCard(
                     context: context,
                     icon: Icons.admin_panel_settings_outlined,
-                    title: 'Permissions',
-                    subtitle: 'Explicit, implicit & setting-dependent details',
+                    title: l10n.settingsPermissionsTitle,
+                    subtitle: l10n.settingsPermissionsSubtitle,
                     onTap: () {
                       Navigator.push(
                         context,
@@ -182,9 +187,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _buildSettingsCard(
                     context: context,
                     icon: Icons.help_outline,
-                    title: 'Help & Feature Guides',
-                    subtitle:
-                        'AR CodeVision, AirQR, Quishing Guard & URL Safety',
+                    title: l10n.settingsHelpTitle,
+                    subtitle: l10n.settingsHelpSubtitle,
                     onTap: () {
                       Navigator.push(
                         context,
@@ -197,8 +201,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _buildSettingsCard(
                     context: context,
                     icon: Icons.info_outline,
-                    title: 'About',
-                    subtitle: 'App version, developer & license details',
+                    title: l10n.aboutTitle,
+                    subtitle: l10n.settingsAboutSubtitle,
                     onTap: () {
                       Navigator.push(
                         context,
@@ -276,10 +280,11 @@ class AppearanceSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Appearance & Theme')),
+      appBar: AppBar(title: Text(l10n.settingsAppearanceTitle)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -291,37 +296,40 @@ class AppearanceSettingsScreen extends StatelessWidget {
                   children: [
                     ListTile(
                       leading: const Icon(Icons.palette_outlined),
-                      title: const Text(
-                        'Theme Mode',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      title: Text(
+                        l10n.themeModeHeading,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                        _getThemeModeName(themeProvider.themeMode),
+                        _getThemeModeName(l10n, themeProvider.themeMode),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SegmentedButton<AppThemeMode>(
-                        segments: const [
+                        segments: [
                           ButtonSegment<AppThemeMode>(
                             value: AppThemeMode.system,
-                            label: Text('System'),
-                            icon: Icon(Icons.brightness_auto, size: 18),
+                            label: Text(l10n.themeChipSystem),
+                            icon: const Icon(Icons.brightness_auto, size: 18),
                           ),
                           ButtonSegment<AppThemeMode>(
                             value: AppThemeMode.light,
-                            label: Text('Light'),
-                            icon: Icon(Icons.light_mode, size: 18),
+                            label: Text(l10n.themeChipLight),
+                            icon: const Icon(Icons.light_mode, size: 18),
                           ),
                           ButtonSegment<AppThemeMode>(
                             value: AppThemeMode.dark,
-                            label: Text('Dark'),
-                            icon: Icon(Icons.dark_mode, size: 18),
+                            label: Text(l10n.themeChipDark),
+                            icon: const Icon(Icons.dark_mode, size: 18),
                           ),
                           ButtonSegment<AppThemeMode>(
                             value: AppThemeMode.oled,
-                            label: Text('OLED'),
-                            icon: Icon(Icons.power_settings_new, size: 18),
+                            label: Text(l10n.themeChipOled),
+                            icon: const Icon(
+                              Icons.power_settings_new,
+                              size: 18,
+                            ),
                           ),
                         ],
                         selected: {themeProvider.themeMode},
@@ -333,10 +341,8 @@ class AppearanceSettingsScreen extends StatelessWidget {
                     const Divider(height: 24),
                     SwitchListTile(
                       secondary: const Icon(Icons.color_lens_outlined),
-                      title: const Text('Material You Dynamic Colors'),
-                      subtitle: const Text(
-                        'Sample system wallpaper colors on Android 12+ (Monet engine)',
-                      ),
+                      title: Text(l10n.themeDynamicColorsTitle),
+                      subtitle: Text(l10n.themeDynamicColorsSubtitle),
                       value: themeProvider.useDynamicColor,
                       onChanged: (val) => themeProvider.setUseDynamicColor(val),
                     ),
@@ -350,16 +356,16 @@ class AppearanceSettingsScreen extends StatelessWidget {
     );
   }
 
-  String _getThemeModeName(AppThemeMode mode) {
+  String _getThemeModeName(AppLocalizations l10n, AppThemeMode mode) {
     switch (mode) {
       case AppThemeMode.system:
-        return 'Follow System Settings';
+        return l10n.themeDescSystem;
       case AppThemeMode.light:
-        return 'Standard Light Mode';
+        return l10n.themeDescLight;
       case AppThemeMode.dark:
-        return 'Standard Dark Mode';
+        return l10n.themeDescDark;
       case AppThemeMode.oled:
-        return 'True OLED Pure Black (Battery Saving)';
+        return l10n.themeDescOled;
     }
   }
 }
@@ -369,10 +375,11 @@ class ScanOverlaySettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Customizable Scan Overlay')),
+      appBar: AppBar(title: Text(l10n.settingsOverlayTitle)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Card(
@@ -383,9 +390,8 @@ class ScanOverlaySettingsScreen extends StatelessWidget {
                 themeProvider: themeProvider,
                 style: ScanOverlayStyle.laserLine,
                 icon: Icons.linear_scale,
-                title: 'Laser Line',
-                subtitle:
-                    'Scanning box with an animated vertical laser beam and glow line',
+                title: l10n.overlayLaserLine,
+                subtitle: l10n.overlayLaserLineDesc,
               ),
               const Divider(height: 1, indent: 16, endIndent: 16),
               _buildOverlayTile(
@@ -393,9 +399,8 @@ class ScanOverlaySettingsScreen extends StatelessWidget {
                 themeProvider: themeProvider,
                 style: ScanOverlayStyle.pulsingCorners,
                 icon: Icons.crop_free,
-                title: 'Pulsing Corners',
-                subtitle:
-                    'Breathing corner reticles with color glow and scale animation',
+                title: l10n.overlayPulsingCorners,
+                subtitle: l10n.overlayPulsingCornersDesc,
               ),
               const Divider(height: 1, indent: 16, endIndent: 16),
               _buildOverlayTile(
@@ -403,9 +408,8 @@ class ScanOverlaySettingsScreen extends StatelessWidget {
                 themeProvider: themeProvider,
                 style: ScanOverlayStyle.cyberneticGrid,
                 icon: Icons.grid_4x4,
-                title: 'Cybernetic Grid',
-                subtitle:
-                    'Sci-fi grid overlay pattern with target crosshair reticle',
+                title: l10n.overlayCyberneticGrid,
+                subtitle: l10n.overlayCyberneticGridDesc,
               ),
               const Divider(height: 1, indent: 16, endIndent: 16),
               _buildOverlayTile(
@@ -413,9 +417,8 @@ class ScanOverlaySettingsScreen extends StatelessWidget {
                 themeProvider: themeProvider,
                 style: ScanOverlayStyle.subtleDotMatrix,
                 icon: Icons.grain,
-                title: 'Subtle Dot Matrix',
-                subtitle:
-                    'Minimalist corner dot matrix pattern with pulsing accents',
+                title: l10n.overlaySubtleDotMatrix,
+                subtitle: l10n.overlaySubtleDotMatrixDesc,
               ),
             ],
           ),
@@ -462,10 +465,11 @@ class ScanFeedbackSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final scanProvider = Provider.of<ScanProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Scan Feedback & Alerts')),
+      appBar: AppBar(title: Text(l10n.settingsFeedbackTitle)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Card(
@@ -473,20 +477,16 @@ class ScanFeedbackSettingsScreen extends StatelessWidget {
             children: [
               SwitchListTile(
                 secondary: const Icon(Icons.vibration),
-                title: const Text('Vibration Feedback'),
-                subtitle: const Text(
-                  'Vibrate phone upon successful barcode recognition',
-                ),
+                title: Text(l10n.feedbackVibrationTitle),
+                subtitle: Text(l10n.feedbackVibrationSubtitle),
                 value: scanProvider.isVibrationEnabled,
                 onChanged: (val) => scanProvider.setVibrationEnabled(val),
               ),
               const Divider(height: 1, indent: 16, endIndent: 16),
               SwitchListTile(
                 secondary: const Icon(Icons.volume_up_outlined),
-                title: const Text('Audible Beep Sound'),
-                subtitle: const Text(
-                  'Play audio beep signal upon successful code recognition',
-                ),
+                title: Text(l10n.feedbackSoundTitle),
+                subtitle: Text(l10n.feedbackSoundSubtitle),
                 value: scanProvider.isSoundEnabled,
                 onChanged: (val) => scanProvider.setSoundEnabled(val),
               ),
@@ -543,8 +543,9 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Privacy & Network Probing')),
+      appBar: AppBar(title: Text(l10n.privacyScreenTitle)),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -561,14 +562,11 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
                         ),
                         value: _activeProbing,
                         onChanged: _setActiveProbing,
-                        title: const Text(
-                          'Active online checks',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        title: Text(
+                          l10n.privacyActiveChecksTitle,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        subtitle: const Text(
-                          'Off: scanned links are checked privately — the destination '
-                          'server is never contacted.',
-                        ),
+                        subtitle: Text(l10n.privacyActiveChecksSubtitle),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
@@ -588,15 +586,8 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
                             Expanded(
                               child: Text(
                                 _activeProbing
-                                    ? 'When on, the SSL, redirect and shortener checks '
-                                          'connect directly to the scanned site. This '
-                                          'exposes your IP address (and therefore your '
-                                          'approximate location and mobile carrier) to that '
-                                          'server before you open the link.'
-                                    : 'SSL, redirect and shortener checks run from local '
-                                          'rules only. Malicious-content lookup still uses '
-                                          'Google Safe Browsing (the link is sent only to '
-                                          'Google, never to the scanned site).',
+                                    ? l10n.privacyExplainerOn
+                                    : l10n.privacyExplainerOff,
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: _activeProbing
@@ -689,6 +680,7 @@ class _SafeBrowsingSettingsScreenState
   }
 
   Future<void> _saveApiKey() async {
+    final l10n = AppLocalizations.of(context);
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _isLoading = true);
@@ -716,8 +708,8 @@ class _SafeBrowsingSettingsScreenState
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('API key saved securely'),
+          SnackBar(
+            content: Text(l10n.apiKeySaved),
             backgroundColor: Colors.green,
           ),
         );
@@ -726,7 +718,7 @@ class _SafeBrowsingSettingsScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error saving API key: $e'),
+            content: Text(l10n.apiKeySaveFailed(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -737,23 +729,21 @@ class _SafeBrowsingSettingsScreenState
   }
 
   Future<void> _deleteApiKey() async {
+    final l10n = AppLocalizations.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete API Key'),
-        content: const Text(
-          'Are you sure you want to delete your Google Safe Browsing API key? '
-          'URL malicious content checking will be disabled.',
-        ),
+        title: Text(l10n.apiKeyDeleteTitle),
+        content: Text(l10n.apiKeyDeleteMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancelButton),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Delete'),
+            child: Text(l10n.deleteButton),
           ),
         ],
       ),
@@ -773,8 +763,8 @@ class _SafeBrowsingSettingsScreenState
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('API key deleted'),
+          SnackBar(
+            content: Text(l10n.apiKeyDeleted),
             backgroundColor: Colors.orange,
           ),
         );
@@ -783,7 +773,7 @@ class _SafeBrowsingSettingsScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error deleting API key: $e'),
+            content: Text(l10n.apiKeyDeleteFailed(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -795,8 +785,9 @@ class _SafeBrowsingSettingsScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Google Safe Browsing API')),
+      appBar: AppBar(title: Text(l10n.settingsSafeBrowsingTitle)),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -824,6 +815,7 @@ class _SafeBrowsingSettingsScreenState
   }
 
   Widget _buildInfoCard() {
+    final l10n = AppLocalizations.of(context);
     return Card(
       color: Colors.blue[50],
       child: Padding(
@@ -837,7 +829,7 @@ class _SafeBrowsingSettingsScreenState
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'About Safe Browsing API',
+                    l10n.apiAboutHeading,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.blue[700],
@@ -848,9 +840,7 @@ class _SafeBrowsingSettingsScreenState
             ),
             const SizedBox(height: 12),
             Text(
-              'The Google Safe Browsing API helps detect malicious URLs including '
-              'phishing, malware, and unwanted software. Your API key is stored '
-              'securely and encrypted on your device.',
+              l10n.apiAboutBody,
               style: TextStyle(fontSize: 14, color: Colors.blue[900]),
             ),
             const SizedBox(height: 12),
@@ -871,7 +861,7 @@ class _SafeBrowsingSettingsScreenState
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Daily Limit: $maxRequestsPerDay requests per day',
+                      l10n.apiDailyLimit(maxRequestsPerDay),
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -889,6 +879,7 @@ class _SafeBrowsingSettingsScreenState
   }
 
   Widget _buildApiKeyStatusCard() {
+    final l10n = AppLocalizations.of(context);
     return Card(
       color: Colors.green[50],
       child: Padding(
@@ -902,7 +893,7 @@ class _SafeBrowsingSettingsScreenState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'API Key Configured',
+                    l10n.apiKeyConfiguredTitle,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -911,7 +902,7 @@ class _SafeBrowsingSettingsScreenState
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Malicious URL checking is enabled',
+                    l10n.apiKeyConfiguredSubtitle,
                     style: TextStyle(fontSize: 14, color: Colors.green[900]),
                   ),
                 ],
@@ -924,6 +915,7 @@ class _SafeBrowsingSettingsScreenState
   }
 
   Widget _buildUsageCard() {
+    final l10n = AppLocalizations.of(context);
     final percentage = (_requestsToday / maxRequestsPerDay * 100).clamp(
       0.0,
       100.0,
@@ -941,7 +933,7 @@ class _SafeBrowsingSettingsScreenState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Today\'s Usage',
+                  l10n.apiTodaysUsage,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -993,7 +985,7 @@ class _SafeBrowsingSettingsScreenState
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Daily limit reached. Resets tomorrow.',
+                        l10n.apiLimitReached,
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
@@ -1023,7 +1015,7 @@ class _SafeBrowsingSettingsScreenState
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Approaching daily limit',
+                        l10n.apiLimitApproaching,
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
@@ -1037,7 +1029,7 @@ class _SafeBrowsingSettingsScreenState
             ],
             const SizedBox(height: 8),
             Text(
-              'Resets: ${_lastResetDate ?? 'Unknown'}',
+              l10n.apiResets(_lastResetDate ?? l10n.unknownLabel),
               style: TextStyle(fontSize: 12, color: Colors.grey[600]),
             ),
           ],
@@ -1047,6 +1039,7 @@ class _SafeBrowsingSettingsScreenState
   }
 
   Widget _buildApiKeyForm() {
+    final l10n = AppLocalizations.of(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -1056,8 +1049,8 @@ class _SafeBrowsingSettingsScreenState
             controller: _apiKeyController,
             obscureText: _isObscured,
             decoration: InputDecoration(
-              labelText: 'API Key',
-              hintText: 'Enter your Google Safe Browsing API key',
+              labelText: l10n.apiKeyFieldLabel,
+              hintText: l10n.apiKeyFieldHint,
               border: const OutlineInputBorder(),
               suffixIcon: IconButton(
                 icon: Icon(
@@ -1070,10 +1063,10 @@ class _SafeBrowsingSettingsScreenState
             ),
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
-                return 'Please enter an API key';
+                return l10n.apiKeyRequired;
               }
               if (value.trim().length < 20) {
-                return 'API key appears to be too short';
+                return l10n.apiKeyTooShort;
               }
               return null;
             },
@@ -1084,7 +1077,7 @@ class _SafeBrowsingSettingsScreenState
             child: ElevatedButton.icon(
               onPressed: _saveApiKey,
               icon: const Icon(Icons.save),
-              label: const Text('Save API Key'),
+              label: Text(l10n.apiKeySaveButton),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
@@ -1096,12 +1089,13 @@ class _SafeBrowsingSettingsScreenState
   }
 
   Widget _buildDeleteButton() {
+    final l10n = AppLocalizations.of(context);
     return SizedBox(
       width: double.infinity,
       child: OutlinedButton.icon(
         onPressed: _deleteApiKey,
         icon: const Icon(Icons.delete),
-        label: const Text('Delete API Key'),
+        label: Text(l10n.apiKeyDeleteTitle),
         style: OutlinedButton.styleFrom(
           foregroundColor: Colors.red,
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -1111,45 +1105,26 @@ class _SafeBrowsingSettingsScreenState
   }
 
   Widget _buildHowToGetApiKey() {
+    final l10n = AppLocalizations.of(context);
     return Card(
       child: ExpansionTile(
         leading: const Icon(Icons.help_outline),
-        title: const Text('How to get an API key'),
+        title: Text(l10n.apiHowToHeading),
         children: [
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildStep(
-                  '1',
-                  'Go to Google Cloud Console',
-                  'Visit console.cloud.google.com',
-                ),
+                _buildStep('1', l10n.apiStep1Title, l10n.apiStep1Desc),
                 const SizedBox(height: 12),
-                _buildStep(
-                  '2',
-                  'Create or select a project',
-                  'Choose an existing project or create a new one',
-                ),
+                _buildStep('2', l10n.apiStep2Title, l10n.apiStep2Desc),
                 const SizedBox(height: 12),
-                _buildStep(
-                  '3',
-                  'Enable Safe Browsing API',
-                  'Search for "Safe Browsing API" and enable it',
-                ),
+                _buildStep('3', l10n.apiStep3Title, l10n.apiStep3Desc),
                 const SizedBox(height: 12),
-                _buildStep(
-                  '4',
-                  'Create credentials',
-                  'Go to Credentials → Create Credentials → API Key',
-                ),
+                _buildStep('4', l10n.apiStep4Title, l10n.apiStep4Desc),
                 const SizedBox(height: 12),
-                _buildStep(
-                  '5',
-                  'Copy and paste',
-                  'Copy the generated API key and paste it above',
-                ),
+                _buildStep('5', l10n.apiStep5Title, l10n.apiStep5Desc),
                 const SizedBox(height: 16),
                 Container(
                   padding: const EdgeInsets.all(12),
@@ -1163,7 +1138,7 @@ class _SafeBrowsingSettingsScreenState
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          'Free tier includes 10,000 requests per day',
+                          l10n.apiFreeTierNote,
                           style: TextStyle(
                             fontSize: 13,
                             color: Colors.blue[900],
@@ -1219,8 +1194,9 @@ class PermissionsSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Permissions Overview')),
+      appBar: AppBar(title: Text(l10n.permissionsScreenTitle)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -1228,133 +1204,123 @@ class PermissionsSettingsScreen extends StatelessWidget {
           children: [
             _buildSectionHeader(
               context,
-              title: 'Explicit Permissions (Runtime / Manifest)',
+              title: l10n.permissionsExplicitHeading,
               icon: Icons.security_outlined,
             ),
-            const Card(
-              margin: EdgeInsets.only(bottom: 20),
+            Card(
+              margin: const EdgeInsets.only(bottom: 20),
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.camera_alt_outlined,
                       color: Colors.blue,
                     ),
                     title: Text(
-                      'Camera Access (android.permission.CAMERA)',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      l10n.permissionCameraTitle,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      'Requested on-demand at point of use. Required for live scanning, AR CodeVision HUD overlay, and AirQR optical stream decoding.',
-                    ),
+                    subtitle: Text(l10n.permissionCameraDesc),
                   ),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                   ListTile(
-                    leading: Icon(Icons.fingerprint, color: Colors.purple),
+                    leading: const Icon(
+                      Icons.fingerprint,
+                      color: Colors.purple,
+                    ),
                     title: Text(
-                      'Biometric Authentication (android.permission.USE_BIOMETRIC)',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      l10n.permissionBiometricTitle,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      'Requested when unlocking biometric secure vaults or encrypted QR code payloads.',
-                    ),
+                    subtitle: Text(l10n.permissionBiometricDesc),
                   ),
                 ],
               ),
             ),
             _buildSectionHeader(
               context,
-              title: 'Implicit & System Permissions',
+              title: l10n.permissionsImplicitHeading,
               icon: Icons.settings_suggest_outlined,
             ),
-            const Card(
-              margin: EdgeInsets.only(bottom: 20),
+            Card(
+              margin: const EdgeInsets.only(bottom: 20),
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.wifi, color: Colors.teal),
+                    leading: const Icon(Icons.wifi, color: Colors.teal),
                     title: Text(
-                      'Internet Access (android.permission.INTERNET)',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      l10n.permissionInternetTitle,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      'Declared in Android Manifest. Used only when Active Online Probing or Google Safe Browsing API lookup is enabled.',
-                    ),
+                    subtitle: Text(l10n.permissionInternetDesc),
                   ),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                   ListTile(
-                    leading: Icon(Icons.vibration, color: Colors.orange),
+                    leading: const Icon(Icons.vibration, color: Colors.orange),
                     title: Text(
-                      'Vibration & Haptics (android.permission.VIBRATE)',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      l10n.permissionVibrateTitle,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      'System permission. Triggers haptic vibration feedback during scan alerts and button taps.',
-                    ),
+                    subtitle: Text(l10n.permissionVibrateDesc),
                   ),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                   ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.photo_library_outlined,
                       color: Colors.indigo,
                     ),
                     title: Text(
-                      'Scoped Media Photo Picker',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      l10n.permissionPhotoPickerTitle,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      'System photo picker access. Allows selecting QR images or videos from gallery without requesting full storage access.',
-                    ),
+                    subtitle: Text(l10n.permissionPhotoPickerDesc),
                   ),
                 ],
               ),
             ),
             _buildSectionHeader(
               context,
-              title: 'Setting-Dependent Permissions',
+              title: l10n.permissionsSettingHeading,
               icon: Icons.toggle_on_outlined,
             ),
-            const Card(
-              margin: EdgeInsets.only(bottom: 20),
+            Card(
+              margin: const EdgeInsets.only(bottom: 20),
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.travel_explore, color: Colors.amber),
+                    leading: const Icon(
+                      Icons.travel_explore,
+                      color: Colors.amber,
+                    ),
                     title: Text(
-                      'Active Online Probing (Privacy Setting)',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      l10n.permissionProbingTitle,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      'Active only when enabled. Performs outbound HTTP HEAD requests to follow URL redirects and check SSL certificates. When disabled, checks are 100% offline.',
-                    ),
+                    subtitle: Text(l10n.permissionProbingDesc),
                   ),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                   ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.cloud_sync_outlined,
                       color: Colors.lightBlue,
                     ),
                     title: Text(
-                      'Google Safe Browsing API (API Key Setting)',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      l10n.permissionSafeBrowsingTitle,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      'Active only when API key is configured. Queries Google Threat API for malware & phishing checks.',
-                    ),
+                    subtitle: Text(l10n.permissionSafeBrowsingDesc),
                   ),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                   ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.touch_app_outlined,
                       color: Colors.deepOrange,
                     ),
                     title: Text(
-                      'Scan Feedback Vibrations (Alert Setting)',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      l10n.permissionFeedbackTitle,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      'Active only when Vibration is enabled in Scan Feedback & Alerts settings.',
-                    ),
+                    subtitle: Text(l10n.permissionFeedbackDesc),
                   ),
                 ],
               ),
@@ -1397,8 +1363,9 @@ class HelpSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Help & Feature Guides')),
+      appBar: AppBar(title: Text(l10n.settingsHelpTitle)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -1406,63 +1373,59 @@ class HelpSettingsScreen extends StatelessWidget {
             _buildHelpCard(
               context: context,
               icon: Icons.view_in_ar,
-              title: 'AR CodeVision HUD',
-              badgeText: 'Augmented Reality',
-              description:
-                  'Real-time camera overlay feature that highlights and visualizes barcode and QR code data directly within the 3D viewfinder.',
+              title: l10n.arScreenTitle,
+              badgeText: l10n.helpArBadge,
+              description: l10n.helpArDesc,
               details: [
-                'Multi-Target Detection: Automatically detects, indexes, and tracks multiple barcodes simultaneously in real time.',
-                'Spatial Bounding Boxes: Overlays dynamic AR reticles and interactive floating chips above each detected code.',
-                'Interactive Action Sheet: Tap any detected AR chip to inspect payload details, copy data, or execute smart actions without exiting the camera.',
-                'Camera Viewport Suite: Built-in torch toggle, front/rear camera switching, and pinch-to-zoom controls.',
+                l10n.helpArPoint1,
+                l10n.helpArPoint2,
+                l10n.helpArPoint3,
+                l10n.helpArPoint4,
               ],
             ),
             const SizedBox(height: 16),
             _buildHelpCard(
               context: context,
               icon: Icons.stream,
-              title: 'AirQR Stream Receiver',
-              badgeText: 'Optical Data Protocol',
-              description:
-                  'High-speed optical data transfer receiver designed to reconstruct large multi-part payloads serialized across animated QR code loops.',
+              title: l10n.airQrReceiverTitle,
+              badgeText: l10n.helpAirQrBadge,
+              description: l10n.helpAirQrDesc,
               details: [
-                'Sequential Frame Assembly: Scans animated QR streams (AirQR format) frame-by-frame and stitches chunks back into complete files or text.',
-                'Real-Time Live Progress: Interactive progress indicator displaying completed percentage, total payload size, missing chunk count, and decoding speed.',
-                'Dual Input Modes: Supports live scanning through the camera feed or offline processing by importing saved video recordings/images from gallery.',
-                'AirQR Transmitter: Reverse mode allowing payload generation and animated QR stream transmission to other devices.',
+                l10n.helpAirQrPoint1,
+                l10n.helpAirQrPoint2,
+                l10n.helpAirQrPoint3,
+                l10n.helpAirQrPoint4,
               ],
             ),
             const SizedBox(height: 16),
             _buildHelpCard(
               context: context,
               icon: Icons.qr_code_scanner,
-              title: 'Quishing Guard (Physical QR Sticker Tamper Check)',
-              badgeText: 'On-Device Computer Vision',
-              description:
-                  'On-device computer vision engine that detects physical QR code sticker tampering, fake code overlays, and print alterations before processing payloads.',
+              title: l10n.helpQuishingTitle,
+              badgeText: l10n.helpQuishingBadge,
+              description: l10n.helpQuishingDesc,
               details: [
-                '100% Offline & Private Guarantee: Operates entirely on-device using local camera frame computer vision with zero internet connection required.',
-                'Physical Sticker & Overlay Detection: Identifies physical stickers pasted over legitimate printed QR codes.',
-                'Edge & Alignment Anomaly Analysis: Checks for suspicious boundaries, cutouts, and alignment discrepancies.',
-                'Print Texture & Contrast Verification: Analyzes visual print artifacts, reflectivity shifts, and paper texture inconsistencies.',
+                l10n.helpQuishingPoint1,
+                l10n.helpQuishingPoint2,
+                l10n.helpQuishingPoint3,
+                l10n.helpQuishingPoint4,
               ],
             ),
             const SizedBox(height: 16),
             _buildHelpCard(
               context: context,
               icon: Icons.verified_user_outlined,
-              title: 'URL Safety & Link Tamper Engine',
-              badgeText: '6-Layer Digital Safety',
-              description:
-                  'Comprehensive digital link analysis suite protecting against malicious web links, phishing (Quishing), and URL payload tampering.',
+              title: l10n.helpUrlTitle,
+              badgeText: l10n.helpUrlBadge,
+              description: l10n.helpUrlDesc,
               details: [
-                'Homograph & IDN Attack Detection: Identifies spoofed domain names using mixed-script Cyrillic or lookalike Unicode characters.',
-                'Zero-Width Space & Character Tamper Detector: Detects hidden zero-width spaces, non-printable control characters, or obfuscated payloads embedded in links.',
-                'IP Literal & Userinfo Verification: Flags suspicious IP address hostnames and dangerous embedded credentials (e.g. user:pass@host).',
-                'Suspicious TLD & Pattern Analysis: Scans for risky top-level domains, excessive subdomains, and unencrypted HTTP connections carrying login/payment data.',
-                'URL Shortener Unrolling & Redirect Tracing: Identifies shortened links (bit.ly, t.co) and traces redirect chains (Active Probing required for live HTTP inspection).',
-                'Google Safe Browsing Cloud Lookup: Optional cloud check against Google threat database when configured with an API key.',
-                'Privacy First Guarantee: Core 5 pattern checks run 100% offline on your device without sending URLs anywhere.',
+                l10n.helpUrlPoint1,
+                l10n.helpUrlPoint2,
+                l10n.helpUrlPoint3,
+                l10n.helpUrlPoint4,
+                l10n.helpUrlPoint5,
+                l10n.helpUrlPoint6,
+                l10n.helpUrlPoint7,
               ],
             ),
           ],
@@ -1479,6 +1442,7 @@ class HelpSettingsScreen extends StatelessWidget {
     required String description,
     required List<String> details,
   }) {
+    final l10n = AppLocalizations.of(context);
     return Card(
       child: ExpansionTile(
         leading: Container(
@@ -1520,9 +1484,9 @@ class HelpSettingsScreen extends StatelessWidget {
         children: [
           Text(description, style: const TextStyle(fontSize: 14, height: 1.4)),
           const SizedBox(height: 12),
-          const Text(
-            'Key Capabilities:',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+          Text(
+            l10n.helpCapabilitiesHeading,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
           ),
           const SizedBox(height: 8),
           ...details.map(

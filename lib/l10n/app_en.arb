@@ -1,11 +1,9 @@
 {
   "@@locale": "en",
-
   "appTitle": "Sreeraj P QR Reader",
   "@appTitle": {
     "description": "The application name, shown as the task title and in the About screen"
   },
-
   "wifiCardTitle": "Wi-Fi Network",
   "@wifiCardTitle": {
     "description": "Label above the network name on the Wi-Fi action card"
@@ -34,20 +32,25 @@
   "@wifiOpenSettingsHint": {
     "description": "Message shown when the app cannot open Wi-Fi settings directly"
   },
-
   "geoLatLng": "Lat: {latitude}, Lng: {longitude}",
   "@geoLatLng": {
     "description": "Coordinates line on the location action card",
     "placeholders": {
-      "latitude": { "type": "String" },
-      "longitude": { "type": "String" }
+      "latitude": {
+        "type": "String"
+      },
+      "longitude": {
+        "type": "String"
+      }
     }
   },
   "geoQuery": "Query: {query}",
   "@geoQuery": {
     "description": "Search text carried by a scanned location code",
     "placeholders": {
-      "query": { "type": "String" }
+      "query": {
+        "type": "String"
+      }
     }
   },
   "geoNavigateButton": "Navigate in Google Maps",
@@ -58,7 +61,6 @@
   "@geoLaunchFailed": {
     "description": "Message shown when Google Maps cannot be opened"
   },
-
   "calendarCardTitle": "Calendar Event",
   "@calendarCardTitle": {
     "description": "Label above the event name on the calendar action card"
@@ -71,14 +73,18 @@
   "@calendarStart": {
     "description": "Start date and time of a scanned calendar event",
     "placeholders": {
-      "dateTime": { "type": "String" }
+      "dateTime": {
+        "type": "String"
+      }
     }
   },
   "calendarEnd": "End:   {dateTime}",
   "@calendarEnd": {
     "description": "End date and time of a scanned calendar event. The extra spaces line it up under the start line",
     "placeholders": {
-      "dateTime": { "type": "String" }
+      "dateTime": {
+        "type": "String"
+      }
     }
   },
   "calendarAddButton": "Add to Device Calendar",
@@ -89,7 +95,6 @@
   "@calendarLaunchFailed": {
     "description": "Message shown when the calendar app cannot be opened"
   },
-
   "contactCardTitle": "Contact Card",
   "@contactCardTitle": {
     "description": "Label above the person's name on the contact action card"
@@ -110,60 +115,74 @@
   "@contactCallFailed": {
     "description": "Message shown when a phone call cannot be started",
     "placeholders": {
-      "number": { "type": "String" }
+      "number": {
+        "type": "String"
+      }
     }
   },
   "contactEmailFailed": "Could not open email app for {email}",
   "@contactEmailFailed": {
     "description": "Message shown when the email app cannot be opened",
     "placeholders": {
-      "email": { "type": "String" }
+      "email": {
+        "type": "String"
+      }
     }
   },
-
   "pdfResultsTitle": "PDF Scan Results ({count})",
   "@pdfResultsTitle": {
     "description": "Title of the sheet listing codes found in a PDF, with how many were found",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "pdfPageBadge": "P{page}",
   "@pdfPageBadge": {
     "description": "Short page badge on a PDF result row, for example P3",
     "placeholders": {
-      "page": { "type": "int" }
+      "page": {
+        "type": "int"
+      }
     }
   },
   "pdfPageLabel": "Page {page}",
   "@pdfPageLabel": {
     "description": "Page number of a code found in a PDF",
     "placeholders": {
-      "page": { "type": "int" }
+      "page": {
+        "type": "int"
+      }
     }
   },
   "pdfSaveAllButton": "Save All ({count}) to History",
   "@pdfSaveAllButton": {
     "description": "Button that saves every code found in the PDF to history",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "pdfScanNote": "Scanned from PDF (Page {page})",
   "@pdfScanNote": {
     "description": "Note stored with a history record for a code found in a PDF",
     "placeholders": {
-      "page": { "type": "int" }
+      "page": {
+        "type": "int"
+      }
     }
   },
   "pdfSavedToHistory": "Saved {count} codes to history.",
   "@pdfSavedToHistory": {
     "description": "Message shown after saving all PDF codes to history",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "totpDefaultIssuer": "2FA Authenticator",
   "@totpDefaultIssuer": {
     "description": "Shown in place of the issuer name when a scanned 2FA code has none"
@@ -172,14 +191,18 @@
   "@totpLivePasscode": {
     "description": "Label above the rolling one-time passcode, with how many seconds each code lasts",
     "placeholders": {
-      "period": { "type": "int" }
+      "period": {
+        "type": "int"
+      }
     }
   },
   "totpSecondsLeft": "{seconds}s",
   "@totpSecondsLeft": {
     "description": "Seconds left before the current one-time passcode changes",
     "placeholders": {
-      "seconds": { "type": "int" }
+      "seconds": {
+        "type": "int"
+      }
     }
   },
   "totpCopyToken": "Copy Token",
@@ -206,7 +229,6 @@
   "@totpSecretCopied": {
     "description": "Message shown after the 2FA secret key is copied"
   },
-
   "paymentSchemeUpi": "UPI Payment",
   "@paymentSchemeUpi": {
     "description": "Title of the payment card for an Indian UPI code"
@@ -251,7 +273,9 @@
   "@paymentNote": {
     "description": "Transaction note carried by a scanned payment code",
     "placeholders": {
-      "note": { "type": "String" }
+      "note": {
+        "type": "String"
+      }
     }
   },
   "paymentPayButtonUpi": "Pay via App (GPay / PhonePe / Paytm)",
@@ -274,15 +298,15 @@
   "@paymentCopyIdAction": {
     "description": "Action on the failure message that copies the payee address instead"
   },
-
   "percentValue": "{value}%",
   "@percentValue": {
     "description": "A percentage shown to the user, for example 42%",
     "placeholders": {
-      "value": { "type": "String" }
+      "value": {
+        "type": "String"
+      }
     }
   },
-
   "quishingGuardTitle": "QuishingGuard™",
   "@quishingGuardTitle": {
     "description": "Name of the feature that checks a printed code for physical tampering"
@@ -323,7 +347,6 @@
   "@quishingSignalsHeading": {
     "description": "Heading above the list of tamper findings"
   },
-
   "arCloseSheet": "Close Sheet",
   "@arCloseSheet": {
     "description": "Tooltip on the button that closes the AR detail sheet"
@@ -332,7 +355,9 @@
   "@arItemPriceTag": {
     "description": "Price read from a scanned item label in warehouse mode",
     "placeholders": {
-      "price": { "type": "String" }
+      "price": {
+        "type": "String"
+      }
     }
   },
   "arContentCopied": "Copied content to clipboard",
@@ -367,18 +392,20 @@
   "@arSafetyStatusUnknown": {
     "description": "Shown while the AR target link is still being checked"
   },
-
   "copiedToClipboard": "Copied to clipboard",
   "@copiedToClipboard": {
     "description": "Message shown after content is copied, used on several screens"
   },
-
   "historyTimestamp": "{date} • {time}",
   "@historyTimestamp": {
     "description": "Date and time of a saved scan, joined by a dot",
     "placeholders": {
-      "date": { "type": "String" },
-      "time": { "type": "String" }
+      "date": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
     }
   },
   "historyStar": "Star favorite",
@@ -413,14 +440,18 @@
   "@historySafetyBadge": {
     "description": "Safety score badge on a saved scan",
     "placeholders": {
-      "score": { "type": "int" }
+      "score": {
+        "type": "int"
+      }
     }
   },
   "historyScoreBadge": "🛡️ {score}%",
   "@historyScoreBadge": {
     "description": "Short safety score badge on a history card",
     "placeholders": {
-      "score": { "type": "int" }
+      "score": {
+        "type": "int"
+      }
     }
   },
   "historyScannedContent": "Scanned Content:",
@@ -451,12 +482,10 @@
   "@historySaveChanges": {
     "description": "Button that saves the edited note and location"
   },
-
   "closeButton": "Close",
   "@closeButton": {
     "description": "Button that closes a dialog, used on several screens"
   },
-
   "exportDialogTitle": "Export & Cloud Backup",
   "@exportDialogTitle": {
     "description": "Title of the dialog when it is exporting scan history"
@@ -537,12 +566,10 @@
   "@exportSharePdfText": {
     "description": "Message attached when sharing the PDF history report"
   },
-
   "exportShareBackupText": "Sreeraj QR Reader Encrypted Backup File",
   "@exportShareBackupText": {
     "description": "Message attached when sharing the encrypted backup file"
   },
-
   "restoreHeading": "Restore History from Encrypted Backup File:",
   "@restoreHeading": {
     "description": "Heading above the restore controls"
@@ -571,17 +598,20 @@
   "@restoreSuccess": {
     "description": "Message shown after a backup is restored",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "restoreFailed": "Restore failed: {reason}",
   "@restoreFailed": {
     "description": "Message shown when a backup could not be restored",
     "placeholders": {
-      "reason": { "type": "String" }
+      "reason": {
+        "type": "String"
+      }
     }
   },
-
   "domSandboxedBadge": "SANDBOXED",
   "@domSandboxedBadge": {
     "description": "Badge saying the page preview ran with scripts blocked"
@@ -602,22 +632,30 @@
   "@domBlockedBadge": {
     "description": "Badge counting the scripts and trackers the preview blocked",
     "placeholders": {
-      "scripts": { "type": "int" },
-      "trackers": { "type": "int" }
+      "scripts": {
+        "type": "int"
+      },
+      "trackers": {
+        "type": "int"
+      }
     }
   },
   "domNewlyRegistered": "Newly Registered ({days}d)",
   "@domNewlyRegistered": {
     "description": "Badge warning that the site domain was registered very recently",
     "placeholders": {
-      "days": { "type": "int" }
+      "days": {
+        "type": "int"
+      }
     }
   },
   "domDomainAge": "Domain Age: {days} days",
   "@domDomainAge": {
     "description": "Badge showing how old the site domain is",
     "placeholders": {
-      "days": { "type": "int" }
+      "days": {
+        "type": "int"
+      }
     }
   },
   "domOpenRedirectFound": "Open Redirect Trap!",
@@ -660,7 +698,9 @@
   "@domDetailHeadingsValue": {
     "description": "How many headings were read from the page",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "domDetailLinksFound": "Links Found",
@@ -671,7 +711,9 @@
   "@domDetailLinksValue": {
     "description": "How many links were read from the page",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "domDetailBlockedScripts": "Blocked Scripts",
@@ -682,7 +724,9 @@
   "@domDetailBlockedScriptsValue": {
     "description": "How many scripts were removed before the preview",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "domDetailBlockedTrackers": "Blocked Trackers",
@@ -693,7 +737,9 @@
   "@domDetailBlockedTrackersValue": {
     "description": "How many trackers were removed before the preview",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "domDetailBlockedIframes": "Blocked Iframes",
@@ -704,14 +750,15 @@
   "@domDetailBlockedIframesValue": {
     "description": "How many embedded frames were removed before the preview",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "domSanitizedSnippetHeading": "Sanitized HTML Preview Snippet:",
   "@domSanitizedSnippetHeading": {
     "description": "Heading above the cleaned page source snippet"
   },
-
   "aboutTitle": "About",
   "@aboutTitle": {
     "description": "Title of the About screen"
@@ -720,15 +767,18 @@
   "@aboutVersion": {
     "description": "App version and build number on the About screen",
     "placeholders": {
-      "version": { "type": "String" },
-      "build": { "type": "String" }
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
     }
   },
   "aboutMadeWithLove": "Made with ❤️ from India",
   "@aboutMadeWithLove": {
     "description": "Footer line on the About screen"
   },
-
   "airQrTransmitterTitle": "AirQR Stream Transmitter",
   "@airQrTransmitterTitle": {
     "description": "Title of the screen that sends data as a stream of codes"
@@ -753,7 +803,9 @@
   "@airQrFps": {
     "description": "How many code frames are shown per second",
     "placeholders": {
-      "fps": { "type": "int" }
+      "fps": {
+        "type": "int"
+      }
     }
   },
   "airQrStartStream": "Broadcast Optical Stream",
@@ -768,29 +820,44 @@
   "@airQrFrameParity": {
     "description": "Caption under a repair frame of the stream",
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "airQrFrameBlock": "Frame {current}/{total} [Block {block}]",
   "@airQrFrameBlock": {
     "description": "Caption under a data frame of the stream",
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" },
-      "block": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "block": {
+        "type": "int"
+      }
     }
   },
   "airQrTotalFrames": "Total Stream Frames: {total} ({source} Source + {parity} Fountain FEC)",
   "@airQrTotalFrames": {
     "description": "Summary of how many frames the stream holds",
     "placeholders": {
-      "total": { "type": "int" },
-      "source": { "type": "int" },
-      "parity": { "type": "int" }
+      "total": {
+        "type": "int"
+      },
+      "source": {
+        "type": "int"
+      },
+      "parity": {
+        "type": "int"
+      }
     }
   },
-
   "toggleFlashlight": "Toggle Flashlight",
   "@toggleFlashlight": {
     "description": "Tooltip on the button that turns the camera light on or off"
@@ -799,7 +866,6 @@
   "@grantCameraPermission": {
     "description": "Button that asks the system for camera permission again"
   },
-
   "arScreenTitle": "AR CodeVision HUD",
   "@arScreenTitle": {
     "description": "Title of the screen that marks up live camera view with found codes"
@@ -820,19 +886,19 @@
   "@arBatchCopied": {
     "description": "Message shown after copying several codes at once",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "arCameraPermissionMessage": "Camera permission is required for AR CodeVision",
   "@arCameraPermissionMessage": {
     "description": "Shown when camera permission is missing on the AR screen"
   },
-
   "doneButton": "Done",
   "@doneButton": {
     "description": "Button that closes a finished step, used on several screens"
   },
-
   "airQrReceiverTitle": "AirQR Stream Receiver",
   "@airQrReceiverTitle": {
     "description": "Title of the screen that reads a stream of codes"
@@ -865,15 +931,21 @@
   "@airQrCaptured": {
     "description": "How many parts of the stream have been read so far",
     "placeholders": {
-      "received": { "type": "int" },
-      "total": { "type": "int" }
+      "received": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "airQrMissing": "Missing: {count}",
   "@airQrMissing": {
     "description": "How many parts of the stream are still missing",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "airQrTransferComplete": "Air-Gap Transfer Complete!",
@@ -888,12 +960,10 @@
   "@airQrPayloadCopied": {
     "description": "Message shown after the received data is copied"
   },
-
   "cancelButton": "Cancel",
   "@cancelButton": {
     "description": "Button that closes a dialog without acting, used on several screens"
   },
-
   "historyScreenTitle": "Scan History",
   "@historyScreenTitle": {
     "description": "Title of the saved scans screen"
@@ -958,10 +1028,11 @@
   "@historyNoMatches": {
     "description": "Shown when a search over saved scans finds nothing",
     "placeholders": {
-      "query": { "type": "String" }
+      "query": {
+        "type": "String"
+      }
     }
   },
-
   "moreOptions": "More options",
   "@moreOptions": {
     "description": "Tooltip on the button that opens the overflow menu"
@@ -978,7 +1049,6 @@
   "@grantPermission": {
     "description": "Button that asks the system for a permission again"
   },
-
   "scanFromGallery": "Scan Image from Gallery",
   "@scanFromGallery": {
     "description": "Tooltip on the button that reads a code from a saved picture"
@@ -1019,7 +1089,9 @@
   "@scanZoomValue": {
     "description": "A zoom level, for example 2.5x",
     "placeholders": {
-      "value": { "type": "String" }
+      "value": {
+        "type": "String"
+      }
     }
   },
   "scanViewfinderHint": "Position QR code or barcode within the frame",
@@ -1030,7 +1102,6 @@
   "@scanCameraPermissionRequired": {
     "description": "Shown when camera permission is missing on the scanner screen"
   },
-
   "copiedLabel": "Copied!",
   "@copiedLabel": {
     "description": "Short confirmation shown on a button right after copying"
@@ -1047,7 +1118,6 @@
   "@openAnywayButton": {
     "description": "Button that opens a link despite a safety warning"
   },
-
   "resultScreenTitle": "Scan Result",
   "@resultScreenTitle": {
     "description": "Title of the screen showing what was scanned"
@@ -1104,7 +1174,6 @@
   "@resultLaunchFailed": {
     "description": "Message shown when a link could not be opened"
   },
-
   "stegoUnlockedMessage": "The hidden AES-256 encrypted payload has been decrypted successfully.",
   "@stegoUnlockedMessage": {
     "description": "Shown after the hidden secret layer has been unlocked"
@@ -1157,7 +1226,6 @@
   "@stegoUnlockButton": {
     "description": "Button that confirms the unlock dialog"
   },
-
   "safetyCheckInProgress": "Security Check In Progress",
   "@safetyCheckInProgress": {
     "description": "Title shown while the link safety checks are running"
@@ -1174,7 +1242,9 @@
   "@safetyIssuesDetected": {
     "description": "How many safety checks failed",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "safetyNoIssues": "No issues detected",
@@ -1216,5 +1286,578 @@
   "cautionDialogMessage": "Always verify the source before opening URLs from QR codes.\n\nDo you want to open this URL?",
   "@cautionDialogMessage": {
     "description": "Advice shown before opening a link that passed the checks"
+  },
+  "overlayLaserLine": "Laser Line",
+  "@overlayLaserLine": {
+    "description": "Name of the laser line scan overlay style"
+  },
+  "overlayPulsingCorners": "Pulsing Corners",
+  "@overlayPulsingCorners": {
+    "description": "Name of the pulsing corners scan overlay style"
+  },
+  "overlayCyberneticGrid": "Cybernetic Grid",
+  "@overlayCyberneticGrid": {
+    "description": "Name of the grid scan overlay style"
+  },
+  "overlaySubtleDotMatrix": "Subtle Dot Matrix",
+  "@overlaySubtleDotMatrix": {
+    "description": "Name of the dot matrix scan overlay style"
+  },
+  "overlayLaserLineDesc": "Scanning box with an animated vertical laser beam and glow line",
+  "@overlayLaserLineDesc": {
+    "description": "Explanation of the laser line overlay style"
+  },
+  "overlayPulsingCornersDesc": "Breathing corner reticles with color glow and scale animation",
+  "@overlayPulsingCornersDesc": {
+    "description": "Explanation of the pulsing corners overlay style"
+  },
+  "overlayCyberneticGridDesc": "Sci-fi grid overlay pattern with target crosshair reticle",
+  "@overlayCyberneticGridDesc": {
+    "description": "Explanation of the grid overlay style"
+  },
+  "overlaySubtleDotMatrixDesc": "Minimalist corner dot matrix pattern with pulsing accents",
+  "@overlaySubtleDotMatrixDesc": {
+    "description": "Explanation of the dot matrix overlay style"
+  },
+  "themeSystemDefault": "System Default",
+  "@themeSystemDefault": {
+    "description": "Theme setting that follows the device"
+  },
+  "themeLight": "Light Theme",
+  "@themeLight": {
+    "description": "Light theme setting"
+  },
+  "themeDark": "Dark Theme",
+  "@themeDark": {
+    "description": "Dark theme setting"
+  },
+  "themeOled": "OLED Pure Black",
+  "@themeOled": {
+    "description": "Pure black theme setting for OLED screens"
+  },
+  "themeModeHeading": "Theme Mode",
+  "@themeModeHeading": {
+    "description": "Heading above the theme choice buttons"
+  },
+  "themeChipSystem": "System",
+  "@themeChipSystem": {
+    "description": "Short theme button that follows the device"
+  },
+  "themeChipLight": "Light",
+  "@themeChipLight": {
+    "description": "Short theme button for the light theme"
+  },
+  "themeChipDark": "Dark",
+  "@themeChipDark": {
+    "description": "Short theme button for the dark theme"
+  },
+  "themeChipOled": "OLED",
+  "@themeChipOled": {
+    "description": "Short theme button for the pure black theme"
+  },
+  "themeDynamicColorsTitle": "Material You Dynamic Colors",
+  "@themeDynamicColorsTitle": {
+    "description": "Setting that takes colours from the device wallpaper"
+  },
+  "themeDynamicColorsSubtitle": "Sample system wallpaper colors on Android 12+ (Monet engine)",
+  "@themeDynamicColorsSubtitle": {
+    "description": "Explanation of the wallpaper colour setting"
+  },
+  "themeDescSystem": "Follow System Settings",
+  "@themeDescSystem": {
+    "description": "Explanation shown for the system theme"
+  },
+  "themeDescLight": "Standard Light Mode",
+  "@themeDescLight": {
+    "description": "Explanation shown for the light theme"
+  },
+  "themeDescDark": "Standard Dark Mode",
+  "@themeDescDark": {
+    "description": "Explanation shown for the dark theme"
+  },
+  "themeDescOled": "True OLED Pure Black (Battery Saving)",
+  "@themeDescOled": {
+    "description": "Explanation shown for the pure black theme"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Title of the settings screen"
+  },
+  "settingsAppearanceTitle": "Appearance & Theme",
+  "@settingsAppearanceTitle": {
+    "description": "Settings card that opens the theme options"
+  },
+  "settingsOverlayTitle": "Customizable Scan Overlay",
+  "@settingsOverlayTitle": {
+    "description": "Settings card that opens the scan overlay options"
+  },
+  "settingsFeedbackTitle": "Scan Feedback & Alerts",
+  "@settingsFeedbackTitle": {
+    "description": "Settings card that opens the vibration and sound options"
+  },
+  "settingsPrivacyTitle": "Privacy & Online Probing",
+  "@settingsPrivacyTitle": {
+    "description": "Settings card that opens the privacy options"
+  },
+  "settingsSafeBrowsingTitle": "Google Safe Browsing API",
+  "@settingsSafeBrowsingTitle": {
+    "description": "Settings card that opens the Safe Browsing key options"
+  },
+  "settingsPermissionsTitle": "Permissions",
+  "@settingsPermissionsTitle": {
+    "description": "Settings card that opens the permissions overview"
+  },
+  "settingsPermissionsSubtitle": "Explicit, implicit & setting-dependent details",
+  "@settingsPermissionsSubtitle": {
+    "description": "Explanation under the permissions card"
+  },
+  "settingsHelpTitle": "Help & Feature Guides",
+  "@settingsHelpTitle": {
+    "description": "Settings card that opens the feature guides"
+  },
+  "settingsHelpSubtitle": "AR CodeVision, AirQR, Quishing Guard & URL Safety",
+  "@settingsHelpSubtitle": {
+    "description": "Explanation under the help card"
+  },
+  "settingsAboutSubtitle": "App version, developer & license details",
+  "@settingsAboutSubtitle": {
+    "description": "Explanation under the about card"
+  },
+  "feedbackVibrationTitle": "Vibration Feedback",
+  "@feedbackVibrationTitle": {
+    "description": "Setting that turns scan vibration on or off"
+  },
+  "feedbackVibrationSubtitle": "Vibrate phone upon successful barcode recognition",
+  "@feedbackVibrationSubtitle": {
+    "description": "Explanation of the vibration setting"
+  },
+  "feedbackSoundTitle": "Audible Beep Sound",
+  "@feedbackSoundTitle": {
+    "description": "Setting that turns the scan beep on or off"
+  },
+  "feedbackSoundSubtitle": "Play audio beep signal upon successful code recognition",
+  "@feedbackSoundSubtitle": {
+    "description": "Explanation of the beep setting"
+  },
+  "privacyScreenTitle": "Privacy & Network Probing",
+  "@privacyScreenTitle": {
+    "description": "Title of the privacy settings screen"
+  },
+  "privacyActiveChecksTitle": "Active online checks",
+  "@privacyActiveChecksTitle": {
+    "description": "Setting that allows contacting the scanned site directly"
+  },
+  "privacySummaryOn": "Active online checks enabled",
+  "@privacySummaryOn": {
+    "description": "Summary shown on the settings card when online checks are on"
+  },
+  "privacySummaryOff": "Private offline checks only",
+  "@privacySummaryOff": {
+    "description": "Summary shown on the settings card when online checks are off"
+  },
+  "apiKeyConfigured": "Configured",
+  "@apiKeyConfigured": {
+    "description": "Shown when a Safe Browsing key is saved"
+  },
+  "apiKeyNotConfigured": "Not configured",
+  "@apiKeyNotConfigured": {
+    "description": "Shown when no Safe Browsing key is saved"
+  },
+  "apiKeySaved": "API key saved securely",
+  "@apiKeySaved": {
+    "description": "Message shown after the key is saved"
+  },
+  "apiKeyDeleted": "API key deleted",
+  "@apiKeyDeleted": {
+    "description": "Message shown after the key is deleted"
+  },
+  "apiKeyDeleteTitle": "Delete API Key",
+  "@apiKeyDeleteTitle": {
+    "description": "Title of the dialog and button for deleting the key"
+  },
+  "deleteButton": "Delete",
+  "@deleteButton": {
+    "description": "Button that confirms deleting something"
+  },
+  "apiAboutHeading": "About Safe Browsing API",
+  "@apiAboutHeading": {
+    "description": "Heading of the panel explaining the Safe Browsing service"
+  },
+  "apiKeyConfiguredTitle": "API Key Configured",
+  "@apiKeyConfiguredTitle": {
+    "description": "Title shown when a key is in place"
+  },
+  "apiKeyConfiguredSubtitle": "Malicious URL checking is enabled",
+  "@apiKeyConfiguredSubtitle": {
+    "description": "Explanation shown when a key is in place"
+  },
+  "apiLimitReached": "Daily limit reached. Resets tomorrow.",
+  "@apiLimitReached": {
+    "description": "Shown when the free daily lookups are used up"
+  },
+  "apiLimitApproaching": "Approaching daily limit",
+  "@apiLimitApproaching": {
+    "description": "Shown when few free daily lookups are left"
+  },
+  "apiKeyFieldLabel": "API Key",
+  "@apiKeyFieldLabel": {
+    "description": "Label of the field holding the Safe Browsing key"
+  },
+  "apiKeyFieldHint": "Enter your Google Safe Browsing API key",
+  "@apiKeyFieldHint": {
+    "description": "Hint inside the empty key field"
+  },
+  "apiKeyRequired": "Please enter an API key",
+  "@apiKeyRequired": {
+    "description": "Validation message when the key field is empty"
+  },
+  "apiKeyTooShort": "API key appears to be too short",
+  "@apiKeyTooShort": {
+    "description": "Validation message when the key looks wrong"
+  },
+  "apiKeySaveButton": "Save API Key",
+  "@apiKeySaveButton": {
+    "description": "Button that stores the key"
+  },
+  "apiHowToHeading": "How to get an API key",
+  "@apiHowToHeading": {
+    "description": "Heading of the step-by-step key instructions"
+  },
+  "apiStep1Title": "Go to Google Cloud Console",
+  "@apiStep1Title": {
+    "description": "First step of getting a key"
+  },
+  "apiStep1Desc": "Visit console.cloud.google.com",
+  "@apiStep1Desc": {
+    "description": "Explanation of the first step"
+  },
+  "apiStep2Title": "Create or select a project",
+  "@apiStep2Title": {
+    "description": "Second step of getting a key"
+  },
+  "apiStep2Desc": "Choose an existing project or create a new one",
+  "@apiStep2Desc": {
+    "description": "Explanation of the second step"
+  },
+  "apiStep3Title": "Enable Safe Browsing API",
+  "@apiStep3Title": {
+    "description": "Third step of getting a key"
+  },
+  "apiStep4Title": "Create credentials",
+  "@apiStep4Title": {
+    "description": "Fourth step of getting a key"
+  },
+  "apiStep4Desc": "Go to Credentials → Create Credentials → API Key",
+  "@apiStep4Desc": {
+    "description": "Explanation of the fourth step"
+  },
+  "apiStep5Title": "Copy and paste",
+  "@apiStep5Title": {
+    "description": "Fifth step of getting a key"
+  },
+  "apiStep5Desc": "Copy the generated API key and paste it above",
+  "@apiStep5Desc": {
+    "description": "Explanation of the fifth step"
+  },
+  "apiFreeTierNote": "Free tier includes 10,000 requests per day",
+  "@apiFreeTierNote": {
+    "description": "Note about the free daily allowance"
+  },
+  "permissionsScreenTitle": "Permissions Overview",
+  "@permissionsScreenTitle": {
+    "description": "Title of the permissions screen"
+  },
+  "permissionsExplicitHeading": "Explicit Permissions (Runtime / Manifest)",
+  "@permissionsExplicitHeading": {
+    "description": "Heading for permissions the user is asked for"
+  },
+  "permissionCameraTitle": "Camera Access (android.permission.CAMERA)",
+  "@permissionCameraTitle": {
+    "description": "Name of the camera permission"
+  },
+  "permissionCameraDesc": "Requested on-demand at point of use. Required for live scanning, AR CodeVision HUD overlay, and AirQR optical stream decoding.",
+  "@permissionCameraDesc": {
+    "description": "What the camera permission is used for"
+  },
+  "permissionBiometricTitle": "Biometric Authentication (android.permission.USE_BIOMETRIC)",
+  "@permissionBiometricTitle": {
+    "description": "Name of the fingerprint and face permission"
+  },
+  "permissionBiometricDesc": "Requested when unlocking biometric secure vaults or encrypted QR code payloads.",
+  "@permissionBiometricDesc": {
+    "description": "What the biometric permission is used for"
+  },
+  "permissionsImplicitHeading": "Implicit & System Permissions",
+  "@permissionsImplicitHeading": {
+    "description": "Heading for permissions granted by the system"
+  },
+  "permissionInternetTitle": "Internet Access (android.permission.INTERNET)",
+  "@permissionInternetTitle": {
+    "description": "Name of the internet permission"
+  },
+  "permissionInternetDesc": "Declared in Android Manifest. Used only when Active Online Probing or Google Safe Browsing API lookup is enabled.",
+  "@permissionInternetDesc": {
+    "description": "What the internet permission is used for"
+  },
+  "permissionVibrateTitle": "Vibration & Haptics (android.permission.VIBRATE)",
+  "@permissionVibrateTitle": {
+    "description": "Name of the vibration permission"
+  },
+  "permissionVibrateDesc": "System permission. Triggers haptic vibration feedback during scan alerts and button taps.",
+  "@permissionVibrateDesc": {
+    "description": "What the vibration permission is used for"
+  },
+  "permissionPhotoPickerTitle": "Scoped Media Photo Picker",
+  "@permissionPhotoPickerTitle": {
+    "description": "Name of the photo picker access"
+  },
+  "permissionPhotoPickerDesc": "System photo picker access. Allows selecting QR images or videos from gallery without requesting full storage access.",
+  "@permissionPhotoPickerDesc": {
+    "description": "What the photo picker access is used for"
+  },
+  "permissionsSettingHeading": "Setting-Dependent Permissions",
+  "@permissionsSettingHeading": {
+    "description": "Heading for permissions that depend on a setting"
+  },
+  "permissionProbingTitle": "Active Online Probing (Privacy Setting)",
+  "@permissionProbingTitle": {
+    "description": "Name of the active online checks setting"
+  },
+  "permissionProbingDesc": "Active only when enabled. Performs outbound HTTP HEAD requests to follow URL redirects and check SSL certificates. When disabled, checks are 100% offline.",
+  "@permissionProbingDesc": {
+    "description": "What active online checks do"
+  },
+  "permissionSafeBrowsingTitle": "Google Safe Browsing API (API Key Setting)",
+  "@permissionSafeBrowsingTitle": {
+    "description": "Name of the Safe Browsing lookup setting"
+  },
+  "permissionSafeBrowsingDesc": "Active only when API key is configured. Queries Google Threat API for malware & phishing checks.",
+  "@permissionSafeBrowsingDesc": {
+    "description": "What the Safe Browsing lookup does"
+  },
+  "permissionFeedbackTitle": "Scan Feedback Vibrations (Alert Setting)",
+  "@permissionFeedbackTitle": {
+    "description": "Name of the scan vibration setting"
+  },
+  "permissionFeedbackDesc": "Active only when Vibration is enabled in Scan Feedback & Alerts settings.",
+  "@permissionFeedbackDesc": {
+    "description": "When scan vibration is used"
+  },
+  "helpArBadge": "Augmented Reality",
+  "@helpArBadge": {
+    "description": "Badge on the AR CodeVision help card"
+  },
+  "helpArDesc": "Real-time camera overlay feature that highlights and visualizes barcode and QR code data directly within the 3D viewfinder.",
+  "@helpArDesc": {
+    "description": "Summary of the AR CodeVision feature"
+  },
+  "helpArPoint1": "Multi-Target Detection: Automatically detects, indexes, and tracks multiple barcodes simultaneously in real time.",
+  "@helpArPoint1": {
+    "description": "AR CodeVision capability"
+  },
+  "helpArPoint2": "Spatial Bounding Boxes: Overlays dynamic AR reticles and interactive floating chips above each detected code.",
+  "@helpArPoint2": {
+    "description": "AR CodeVision capability"
+  },
+  "helpArPoint3": "Interactive Action Sheet: Tap any detected AR chip to inspect payload details, copy data, or execute smart actions without exiting the camera.",
+  "@helpArPoint3": {
+    "description": "AR CodeVision capability"
+  },
+  "helpArPoint4": "Camera Viewport Suite: Built-in torch toggle, front/rear camera switching, and pinch-to-zoom controls.",
+  "@helpArPoint4": {
+    "description": "AR CodeVision capability"
+  },
+  "helpAirQrBadge": "Optical Data Protocol",
+  "@helpAirQrBadge": {
+    "description": "Badge on the AirQR help card"
+  },
+  "helpAirQrDesc": "High-speed optical data transfer receiver designed to reconstruct large multi-part payloads serialized across animated QR code loops.",
+  "@helpAirQrDesc": {
+    "description": "Summary of the AirQR feature"
+  },
+  "helpAirQrPoint1": "Sequential Frame Assembly: Scans animated QR streams (AirQR format) frame-by-frame and stitches chunks back into complete files or text.",
+  "@helpAirQrPoint1": {
+    "description": "AirQR capability"
+  },
+  "helpAirQrPoint2": "Real-Time Live Progress: Interactive progress indicator displaying completed percentage, total payload size, missing chunk count, and decoding speed.",
+  "@helpAirQrPoint2": {
+    "description": "AirQR capability"
+  },
+  "helpAirQrPoint3": "Dual Input Modes: Supports live scanning through the camera feed or offline processing by importing saved video recordings/images from gallery.",
+  "@helpAirQrPoint3": {
+    "description": "AirQR capability"
+  },
+  "helpAirQrPoint4": "AirQR Transmitter: Reverse mode allowing payload generation and animated QR stream transmission to other devices.",
+  "@helpAirQrPoint4": {
+    "description": "AirQR capability"
+  },
+  "helpQuishingTitle": "Quishing Guard (Physical QR Sticker Tamper Check)",
+  "@helpQuishingTitle": {
+    "description": "Title of the tamper check help card"
+  },
+  "helpQuishingBadge": "On-Device Computer Vision",
+  "@helpQuishingBadge": {
+    "description": "Badge on the tamper check help card"
+  },
+  "helpQuishingDesc": "On-device computer vision engine that detects physical QR code sticker tampering, fake code overlays, and print alterations before processing payloads.",
+  "@helpQuishingDesc": {
+    "description": "Summary of the tamper check feature"
+  },
+  "helpQuishingPoint1": "100% Offline & Private Guarantee: Operates entirely on-device using local camera frame computer vision with zero internet connection required.",
+  "@helpQuishingPoint1": {
+    "description": "Tamper check capability"
+  },
+  "helpQuishingPoint2": "Physical Sticker & Overlay Detection: Identifies physical stickers pasted over legitimate printed QR codes.",
+  "@helpQuishingPoint2": {
+    "description": "Tamper check capability"
+  },
+  "helpQuishingPoint3": "Edge & Alignment Anomaly Analysis: Checks for suspicious boundaries, cutouts, and alignment discrepancies.",
+  "@helpQuishingPoint3": {
+    "description": "Tamper check capability"
+  },
+  "helpQuishingPoint4": "Print Texture & Contrast Verification: Analyzes visual print artifacts, reflectivity shifts, and paper texture inconsistencies.",
+  "@helpQuishingPoint4": {
+    "description": "Tamper check capability"
+  },
+  "helpUrlTitle": "URL Safety & Link Tamper Engine",
+  "@helpUrlTitle": {
+    "description": "Title of the link safety help card"
+  },
+  "helpUrlBadge": "6-Layer Digital Safety",
+  "@helpUrlBadge": {
+    "description": "Badge on the link safety help card"
+  },
+  "helpUrlDesc": "Comprehensive digital link analysis suite protecting against malicious web links, phishing (Quishing), and URL payload tampering.",
+  "@helpUrlDesc": {
+    "description": "Summary of the link safety feature"
+  },
+  "helpUrlPoint1": "Homograph & IDN Attack Detection: Identifies spoofed domain names using mixed-script Cyrillic or lookalike Unicode characters.",
+  "@helpUrlPoint1": {
+    "description": "Link safety capability"
+  },
+  "helpUrlPoint2": "Zero-Width Space & Character Tamper Detector: Detects hidden zero-width spaces, non-printable control characters, or obfuscated payloads embedded in links.",
+  "@helpUrlPoint2": {
+    "description": "Link safety capability"
+  },
+  "helpUrlPoint3": "IP Literal & Userinfo Verification: Flags suspicious IP address hostnames and dangerous embedded credentials (e.g. user:pass@host).",
+  "@helpUrlPoint3": {
+    "description": "Link safety capability"
+  },
+  "helpUrlPoint4": "Suspicious TLD & Pattern Analysis: Scans for risky top-level domains, excessive subdomains, and unencrypted HTTP connections carrying login/payment data.",
+  "@helpUrlPoint4": {
+    "description": "Link safety capability"
+  },
+  "helpUrlPoint5": "URL Shortener Unrolling & Redirect Tracing: Identifies shortened links (bit.ly, t.co) and traces redirect chains (Active Probing required for live HTTP inspection).",
+  "@helpUrlPoint5": {
+    "description": "Link safety capability"
+  },
+  "helpUrlPoint6": "Google Safe Browsing Cloud Lookup: Optional cloud check against Google threat database when configured with an API key.",
+  "@helpUrlPoint6": {
+    "description": "Link safety capability"
+  },
+  "helpUrlPoint7": "Privacy First Guarantee: Core 5 pattern checks run 100% offline on your device without sending URLs anywhere.",
+  "@helpUrlPoint7": {
+    "description": "Link safety capability"
+  },
+  "helpCapabilitiesHeading": "Key Capabilities:",
+  "@helpCapabilitiesHeading": {
+    "description": "Heading above the list of what a feature can do"
+  },
+  "onLabel": "On",
+  "@onLabel": {
+    "description": "Word shown when a setting is turned on"
+  },
+  "offLabel": "Off",
+  "@offLabel": {
+    "description": "Word shown when a setting is turned off"
+  },
+  "unknownLabel": "Unknown",
+  "@unknownLabel": {
+    "description": "Shown when a value is not known"
+  },
+  "privacyActiveChecksSubtitle": "Off: scanned links are checked privately — the destination server is never contacted.",
+  "@privacyActiveChecksSubtitle": {
+    "description": "Explanation under the active online checks switch"
+  },
+  "privacyExplainerOn": "When on, the SSL, redirect and shortener checks connect directly to the scanned site. This exposes your IP address (and therefore your approximate location and mobile carrier) to that server before you open the link.",
+  "@privacyExplainerOn": {
+    "description": "Longer explanation shown when active online checks are on"
+  },
+  "privacyExplainerOff": "SSL, redirect and shortener checks run from local rules only. Malicious-content lookup still uses Google Safe Browsing (the link is sent only to Google, never to the scanned site).",
+  "@privacyExplainerOff": {
+    "description": "Longer explanation shown when active online checks are off"
+  },
+  "apiKeyDeleteMessage": "Are you sure you want to delete your Google Safe Browsing API key? URL malicious content checking will be disabled.",
+  "@apiKeyDeleteMessage": {
+    "description": "Warning shown before the Safe Browsing key is deleted"
+  },
+  "apiAboutBody": "The Google Safe Browsing API helps detect malicious URLs including phishing, malware, and unwanted software. Your API key is stored securely and encrypted on your device.",
+  "@apiAboutBody": {
+    "description": "Explanation of what the Safe Browsing service does"
+  },
+  "apiTodaysUsage": "Today's Usage",
+  "@apiTodaysUsage": {
+    "description": "Heading above how many lookups were used today"
+  },
+  "apiStep3Desc": "Search for \"Safe Browsing API\" and enable it",
+  "@apiStep3Desc": {
+    "description": "Explanation of the third step of getting a key"
+  },
+  "feedbackSummary": "Vibration: {vibration} • Sound: {sound}",
+  "@feedbackSummary": {
+    "description": "Summary of the scan feedback settings shown on the settings card",
+    "placeholders": {
+      "vibration": {
+        "type": "String"
+      },
+      "sound": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsApiKeySubtitle": "API Key: {status}",
+  "@settingsApiKeySubtitle": {
+    "description": "Whether a Safe Browsing key is saved, shown on the settings card",
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "apiKeySaveFailed": "Error saving API key: {error}",
+  "@apiKeySaveFailed": {
+    "description": "Message shown when the key could not be saved",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "apiKeyDeleteFailed": "Error deleting API key: {error}",
+  "@apiKeyDeleteFailed": {
+    "description": "Message shown when the key could not be deleted",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "apiDailyLimit": "Daily Limit: {count} requests per day",
+  "@apiDailyLimit": {
+    "description": "How many free lookups are allowed each day",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "apiResets": "Resets: {date}",
+  "@apiResets": {
+    "description": "When the daily lookup count starts again",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

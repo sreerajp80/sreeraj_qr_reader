@@ -910,4 +910,476 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get cautionDialogMessage =>
       'Always verify the source before opening URLs from QR codes.\n\nDo you want to open this URL?';
+
+  @override
+  String get overlayLaserLine => 'Laser Line';
+
+  @override
+  String get overlayPulsingCorners => 'Pulsing Corners';
+
+  @override
+  String get overlayCyberneticGrid => 'Cybernetic Grid';
+
+  @override
+  String get overlaySubtleDotMatrix => 'Subtle Dot Matrix';
+
+  @override
+  String get overlayLaserLineDesc =>
+      'Scanning box with an animated vertical laser beam and glow line';
+
+  @override
+  String get overlayPulsingCornersDesc =>
+      'Breathing corner reticles with color glow and scale animation';
+
+  @override
+  String get overlayCyberneticGridDesc =>
+      'Sci-fi grid overlay pattern with target crosshair reticle';
+
+  @override
+  String get overlaySubtleDotMatrixDesc =>
+      'Minimalist corner dot matrix pattern with pulsing accents';
+
+  @override
+  String get themeSystemDefault => 'System Default';
+
+  @override
+  String get themeLight => 'Light Theme';
+
+  @override
+  String get themeDark => 'Dark Theme';
+
+  @override
+  String get themeOled => 'OLED Pure Black';
+
+  @override
+  String get themeModeHeading => 'Theme Mode';
+
+  @override
+  String get themeChipSystem => 'System';
+
+  @override
+  String get themeChipLight => 'Light';
+
+  @override
+  String get themeChipDark => 'Dark';
+
+  @override
+  String get themeChipOled => 'OLED';
+
+  @override
+  String get themeDynamicColorsTitle => 'Material You Dynamic Colors';
+
+  @override
+  String get themeDynamicColorsSubtitle =>
+      'Sample system wallpaper colors on Android 12+ (Monet engine)';
+
+  @override
+  String get themeDescSystem => 'Follow System Settings';
+
+  @override
+  String get themeDescLight => 'Standard Light Mode';
+
+  @override
+  String get themeDescDark => 'Standard Dark Mode';
+
+  @override
+  String get themeDescOled => 'True OLED Pure Black (Battery Saving)';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsAppearanceTitle => 'Appearance & Theme';
+
+  @override
+  String get settingsOverlayTitle => 'Customizable Scan Overlay';
+
+  @override
+  String get settingsFeedbackTitle => 'Scan Feedback & Alerts';
+
+  @override
+  String get settingsPrivacyTitle => 'Privacy & Online Probing';
+
+  @override
+  String get settingsSafeBrowsingTitle => 'Google Safe Browsing API';
+
+  @override
+  String get settingsPermissionsTitle => 'Permissions';
+
+  @override
+  String get settingsPermissionsSubtitle =>
+      'Explicit, implicit & setting-dependent details';
+
+  @override
+  String get settingsHelpTitle => 'Help & Feature Guides';
+
+  @override
+  String get settingsHelpSubtitle =>
+      'AR CodeVision, AirQR, Quishing Guard & URL Safety';
+
+  @override
+  String get settingsAboutSubtitle =>
+      'App version, developer & license details';
+
+  @override
+  String get feedbackVibrationTitle => 'Vibration Feedback';
+
+  @override
+  String get feedbackVibrationSubtitle =>
+      'Vibrate phone upon successful barcode recognition';
+
+  @override
+  String get feedbackSoundTitle => 'Audible Beep Sound';
+
+  @override
+  String get feedbackSoundSubtitle =>
+      'Play audio beep signal upon successful code recognition';
+
+  @override
+  String get privacyScreenTitle => 'Privacy & Network Probing';
+
+  @override
+  String get privacyActiveChecksTitle => 'Active online checks';
+
+  @override
+  String get privacySummaryOn => 'Active online checks enabled';
+
+  @override
+  String get privacySummaryOff => 'Private offline checks only';
+
+  @override
+  String get apiKeyConfigured => 'Configured';
+
+  @override
+  String get apiKeyNotConfigured => 'Not configured';
+
+  @override
+  String get apiKeySaved => 'API key saved securely';
+
+  @override
+  String get apiKeyDeleted => 'API key deleted';
+
+  @override
+  String get apiKeyDeleteTitle => 'Delete API Key';
+
+  @override
+  String get deleteButton => 'Delete';
+
+  @override
+  String get apiAboutHeading => 'About Safe Browsing API';
+
+  @override
+  String get apiKeyConfiguredTitle => 'API Key Configured';
+
+  @override
+  String get apiKeyConfiguredSubtitle => 'Malicious URL checking is enabled';
+
+  @override
+  String get apiLimitReached => 'Daily limit reached. Resets tomorrow.';
+
+  @override
+  String get apiLimitApproaching => 'Approaching daily limit';
+
+  @override
+  String get apiKeyFieldLabel => 'API Key';
+
+  @override
+  String get apiKeyFieldHint => 'Enter your Google Safe Browsing API key';
+
+  @override
+  String get apiKeyRequired => 'Please enter an API key';
+
+  @override
+  String get apiKeyTooShort => 'API key appears to be too short';
+
+  @override
+  String get apiKeySaveButton => 'Save API Key';
+
+  @override
+  String get apiHowToHeading => 'How to get an API key';
+
+  @override
+  String get apiStep1Title => 'Go to Google Cloud Console';
+
+  @override
+  String get apiStep1Desc => 'Visit console.cloud.google.com';
+
+  @override
+  String get apiStep2Title => 'Create or select a project';
+
+  @override
+  String get apiStep2Desc => 'Choose an existing project or create a new one';
+
+  @override
+  String get apiStep3Title => 'Enable Safe Browsing API';
+
+  @override
+  String get apiStep4Title => 'Create credentials';
+
+  @override
+  String get apiStep4Desc => 'Go to Credentials → Create Credentials → API Key';
+
+  @override
+  String get apiStep5Title => 'Copy and paste';
+
+  @override
+  String get apiStep5Desc => 'Copy the generated API key and paste it above';
+
+  @override
+  String get apiFreeTierNote => 'Free tier includes 10,000 requests per day';
+
+  @override
+  String get permissionsScreenTitle => 'Permissions Overview';
+
+  @override
+  String get permissionsExplicitHeading =>
+      'Explicit Permissions (Runtime / Manifest)';
+
+  @override
+  String get permissionCameraTitle =>
+      'Camera Access (android.permission.CAMERA)';
+
+  @override
+  String get permissionCameraDesc =>
+      'Requested on-demand at point of use. Required for live scanning, AR CodeVision HUD overlay, and AirQR optical stream decoding.';
+
+  @override
+  String get permissionBiometricTitle =>
+      'Biometric Authentication (android.permission.USE_BIOMETRIC)';
+
+  @override
+  String get permissionBiometricDesc =>
+      'Requested when unlocking biometric secure vaults or encrypted QR code payloads.';
+
+  @override
+  String get permissionsImplicitHeading => 'Implicit & System Permissions';
+
+  @override
+  String get permissionInternetTitle =>
+      'Internet Access (android.permission.INTERNET)';
+
+  @override
+  String get permissionInternetDesc =>
+      'Declared in Android Manifest. Used only when Active Online Probing or Google Safe Browsing API lookup is enabled.';
+
+  @override
+  String get permissionVibrateTitle =>
+      'Vibration & Haptics (android.permission.VIBRATE)';
+
+  @override
+  String get permissionVibrateDesc =>
+      'System permission. Triggers haptic vibration feedback during scan alerts and button taps.';
+
+  @override
+  String get permissionPhotoPickerTitle => 'Scoped Media Photo Picker';
+
+  @override
+  String get permissionPhotoPickerDesc =>
+      'System photo picker access. Allows selecting QR images or videos from gallery without requesting full storage access.';
+
+  @override
+  String get permissionsSettingHeading => 'Setting-Dependent Permissions';
+
+  @override
+  String get permissionProbingTitle =>
+      'Active Online Probing (Privacy Setting)';
+
+  @override
+  String get permissionProbingDesc =>
+      'Active only when enabled. Performs outbound HTTP HEAD requests to follow URL redirects and check SSL certificates. When disabled, checks are 100% offline.';
+
+  @override
+  String get permissionSafeBrowsingTitle =>
+      'Google Safe Browsing API (API Key Setting)';
+
+  @override
+  String get permissionSafeBrowsingDesc =>
+      'Active only when API key is configured. Queries Google Threat API for malware & phishing checks.';
+
+  @override
+  String get permissionFeedbackTitle =>
+      'Scan Feedback Vibrations (Alert Setting)';
+
+  @override
+  String get permissionFeedbackDesc =>
+      'Active only when Vibration is enabled in Scan Feedback & Alerts settings.';
+
+  @override
+  String get helpArBadge => 'Augmented Reality';
+
+  @override
+  String get helpArDesc =>
+      'Real-time camera overlay feature that highlights and visualizes barcode and QR code data directly within the 3D viewfinder.';
+
+  @override
+  String get helpArPoint1 =>
+      'Multi-Target Detection: Automatically detects, indexes, and tracks multiple barcodes simultaneously in real time.';
+
+  @override
+  String get helpArPoint2 =>
+      'Spatial Bounding Boxes: Overlays dynamic AR reticles and interactive floating chips above each detected code.';
+
+  @override
+  String get helpArPoint3 =>
+      'Interactive Action Sheet: Tap any detected AR chip to inspect payload details, copy data, or execute smart actions without exiting the camera.';
+
+  @override
+  String get helpArPoint4 =>
+      'Camera Viewport Suite: Built-in torch toggle, front/rear camera switching, and pinch-to-zoom controls.';
+
+  @override
+  String get helpAirQrBadge => 'Optical Data Protocol';
+
+  @override
+  String get helpAirQrDesc =>
+      'High-speed optical data transfer receiver designed to reconstruct large multi-part payloads serialized across animated QR code loops.';
+
+  @override
+  String get helpAirQrPoint1 =>
+      'Sequential Frame Assembly: Scans animated QR streams (AirQR format) frame-by-frame and stitches chunks back into complete files or text.';
+
+  @override
+  String get helpAirQrPoint2 =>
+      'Real-Time Live Progress: Interactive progress indicator displaying completed percentage, total payload size, missing chunk count, and decoding speed.';
+
+  @override
+  String get helpAirQrPoint3 =>
+      'Dual Input Modes: Supports live scanning through the camera feed or offline processing by importing saved video recordings/images from gallery.';
+
+  @override
+  String get helpAirQrPoint4 =>
+      'AirQR Transmitter: Reverse mode allowing payload generation and animated QR stream transmission to other devices.';
+
+  @override
+  String get helpQuishingTitle =>
+      'Quishing Guard (Physical QR Sticker Tamper Check)';
+
+  @override
+  String get helpQuishingBadge => 'On-Device Computer Vision';
+
+  @override
+  String get helpQuishingDesc =>
+      'On-device computer vision engine that detects physical QR code sticker tampering, fake code overlays, and print alterations before processing payloads.';
+
+  @override
+  String get helpQuishingPoint1 =>
+      '100% Offline & Private Guarantee: Operates entirely on-device using local camera frame computer vision with zero internet connection required.';
+
+  @override
+  String get helpQuishingPoint2 =>
+      'Physical Sticker & Overlay Detection: Identifies physical stickers pasted over legitimate printed QR codes.';
+
+  @override
+  String get helpQuishingPoint3 =>
+      'Edge & Alignment Anomaly Analysis: Checks for suspicious boundaries, cutouts, and alignment discrepancies.';
+
+  @override
+  String get helpQuishingPoint4 =>
+      'Print Texture & Contrast Verification: Analyzes visual print artifacts, reflectivity shifts, and paper texture inconsistencies.';
+
+  @override
+  String get helpUrlTitle => 'URL Safety & Link Tamper Engine';
+
+  @override
+  String get helpUrlBadge => '6-Layer Digital Safety';
+
+  @override
+  String get helpUrlDesc =>
+      'Comprehensive digital link analysis suite protecting against malicious web links, phishing (Quishing), and URL payload tampering.';
+
+  @override
+  String get helpUrlPoint1 =>
+      'Homograph & IDN Attack Detection: Identifies spoofed domain names using mixed-script Cyrillic or lookalike Unicode characters.';
+
+  @override
+  String get helpUrlPoint2 =>
+      'Zero-Width Space & Character Tamper Detector: Detects hidden zero-width spaces, non-printable control characters, or obfuscated payloads embedded in links.';
+
+  @override
+  String get helpUrlPoint3 =>
+      'IP Literal & Userinfo Verification: Flags suspicious IP address hostnames and dangerous embedded credentials (e.g. user:pass@host).';
+
+  @override
+  String get helpUrlPoint4 =>
+      'Suspicious TLD & Pattern Analysis: Scans for risky top-level domains, excessive subdomains, and unencrypted HTTP connections carrying login/payment data.';
+
+  @override
+  String get helpUrlPoint5 =>
+      'URL Shortener Unrolling & Redirect Tracing: Identifies shortened links (bit.ly, t.co) and traces redirect chains (Active Probing required for live HTTP inspection).';
+
+  @override
+  String get helpUrlPoint6 =>
+      'Google Safe Browsing Cloud Lookup: Optional cloud check against Google threat database when configured with an API key.';
+
+  @override
+  String get helpUrlPoint7 =>
+      'Privacy First Guarantee: Core 5 pattern checks run 100% offline on your device without sending URLs anywhere.';
+
+  @override
+  String get helpCapabilitiesHeading => 'Key Capabilities:';
+
+  @override
+  String get onLabel => 'On';
+
+  @override
+  String get offLabel => 'Off';
+
+  @override
+  String get unknownLabel => 'Unknown';
+
+  @override
+  String get privacyActiveChecksSubtitle =>
+      'Off: scanned links are checked privately — the destination server is never contacted.';
+
+  @override
+  String get privacyExplainerOn =>
+      'When on, the SSL, redirect and shortener checks connect directly to the scanned site. This exposes your IP address (and therefore your approximate location and mobile carrier) to that server before you open the link.';
+
+  @override
+  String get privacyExplainerOff =>
+      'SSL, redirect and shortener checks run from local rules only. Malicious-content lookup still uses Google Safe Browsing (the link is sent only to Google, never to the scanned site).';
+
+  @override
+  String get apiKeyDeleteMessage =>
+      'Are you sure you want to delete your Google Safe Browsing API key? URL malicious content checking will be disabled.';
+
+  @override
+  String get apiAboutBody =>
+      'The Google Safe Browsing API helps detect malicious URLs including phishing, malware, and unwanted software. Your API key is stored securely and encrypted on your device.';
+
+  @override
+  String get apiTodaysUsage => 'Today\'s Usage';
+
+  @override
+  String get apiStep3Desc => 'Search for \"Safe Browsing API\" and enable it';
+
+  @override
+  String feedbackSummary(String vibration, String sound) {
+    return 'Vibration: $vibration • Sound: $sound';
+  }
+
+  @override
+  String settingsApiKeySubtitle(String status) {
+    return 'API Key: $status';
+  }
+
+  @override
+  String apiKeySaveFailed(String error) {
+    return 'Error saving API key: $error';
+  }
+
+  @override
+  String apiKeyDeleteFailed(String error) {
+    return 'Error deleting API key: $error';
+  }
+
+  @override
+  String apiDailyLimit(int count) {
+    return 'Daily Limit: $count requests per day';
+  }
+
+  @override
+  String apiResets(String date) {
+    return 'Resets: $date';
+  }
 }
