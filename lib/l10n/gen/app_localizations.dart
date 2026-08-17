@@ -2481,6 +2481,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resets: {date}'**
   String apiResets(String date);
+
+  /// Type label shown when the scanned code is plain text
+  ///
+  /// In en, this message translates to:
+  /// **'TEXT'**
+  String get resultTypeTextFallback;
 }
 
 class _AppLocalizationsDelegate

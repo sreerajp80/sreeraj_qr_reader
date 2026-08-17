@@ -1382,4 +1382,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String apiResets(String date) {
     return 'Resets: $date';
   }
+
+  @override
+  String get resultTypeTextFallback => 'TEXT';
 }

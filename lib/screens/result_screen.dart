@@ -142,7 +142,7 @@ class _ResultScreenState extends State<ResultScreen> {
         ? l10n.resultTypeStego
         : (payload != null && payload is! GenericPayload)
         ? payload.type.name.toUpperCase()
-        : provider.scanType?.name.toUpperCase() ?? 'TEXT';
+        : provider.scanType?.name.toUpperCase() ?? l10n.resultTypeTextFallback;
 
     return Card(
       elevation: 4,

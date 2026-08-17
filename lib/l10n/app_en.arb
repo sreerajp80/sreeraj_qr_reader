@@ -1859,5 +1859,9 @@
         "type": "String"
       }
     }
+  },
+  "resultTypeTextFallback": "TEXT",
+  "@resultTypeTextFallback": {
+    "description": "Type label shown when the scanned code is plain text"
   }
 }
