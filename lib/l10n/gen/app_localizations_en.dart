@@ -240,4 +240,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quishingSignalsHeading => 'Detected Computer Vision Signals:';
+
+  @override
+  String get arCloseSheet => 'Close Sheet';
+
+  @override
+  String arItemPriceTag(String price) {
+    return 'Item Price Tag: $price';
+  }
+
+  @override
+  String get arContentCopied => 'Copied content to clipboard';
+
+  @override
+  String get arCopyButton => 'Copy';
+
+  @override
+  String get arOpenUrlButton => 'Open URL';
+
+  @override
+  String get arSelectButton => 'Select Item';
+
+  @override
+  String get arDeselectButton => 'Deselect';
+
+  @override
+  String get arSafetyStatusSafe => 'Safety Status: Verified Safe';
+
+  @override
+  String get arSafetyStatusWarning =>
+      'Safety Status: Warning / Phishing Suspicion';
+
+  @override
+  String get arSafetyStatusUnknown => 'Safety Status: Analyzing link safety...';
 }

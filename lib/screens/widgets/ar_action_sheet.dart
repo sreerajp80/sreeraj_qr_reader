@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/ar_code_target.dart';
 import 'package:sreeraj_qr_reader/providers/ar_codevision_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,6 +15,7 @@ class ArActionSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final provider = Provider.of<ArCodevisionProvider>(context, listen: false);
 
@@ -56,7 +58,7 @@ class ArActionSheet extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: onClose,
-                    tooltip: 'Close Sheet',
+                    tooltip: l10n.arCloseSheet,
                   ),
                 ],
               ),
@@ -69,7 +71,7 @@ class ArActionSheet extends StatelessWidget {
                     _getSafetyIcon(target.safetyStatus),
                     const SizedBox(width: 8),
                     Text(
-                      _getSafetyText(target.safetyStatus),
+                      _getSafetyText(l10n, target.safetyStatus),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: _getSafetyColor(target.safetyStatus),
@@ -88,7 +90,7 @@ class ArActionSheet extends StatelessWidget {
               const SizedBox(height: 8),
               if (provider.hudMode == ArHudMode.warehouse)
                 Text(
-                  'Item Price Tag: ${target.priceTag}',
+                  l10n.arItemPriceTag(target.priceTag),
                   style: theme.textTheme.labelLarge?.copyWith(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.bold,
@@ -103,14 +105,14 @@ class ArActionSheet extends StatelessWidget {
                     onPressed: () {
                       Clipboard.setData(ClipboardData(text: target.rawValue));
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Copied content to clipboard'),
-                          duration: Duration(seconds: 2),
+                        SnackBar(
+                          content: Text(l10n.arContentCopied),
+                          duration: const Duration(seconds: 2),
                         ),
                       );
                     },
                     icon: const Icon(Icons.copy, size: 18),
-                    label: const Text('Copy'),
+                    label: Text(l10n.arCopyButton),
                   ),
                   const SizedBox(width: 8),
                   if (target.isUrl)
@@ -122,7 +124,7 @@ class ArActionSheet extends StatelessWidget {
                         }
                       },
                       icon: const Icon(Icons.open_in_browser, size: 18),
-                      label: const Text('Open URL'),
+                      label: Text(l10n.arOpenUrlButton),
                     )
                   else
                     FilledButton.icon(
@@ -137,7 +139,9 @@ class ArActionSheet extends StatelessWidget {
                         size: 18,
                       ),
                       label: Text(
-                        target.isSelected ? 'Deselect' : 'Select Item',
+                        target.isSelected
+                            ? l10n.arDeselectButton
+                            : l10n.arSelectButton,
                       ),
                     ),
                 ],
@@ -160,14 +164,14 @@ class ArActionSheet extends StatelessWidget {
     }
   }
 
-  String _getSafetyText(TargetSafetyStatus status) {
+  String _getSafetyText(AppLocalizations l10n, TargetSafetyStatus status) {
     switch (status) {
       case TargetSafetyStatus.safe:
-        return 'Safety Status: Verified Safe';
+        return l10n.arSafetyStatusSafe;
       case TargetSafetyStatus.warning:
-        return 'Safety Status: Warning / Phishing Suspicion';
+        return l10n.arSafetyStatusWarning;
       case TargetSafetyStatus.unknown:
-        return 'Safety Status: Analyzing link safety...';
+        return l10n.arSafetyStatusUnknown;
     }
   }
 

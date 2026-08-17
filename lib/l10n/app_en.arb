@@ -322,5 +322,49 @@
   "quishingSignalsHeading": "Detected Computer Vision Signals:",
   "@quishingSignalsHeading": {
     "description": "Heading above the list of tamper findings"
+  },
+
+  "arCloseSheet": "Close Sheet",
+  "@arCloseSheet": {
+    "description": "Tooltip on the button that closes the AR detail sheet"
+  },
+  "arItemPriceTag": "Item Price Tag: {price}",
+  "@arItemPriceTag": {
+    "description": "Price read from a scanned item label in warehouse mode",
+    "placeholders": {
+      "price": { "type": "String" }
+    }
+  },
+  "arContentCopied": "Copied content to clipboard",
+  "@arContentCopied": {
+    "description": "Message shown after the AR target content is copied"
+  },
+  "arCopyButton": "Copy",
+  "@arCopyButton": {
+    "description": "Button that copies the AR target content"
+  },
+  "arOpenUrlButton": "Open URL",
+  "@arOpenUrlButton": {
+    "description": "Button that opens the link held by the AR target"
+  },
+  "arSelectButton": "Select Item",
+  "@arSelectButton": {
+    "description": "Button that marks an AR target as selected"
+  },
+  "arDeselectButton": "Deselect",
+  "@arDeselectButton": {
+    "description": "Button that clears the selection on an AR target"
+  },
+  "arSafetyStatusSafe": "Safety Status: Verified Safe",
+  "@arSafetyStatusSafe": {
+    "description": "Shown when the AR target link passed the safety checks"
+  },
+  "arSafetyStatusWarning": "Safety Status: Warning / Phishing Suspicion",
+  "@arSafetyStatusWarning": {
+    "description": "Shown when the AR target link may be a phishing attempt"
+  },
+  "arSafetyStatusUnknown": "Safety Status: Analyzing link safety...",
+  "@arSafetyStatusUnknown": {
+    "description": "Shown while the AR target link is still being checked"
   }
 }

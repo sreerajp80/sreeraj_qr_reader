@@ -489,6 +489,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Detected Computer Vision Signals:'**
   String get quishingSignalsHeading;
+
+  /// Tooltip on the button that closes the AR detail sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Close Sheet'**
+  String get arCloseSheet;
+
+  /// Price read from a scanned item label in warehouse mode
+  ///
+  /// In en, this message translates to:
+  /// **'Item Price Tag: {price}'**
+  String arItemPriceTag(String price);
+
+  /// Message shown after the AR target content is copied
+  ///
+  /// In en, this message translates to:
+  /// **'Copied content to clipboard'**
+  String get arContentCopied;
+
+  /// Button that copies the AR target content
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get arCopyButton;
+
+  /// Button that opens the link held by the AR target
+  ///
+  /// In en, this message translates to:
+  /// **'Open URL'**
+  String get arOpenUrlButton;
+
+  /// Button that marks an AR target as selected
+  ///
+  /// In en, this message translates to:
+  /// **'Select Item'**
+  String get arSelectButton;
+
+  /// Button that clears the selection on an AR target
+  ///
+  /// In en, this message translates to:
+  /// **'Deselect'**
+  String get arDeselectButton;
+
+  /// Shown when the AR target link passed the safety checks
+  ///
+  /// In en, this message translates to:
+  /// **'Safety Status: Verified Safe'**
+  String get arSafetyStatusSafe;
+
+  /// Shown when the AR target link may be a phishing attempt
+  ///
+  /// In en, this message translates to:
+  /// **'Safety Status: Warning / Phishing Suspicion'**
+  String get arSafetyStatusWarning;
+
+  /// Shown while the AR target link is still being checked
+  ///
+  /// In en, this message translates to:
+  /// **'Safety Status: Analyzing link safety...'**
+  String get arSafetyStatusUnknown;
 }
 
 class _AppLocalizationsDelegate
