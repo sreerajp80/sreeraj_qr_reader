@@ -1077,6 +1077,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total Stream Frames: {total} ({source} Source + {parity} Fountain FEC)'**
   String airQrTotalFrames(int total, int source, int parity);
+
+  /// Tooltip on the button that turns the camera light on or off
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle Flashlight'**
+  String get toggleFlashlight;
+
+  /// Button that asks the system for camera permission again
+  ///
+  /// In en, this message translates to:
+  /// **'Grant Camera Permission'**
+  String get grantCameraPermission;
+
+  /// Title of the screen that marks up live camera view with found codes
+  ///
+  /// In en, this message translates to:
+  /// **'AR CodeVision HUD'**
+  String get arScreenTitle;
+
+  /// Shown while the live camera view is starting
+  ///
+  /// In en, this message translates to:
+  /// **'Initializing AR HUD Viewport...'**
+  String get arInitializing;
+
+  /// Button that unselects every marked code
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get arClearSelection;
+
+  /// Button that copies every selected code at once
+  ///
+  /// In en, this message translates to:
+  /// **'Batch Copy'**
+  String get arBatchCopy;
+
+  /// Message shown after copying several codes at once
+  ///
+  /// In en, this message translates to:
+  /// **'Copied {count} barcodes to clipboard'**
+  String arBatchCopied(int count);
+
+  /// Shown when camera permission is missing on the AR screen
+  ///
+  /// In en, this message translates to:
+  /// **'Camera permission is required for AR CodeVision'**
+  String get arCameraPermissionMessage;
 }
 
 class _AppLocalizationsDelegate

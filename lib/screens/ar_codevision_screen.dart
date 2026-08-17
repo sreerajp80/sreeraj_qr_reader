@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/providers/ar_codevision_provider.dart';
 import 'package:sreeraj_qr_reader/services/ar_spatial_service.dart';
 import 'package:sreeraj_qr_reader/screens/widgets/ar_action_sheet.dart';
@@ -115,6 +116,7 @@ class _ArCodevisionScreenState extends State<ArCodevisionScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final arProvider = Provider.of<ArCodevisionProvider>(context);
 
@@ -135,11 +137,11 @@ class _ArCodevisionScreenState extends State<ArCodevisionScreen>
             icon: const Icon(Icons.arrow_back),
             onPressed: _handleBack,
           ),
-          title: const Row(
+          title: Row(
             children: [
-              Icon(Icons.view_in_ar),
-              SizedBox(width: 8),
-              Text('AR CodeVision HUD'),
+              const Icon(Icons.view_in_ar),
+              const SizedBox(width: 8),
+              Text(l10n.arScreenTitle),
             ],
           ),
           actions: [
@@ -149,7 +151,7 @@ class _ArCodevisionScreenState extends State<ArCodevisionScreen>
                 color: _isTorchOn ? Colors.amber : null,
               ),
               onPressed: _toggleTorch,
-              tooltip: 'Toggle Flashlight',
+              tooltip: l10n.toggleFlashlight,
             ),
           ],
         ),
@@ -170,19 +172,19 @@ class _ArCodevisionScreenState extends State<ArCodevisionScreen>
                           arProvider.processBarcodeCapture(capture);
                         },
                         errorBuilder: (context, error) {
-                          return const Center(
+                          return Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.view_in_ar_outlined,
                                   size: 48,
                                   color: Colors.cyanAccent,
                                 ),
-                                SizedBox(height: 12),
+                                const SizedBox(height: 12),
                                 Text(
-                                  'Initializing AR HUD Viewport...',
-                                  style: TextStyle(color: Colors.white70),
+                                  l10n.arInitializing,
+                                  style: const TextStyle(color: Colors.white70),
                                 ),
                               ],
                             ),
@@ -266,7 +268,7 @@ class _ArCodevisionScreenState extends State<ArCodevisionScreen>
                                       onPressed: () {
                                         arProvider.clearSelection();
                                       },
-                                      child: const Text('Clear'),
+                                      child: Text(l10n.arClearSelection),
                                     ),
                                     const SizedBox(width: 8),
                                     ElevatedButton.icon(
@@ -284,13 +286,15 @@ class _ArCodevisionScreenState extends State<ArCodevisionScreen>
                                         ).showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                              'Copied ${arProvider.selectedCount} barcodes to clipboard',
+                                              l10n.arBatchCopied(
+                                                arProvider.selectedCount,
+                                              ),
                                             ),
                                           ),
                                         );
                                       },
                                       icon: const Icon(Icons.copy, size: 18),
-                                      label: const Text('Batch Copy'),
+                                      label: Text(l10n.arBatchCopy),
                                     ),
                                   ],
                                 ),
@@ -308,20 +312,21 @@ class _ArCodevisionScreenState extends State<ArCodevisionScreen>
   }
 
   Widget _buildPermissionDeniedState() {
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(Icons.camera_alt, size: 64, color: Colors.grey),
           const SizedBox(height: 16),
-          const Text(
-            'Camera permission is required for AR CodeVision',
-            style: TextStyle(color: Colors.white, fontSize: 16),
+          Text(
+            l10n.arCameraPermissionMessage,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
           ),
           const SizedBox(height: 12),
           ElevatedButton(
             onPressed: _initializeScanner,
-            child: const Text('Grant Camera Permission'),
+            child: Text(l10n.grantCameraPermission),
           ),
         ],
       ),

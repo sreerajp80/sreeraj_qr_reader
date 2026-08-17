@@ -789,5 +789,42 @@
       "source": { "type": "int" },
       "parity": { "type": "int" }
     }
+  },
+
+  "toggleFlashlight": "Toggle Flashlight",
+  "@toggleFlashlight": {
+    "description": "Tooltip on the button that turns the camera light on or off"
+  },
+  "grantCameraPermission": "Grant Camera Permission",
+  "@grantCameraPermission": {
+    "description": "Button that asks the system for camera permission again"
+  },
+
+  "arScreenTitle": "AR CodeVision HUD",
+  "@arScreenTitle": {
+    "description": "Title of the screen that marks up live camera view with found codes"
+  },
+  "arInitializing": "Initializing AR HUD Viewport...",
+  "@arInitializing": {
+    "description": "Shown while the live camera view is starting"
+  },
+  "arClearSelection": "Clear",
+  "@arClearSelection": {
+    "description": "Button that unselects every marked code"
+  },
+  "arBatchCopy": "Batch Copy",
+  "@arBatchCopy": {
+    "description": "Button that copies every selected code at once"
+  },
+  "arBatchCopied": "Copied {count} barcodes to clipboard",
+  "@arBatchCopied": {
+    "description": "Message shown after copying several codes at once",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "arCameraPermissionMessage": "Camera permission is required for AR CodeVision",
+  "@arCameraPermissionMessage": {
+    "description": "Shown when camera permission is missing on the AR screen"
   }
 }

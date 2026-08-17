@@ -580,4 +580,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String airQrTotalFrames(int total, int source, int parity) {
     return 'Total Stream Frames: $total ($source Source + $parity Fountain FEC)';
   }
+
+  @override
+  String get toggleFlashlight => 'Toggle Flashlight';
+
+  @override
+  String get grantCameraPermission => 'Grant Camera Permission';
+
+  @override
+  String get arScreenTitle => 'AR CodeVision HUD';
+
+  @override
+  String get arInitializing => 'Initializing AR HUD Viewport...';
+
+  @override
+  String get arClearSelection => 'Clear';
+
+  @override
+  String get arBatchCopy => 'Batch Copy';
+
+  @override
+  String arBatchCopied(int count) {
+    return 'Copied $count barcodes to clipboard';
+  }
+
+  @override
+  String get arCameraPermissionMessage =>
+      'Camera permission is required for AR CodeVision';
 }
