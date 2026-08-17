@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
@@ -345,12 +346,12 @@ class _ScannerScreenState extends State<ScannerScreen>
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const AlertDialog(
+      builder: (context) => AlertDialog(
         content: Row(
           children: [
-            CircularProgressIndicator(),
-            SizedBox(width: 20),
-            Expanded(child: Text('Extracting & scanning PDF pages...')),
+            const CircularProgressIndicator(),
+            const SizedBox(width: 20),
+            Expanded(child: Text(AppLocalizations.of(context).scanPdfProgress)),
           ],
         ),
       ),
@@ -370,12 +371,14 @@ class _ScannerScreenState extends State<ScannerScreen>
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const AlertDialog(
+      builder: (context) => AlertDialog(
         content: Row(
           children: [
-            CircularProgressIndicator(),
-            SizedBox(width: 20),
-            Expanded(child: Text('Scanning shared PDF document...')),
+            const CircularProgressIndicator(),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Text(AppLocalizations.of(context).scanSharedPdfProgress),
+            ),
           ],
         ),
       ),
@@ -479,63 +482,64 @@ class _ScannerScreenState extends State<ScannerScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sreeraj P QR Reader'),
+        title: Text(l10n.appTitle),
         elevation: 2,
         actions: [
           IconButton(
             icon: const Icon(Icons.photo_library),
             onPressed: _scanGalleryImage,
-            tooltip: 'Scan Image from Gallery',
+            tooltip: l10n.scanFromGallery,
           ),
           IconButton(
             icon: const Icon(Icons.picture_as_pdf),
             onPressed: _scanPdfDocument,
-            tooltip: 'Scan PDF Document',
+            tooltip: l10n.scanPdfDocument,
           ),
           PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert),
-            tooltip: 'More options',
+            tooltip: l10n.moreOptions,
             onSelected: _navigateToRoute,
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              const PopupMenuItem<String>(
+              PopupMenuItem<String>(
                 value: '/ar_codevision',
                 child: Row(
                   children: [
-                    Icon(Icons.view_in_ar),
-                    SizedBox(width: 12),
-                    Text('AR CodeVision HUD'),
+                    const Icon(Icons.view_in_ar),
+                    const SizedBox(width: 12),
+                    Text(l10n.arScreenTitle),
                   ],
                 ),
               ),
-              const PopupMenuItem<String>(
+              PopupMenuItem<String>(
                 value: '/air_qr',
                 child: Row(
                   children: [
-                    Icon(Icons.sensors),
-                    SizedBox(width: 12),
-                    Text('AirQR Stream Receiver'),
+                    const Icon(Icons.sensors),
+                    const SizedBox(width: 12),
+                    Text(l10n.airQrReceiverTitle),
                   ],
                 ),
               ),
-              const PopupMenuItem<String>(
+              PopupMenuItem<String>(
                 value: '/history',
                 child: Row(
                   children: [
-                    Icon(Icons.history),
-                    SizedBox(width: 12),
-                    Text('History'),
+                    const Icon(Icons.history),
+                    const SizedBox(width: 12),
+                    Text(l10n.menuHistory),
                   ],
                 ),
               ),
-              const PopupMenuItem<String>(
+              PopupMenuItem<String>(
                 value: '/settings',
                 child: Row(
                   children: [
-                    Icon(Icons.settings),
-                    SizedBox(width: 12),
-                    Text('Settings'),
+                    const Icon(Icons.settings),
+                    const SizedBox(width: 12),
+                    Text(l10n.menuSettings),
                   ],
                 ),
               ),
@@ -547,15 +551,15 @@ class _ScannerScreenState extends State<ScannerScreen>
           ? _buildPermissionRequest()
           : (_isInitialized && controller != null
                 ? _buildScanner()
-                : const Center(
+                : Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircularProgressIndicator(),
-                        SizedBox(height: 16),
+                        const CircularProgressIndicator(),
+                        const SizedBox(height: 16),
                         Text(
-                          'Initializing camera...',
-                          style: TextStyle(color: Colors.white70),
+                          l10n.scanInitializingCamera,
+                          style: const TextStyle(color: Colors.white70),
                         ),
                       ],
                     ),
@@ -570,6 +574,7 @@ class _ScannerScreenState extends State<ScannerScreen>
   }
 
   Widget _buildScanner() {
+    final l10n = AppLocalizations.of(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return GestureDetector(
@@ -586,19 +591,19 @@ class _ScannerScreenState extends State<ScannerScreen>
             controller: controller!,
             onDetect: _handleBarcode,
             errorBuilder: (context, error) {
-              return const Center(
+              return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.camera_alt_outlined,
                       size: 48,
                       color: Colors.amber,
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     Text(
-                      'Initializing camera feed...',
-                      style: TextStyle(color: Colors.white70),
+                      l10n.scanInitializingFeed,
+                      style: const TextStyle(color: Colors.white70),
                     ),
                   ],
                 ),
@@ -632,7 +637,7 @@ class _ScannerScreenState extends State<ScannerScreen>
                       color: _isTorchOn ? Colors.amber : Colors.white,
                     ),
                     onPressed: _toggleTorch,
-                    tooltip: 'Flashlight / Torch',
+                    tooltip: l10n.scanTorchTooltip,
                   ),
                   IconButton(
                     icon: Icon(
@@ -644,7 +649,7 @@ class _ScannerScreenState extends State<ScannerScreen>
                     onPressed: () {
                       setState(() => _showZoomBar = !_showZoomBar);
                     },
-                    tooltip: 'Zoom slider',
+                    tooltip: l10n.scanZoomTooltip,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -670,7 +675,7 @@ class _ScannerScreenState extends State<ScannerScreen>
                       color: _isFrontCamera ? Colors.cyanAccent : Colors.white,
                     ),
                     onPressed: _switchCamera,
-                    tooltip: 'Flip Camera (Front/Back)',
+                    tooltip: l10n.scanFlipCameraTooltip,
                   ),
                 ],
               ),
@@ -693,9 +698,12 @@ class _ScannerScreenState extends State<ScannerScreen>
                 ),
                 child: Row(
                   children: [
-                    const Text(
-                      '1.0x',
-                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                    Text(
+                      l10n.scanZoomValue('1.0'),
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                      ),
                     ),
                     Expanded(
                       child: Slider(
@@ -703,15 +711,20 @@ class _ScannerScreenState extends State<ScannerScreen>
                         min: 1.0,
                         max: 8.0,
                         divisions: 28,
-                        label: '${_zoomScale.toStringAsFixed(1)}x',
+                        label: l10n.scanZoomValue(
+                          _zoomScale.toStringAsFixed(1),
+                        ),
                         onChanged: (val) {
                           _setZoom(val);
                         },
                       ),
                     ),
-                    const Text(
-                      '8.0x',
-                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                    Text(
+                      l10n.scanZoomValue('8.0'),
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                      ),
                     ),
                   ],
                 ),
@@ -732,9 +745,9 @@ class _ScannerScreenState extends State<ScannerScreen>
                   color: Colors.black54,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Text(
-                  'Position QR code or barcode within the frame',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                child: Text(
+                  l10n.scanViewfinderHint,
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -746,15 +759,16 @@ class _ScannerScreenState extends State<ScannerScreen>
   }
 
   Widget _buildPermissionRequest() {
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(Icons.camera_alt, size: 64, color: Colors.grey),
           const SizedBox(height: 16),
-          const Text(
-            'Camera permission required',
-            style: TextStyle(fontSize: 18),
+          Text(
+            l10n.scanCameraPermissionRequired,
+            style: const TextStyle(fontSize: 18),
           ),
           const SizedBox(height: 8),
           ElevatedButton(
@@ -764,7 +778,7 @@ class _ScannerScreenState extends State<ScannerScreen>
                 _initializeScanner();
               }
             },
-            child: const Text('Grant Permission'),
+            child: Text(l10n.grantPermission),
           ),
         ],
       ),

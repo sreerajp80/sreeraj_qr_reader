@@ -706,4 +706,55 @@ class AppLocalizationsEn extends AppLocalizations {
   String historyNoMatches(String query) {
     return 'No matches for \"$query\"';
   }
+
+  @override
+  String get moreOptions => 'More options';
+
+  @override
+  String get menuHistory => 'History';
+
+  @override
+  String get menuSettings => 'Settings';
+
+  @override
+  String get grantPermission => 'Grant Permission';
+
+  @override
+  String get scanFromGallery => 'Scan Image from Gallery';
+
+  @override
+  String get scanPdfDocument => 'Scan PDF Document';
+
+  @override
+  String get scanPdfProgress => 'Extracting & scanning PDF pages...';
+
+  @override
+  String get scanSharedPdfProgress => 'Scanning shared PDF document...';
+
+  @override
+  String get scanInitializingCamera => 'Initializing camera...';
+
+  @override
+  String get scanInitializingFeed => 'Initializing camera feed...';
+
+  @override
+  String get scanTorchTooltip => 'Flashlight / Torch';
+
+  @override
+  String get scanZoomTooltip => 'Zoom slider';
+
+  @override
+  String get scanFlipCameraTooltip => 'Flip Camera (Front/Back)';
+
+  @override
+  String scanZoomValue(String value) {
+    return '${value}x';
+  }
+
+  @override
+  String get scanViewfinderHint =>
+      'Position QR code or barcode within the frame';
+
+  @override
+  String get scanCameraPermissionRequired => 'Camera permission required';
 }

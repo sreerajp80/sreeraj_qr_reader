@@ -960,5 +960,74 @@
     "placeholders": {
       "query": { "type": "String" }
     }
+  },
+
+  "moreOptions": "More options",
+  "@moreOptions": {
+    "description": "Tooltip on the button that opens the overflow menu"
+  },
+  "menuHistory": "History",
+  "@menuHistory": {
+    "description": "Menu item that opens the saved scans screen"
+  },
+  "menuSettings": "Settings",
+  "@menuSettings": {
+    "description": "Menu item that opens the settings screen"
+  },
+  "grantPermission": "Grant Permission",
+  "@grantPermission": {
+    "description": "Button that asks the system for a permission again"
+  },
+
+  "scanFromGallery": "Scan Image from Gallery",
+  "@scanFromGallery": {
+    "description": "Tooltip on the button that reads a code from a saved picture"
+  },
+  "scanPdfDocument": "Scan PDF Document",
+  "@scanPdfDocument": {
+    "description": "Tooltip on the button that reads codes from a PDF file"
+  },
+  "scanPdfProgress": "Extracting & scanning PDF pages...",
+  "@scanPdfProgress": {
+    "description": "Shown while the pages of a chosen PDF are being read"
+  },
+  "scanSharedPdfProgress": "Scanning shared PDF document...",
+  "@scanSharedPdfProgress": {
+    "description": "Shown while a PDF shared from another app is being read"
+  },
+  "scanInitializingCamera": "Initializing camera...",
+  "@scanInitializingCamera": {
+    "description": "Shown while the camera is starting"
+  },
+  "scanInitializingFeed": "Initializing camera feed...",
+  "@scanInitializingFeed": {
+    "description": "Shown while the live camera picture is starting"
+  },
+  "scanTorchTooltip": "Flashlight / Torch",
+  "@scanTorchTooltip": {
+    "description": "Tooltip on the camera light button"
+  },
+  "scanZoomTooltip": "Zoom slider",
+  "@scanZoomTooltip": {
+    "description": "Tooltip on the button that shows the zoom slider"
+  },
+  "scanFlipCameraTooltip": "Flip Camera (Front/Back)",
+  "@scanFlipCameraTooltip": {
+    "description": "Tooltip on the button that switches between front and back cameras"
+  },
+  "scanZoomValue": "{value}x",
+  "@scanZoomValue": {
+    "description": "A zoom level, for example 2.5x",
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "scanViewfinderHint": "Position QR code or barcode within the frame",
+  "@scanViewfinderHint": {
+    "description": "Instruction shown over the camera picture"
+  },
+  "scanCameraPermissionRequired": "Camera permission required",
+  "@scanCameraPermissionRequired": {
+    "description": "Shown when camera permission is missing on the scanner screen"
   }
 }

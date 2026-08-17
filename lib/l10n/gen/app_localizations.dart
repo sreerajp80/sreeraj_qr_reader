@@ -1305,6 +1305,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No matches for \"{query}\"'**
   String historyNoMatches(String query);
+
+  /// Tooltip on the button that opens the overflow menu
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get moreOptions;
+
+  /// Menu item that opens the saved scans screen
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get menuHistory;
+
+  /// Menu item that opens the settings screen
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get menuSettings;
+
+  /// Button that asks the system for a permission again
+  ///
+  /// In en, this message translates to:
+  /// **'Grant Permission'**
+  String get grantPermission;
+
+  /// Tooltip on the button that reads a code from a saved picture
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Image from Gallery'**
+  String get scanFromGallery;
+
+  /// Tooltip on the button that reads codes from a PDF file
+  ///
+  /// In en, this message translates to:
+  /// **'Scan PDF Document'**
+  String get scanPdfDocument;
+
+  /// Shown while the pages of a chosen PDF are being read
+  ///
+  /// In en, this message translates to:
+  /// **'Extracting & scanning PDF pages...'**
+  String get scanPdfProgress;
+
+  /// Shown while a PDF shared from another app is being read
+  ///
+  /// In en, this message translates to:
+  /// **'Scanning shared PDF document...'**
+  String get scanSharedPdfProgress;
+
+  /// Shown while the camera is starting
+  ///
+  /// In en, this message translates to:
+  /// **'Initializing camera...'**
+  String get scanInitializingCamera;
+
+  /// Shown while the live camera picture is starting
+  ///
+  /// In en, this message translates to:
+  /// **'Initializing camera feed...'**
+  String get scanInitializingFeed;
+
+  /// Tooltip on the camera light button
+  ///
+  /// In en, this message translates to:
+  /// **'Flashlight / Torch'**
+  String get scanTorchTooltip;
+
+  /// Tooltip on the button that shows the zoom slider
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom slider'**
+  String get scanZoomTooltip;
+
+  /// Tooltip on the button that switches between front and back cameras
+  ///
+  /// In en, this message translates to:
+  /// **'Flip Camera (Front/Back)'**
+  String get scanFlipCameraTooltip;
+
+  /// A zoom level, for example 2.5x
+  ///
+  /// In en, this message translates to:
+  /// **'{value}x'**
+  String scanZoomValue(String value);
+
+  /// Instruction shown over the camera picture
+  ///
+  /// In en, this message translates to:
+  /// **'Position QR code or barcode within the frame'**
+  String get scanViewfinderHint;
+
+  /// Shown when camera permission is missing on the scanner screen
+  ///
+  /// In en, this message translates to:
+  /// **'Camera permission required'**
+  String get scanCameraPermissionRequired;
 }
 
 class _AppLocalizationsDelegate
