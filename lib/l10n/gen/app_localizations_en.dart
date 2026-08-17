@@ -607,4 +607,48 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get arCameraPermissionMessage =>
       'Camera permission is required for AR CodeVision';
+
+  @override
+  String get doneButton => 'Done';
+
+  @override
+  String get airQrReceiverTitle => 'AirQR Stream Receiver';
+
+  @override
+  String get airQrTransmitterTooltip => 'AirQR Transmitter';
+
+  @override
+  String get airQrResetStream => 'Reset Stream';
+
+  @override
+  String get airQrInitializing => 'Initializing AirQR Stream Receiver...';
+
+  @override
+  String get airQrStatusReassembled => 'STREAM REASSEMBLED';
+
+  @override
+  String get airQrStatusCapturing => 'CAPTURING OPTICAL STREAM...';
+
+  @override
+  String get airQrStatusIdle => 'POINT AT ANIMATED QR STREAM';
+
+  @override
+  String airQrCaptured(int received, int total) {
+    return 'Captured: $received / $total Blocks';
+  }
+
+  @override
+  String airQrMissing(int count) {
+    return 'Missing: $count';
+  }
+
+  @override
+  String get airQrTransferComplete => 'Air-Gap Transfer Complete!';
+
+  @override
+  String get airQrTransferCompleteDetail =>
+      'Payload reassembled and verified offline via Fountain error correction.';
+
+  @override
+  String get airQrPayloadCopied => 'Copied payload to clipboard';
 }

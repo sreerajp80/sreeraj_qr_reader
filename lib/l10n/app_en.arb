@@ -826,5 +826,66 @@
   "arCameraPermissionMessage": "Camera permission is required for AR CodeVision",
   "@arCameraPermissionMessage": {
     "description": "Shown when camera permission is missing on the AR screen"
+  },
+
+  "doneButton": "Done",
+  "@doneButton": {
+    "description": "Button that closes a finished step, used on several screens"
+  },
+
+  "airQrReceiverTitle": "AirQR Stream Receiver",
+  "@airQrReceiverTitle": {
+    "description": "Title of the screen that reads a stream of codes"
+  },
+  "airQrTransmitterTooltip": "AirQR Transmitter",
+  "@airQrTransmitterTooltip": {
+    "description": "Tooltip on the button that opens the sending screen"
+  },
+  "airQrResetStream": "Reset Stream",
+  "@airQrResetStream": {
+    "description": "Tooltip on the button that starts the capture again"
+  },
+  "airQrInitializing": "Initializing AirQR Stream Receiver...",
+  "@airQrInitializing": {
+    "description": "Shown while the stream reader is starting"
+  },
+  "airQrStatusReassembled": "STREAM REASSEMBLED",
+  "@airQrStatusReassembled": {
+    "description": "Status shown when every part of the stream has been received"
+  },
+  "airQrStatusCapturing": "CAPTURING OPTICAL STREAM...",
+  "@airQrStatusCapturing": {
+    "description": "Status shown while parts of the stream are being read"
+  },
+  "airQrStatusIdle": "POINT AT ANIMATED QR STREAM",
+  "@airQrStatusIdle": {
+    "description": "Status telling the user to aim the camera at the sending screen"
+  },
+  "airQrCaptured": "Captured: {received} / {total} Blocks",
+  "@airQrCaptured": {
+    "description": "How many parts of the stream have been read so far",
+    "placeholders": {
+      "received": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "airQrMissing": "Missing: {count}",
+  "@airQrMissing": {
+    "description": "How many parts of the stream are still missing",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "airQrTransferComplete": "Air-Gap Transfer Complete!",
+  "@airQrTransferComplete": {
+    "description": "Title of the panel shown when the whole stream has been received"
+  },
+  "airQrTransferCompleteDetail": "Payload reassembled and verified offline via Fountain error correction.",
+  "@airQrTransferCompleteDetail": {
+    "description": "Explanation under the transfer complete title"
+  },
+  "airQrPayloadCopied": "Copied payload to clipboard",
+  "@airQrPayloadCopied": {
+    "description": "Message shown after the received data is copied"
   }
 }

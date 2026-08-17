@@ -1125,6 +1125,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Camera permission is required for AR CodeVision'**
   String get arCameraPermissionMessage;
+
+  /// Button that closes a finished step, used on several screens
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get doneButton;
+
+  /// Title of the screen that reads a stream of codes
+  ///
+  /// In en, this message translates to:
+  /// **'AirQR Stream Receiver'**
+  String get airQrReceiverTitle;
+
+  /// Tooltip on the button that opens the sending screen
+  ///
+  /// In en, this message translates to:
+  /// **'AirQR Transmitter'**
+  String get airQrTransmitterTooltip;
+
+  /// Tooltip on the button that starts the capture again
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Stream'**
+  String get airQrResetStream;
+
+  /// Shown while the stream reader is starting
+  ///
+  /// In en, this message translates to:
+  /// **'Initializing AirQR Stream Receiver...'**
+  String get airQrInitializing;
+
+  /// Status shown when every part of the stream has been received
+  ///
+  /// In en, this message translates to:
+  /// **'STREAM REASSEMBLED'**
+  String get airQrStatusReassembled;
+
+  /// Status shown while parts of the stream are being read
+  ///
+  /// In en, this message translates to:
+  /// **'CAPTURING OPTICAL STREAM...'**
+  String get airQrStatusCapturing;
+
+  /// Status telling the user to aim the camera at the sending screen
+  ///
+  /// In en, this message translates to:
+  /// **'POINT AT ANIMATED QR STREAM'**
+  String get airQrStatusIdle;
+
+  /// How many parts of the stream have been read so far
+  ///
+  /// In en, this message translates to:
+  /// **'Captured: {received} / {total} Blocks'**
+  String airQrCaptured(int received, int total);
+
+  /// How many parts of the stream are still missing
+  ///
+  /// In en, this message translates to:
+  /// **'Missing: {count}'**
+  String airQrMissing(int count);
+
+  /// Title of the panel shown when the whole stream has been received
+  ///
+  /// In en, this message translates to:
+  /// **'Air-Gap Transfer Complete!'**
+  String get airQrTransferComplete;
+
+  /// Explanation under the transfer complete title
+  ///
+  /// In en, this message translates to:
+  /// **'Payload reassembled and verified offline via Fountain error correction.'**
+  String get airQrTransferCompleteDetail;
+
+  /// Message shown after the received data is copied
+  ///
+  /// In en, this message translates to:
+  /// **'Copied payload to clipboard'**
+  String get airQrPayloadCopied;
 }
 
 class _AppLocalizationsDelegate

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/air_qr_progress.dart';
 import 'package:sreeraj_qr_reader/providers/air_qr_provider.dart';
 import 'package:sreeraj_qr_reader/providers/history_provider.dart';
@@ -113,6 +114,7 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final airQrProvider = Provider.of<AirQrProvider>(context);
     final progress = airQrProvider.progress;
 
@@ -133,7 +135,7 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
             icon: const Icon(Icons.arrow_back),
             onPressed: _handleBack,
           ),
-          title: const Text('AirQR Stream Receiver'),
+          title: Text(l10n.airQrReceiverTitle),
           elevation: 0,
           backgroundColor: Colors.black87,
           actions: [
@@ -160,7 +162,7 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
                   }
                 }
               },
-              tooltip: 'AirQR Transmitter',
+              tooltip: l10n.airQrTransmitterTooltip,
             ),
             IconButton(
               icon: const Icon(Icons.refresh),
@@ -170,7 +172,7 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
                 });
                 airQrProvider.resetStream();
               },
-              tooltip: 'Reset Stream',
+              tooltip: l10n.airQrResetStream,
             ),
           ],
         ),
@@ -181,19 +183,19 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
                 controller: controller!,
                 onDetect: _onDetect,
                 errorBuilder: (context, error) {
-                  return const Center(
+                  return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.sensors_outlined,
                           size: 48,
                           color: Colors.cyanAccent,
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Text(
-                          'Initializing AirQR Stream Receiver...',
-                          style: TextStyle(color: Colors.white70),
+                          l10n.airQrInitializing,
+                          style: const TextStyle(color: Colors.white70),
                         ),
                       ],
                     ),
@@ -273,19 +275,23 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
               bottom: 24,
               left: 16,
               right: 16,
-              child: _buildHudPanel(progress),
+              child: _buildHudPanel(l10n, progress),
             ),
             // Complete Payload Result Dialog Overlay
             if (progress.status == AirQrStatus.completed &&
                 progress.reassembledContent != null)
-              _buildCompletedOverlay(context, progress.reassembledContent!),
+              _buildCompletedOverlay(
+                context,
+                l10n,
+                progress.reassembledContent!,
+              ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHudPanel(AirQrProgress progress) {
+  Widget _buildHudPanel(AppLocalizations l10n, AirQrProgress progress) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -302,10 +308,10 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
             children: [
               Text(
                 progress.status == AirQrStatus.completed
-                    ? 'STREAM REASSEMBLED'
+                    ? l10n.airQrStatusReassembled
                     : progress.status == AirQrStatus.receiving
-                    ? 'CAPTURING OPTICAL STREAM...'
-                    : 'POINT AT ANIMATED QR STREAM',
+                    ? l10n.airQrStatusCapturing
+                    : l10n.airQrStatusIdle,
                 style: TextStyle(
                   color: progress.status == AirQrStatus.completed
                       ? Colors.greenAccent
@@ -342,11 +348,14 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Captured: ${progress.receivedBlockCount} / ${progress.totalBlocks} Blocks',
+                l10n.airQrCaptured(
+                  progress.receivedBlockCount,
+                  progress.totalBlocks,
+                ),
                 style: const TextStyle(color: Colors.white, fontSize: 13),
               ),
               Text(
-                'Missing: ${progress.missingBlockCount}',
+                l10n.airQrMissing(progress.missingBlockCount),
                 style: const TextStyle(color: Colors.amberAccent, fontSize: 13),
               ),
             ],
@@ -379,7 +388,11 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
     );
   }
 
-  Widget _buildCompletedOverlay(BuildContext context, String content) {
+  Widget _buildCompletedOverlay(
+    BuildContext context,
+    AppLocalizations l10n,
+    String content,
+  ) {
     return Container(
       color: Colors.black.withValues(alpha: 0.85),
       child: Center(
@@ -400,15 +413,18 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
                 size: 56,
               ),
               const SizedBox(height: 12),
-              const Text(
-                'Air-Gap Transfer Complete!',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              Text(
+                l10n.airQrTransferComplete,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Payload reassembled and verified offline via Fountain error correction.',
+              Text(
+                l10n.airQrTransferCompleteDetail,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey, fontSize: 13),
+                style: const TextStyle(color: Colors.grey, fontSize: 13),
               ),
               const SizedBox(height: 16),
               ConstrainedBox(
@@ -438,20 +454,18 @@ class _AirQrScreenState extends State<AirQrScreen> with WidgetsBindingObserver {
                     onPressed: () {
                       Clipboard.setData(ClipboardData(text: content));
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Copied payload to clipboard'),
-                        ),
+                        SnackBar(content: Text(l10n.airQrPayloadCopied)),
                       );
                     },
                     icon: const Icon(Icons.copy, size: 18),
-                    label: const Text('Copy'),
+                    label: Text(l10n.arCopyButton),
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     icon: const Icon(Icons.check),
-                    label: const Text('Done'),
+                    label: Text(l10n.doneButton),
                   ),
                 ],
               ),
