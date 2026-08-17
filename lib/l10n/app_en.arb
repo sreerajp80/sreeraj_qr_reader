@@ -710,5 +710,84 @@
   "domSanitizedSnippetHeading": "Sanitized HTML Preview Snippet:",
   "@domSanitizedSnippetHeading": {
     "description": "Heading above the cleaned page source snippet"
+  },
+
+  "aboutTitle": "About",
+  "@aboutTitle": {
+    "description": "Title of the About screen"
+  },
+  "aboutVersion": "Version {version}+{build}",
+  "@aboutVersion": {
+    "description": "App version and build number on the About screen",
+    "placeholders": {
+      "version": { "type": "String" },
+      "build": { "type": "String" }
+    }
+  },
+  "aboutMadeWithLove": "Made with ❤️ from India",
+  "@aboutMadeWithLove": {
+    "description": "Footer line on the About screen"
+  },
+
+  "airQrTransmitterTitle": "AirQR Stream Transmitter",
+  "@airQrTransmitterTitle": {
+    "description": "Title of the screen that sends data as a stream of codes"
+  },
+  "airQrSamplePayload": "AirQR High-Speed Optical Air-Gap Transfer Test Payload. This payload is encoded into 256-byte chunks with Fountain FEC error correction.",
+  "@airQrSamplePayload": {
+    "description": "Sample text that fills the payload box when the transmitter screen opens"
+  },
+  "airQrPayloadLabel": "Payload Data to Broadcast",
+  "@airQrPayloadLabel": {
+    "description": "Label of the box holding the data to send"
+  },
+  "airQrPayloadHint": "Enter text, contact, or file payload...",
+  "@airQrPayloadHint": {
+    "description": "Hint inside the empty payload box"
+  },
+  "airQrStreamSpeed": "Stream Speed:",
+  "@airQrStreamSpeed": {
+    "description": "Label before the slider that sets how fast codes are shown"
+  },
+  "airQrFps": "{fps} FPS",
+  "@airQrFps": {
+    "description": "How many code frames are shown per second",
+    "placeholders": {
+      "fps": { "type": "int" }
+    }
+  },
+  "airQrStartStream": "Broadcast Optical Stream",
+  "@airQrStartStream": {
+    "description": "Button that starts showing the stream of codes"
+  },
+  "airQrStopStream": "Stop Optical Stream",
+  "@airQrStopStream": {
+    "description": "Button that stops showing the stream of codes"
+  },
+  "airQrFrameParity": "Frame {current}/{total} [Fountain PARITY]",
+  "@airQrFrameParity": {
+    "description": "Caption under a repair frame of the stream",
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "airQrFrameBlock": "Frame {current}/{total} [Block {block}]",
+  "@airQrFrameBlock": {
+    "description": "Caption under a data frame of the stream",
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" },
+      "block": { "type": "int" }
+    }
+  },
+  "airQrTotalFrames": "Total Stream Frames: {total} ({source} Source + {parity} Fountain FEC)",
+  "@airQrTotalFrames": {
+    "description": "Summary of how many frames the stream holds",
+    "placeholders": {
+      "total": { "type": "int" },
+      "source": { "type": "int" },
+      "parity": { "type": "int" }
+    }
   }
 }

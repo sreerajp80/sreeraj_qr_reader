@@ -527,4 +527,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get domSanitizedSnippetHeading => 'Sanitized HTML Preview Snippet:';
+
+  @override
+  String get aboutTitle => 'About';
+
+  @override
+  String aboutVersion(String version, String build) {
+    return 'Version $version+$build';
+  }
+
+  @override
+  String get aboutMadeWithLove => 'Made with ❤️ from India';
+
+  @override
+  String get airQrTransmitterTitle => 'AirQR Stream Transmitter';
+
+  @override
+  String get airQrSamplePayload =>
+      'AirQR High-Speed Optical Air-Gap Transfer Test Payload. This payload is encoded into 256-byte chunks with Fountain FEC error correction.';
+
+  @override
+  String get airQrPayloadLabel => 'Payload Data to Broadcast';
+
+  @override
+  String get airQrPayloadHint => 'Enter text, contact, or file payload...';
+
+  @override
+  String get airQrStreamSpeed => 'Stream Speed:';
+
+  @override
+  String airQrFps(int fps) {
+    return '$fps FPS';
+  }
+
+  @override
+  String get airQrStartStream => 'Broadcast Optical Stream';
+
+  @override
+  String get airQrStopStream => 'Stop Optical Stream';
+
+  @override
+  String airQrFrameParity(int current, int total) {
+    return 'Frame $current/$total [Fountain PARITY]';
+  }
+
+  @override
+  String airQrFrameBlock(int current, int total, int block) {
+    return 'Frame $current/$total [Block $block]';
+  }
+
+  @override
+  String airQrTotalFrames(int total, int source, int parity) {
+    return 'Total Stream Frames: $total ($source Source + $parity Fountain FEC)';
+  }
 }

@@ -993,6 +993,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sanitized HTML Preview Snippet:'**
   String get domSanitizedSnippetHeading;
+
+  /// Title of the About screen
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get aboutTitle;
+
+  /// App version and build number on the About screen
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}+{build}'**
+  String aboutVersion(String version, String build);
+
+  /// Footer line on the About screen
+  ///
+  /// In en, this message translates to:
+  /// **'Made with ❤️ from India'**
+  String get aboutMadeWithLove;
+
+  /// Title of the screen that sends data as a stream of codes
+  ///
+  /// In en, this message translates to:
+  /// **'AirQR Stream Transmitter'**
+  String get airQrTransmitterTitle;
+
+  /// Sample text that fills the payload box when the transmitter screen opens
+  ///
+  /// In en, this message translates to:
+  /// **'AirQR High-Speed Optical Air-Gap Transfer Test Payload. This payload is encoded into 256-byte chunks with Fountain FEC error correction.'**
+  String get airQrSamplePayload;
+
+  /// Label of the box holding the data to send
+  ///
+  /// In en, this message translates to:
+  /// **'Payload Data to Broadcast'**
+  String get airQrPayloadLabel;
+
+  /// Hint inside the empty payload box
+  ///
+  /// In en, this message translates to:
+  /// **'Enter text, contact, or file payload...'**
+  String get airQrPayloadHint;
+
+  /// Label before the slider that sets how fast codes are shown
+  ///
+  /// In en, this message translates to:
+  /// **'Stream Speed:'**
+  String get airQrStreamSpeed;
+
+  /// How many code frames are shown per second
+  ///
+  /// In en, this message translates to:
+  /// **'{fps} FPS'**
+  String airQrFps(int fps);
+
+  /// Button that starts showing the stream of codes
+  ///
+  /// In en, this message translates to:
+  /// **'Broadcast Optical Stream'**
+  String get airQrStartStream;
+
+  /// Button that stops showing the stream of codes
+  ///
+  /// In en, this message translates to:
+  /// **'Stop Optical Stream'**
+  String get airQrStopStream;
+
+  /// Caption under a repair frame of the stream
+  ///
+  /// In en, this message translates to:
+  /// **'Frame {current}/{total} [Fountain PARITY]'**
+  String airQrFrameParity(int current, int total);
+
+  /// Caption under a data frame of the stream
+  ///
+  /// In en, this message translates to:
+  /// **'Frame {current}/{total} [Block {block}]'**
+  String airQrFrameBlock(int current, int total, int block);
+
+  /// Summary of how many frames the stream holds
+  ///
+  /// In en, this message translates to:
+  /// **'Total Stream Frames: {total} ({source} Source + {parity} Fountain FEC)'**
+  String airQrTotalFrames(int total, int source, int parity);
 }
 
 class _AppLocalizationsDelegate

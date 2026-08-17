@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sreeraj_qr_reader/core/config/app_config.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/core/config/config_service.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -66,8 +67,9 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('About')),
+      appBar: AppBar(title: Text(l10n.aboutTitle)),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -126,7 +128,7 @@ class _AboutScreenState extends State<AboutScreen> {
 
                   // Version Info
                   Text(
-                    'Version ${_config.version}+${_config.build}',
+                    l10n.aboutVersion(_config.version, _config.build),
                     style: Theme.of(
                       context,
                     ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
@@ -176,7 +178,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      'Made with ❤️ from India',
+                      l10n.aboutMadeWithLove,
                       style: Theme.of(
                         context,
                       ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),

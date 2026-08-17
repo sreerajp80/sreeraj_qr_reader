@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/air_qr_frame.dart';
 import 'package:sreeraj_qr_reader/services/air_qr_service.dart';
 
@@ -11,11 +12,21 @@ class AirQrTransmitterScreen extends StatefulWidget {
 }
 
 class _AirQrTransmitterScreenState extends State<AirQrTransmitterScreen> {
-  final TextEditingController _textController = TextEditingController(
-    text:
-        'AirQR High-Speed Optical Air-Gap Transfer Test Payload. '
-        'This payload is encoded into 256-byte chunks with Fountain FEC error correction.',
-  );
+  final TextEditingController _textController = TextEditingController();
+
+  /// Fills the payload box with the sample text once, after the localized
+  /// strings become available.
+  bool _sampleTextApplied = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_sampleTextApplied) {
+      _sampleTextApplied = true;
+      _textController.text = AppLocalizations.of(context).airQrSamplePayload;
+      _prepareFrames();
+    }
+  }
 
   int _fps = 10;
   bool _isBroadcasting = false;
@@ -101,12 +112,10 @@ class _AirQrTransmitterScreenState extends State<AirQrTransmitterScreen> {
         : null;
 
     final qrString = currentFrame?.toQrString() ?? '';
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AirQR Stream Transmitter'),
-        elevation: 2,
-      ),
+      appBar: AppBar(title: Text(l10n.airQrTransmitterTitle), elevation: 2),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -115,10 +124,10 @@ class _AirQrTransmitterScreenState extends State<AirQrTransmitterScreen> {
             TextField(
               controller: _textController,
               maxLines: 3,
-              decoration: const InputDecoration(
-                labelText: 'Payload Data to Broadcast',
-                hintText: 'Enter text, contact, or file payload...',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.airQrPayloadLabel,
+                hintText: l10n.airQrPayloadHint,
+                border: const OutlineInputBorder(),
               ),
               onChanged: (_) {
                 if (_isBroadcasting) _stopBroadcasting();
@@ -128,9 +137,9 @@ class _AirQrTransmitterScreenState extends State<AirQrTransmitterScreen> {
             const SizedBox(height: 16),
             Row(
               children: [
-                const Text(
-                  'Stream Speed:',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Text(
+                  l10n.airQrStreamSpeed,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Expanded(
                   child: Slider(
@@ -138,7 +147,7 @@ class _AirQrTransmitterScreenState extends State<AirQrTransmitterScreen> {
                     min: 5,
                     max: 25,
                     divisions: 20,
-                    label: '$_fps FPS',
+                    label: l10n.airQrFps(_fps),
                     onChanged: (val) {
                       setState(() {
                         _fps = val.toInt();
@@ -151,7 +160,7 @@ class _AirQrTransmitterScreenState extends State<AirQrTransmitterScreen> {
                   ),
                 ),
                 Text(
-                  '$_fps FPS',
+                  l10n.airQrFps(_fps),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -168,9 +177,7 @@ class _AirQrTransmitterScreenState extends State<AirQrTransmitterScreen> {
               ),
               icon: Icon(_isBroadcasting ? Icons.stop : Icons.play_arrow),
               label: Text(
-                _isBroadcasting
-                    ? 'Stop Optical Stream'
-                    : 'Broadcast Optical Stream',
+                _isBroadcasting ? l10n.airQrStopStream : l10n.airQrStartStream,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -211,8 +218,15 @@ class _AirQrTransmitterScreenState extends State<AirQrTransmitterScreen> {
                     if (currentFrame != null)
                       Text(
                         currentFrame.isParity
-                            ? 'Frame ${_currentFrameIndex + 1}/${_encodedFrames.length} [Fountain PARITY]'
-                            : 'Frame ${_currentFrameIndex + 1}/${_encodedFrames.length} [Block ${currentFrame.sequenceIndex}]',
+                            ? l10n.airQrFrameParity(
+                                _currentFrameIndex + 1,
+                                _encodedFrames.length,
+                              )
+                            : l10n.airQrFrameBlock(
+                                _currentFrameIndex + 1,
+                                _encodedFrames.length,
+                                currentFrame.sequenceIndex,
+                              ),
                         style: const TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.bold,
@@ -226,7 +240,11 @@ class _AirQrTransmitterScreenState extends State<AirQrTransmitterScreen> {
             const SizedBox(height: 16),
             if (_encodedFrames.isNotEmpty)
               Text(
-                'Total Stream Frames: ${_encodedFrames.length} (${_encodedFrames.where((f) => !f.isParity).length} Source + ${_encodedFrames.where((f) => f.isParity).length} Fountain FEC)',
+                l10n.airQrTotalFrames(
+                  _encodedFrames.length,
+                  _encodedFrames.where((f) => !f.isParity).length,
+                  _encodedFrames.where((f) => f.isParity).length,
+                ),
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.grey, fontSize: 12),
               ),
