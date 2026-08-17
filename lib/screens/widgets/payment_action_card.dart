@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/parsed_payload.dart';
 import 'package:sreeraj_qr_reader/services/payload_action_service.dart';
 
@@ -11,14 +12,15 @@ class PaymentActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final payment = payload;
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
     final schemeName = payment.scheme == PaymentScheme.upi
-        ? 'UPI Payment'
+        ? l10n.paymentSchemeUpi
         : payment.scheme == PaymentScheme.sepa
-        ? 'SEPA Transfer'
-        : 'Crypto Payment';
+        ? l10n.paymentSchemeSepa
+        : l10n.paymentSchemeCrypto;
 
     final schemeColor = payment.scheme == PaymentScheme.upi
         ? Colors.teal
@@ -84,7 +86,7 @@ class PaymentActionCard extends StatelessWidget {
                       Text(
                         payment.payeeName.isNotEmpty
                             ? payment.payeeName
-                            : 'Merchant / Payee',
+                            : l10n.paymentPayeeFallback,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -137,10 +139,10 @@ class PaymentActionCard extends StatelessWidget {
                       children: [
                         Text(
                           payment.scheme == PaymentScheme.upi
-                              ? 'VPA / UPI ID:'
+                              ? l10n.paymentAddressLabelUpi
                               : payment.scheme == PaymentScheme.sepa
-                              ? 'IBAN:'
-                              : 'Wallet Address:',
+                              ? l10n.paymentAddressLabelSepa
+                              : l10n.paymentAddressLabelCrypto,
                           style: TextStyle(fontSize: 11, color: labelColor),
                         ),
                         InkWell(
@@ -152,8 +154,8 @@ class PaymentActionCard extends StatelessWidget {
                               SnackBar(
                                 content: Text(
                                   payment.scheme == PaymentScheme.upi
-                                      ? 'UPI ID copied to clipboard'
-                                      : 'Address copied to clipboard',
+                                      ? l10n.paymentUpiIdCopied
+                                      : l10n.paymentAddressCopied,
                                 ),
                               ),
                             );
@@ -163,7 +165,7 @@ class PaymentActionCard extends StatelessWidget {
                               Icon(Icons.copy, size: 14, color: schemeColor),
                               const SizedBox(width: 4),
                               Text(
-                                'Copy',
+                                l10n.paymentCopyAction,
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.bold,
@@ -199,7 +201,7 @@ class PaymentActionCard extends StatelessWidget {
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
-                      'Note: ${payment.transactionNote}',
+                      l10n.paymentNote(payment.transactionNote),
                       style: TextStyle(fontSize: 12, color: labelColor),
                     ),
                   ),
@@ -217,8 +219,8 @@ class PaymentActionCard extends StatelessWidget {
                 icon: const Icon(Icons.payment),
                 label: Text(
                   payment.scheme == PaymentScheme.upi
-                      ? 'Pay via App (GPay / PhonePe / Paytm)'
-                      : 'Pay via App',
+                      ? l10n.paymentPayButtonUpi
+                      : l10n.paymentPayButton,
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: schemeColor,
@@ -237,12 +239,12 @@ class PaymentActionCard extends StatelessWidget {
                       SnackBar(
                         content: Text(
                           payment.scheme == PaymentScheme.upi
-                              ? 'Could not open UPI app. Make sure GPay, PhonePe, or Paytm is installed.'
-                              : 'Could not open payment app for this scheme.',
+                              ? l10n.paymentUpiLaunchFailed
+                              : l10n.paymentLaunchFailed,
                         ),
                         action: payment.payeeAddress.isNotEmpty
                             ? SnackBarAction(
-                                label: 'Copy ID',
+                                label: l10n.paymentCopyIdAction,
                                 onPressed: () {
                                   Clipboard.setData(
                                     ClipboardData(text: payment.payeeAddress),

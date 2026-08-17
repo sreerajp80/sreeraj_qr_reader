@@ -122,4 +122,122 @@ class AppLocalizationsEn extends AppLocalizations {
   String pdfSavedToHistory(int count) {
     return 'Saved $count codes to history.';
   }
+
+  @override
+  String get totpDefaultIssuer => '2FA Authenticator';
+
+  @override
+  String totpLivePasscode(int period) {
+    return 'Live Passcode (${period}s TOTP)';
+  }
+
+  @override
+  String totpSecondsLeft(int seconds) {
+    return '${seconds}s';
+  }
+
+  @override
+  String get totpCopyToken => 'Copy Token';
+
+  @override
+  String get totpSecretLabel => 'Secret: ';
+
+  @override
+  String get totpImportButton => 'Import into Authenticator App';
+
+  @override
+  String get totpLaunchFailed => 'Could not open Authenticator app';
+
+  @override
+  String get totpTokenCopied => 'TOTP token copied to clipboard';
+
+  @override
+  String get totpSecretCopied => 'Secret key copied to clipboard';
+
+  @override
+  String get paymentSchemeUpi => 'UPI Payment';
+
+  @override
+  String get paymentSchemeSepa => 'SEPA Transfer';
+
+  @override
+  String get paymentSchemeCrypto => 'Crypto Payment';
+
+  @override
+  String get paymentPayeeFallback => 'Merchant / Payee';
+
+  @override
+  String get paymentAddressLabelUpi => 'VPA / UPI ID:';
+
+  @override
+  String get paymentAddressLabelSepa => 'IBAN:';
+
+  @override
+  String get paymentAddressLabelCrypto => 'Wallet Address:';
+
+  @override
+  String get paymentCopyAction => 'Copy';
+
+  @override
+  String get paymentUpiIdCopied => 'UPI ID copied to clipboard';
+
+  @override
+  String get paymentAddressCopied => 'Address copied to clipboard';
+
+  @override
+  String paymentNote(String note) {
+    return 'Note: $note';
+  }
+
+  @override
+  String get paymentPayButtonUpi => 'Pay via App (GPay / PhonePe / Paytm)';
+
+  @override
+  String get paymentPayButton => 'Pay via App';
+
+  @override
+  String get paymentUpiLaunchFailed =>
+      'Could not open UPI app. Make sure GPay, PhonePe, or Paytm is installed.';
+
+  @override
+  String get paymentLaunchFailed =>
+      'Could not open payment app for this scheme.';
+
+  @override
+  String get paymentCopyIdAction => 'Copy ID';
+
+  @override
+  String percentValue(String value) {
+    return '$value%';
+  }
+
+  @override
+  String get quishingGuardTitle => 'QuishingGuard™';
+
+  @override
+  String get quishingTamperBadge => 'Physical Tamper CV';
+
+  @override
+  String get quishingRiskScoreLabel => 'Tamper Risk Score:';
+
+  @override
+  String get quishingViewSignals => 'View Forensic Analysis';
+
+  @override
+  String get quishingHideSignals => 'Hide Forensic Signals';
+
+  @override
+  String get quishingMetricEdgeLabel => 'Edge Discontinuity';
+
+  @override
+  String get quishingMetricEdgeDescription => 'Double edges & shadow lines';
+
+  @override
+  String get quishingMetricGrainLabel => 'Print Grain & DPI';
+
+  @override
+  String get quishingMetricGrainDescription => 'Halftone dot & chromatic noise';
+
+  @override
+  String get quishingSignalsHeading => 'Detected Computer Vision Signals:';
 }

@@ -273,6 +273,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved {count} codes to history.'**
   String pdfSavedToHistory(int count);
+
+  /// Shown in place of the issuer name when a scanned 2FA code has none
+  ///
+  /// In en, this message translates to:
+  /// **'2FA Authenticator'**
+  String get totpDefaultIssuer;
+
+  /// Label above the rolling one-time passcode, with how many seconds each code lasts
+  ///
+  /// In en, this message translates to:
+  /// **'Live Passcode ({period}s TOTP)'**
+  String totpLivePasscode(int period);
+
+  /// Seconds left before the current one-time passcode changes
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds}s'**
+  String totpSecondsLeft(int seconds);
+
+  /// Tooltip on the button that copies the current one-time passcode
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Token'**
+  String get totpCopyToken;
+
+  /// Label before the 2FA secret key. Keeps a trailing space
+  ///
+  /// In en, this message translates to:
+  /// **'Secret: '**
+  String get totpSecretLabel;
+
+  /// Button that sends the scanned 2FA code to an authenticator app
+  ///
+  /// In en, this message translates to:
+  /// **'Import into Authenticator App'**
+  String get totpImportButton;
+
+  /// Message shown when no authenticator app could be opened
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open Authenticator app'**
+  String get totpLaunchFailed;
+
+  /// Message shown after the one-time passcode is copied
+  ///
+  /// In en, this message translates to:
+  /// **'TOTP token copied to clipboard'**
+  String get totpTokenCopied;
+
+  /// Message shown after the 2FA secret key is copied
+  ///
+  /// In en, this message translates to:
+  /// **'Secret key copied to clipboard'**
+  String get totpSecretCopied;
+
+  /// Title of the payment card for an Indian UPI code
+  ///
+  /// In en, this message translates to:
+  /// **'UPI Payment'**
+  String get paymentSchemeUpi;
+
+  /// Title of the payment card for a European SEPA transfer code
+  ///
+  /// In en, this message translates to:
+  /// **'SEPA Transfer'**
+  String get paymentSchemeSepa;
+
+  /// Title of the payment card for a cryptocurrency code
+  ///
+  /// In en, this message translates to:
+  /// **'Crypto Payment'**
+  String get paymentSchemeCrypto;
+
+  /// Shown in place of the payee name when the scanned code has none
+  ///
+  /// In en, this message translates to:
+  /// **'Merchant / Payee'**
+  String get paymentPayeeFallback;
+
+  /// Label before the payee address for a UPI code
+  ///
+  /// In en, this message translates to:
+  /// **'VPA / UPI ID:'**
+  String get paymentAddressLabelUpi;
+
+  /// Label before the payee address for a SEPA transfer code
+  ///
+  /// In en, this message translates to:
+  /// **'IBAN:'**
+  String get paymentAddressLabelSepa;
+
+  /// Label before the payee address for a cryptocurrency code
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet Address:'**
+  String get paymentAddressLabelCrypto;
+
+  /// Small button that copies the payee address
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get paymentCopyAction;
+
+  /// Message shown after a UPI id is copied
+  ///
+  /// In en, this message translates to:
+  /// **'UPI ID copied to clipboard'**
+  String get paymentUpiIdCopied;
+
+  /// Message shown after a payment address is copied
+  ///
+  /// In en, this message translates to:
+  /// **'Address copied to clipboard'**
+  String get paymentAddressCopied;
+
+  /// Transaction note carried by a scanned payment code
+  ///
+  /// In en, this message translates to:
+  /// **'Note: {note}'**
+  String paymentNote(String note);
+
+  /// Button that opens a UPI payment app
+  ///
+  /// In en, this message translates to:
+  /// **'Pay via App (GPay / PhonePe / Paytm)'**
+  String get paymentPayButtonUpi;
+
+  /// Button that opens a payment app for a non-UPI code
+  ///
+  /// In en, this message translates to:
+  /// **'Pay via App'**
+  String get paymentPayButton;
+
+  /// Message shown when no UPI payment app could be opened
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open UPI app. Make sure GPay, PhonePe, or Paytm is installed.'**
+  String get paymentUpiLaunchFailed;
+
+  /// Message shown when no payment app could be opened
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open payment app for this scheme.'**
+  String get paymentLaunchFailed;
+
+  /// Action on the failure message that copies the payee address instead
+  ///
+  /// In en, this message translates to:
+  /// **'Copy ID'**
+  String get paymentCopyIdAction;
+
+  /// A percentage shown to the user, for example 42%
+  ///
+  /// In en, this message translates to:
+  /// **'{value}%'**
+  String percentValue(String value);
+
+  /// Name of the feature that checks a printed code for physical tampering
+  ///
+  /// In en, this message translates to:
+  /// **'QuishingGuard™'**
+  String get quishingGuardTitle;
+
+  /// Small badge saying the check uses computer vision on the printed code
+  ///
+  /// In en, this message translates to:
+  /// **'Physical Tamper CV'**
+  String get quishingTamperBadge;
+
+  /// Label before the tamper risk percentage
+  ///
+  /// In en, this message translates to:
+  /// **'Tamper Risk Score:'**
+  String get quishingRiskScoreLabel;
+
+  /// Link that opens the detailed tamper findings
+  ///
+  /// In en, this message translates to:
+  /// **'View Forensic Analysis'**
+  String get quishingViewSignals;
+
+  /// Link that closes the detailed tamper findings
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Forensic Signals'**
+  String get quishingHideSignals;
+
+  /// Name of the tamper metric that looks at the edges of the printed code
+  ///
+  /// In en, this message translates to:
+  /// **'Edge Discontinuity'**
+  String get quishingMetricEdgeLabel;
+
+  /// Short explanation of the edge discontinuity metric
+  ///
+  /// In en, this message translates to:
+  /// **'Double edges & shadow lines'**
+  String get quishingMetricEdgeDescription;
+
+  /// Name of the tamper metric that looks at print quality
+  ///
+  /// In en, this message translates to:
+  /// **'Print Grain & DPI'**
+  String get quishingMetricGrainLabel;
+
+  /// Short explanation of the print grain metric
+  ///
+  /// In en, this message translates to:
+  /// **'Halftone dot & chromatic noise'**
+  String get quishingMetricGrainDescription;
+
+  /// Heading above the list of tamper findings
+  ///
+  /// In en, this message translates to:
+  /// **'Detected Computer Vision Signals:'**
+  String get quishingSignalsHeading;
 }
 
 class _AppLocalizationsDelegate

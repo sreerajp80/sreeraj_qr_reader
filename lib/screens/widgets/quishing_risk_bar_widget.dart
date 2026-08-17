@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/quishing_analysis_result.dart';
 
 /// Widget displaying the QuishingGuard Physical Print & Sticker Tamper Alert Index.
@@ -39,6 +40,7 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
   @override
   Widget build(BuildContext context) {
     final res = widget.result;
+    final l10n = AppLocalizations.of(context);
     final color = _statusColor;
 
     return Card(
@@ -57,9 +59,12 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
               children: [
                 Icon(Icons.center_focus_strong, color: color, size: 24),
                 const SizedBox(width: 8),
-                const Text(
-                  'QuishingGuard™',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Text(
+                  l10n.quishingGuardTitle,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(width: 6),
                 Container(
@@ -71,9 +76,9 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
                     color: Colors.blueGrey.shade100,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text(
-                    'Physical Tamper CV',
-                    style: TextStyle(
+                  child: Text(
+                    l10n.quishingTamperBadge,
+                    style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
                       color: Colors.blueGrey,
@@ -129,12 +134,17 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Tamper Risk Score:',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                Text(
+                  l10n.quishingRiskScoreLabel,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
                 ),
                 Text(
-                  '${(res.overallRiskScore * 100).toStringAsFixed(0)}%',
+                  l10n.percentValue(
+                    (res.overallRiskScore * 100).toStringAsFixed(0),
+                  ),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
@@ -169,8 +179,8 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
                   children: [
                     Text(
                       _isExpanded
-                          ? 'Hide Forensic Signals'
-                          : 'View Forensic Analysis',
+                          ? l10n.quishingHideSignals
+                          : l10n.quishingViewSignals,
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.blue.shade700,
@@ -195,26 +205,29 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
                 children: [
                   Expanded(
                     child: _buildMetricTile(
-                      label: 'Edge Discontinuity',
+                      label: l10n.quishingMetricEdgeLabel,
                       score: res.edgeDiscontinuityScore,
-                      description: 'Double edges & shadow lines',
+                      description: l10n.quishingMetricEdgeDescription,
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: _buildMetricTile(
-                      label: 'Print Grain & DPI',
+                      label: l10n.quishingMetricGrainLabel,
                       score: res.textureGrainScore,
-                      description: 'Halftone dot & chromatic noise',
+                      description: l10n.quishingMetricGrainDescription,
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 12),
 
-              const Text(
-                'Detected Computer Vision Signals:',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              Text(
+                l10n.quishingSignalsHeading,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 6),
               ...res.detectedSignals.map(
@@ -274,7 +287,9 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${(score * 100).toStringAsFixed(0)}%',
+                AppLocalizations.of(
+                  context,
+                ).percentValue((score * 100).toStringAsFixed(0)),
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,

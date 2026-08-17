@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/parsed_payload.dart';
 import 'package:sreeraj_qr_reader/services/totp_service.dart';
 import 'package:sreeraj_qr_reader/services/payload_action_service.dart';
@@ -56,6 +57,7 @@ class _TotpActionCardState extends State<TotpActionCard> {
   @override
   Widget build(BuildContext context) {
     final totp = widget.payload;
+    final l10n = AppLocalizations.of(context);
     final progress = _remainingSeconds / totp.period;
 
     return Card(
@@ -92,7 +94,7 @@ class _TotpActionCardState extends State<TotpActionCard> {
                       Text(
                         totp.issuer.isNotEmpty
                             ? totp.issuer
-                            : '2FA Authenticator',
+                            : l10n.totpDefaultIssuer,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -131,7 +133,7 @@ class _TotpActionCardState extends State<TotpActionCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Live Passcode (${totp.period}s TOTP)',
+                          l10n.totpLivePasscode(totp.period),
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
@@ -157,7 +159,7 @@ class _TotpActionCardState extends State<TotpActionCard> {
                                 size: 20,
                               ),
                               onPressed: () => _copyToken(_currentTotp),
-                              tooltip: 'Copy Token',
+                              tooltip: l10n.totpCopyToken,
                             ),
                           ],
                         ),
@@ -183,7 +185,7 @@ class _TotpActionCardState extends State<TotpActionCard> {
                         ),
                       ),
                       Text(
-                        '${_remainingSeconds}s',
+                        l10n.totpSecondsLeft(_remainingSeconds),
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -218,9 +220,12 @@ class _TotpActionCardState extends State<TotpActionCard> {
               ),
               child: Row(
                 children: [
-                  const Text(
-                    'Secret: ',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  Text(
+                    l10n.totpSecretLabel,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Expanded(
                     child: SelectableText(
@@ -261,7 +266,7 @@ class _TotpActionCardState extends State<TotpActionCard> {
               width: double.infinity,
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.download_for_offline),
-                label: const Text('Import into Authenticator App'),
+                label: Text(l10n.totpImportButton),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple[700],
                   foregroundColor: Colors.white,
@@ -275,9 +280,7 @@ class _TotpActionCardState extends State<TotpActionCard> {
                       await PayloadActionService.importToAuthenticator(totp);
                   if (!launched && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Could not open Authenticator app'),
-                      ),
+                      SnackBar(content: Text(l10n.totpLaunchFailed)),
                     );
                   }
                 },
@@ -305,7 +308,7 @@ class _TotpActionCardState extends State<TotpActionCard> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('TOTP token copied to clipboard')),
+      SnackBar(content: Text(AppLocalizations.of(context).totpTokenCopied)),
     );
 
     Future.delayed(const Duration(seconds: 2), () {
@@ -326,7 +329,7 @@ class _TotpActionCardState extends State<TotpActionCard> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Secret key copied to clipboard')),
+      SnackBar(content: Text(AppLocalizations.of(context).totpSecretCopied)),
     );
 
     Future.delayed(const Duration(seconds: 2), () {

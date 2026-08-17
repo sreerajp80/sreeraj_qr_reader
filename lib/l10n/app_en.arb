@@ -162,5 +162,165 @@
     "placeholders": {
       "count": { "type": "int" }
     }
+  },
+
+  "totpDefaultIssuer": "2FA Authenticator",
+  "@totpDefaultIssuer": {
+    "description": "Shown in place of the issuer name when a scanned 2FA code has none"
+  },
+  "totpLivePasscode": "Live Passcode ({period}s TOTP)",
+  "@totpLivePasscode": {
+    "description": "Label above the rolling one-time passcode, with how many seconds each code lasts",
+    "placeholders": {
+      "period": { "type": "int" }
+    }
+  },
+  "totpSecondsLeft": "{seconds}s",
+  "@totpSecondsLeft": {
+    "description": "Seconds left before the current one-time passcode changes",
+    "placeholders": {
+      "seconds": { "type": "int" }
+    }
+  },
+  "totpCopyToken": "Copy Token",
+  "@totpCopyToken": {
+    "description": "Tooltip on the button that copies the current one-time passcode"
+  },
+  "totpSecretLabel": "Secret: ",
+  "@totpSecretLabel": {
+    "description": "Label before the 2FA secret key. Keeps a trailing space"
+  },
+  "totpImportButton": "Import into Authenticator App",
+  "@totpImportButton": {
+    "description": "Button that sends the scanned 2FA code to an authenticator app"
+  },
+  "totpLaunchFailed": "Could not open Authenticator app",
+  "@totpLaunchFailed": {
+    "description": "Message shown when no authenticator app could be opened"
+  },
+  "totpTokenCopied": "TOTP token copied to clipboard",
+  "@totpTokenCopied": {
+    "description": "Message shown after the one-time passcode is copied"
+  },
+  "totpSecretCopied": "Secret key copied to clipboard",
+  "@totpSecretCopied": {
+    "description": "Message shown after the 2FA secret key is copied"
+  },
+
+  "paymentSchemeUpi": "UPI Payment",
+  "@paymentSchemeUpi": {
+    "description": "Title of the payment card for an Indian UPI code"
+  },
+  "paymentSchemeSepa": "SEPA Transfer",
+  "@paymentSchemeSepa": {
+    "description": "Title of the payment card for a European SEPA transfer code"
+  },
+  "paymentSchemeCrypto": "Crypto Payment",
+  "@paymentSchemeCrypto": {
+    "description": "Title of the payment card for a cryptocurrency code"
+  },
+  "paymentPayeeFallback": "Merchant / Payee",
+  "@paymentPayeeFallback": {
+    "description": "Shown in place of the payee name when the scanned code has none"
+  },
+  "paymentAddressLabelUpi": "VPA / UPI ID:",
+  "@paymentAddressLabelUpi": {
+    "description": "Label before the payee address for a UPI code"
+  },
+  "paymentAddressLabelSepa": "IBAN:",
+  "@paymentAddressLabelSepa": {
+    "description": "Label before the payee address for a SEPA transfer code"
+  },
+  "paymentAddressLabelCrypto": "Wallet Address:",
+  "@paymentAddressLabelCrypto": {
+    "description": "Label before the payee address for a cryptocurrency code"
+  },
+  "paymentCopyAction": "Copy",
+  "@paymentCopyAction": {
+    "description": "Small button that copies the payee address"
+  },
+  "paymentUpiIdCopied": "UPI ID copied to clipboard",
+  "@paymentUpiIdCopied": {
+    "description": "Message shown after a UPI id is copied"
+  },
+  "paymentAddressCopied": "Address copied to clipboard",
+  "@paymentAddressCopied": {
+    "description": "Message shown after a payment address is copied"
+  },
+  "paymentNote": "Note: {note}",
+  "@paymentNote": {
+    "description": "Transaction note carried by a scanned payment code",
+    "placeholders": {
+      "note": { "type": "String" }
+    }
+  },
+  "paymentPayButtonUpi": "Pay via App (GPay / PhonePe / Paytm)",
+  "@paymentPayButtonUpi": {
+    "description": "Button that opens a UPI payment app"
+  },
+  "paymentPayButton": "Pay via App",
+  "@paymentPayButton": {
+    "description": "Button that opens a payment app for a non-UPI code"
+  },
+  "paymentUpiLaunchFailed": "Could not open UPI app. Make sure GPay, PhonePe, or Paytm is installed.",
+  "@paymentUpiLaunchFailed": {
+    "description": "Message shown when no UPI payment app could be opened"
+  },
+  "paymentLaunchFailed": "Could not open payment app for this scheme.",
+  "@paymentLaunchFailed": {
+    "description": "Message shown when no payment app could be opened"
+  },
+  "paymentCopyIdAction": "Copy ID",
+  "@paymentCopyIdAction": {
+    "description": "Action on the failure message that copies the payee address instead"
+  },
+
+  "percentValue": "{value}%",
+  "@percentValue": {
+    "description": "A percentage shown to the user, for example 42%",
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+
+  "quishingGuardTitle": "QuishingGuard™",
+  "@quishingGuardTitle": {
+    "description": "Name of the feature that checks a printed code for physical tampering"
+  },
+  "quishingTamperBadge": "Physical Tamper CV",
+  "@quishingTamperBadge": {
+    "description": "Small badge saying the check uses computer vision on the printed code"
+  },
+  "quishingRiskScoreLabel": "Tamper Risk Score:",
+  "@quishingRiskScoreLabel": {
+    "description": "Label before the tamper risk percentage"
+  },
+  "quishingViewSignals": "View Forensic Analysis",
+  "@quishingViewSignals": {
+    "description": "Link that opens the detailed tamper findings"
+  },
+  "quishingHideSignals": "Hide Forensic Signals",
+  "@quishingHideSignals": {
+    "description": "Link that closes the detailed tamper findings"
+  },
+  "quishingMetricEdgeLabel": "Edge Discontinuity",
+  "@quishingMetricEdgeLabel": {
+    "description": "Name of the tamper metric that looks at the edges of the printed code"
+  },
+  "quishingMetricEdgeDescription": "Double edges & shadow lines",
+  "@quishingMetricEdgeDescription": {
+    "description": "Short explanation of the edge discontinuity metric"
+  },
+  "quishingMetricGrainLabel": "Print Grain & DPI",
+  "@quishingMetricGrainLabel": {
+    "description": "Name of the tamper metric that looks at print quality"
+  },
+  "quishingMetricGrainDescription": "Halftone dot & chromatic noise",
+  "@quishingMetricGrainDescription": {
+    "description": "Short explanation of the print grain metric"
+  },
+  "quishingSignalsHeading": "Detected Computer Vision Signals:",
+  "@quishingSignalsHeading": {
+    "description": "Heading above the list of tamper findings"
   }
 }
