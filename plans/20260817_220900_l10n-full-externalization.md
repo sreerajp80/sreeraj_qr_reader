@@ -1,6 +1,6 @@
 # Full localization: ARB setup and removal of every user-visible string literal
 
-**Status:** approval_pending
+**Status:** in_progress
 
 Gap 1 of 3, and by far the largest. Do this last, after the two smaller plans.
 

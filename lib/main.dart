@@ -1,6 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/providers/air_qr_provider.dart';
 import 'package:sreeraj_qr_reader/providers/ar_codevision_provider.dart';
 import 'package:sreeraj_qr_reader/providers/history_provider.dart';
@@ -59,7 +60,10 @@ class SreerajQRReaderApp extends StatelessWidget {
               };
 
               return MaterialApp(
-                title: 'Sreeraj P QR Reader',
+                onGenerateTitle: (context) =>
+                    AppLocalizations.of(context).appTitle,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
                 theme: lightTheme,
                 darkTheme: darkTheme,
                 themeMode: themeMode,

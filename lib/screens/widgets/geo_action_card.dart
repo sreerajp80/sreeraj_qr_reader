@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/parsed_payload.dart';
 import 'package:sreeraj_qr_reader/services/payload_action_service.dart';
 
@@ -11,6 +12,7 @@ class GeoActionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final geo = payload;
 
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -95,7 +97,10 @@ class GeoActionCard extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'Lat: ${geo.latitude}, Lng: ${geo.longitude}',
+                    l10n.geoLatLng(
+                      geo.latitude.toString(),
+                      geo.longitude.toString(),
+                    ),
                     style: TextStyle(
                       fontFamily: 'monospace',
                       fontSize: 13,
@@ -110,7 +115,7 @@ class GeoActionCard extends StatelessWidget {
             if (geo.query.isNotEmpty && geo.query != geo.label) ...[
               const SizedBox(height: 6),
               Text(
-                'Query: ${geo.query}',
+                l10n.geoQuery(geo.query),
                 style: TextStyle(
                   fontSize: 13,
                   color: isDark
@@ -127,7 +132,7 @@ class GeoActionCard extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.navigation),
-                label: const Text('Navigate in Google Maps'),
+                label: Text(l10n.geoNavigateButton),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red[700],
                   foregroundColor: Colors.white,
@@ -142,9 +147,7 @@ class GeoActionCard extends StatelessWidget {
                   );
                   if (!launched && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Could not launch Google Maps app'),
-                      ),
+                      SnackBar(content: Text(l10n.geoLaunchFailed)),
                     );
                   }
                 },

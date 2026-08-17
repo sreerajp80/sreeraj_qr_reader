@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/parsed_payload.dart';
 import 'package:sreeraj_qr_reader/services/payload_action_service.dart';
 
@@ -10,9 +11,10 @@ class CalendarActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final event = payload;
+    final l10n = AppLocalizations.of(context);
 
     String formatDate(DateTime? dt) {
-      if (dt == null) return 'N/A';
+      if (dt == null) return l10n.calendarNoDate;
       final year = dt.year;
       final month = dt.month.toString().padLeft(2, '0');
       final day = dt.day.toString().padLeft(2, '0');
@@ -60,7 +62,7 @@ class CalendarActionCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Calendar Event',
+                        l10n.calendarCardTitle,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -107,7 +109,7 @@ class CalendarActionCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        'Start: ${formatDate(event.dtStart)}',
+                        l10n.calendarStart(formatDate(event.dtStart)),
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
@@ -131,7 +133,7 @@ class CalendarActionCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          'End:   ${formatDate(event.dtEnd)}',
+                          l10n.calendarEnd(formatDate(event.dtEnd)),
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
@@ -195,7 +197,7 @@ class CalendarActionCard extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.calendar_today),
-                label: const Text('Add to Device Calendar'),
+                label: Text(l10n.calendarAddButton),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange[800],
                   foregroundColor: Colors.white,
@@ -210,9 +212,7 @@ class CalendarActionCard extends StatelessWidget {
                   );
                   if (!launched && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Could not open Calendar app'),
-                      ),
+                      SnackBar(content: Text(l10n.calendarLaunchFailed)),
                     );
                   }
                 },

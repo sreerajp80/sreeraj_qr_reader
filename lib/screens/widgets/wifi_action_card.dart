@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/parsed_payload.dart';
 import 'package:sreeraj_qr_reader/services/payload_action_service.dart';
 
@@ -20,6 +21,7 @@ class _WifiActionCardState extends State<WifiActionCard> {
   Widget build(BuildContext context) {
     final wifi = widget.payload;
 
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -55,7 +57,7 @@ class _WifiActionCardState extends State<WifiActionCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Wi-Fi Network',
+                        l10n.wifiCardTitle,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -149,8 +151,8 @@ class _WifiActionCardState extends State<WifiActionCard> {
                         });
                       },
                       tooltip: _showPassword
-                          ? 'Hide Password'
-                          : 'Show Password',
+                          ? l10n.wifiHidePassword
+                          : l10n.wifiShowPassword,
                     ),
                     IconButton(
                       icon: Icon(
@@ -158,7 +160,7 @@ class _WifiActionCardState extends State<WifiActionCard> {
                         size: 20,
                       ),
                       onPressed: () => _copyPassword(wifi.password),
-                      tooltip: 'Copy Password',
+                      tooltip: l10n.wifiCopyPassword,
                     ),
                   ],
                 ),
@@ -171,7 +173,7 @@ class _WifiActionCardState extends State<WifiActionCard> {
               width: double.infinity,
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.wifi_find),
-                label: const Text('Connect to Wi-Fi'),
+                label: Text(l10n.wifiConnectButton),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[700],
                   foregroundColor: Colors.white,
@@ -188,11 +190,7 @@ class _WifiActionCardState extends State<WifiActionCard> {
                       await PayloadActionService.openWifiSettings();
                   if (!launched && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Password copied. Open Wi-Fi Settings on your device to connect.',
-                        ),
-                      ),
+                      SnackBar(content: Text(l10n.wifiOpenSettingsHint)),
                     );
                   }
                 },
@@ -213,7 +211,7 @@ class _WifiActionCardState extends State<WifiActionCard> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Password copied to clipboard')),
+      SnackBar(content: Text(AppLocalizations.of(context).wifiPasswordCopied)),
     );
 
     Future.delayed(const Duration(seconds: 2), () {

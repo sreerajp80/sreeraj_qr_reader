@@ -1,0 +1,166 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Sreeraj P QR Reader",
+  "@appTitle": {
+    "description": "The application name, shown as the task title and in the About screen"
+  },
+
+  "wifiCardTitle": "Wi-Fi Network",
+  "@wifiCardTitle": {
+    "description": "Label above the network name on the Wi-Fi action card"
+  },
+  "wifiShowPassword": "Show Password",
+  "@wifiShowPassword": {
+    "description": "Tooltip on the button that reveals the Wi-Fi password"
+  },
+  "wifiHidePassword": "Hide Password",
+  "@wifiHidePassword": {
+    "description": "Tooltip on the button that hides the Wi-Fi password"
+  },
+  "wifiCopyPassword": "Copy Password",
+  "@wifiCopyPassword": {
+    "description": "Tooltip on the button that copies the Wi-Fi password"
+  },
+  "wifiConnectButton": "Connect to Wi-Fi",
+  "@wifiConnectButton": {
+    "description": "Button that opens the device Wi-Fi settings to connect"
+  },
+  "wifiPasswordCopied": "Password copied to clipboard",
+  "@wifiPasswordCopied": {
+    "description": "Message shown after the Wi-Fi password is copied"
+  },
+  "wifiOpenSettingsHint": "Password copied. Open Wi-Fi Settings on your device to connect.",
+  "@wifiOpenSettingsHint": {
+    "description": "Message shown when the app cannot open Wi-Fi settings directly"
+  },
+
+  "geoLatLng": "Lat: {latitude}, Lng: {longitude}",
+  "@geoLatLng": {
+    "description": "Coordinates line on the location action card",
+    "placeholders": {
+      "latitude": { "type": "String" },
+      "longitude": { "type": "String" }
+    }
+  },
+  "geoQuery": "Query: {query}",
+  "@geoQuery": {
+    "description": "Search text carried by a scanned location code",
+    "placeholders": {
+      "query": { "type": "String" }
+    }
+  },
+  "geoNavigateButton": "Navigate in Google Maps",
+  "@geoNavigateButton": {
+    "description": "Button that opens the scanned location in Google Maps"
+  },
+  "geoLaunchFailed": "Could not launch Google Maps app",
+  "@geoLaunchFailed": {
+    "description": "Message shown when Google Maps cannot be opened"
+  },
+
+  "calendarCardTitle": "Calendar Event",
+  "@calendarCardTitle": {
+    "description": "Label above the event name on the calendar action card"
+  },
+  "calendarNoDate": "N/A",
+  "@calendarNoDate": {
+    "description": "Shown in place of a date when the scanned event has none"
+  },
+  "calendarStart": "Start: {dateTime}",
+  "@calendarStart": {
+    "description": "Start date and time of a scanned calendar event",
+    "placeholders": {
+      "dateTime": { "type": "String" }
+    }
+  },
+  "calendarEnd": "End:   {dateTime}",
+  "@calendarEnd": {
+    "description": "End date and time of a scanned calendar event. The extra spaces line it up under the start line",
+    "placeholders": {
+      "dateTime": { "type": "String" }
+    }
+  },
+  "calendarAddButton": "Add to Device Calendar",
+  "@calendarAddButton": {
+    "description": "Button that adds the scanned event to the device calendar"
+  },
+  "calendarLaunchFailed": "Could not open Calendar app",
+  "@calendarLaunchFailed": {
+    "description": "Message shown when the calendar app cannot be opened"
+  },
+
+  "contactCardTitle": "Contact Card",
+  "@contactCardTitle": {
+    "description": "Label above the person's name on the contact action card"
+  },
+  "contactInitialFallback": "C",
+  "@contactInitialFallback": {
+    "description": "Single letter shown in the contact avatar when the scanned contact has no name"
+  },
+  "contactSaveButton": "Save to Contacts",
+  "@contactSaveButton": {
+    "description": "Button that saves the scanned contact to the device"
+  },
+  "contactLaunchFailed": "Could not open Contacts app",
+  "@contactLaunchFailed": {
+    "description": "Message shown when the contacts app cannot be opened"
+  },
+  "contactCallFailed": "Could not place call to {number}",
+  "@contactCallFailed": {
+    "description": "Message shown when a phone call cannot be started",
+    "placeholders": {
+      "number": { "type": "String" }
+    }
+  },
+  "contactEmailFailed": "Could not open email app for {email}",
+  "@contactEmailFailed": {
+    "description": "Message shown when the email app cannot be opened",
+    "placeholders": {
+      "email": { "type": "String" }
+    }
+  },
+
+  "pdfResultsTitle": "PDF Scan Results ({count})",
+  "@pdfResultsTitle": {
+    "description": "Title of the sheet listing codes found in a PDF, with how many were found",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "pdfPageBadge": "P{page}",
+  "@pdfPageBadge": {
+    "description": "Short page badge on a PDF result row, for example P3",
+    "placeholders": {
+      "page": { "type": "int" }
+    }
+  },
+  "pdfPageLabel": "Page {page}",
+  "@pdfPageLabel": {
+    "description": "Page number of a code found in a PDF",
+    "placeholders": {
+      "page": { "type": "int" }
+    }
+  },
+  "pdfSaveAllButton": "Save All ({count}) to History",
+  "@pdfSaveAllButton": {
+    "description": "Button that saves every code found in the PDF to history",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "pdfScanNote": "Scanned from PDF (Page {page})",
+  "@pdfScanNote": {
+    "description": "Note stored with a history record for a code found in a PDF",
+    "placeholders": {
+      "page": { "type": "int" }
+    }
+  },
+  "pdfSavedToHistory": "Saved {count} codes to history.",
+  "@pdfSavedToHistory": {
+    "description": "Message shown after saving all PDF codes to history",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  }
+}

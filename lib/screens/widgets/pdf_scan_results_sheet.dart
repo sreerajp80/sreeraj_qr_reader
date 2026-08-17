@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/scan_record.dart';
 import 'package:sreeraj_qr_reader/providers/history_provider.dart';
 import 'package:sreeraj_qr_reader/services/media_scan_service.dart';
@@ -17,6 +18,7 @@ class PdfScanResultsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     return Container(
@@ -36,7 +38,7 @@ class PdfScanResultsSheet extends StatelessWidget {
                   Icon(Icons.picture_as_pdf, color: theme.colorScheme.primary),
                   const SizedBox(width: 8),
                   Text(
-                    'PDF Scan Results (${pdfBarcodes.length})',
+                    l10n.pdfResultsTitle(pdfBarcodes.length),
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -70,7 +72,7 @@ class PdfScanResultsSheet extends StatelessWidget {
                     leading: CircleAvatar(
                       backgroundColor: theme.colorScheme.primaryContainer,
                       child: Text(
-                        'P${item.pageNumber}',
+                        l10n.pdfPageBadge(item.pageNumber),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: theme.colorScheme.onPrimaryContainer,
@@ -104,7 +106,7 @@ class PdfScanResultsSheet extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Page ${item.pageNumber}',
+                            l10n.pdfPageLabel(item.pageNumber),
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: theme.colorScheme.outline,
                             ),
@@ -125,7 +127,7 @@ class PdfScanResultsSheet extends StatelessWidget {
           const SizedBox(height: 12),
           ElevatedButton.icon(
             icon: const Icon(Icons.save_alt),
-            label: Text('Save All (${pdfBarcodes.length}) to History'),
+            label: Text(l10n.pdfSaveAllButton(pdfBarcodes.length)),
             onPressed: () {
               final historyProvider = Provider.of<HistoryProvider>(
                 context,
@@ -140,16 +142,14 @@ class PdfScanResultsSheet extends StatelessWidget {
                   rawContent: b.rawValue,
                   barcodeFormat: b.format.name,
                   category: 'pdf_scan',
-                  notes: 'Scanned from PDF (Page ${b.pageNumber})',
+                  notes: l10n.pdfScanNote(b.pageNumber),
                 );
                 historyProvider.addScanRecord(record);
               }
               HapticFeedback.mediumImpact();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(
-                    'Saved ${pdfBarcodes.length} codes to history.',
-                  ),
+                  content: Text(l10n.pdfSavedToHistory(pdfBarcodes.length)),
                 ),
               );
               Navigator.pop(context);
