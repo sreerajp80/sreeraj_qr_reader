@@ -17,7 +17,7 @@ This clutters the app bar on mobile screens. We will keep direct icon buttons fo
 
 ### `lib/screens/`
 
-#### [MODIFY] [scanner_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/scanner_screen.dart)
+#### [MODIFY] [scanner_screen.dart](../lib/screens/scanner_screen.dart)
 - In the `appBar` actions list:
   - Keep `IconButton` for Gallery scan.
   - Keep `IconButton` for PDF scan.

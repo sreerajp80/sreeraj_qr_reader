@@ -13,7 +13,7 @@
 ## Proposed Changes
 
 ### Documentation
-#### [MODIFY] [features.md](file:///l:/Android/sreeraj_qr_reader/docs/features.md)
+#### [MODIFY] [features.md](../docs/features.md)
 - Clarify AirQR transmitter/generator functionality alongside scanner capabilities.
 - Fix package ID typo to `in.sreerajp.qr_reader`.
 - Elaborate smart payload details (MeCard, EPC SEPA, 2FA parameters).

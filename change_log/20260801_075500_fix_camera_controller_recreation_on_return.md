@@ -1,7 +1,7 @@
 # Change Log - Fix Camera Controller Recreation on Route Return
 
 **Date:** 2026-08-01 07:55:00
-**Referenced Plan:** [plans/20260801_075000_fix_camera_controller_recreation_on_return.md](file:///l:/Android/sreeraj_qr_reader/plans/20260801_075000_fix_camera_controller_recreation_on_return.md)
+**Referenced Plan:** [plans/20260801_075000_fix_camera_controller_recreation_on_return.md](../plans/20260801_075000_fix_camera_controller_recreation_on_return.md)
 
 ## Summary of Changes
 Resolved issue where camera feed would freeze or stay black upon returning to `ScannerScreen` from `AirQR Stream Receiver`, `AR CodeVision HUD`, `Settings`, `History`, or `Result` screens.
@@ -15,8 +15,8 @@ Resolved issue where camera feed would freeze or stay black upon returning to `S
    - Updated `didChangeAppLifecycleState()`, `_navigateToRoute()`, `_handleBarcode()`, and `_toggleScanning()` to invoke `_recreateAndStartController()`.
 
 ## Files Changed
-- [lib/screens/scanner_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/scanner_screen.dart)
-- [plans/20260801_075000_fix_camera_controller_recreation_on_return.md](file:///l:/Android/sreeraj_qr_reader/plans/20260801_075000_fix_camera_controller_recreation_on_return.md)
+- [lib/screens/scanner_screen.dart](../lib/screens/scanner_screen.dart)
+- [plans/20260801_075000_fix_camera_controller_recreation_on_return.md](../plans/20260801_075000_fix_camera_controller_recreation_on_return.md)
 
 ## Verification
 - `flutter analyze`: 0 warnings, 0 errors.

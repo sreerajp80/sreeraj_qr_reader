@@ -1,6 +1,6 @@
 # Change Log: Fix Text Contrast in Help & Feature Guides for Dark/OLED Theme
 
-**Plan Reference:** [plans/20260801_194000_fix_help_card_contrast_dark_theme.md](file:///l:/Android/sreeraj_qr_reader/plans/20260801_194000_fix_help_card_contrast_dark_theme.md)
+**Plan Reference:** [plans/20260801_194000_fix_help_card_contrast_dark_theme.md](../plans/20260801_194000_fix_help_card_contrast_dark_theme.md)
 
 ## Summary of Changes
 - Fixed illegible dark text contrast on the **Help & Feature Guides** page (`HelpSettingsScreen`) in Dark Mode and OLED Pure Black mode.

@@ -1,6 +1,6 @@
 # Change Log — 2.1 Camera & Viewport Controls Suite
 
-**Plan:** [plans/20260731_205300_camera_viewport_controls_suite.md](file:///l:/Android/sreeraj_qr_reader/plans/20260731_205300_camera_viewport_controls_suite.md)
+**Plan:** [plans/20260731_205300_camera_viewport_controls_suite.md](../plans/20260731_205300_camera_viewport_controls_suite.md)
 
 ## Summary of Changes
 Implemented Feature Suite 2.1 — Camera & Viewport Controls Suite:

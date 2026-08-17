@@ -23,9 +23,9 @@ When navigating between the main `ScannerScreen` and secondary camera screens (`
 - Add custom `errorBuilder` to `MobileScanner` widgets across all three camera screens to display a clean, friendly fallback UI instead of unhandled system error strings.
 
 ## Files to Modify
-- [lib/screens/scanner_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/scanner_screen.dart)
-- [lib/screens/ar_codevision_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/ar_codevision_screen.dart)
-- [lib/screens/air_qr_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/air_qr_screen.dart)
+- [lib/screens/scanner_screen.dart](../lib/screens/scanner_screen.dart)
+- [lib/screens/ar_codevision_screen.dart](../lib/screens/ar_codevision_screen.dart)
+- [lib/screens/air_qr_screen.dart](../lib/screens/air_qr_screen.dart)
 
 ## Verification Plan
 1. Run `flutter analyze` to ensure 0 static analysis errors/warnings.

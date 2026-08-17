@@ -6,7 +6,7 @@
 
 ### UI Layer
 
-#### [MODIFY] [lib/screens/settings_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/settings_screen.dart)
+#### [MODIFY] [lib/screens/settings_screen.dart](../lib/screens/settings_screen.dart)
 - Refactor main `SettingsScreen` to display a clean card-based hub layout where each section is an interactive `Card` / `ListTile`:
   1. **Appearance & Theme Card** (`Icons.palette_outlined`): Displays active theme mode and dynamic colors status. Tapping opens `AppearanceSettingsScreen`.
   2. **Customizable Scan Overlay Card** (`Icons.layers_outlined`): Displays currently active overlay style (Laser Line, Pulsing Corners, etc.). Tapping opens `ScanOverlaySettingsScreen`.
@@ -16,7 +16,7 @@
   6. **About Card** (`Icons.info_outline`): Displays app version and developer info. Tapping opens `AboutScreen`.
 - Implement dedicated detail sub-page scaffolds (`AppearanceSettingsScreen`, `ScanOverlaySettingsScreen`, `ScanFeedbackSettingsScreen`, `PrivacySettingsScreen`, `SafeBrowsingSettingsScreen`) providing back navigation to the Settings hub.
 
-#### [MODIFY] [lib/screens/about_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/about_screen.dart)
+#### [MODIFY] [lib/screens/about_screen.dart](../lib/screens/about_screen.dart)
 - Keep existing `AboutScreen` interface clean and ensure seamless integration when navigated to from the `SettingsScreen` About Card.
 
 ---

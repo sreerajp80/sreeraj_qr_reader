@@ -7,7 +7,7 @@ In `lib/screens/result_screen.dart`, the `_buildContentCard` widget renders scan
 When light text is rendered on a light gray background, contrast is lost. When Night Light (blue light filter) is enabled on the PC/system, the light colors turn yellow, causing yellowish text on a yellowish background which is completely unreadable.
 
 ## Files to Change
-- [lib/screens/result_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/result_screen.dart)
+- [lib/screens/result_screen.dart](../lib/screens/result_screen.dart)
 
 ## Proposed Changes
 

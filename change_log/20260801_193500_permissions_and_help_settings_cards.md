@@ -1,6 +1,6 @@
 # Change Log: Add Permissions and Help Cards to Settings Screen
 
-**Plan Reference:** [plans/20260801_193000_permissions_and_help_settings_cards.md](file:///l:/Android/sreeraj_qr_reader/plans/20260801_193000_permissions_and_help_settings_cards.md)
+**Plan Reference:** [plans/20260801_193000_permissions_and_help_settings_cards.md](../plans/20260801_193000_permissions_and_help_settings_cards.md)
 
 ## Summary of Changes
 Added two new settings cards and dedicated detail screens to the Settings section:

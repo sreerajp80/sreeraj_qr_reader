@@ -20,22 +20,22 @@ Implement StegoQR reading capability in Sreeraj QR Reader. StegoQR is a dual-lay
 ## Targeted Files
 
 ### 1. Dependencies & Manifests
-- [pubspec.yaml](file:///l:/Android/sreeraj_qr_reader/pubspec.yaml): Add `local_auth: ^2.3.0` and `encrypt: ^5.0.3`.
-- [android/app/src/main/kotlin/in/sreerajp/qr_reader/MainActivity.kt](file:///l:/Android/sreeraj_qr_reader/android/app/src/main/kotlin/in/sreerajp/qr_reader/MainActivity.kt): Extend `FlutterFragmentActivity` instead of `FlutterActivity` for biometric prompt compatibility.
-- [android/app/src/main/AndroidManifest.xml](file:///l:/Android/sreeraj_qr_reader/android/app/src/main/AndroidManifest.xml): Declare `android.permission.USE_BIOMETRIC`.
+- [pubspec.yaml](../pubspec.yaml): Add `local_auth: ^2.3.0` and `encrypt: ^5.0.3`.
+- [android/app/src/main/kotlin/in/sreerajp/qr_reader/MainActivity.kt](../android/app/src/main/kotlin/in/sreerajp/qr_reader/MainActivity.kt): Extend `FlutterFragmentActivity` instead of `FlutterActivity` for biometric prompt compatibility.
+- [android/app/src/main/AndroidManifest.xml](../android/app/src/main/AndroidManifest.xml): Declare `android.permission.USE_BIOMETRIC`.
 
 ### 2. New Models & Services
-- [NEW] [lib/models/stego_qr_data.dart](file:///l:/Android/sreeraj_qr_reader/lib/models/stego_qr_data.dart): Immutable model representing decoy text, salt, IV, ciphertext, unlock state, decrypted payload, and error message.
-- [NEW] [lib/services/stego_qr_service.dart](file:///l:/Android/sreeraj_qr_reader/lib/services/stego_qr_service.dart): Pure service for StegoQR signature detection, parsing, PBKDF2 key derivation, and AES-256 decryption.
-- [NEW] [lib/services/biometric_service.dart](file:///l:/Android/sreeraj_qr_reader/lib/services/biometric_service.dart): Wrapper service for `local_auth` device capability checking and biometric prompt execution.
+- [NEW] [lib/models/stego_qr_data.dart](../lib/models/stego_qr_data.dart): Immutable model representing decoy text, salt, IV, ciphertext, unlock state, decrypted payload, and error message.
+- [NEW] [lib/services/stego_qr_service.dart](../lib/services/stego_qr_service.dart): Pure service for StegoQR signature detection, parsing, PBKDF2 key derivation, and AES-256 decryption.
+- [NEW] [lib/services/biometric_service.dart](../lib/services/biometric_service.dart): Wrapper service for `local_auth` device capability checking and biometric prompt execution.
 
 ### 3. State Management & Screens
-- [lib/providers/scan_provider.dart](file:///l:/Android/sreeraj_qr_reader/lib/providers/scan_provider.dart): Add StegoQR state variables, detection during `setScanResult()`, biometric/passphrase `unlockStegoPayload()` method, and cleanup in `clearScan()`.
-- [lib/screens/result_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/result_screen.dart): Add StegoQR card component showing Decoy message, Biometric Unlock button, Passphrase dialog fallback, and protected decrypted payload card with visibility toggle and copy actions.
+- [lib/providers/scan_provider.dart](../lib/providers/scan_provider.dart): Add StegoQR state variables, detection during `setScanResult()`, biometric/passphrase `unlockStegoPayload()` method, and cleanup in `clearScan()`.
+- [lib/screens/result_screen.dart](../lib/screens/result_screen.dart): Add StegoQR card component showing Decoy message, Biometric Unlock button, Passphrase dialog fallback, and protected decrypted payload card with visibility toggle and copy actions.
 
 ### 4. Testing
-- [NEW] [test/services/stego_qr_service_test.dart](file:///l:/Android/sreeraj_qr_reader/test/services/stego_qr_service_test.dart): Unit tests for StegoQR detection, parsing, AES-256 decryption, and error conditions.
-- [NEW] [test/providers/scan_provider_stego_test.dart](file:///l:/Android/sreeraj_qr_reader/test/providers/scan_provider_stego_test.dart): Unit tests for `ScanProvider` StegoQR state flow and unlock operations.
+- [NEW] [test/services/stego_qr_service_test.dart](../test/services/stego_qr_service_test.dart): Unit tests for StegoQR detection, parsing, AES-256 decryption, and error conditions.
+- [NEW] [test/providers/scan_provider_stego_test.dart](../test/providers/scan_provider_stego_test.dart): Unit tests for `ScanProvider` StegoQR state flow and unlock operations.
 
 ---
 

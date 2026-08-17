@@ -9,7 +9,7 @@ The **About** section was moved inside the **Settings** screen as an About Card.
 
 ### `lib/screens/`
 
-#### [MODIFY] [scanner_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/scanner_screen.dart)
+#### [MODIFY] [scanner_screen.dart](../lib/screens/scanner_screen.dart)
 - Remove the `IconButton` for `Icons.info_outline` from the `actions` list in the `AppBar`.
 - Keep the `Icons.settings` action, which allows accessing Settings (and About within it).
 

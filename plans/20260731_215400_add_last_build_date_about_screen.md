@@ -5,15 +5,15 @@
 ## Proposed Changes
 
 ### Configuration Layer
-#### [MODIFY] [assets/config/app_config.json](file:///l:/Android/sreeraj_qr_reader/assets/config/app_config.json)
+#### [MODIFY] [assets/config/app_config.json](../assets/config/app_config.json)
 - Add `"Last build": "2026-07-31"` to the `"details"` map.
 
 ### UI Layer
-#### [MODIFY] [lib/screens/about_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/about_screen.dart)
+#### [MODIFY] [lib/screens/about_screen.dart](../lib/screens/about_screen.dart)
 - Update `_getIconForKey` method to return `Icons.calendar_today` for keys containing `'build'` or `'date'`.
 
 ### Testing Layer
-#### [MODIFY] [test/core/config/app_config_test.dart](file:///l:/Android/sreeraj_qr_reader/test/core/config/app_config_test.dart)
+#### [MODIFY] [test/core/config/app_config_test.dart](../test/core/config/app_config_test.dart)
 - Verify `AppConfig.fallback` and `fromJson` include and handle `"Last build"` properly.
 
 ---

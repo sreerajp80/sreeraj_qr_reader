@@ -1,6 +1,6 @@
 # Change Log: Settings Screen Card Layout & About Migration
 
-**Plan Reference:** [20260801_071600_settings_cards_and_about_migration.md](file:///l:/Android/sreeraj_qr_reader/plans/20260801_071600_settings_cards_and_about_migration.md)
+**Plan Reference:** [20260801_071600_settings_cards_and_about_migration.md](../plans/20260801_071600_settings_cards_and_about_migration.md)
 
 ## Summary of Changes
 

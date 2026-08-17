@@ -10,9 +10,9 @@ Because native mobile OS camera hardware cannot support multiple active preview 
 3. The user had to manually pause and restart the scanner button to re-initialize the camera stream.
 
 ## Files to Change
-- [lib/screens/scanner_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/scanner_screen.dart)
-- [lib/screens/ar_codevision_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/ar_codevision_screen.dart)
-- [lib/screens/air_qr_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/air_qr_screen.dart)
+- [lib/screens/scanner_screen.dart](../lib/screens/scanner_screen.dart)
+- [lib/screens/ar_codevision_screen.dart](../lib/screens/ar_codevision_screen.dart)
+- [lib/screens/air_qr_screen.dart](../lib/screens/air_qr_screen.dart)
 
 ## Proposed Changes
 

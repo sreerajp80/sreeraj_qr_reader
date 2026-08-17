@@ -15,7 +15,7 @@ Android SDK 37 platform files have now been installed into `E:\Android\SDK\platf
 
 ### `android/app/`
 
-#### [MODIFY] [build.gradle](file:///L:/Android/sreeraj_qr_reader/android/app/build.gradle)
+#### [MODIFY] [build.gradle](../android/app/build.gradle)
 - Change `compileSdk = flutter.compileSdkVersion` to `compileSdk = 37` in the `android { ... }` block.
 
 ## Verification Plan

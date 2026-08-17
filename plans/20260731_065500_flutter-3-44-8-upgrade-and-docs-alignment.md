@@ -60,7 +60,7 @@ Following a comprehensive audit against `docs/guidelines/guideline.md`, `docs/gu
 
 ### 2. Configuration & Dependencies
 
-#### [MODIFY] [pubspec.yaml](file:///l:/Android/sreeraj_qr_reader/pubspec.yaml)
+#### [MODIFY] [pubspec.yaml](../pubspec.yaml)
 - Update `environment.sdk` to `'>=3.12.2 <4.0.0'`.
 - Update `environment.flutter` to `'>=3.44.8'`.
 - Add `- assets/config/` to `flutter: assets:`.
@@ -69,13 +69,13 @@ Following a comprehensive audit against `docs/guidelines/guideline.md`, `docs/gu
 
 ### 3. Primary Instructions & Documentation
 
-#### [MODIFY] [CLAUDE.md](file:///l:/Android/sreeraj_qr_reader/CLAUDE.md)
+#### [MODIFY] [CLAUDE.md](../CLAUDE.md)
 - Update Project identity table:
   - Flutter SDK: `>=3.44.8`
   - Dart SDK: `>=3.12.2 <4.0.0`
 - Update structure reference to include `lib/core/config/` and `assets/config/app_config.json`.
 
-#### [MODIFY] [README.md](file:///l:/Android/sreeraj_qr_reader/README.md)
+#### [MODIFY] [README.md](../README.md)
 - Update Technical Specifications to Flutter `3.44.8` / Dart `3.12.2`.
 - Update Project Structure diagram to reflect `lib/core/config/` and `assets/config/app_config.json`.
 
@@ -83,21 +83,21 @@ Following a comprehensive audit against `docs/guidelines/guideline.md`, `docs/gu
 
 ### 4. Living Documentation (`docs/`)
 
-#### [MODIFY] [docs/architecture.md](file:///l:/Android/sreeraj_qr_reader/docs/architecture.md)
+#### [MODIFY] [docs/architecture.md](../docs/architecture.md)
 - Update directory structure tree to include `lib/core/config/` and `assets/config/app_config.json`.
 - Update SDK version references to Flutter `3.44.8` / Dart `3.12.2`.
 
-#### [MODIFY] [docs/project_structure.md](file:///l:/Android/sreeraj_qr_reader/docs/project_structure.md)
+#### [MODIFY] [docs/project_structure.md](../docs/project_structure.md)
 - Update full repository tree and path responsibilities table for `lib/core/config/`, `lib/core/constants/`, and `assets/config/app_config.json`.
 
-#### [MODIFY] [docs/release_process.md](file:///l:/Android/sreeraj_qr_reader/docs/release_process.md)
+#### [MODIFY] [docs/release_process.md](../docs/release_process.md)
 - Update release checklist to include checking `assets/config/app_config.json` version alignment with `pubspec.yaml`.
 - Update Flutter/Dart SDK references.
 
-#### [MODIFY] [docs/dependencies.md](file:///l:/Android/sreeraj_qr_reader/docs/dependencies.md)
+#### [MODIFY] [docs/dependencies.md](../docs/dependencies.md)
 - Confirm package constraints align with Flutter 3.44.8.
 
-#### [MODIFY] [docs/security.md](file:///l:/Android/sreeraj_qr_reader/docs/security.md)
+#### [MODIFY] [docs/security.md](../docs/security.md)
 - Verify security blueprint alignment.
 
 ---

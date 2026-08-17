@@ -22,9 +22,9 @@ When returning to `ScannerScreen` from `ArCodevisionScreen` or `AirQrScreen`:
   - Attempt `await controller?.start()` wrapped in a `try-catch` with an automatic fallback retry (300ms delay) if the native camera was briefly busy.
 
 ## Files to Change
-- [lib/screens/scanner_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/scanner_screen.dart)
-- [lib/screens/ar_codevision_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/ar_codevision_screen.dart)
-- [lib/screens/air_qr_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/air_qr_screen.dart)
+- [lib/screens/scanner_screen.dart](../lib/screens/scanner_screen.dart)
+- [lib/screens/ar_codevision_screen.dart](../lib/screens/ar_codevision_screen.dart)
+- [lib/screens/air_qr_screen.dart](../lib/screens/air_qr_screen.dart)
 
 ## Verification Plan
 1. Run `flutter analyze` to verify 0 static analysis errors/warnings.

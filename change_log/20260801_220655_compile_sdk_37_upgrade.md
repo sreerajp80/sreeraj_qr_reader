@@ -1,10 +1,10 @@
 # Change Log: Upgrade compileSdk to Android SDK 37
 
 **Date:** 2026-08-01  
-**Plan Reference:** [20260801_220623_compile_sdk_37_upgrade.md](file:///L:/Android/sreeraj_qr_reader/plans/20260801_220623_compile_sdk_37_upgrade.md)
+**Plan Reference:** [20260801_220623_compile_sdk_37_upgrade.md](../plans/20260801_220623_compile_sdk_37_upgrade.md)
 
 ## Summary of Changes
-- Updated `compileSdk` from `flutter.compileSdkVersion` (36) to `37` in [android/app/build.gradle](file:///L:/Android/sreeraj_qr_reader/android/app/build.gradle#L40) to meet the SDK version requirements of the `receive_sharing_intent` plugin.
+- Updated `compileSdk` from `flutter.compileSdkVersion` (36) to `37` in [android/app/build.gradle](../android/app/build.gradle#L40) to meet the SDK version requirements of the `receive_sharing_intent` plugin.
 
 ## Verification
 - Ran `flutter analyze`: 0 issues found.

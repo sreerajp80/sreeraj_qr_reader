@@ -22,8 +22,8 @@ Instead of keeping a stale `MobileScannerController` instance across screen tran
    - On Pause/Play FAB toggle resume.
 
 ## Files to Modify
-- [lib/screens/scanner_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/scanner_screen.dart)
-- [lib/screens/air_qr_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/air_qr_screen.dart)
+- [lib/screens/scanner_screen.dart](../lib/screens/scanner_screen.dart)
+- [lib/screens/air_qr_screen.dart](../lib/screens/air_qr_screen.dart)
 
 ## Verification Plan
 ### Automated Verification

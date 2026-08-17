@@ -18,7 +18,7 @@
    - Rely on `RouteObserver` (`didPushNext()` / `didPopNext()`) to call `controller.stop()` on navigation and `controller.start()` on return with fallback retry after a 300ms/400ms delay for native Android `Camera2` hardware release.
 
 ## Files Modified
-- [lib/screens/scanner_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/scanner_screen.dart)
+- [lib/screens/scanner_screen.dart](../lib/screens/scanner_screen.dart)
 
 ## Verification Plan
 ### Automated Verification

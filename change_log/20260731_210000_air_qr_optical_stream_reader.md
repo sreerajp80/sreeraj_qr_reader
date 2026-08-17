@@ -1,6 +1,6 @@
 # Change Log: AirQR — High-Speed Optical Air-Gap Stream Reader
 
-**Plan Reference:** [plans/20260731_210000_air_qr_optical_stream_reader.md](file:///l:/Android/sreeraj_qr_reader/plans/20260731_210000_air_qr_optical_stream_reader.md)
+**Plan Reference:** [plans/20260731_210000_air_qr_optical_stream_reader.md](../plans/20260731_210000_air_qr_optical_stream_reader.md)
 
 ## Summary of Changes
 Implemented **AirQR — High-Speed Optical Air-Gap Stream Reader** (Feature 3.3). This offline optical data transmission and reception engine enables phone-to-phone air-gapped data ingestion from continuous animated QR code streams using Forward Error Correction (Fountain / LT codes) without needing Wi-Fi, Bluetooth, NFC, or cellular connectivity.

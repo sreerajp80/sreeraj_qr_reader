@@ -1,6 +1,6 @@
 # Change Log: Separated Quishing Guard & URL Tamper Help Topics
 
-**Plan Reference:** [plans/20260801_194600_separate_quishing_guard_and_url_tamper_help_cards.md](file:///l:/Android/sreeraj_qr_reader/plans/20260801_194600_separate_quishing_guard_and_url_tamper_help_cards.md)
+**Plan Reference:** [plans/20260801_194600_separate_quishing_guard_and_url_tamper_help_cards.md](../plans/20260801_194600_separate_quishing_guard_and_url_tamper_help_cards.md)
 
 ---
 

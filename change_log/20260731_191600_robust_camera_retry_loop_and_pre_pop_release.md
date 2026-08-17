@@ -1,7 +1,7 @@
 # Change Log - Robust Camera Start Retry Loop with Explicit autoStart & Pre-Pop Release
 
 **Date:** 2026-07-31 19:16:00
-**Referenced Plan:** [plans/20260731_191600_robust_camera_retry_loop_and_pre_pop_release.md](file:///l:/Android/sreeraj_qr_reader/plans/20260731_191600_robust_camera_retry_loop_and_pre_pop_release.md)
+**Referenced Plan:** [plans/20260731_191600_robust_camera_retry_loop_and_pre_pop_release.md](../plans/20260731_191600_robust_camera_retry_loop_and_pre_pop_release.md)
 
 ## Summary of Changes
 Resolved camera freeze/black viewport issues when returning from `AirQR Stream Receiver` or `AR CodeVision HUD` by implementing an explicit startup retry loop with exponential backoff and pre-pop camera release.
@@ -19,11 +19,11 @@ Resolved camera freeze/black viewport issues when returning from `AirQR Stream R
    - Added explicit back handlers in `lib/screens/ar_codevision_screen.dart` and `lib/screens/air_qr_screen.dart` that stop and dispose the secondary camera controller (`await controller?.stop(); await controller?.dispose()`) before invoking `Navigator.pop(context)`.
 
 ## Files Changed
-- [lib/main.dart](file:///l:/Android/sreeraj_qr_reader/lib/main.dart)
-- [lib/screens/scanner_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/scanner_screen.dart)
-- [lib/screens/ar_codevision_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/ar_codevision_screen.dart)
-- [lib/screens/air_qr_screen.dart](file:///l:/Android/sreeraj_qr_reader/lib/screens/air_qr_screen.dart)
-- [plans/20260731_191600_robust_camera_retry_loop_and_pre_pop_release.md](file:///l:/Android/sreeraj_qr_reader/plans/20260731_191600_robust_camera_retry_loop_and_pre_pop_release.md)
+- [lib/main.dart](../lib/main.dart)
+- [lib/screens/scanner_screen.dart](../lib/screens/scanner_screen.dart)
+- [lib/screens/ar_codevision_screen.dart](../lib/screens/ar_codevision_screen.dart)
+- [lib/screens/air_qr_screen.dart](../lib/screens/air_qr_screen.dart)
+- [plans/20260731_191600_robust_camera_retry_loop_and_pre_pop_release.md](../plans/20260731_191600_robust_camera_retry_loop_and_pre_pop_release.md)
 
 ## Verification
 - `flutter analyze`: 0 errors, 0 warnings.

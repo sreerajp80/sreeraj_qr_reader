@@ -35,6 +35,9 @@ Read it before making any change. See the docs table below for full detail.
 | [docs/project_structure.md](docs/project_structure.md) | Orienting on directory layout and file responsibilities |
 | [docs/guidelines/flutter_project_engineering_standard.md](docs/guidelines/flutter_project_engineering_standard.md) | Any code change — layers, naming, testing rules |
 | [docs/guidelines/flutter_build_flavors_guide.md](docs/guidelines/flutter_build_flavors_guide.md) | Build flavors, Gradle, signing configuration |
+| [docs/guidelines/CLAUDE_MD_GUIDELINE.md](docs/guidelines/CLAUDE_MD_GUIDELINE.md) | Editing this file |
+| [docs/guidelines/AGENTS_MD_GUIDELINE.md](docs/guidelines/AGENTS_MD_GUIDELINE.md) | Editing `AGENTS.md` |
+| [docs/guidelines/DOCS_FOLDER_GUIDELINE.md](docs/guidelines/DOCS_FOLDER_GUIDELINE.md) | Adding or renaming a file in `docs/` |
 | [docs/GUIDELINES_MANIFEST.md](docs/GUIDELINES_MANIFEST.md) | The shared Flutter guidelines index |
 
 ---
@@ -105,6 +108,16 @@ flutter build apk --flavor prod --release \
 
 ---
 
+## Localization rules
+
+- All user-visible text comes from `lib/l10n/*.arb` through `AppLocalizations` — never a raw string literal in a widget. This applies even though the app ships English only.
+- `l10n.yaml` (project root) and `lib/l10n/app_en.arb` must exist. Run `flutter gen-l10n` after editing any `.arb` file.
+- Every ARB key needs an `@key` description entry, so a future translator has context.
+- Services must not hold user-visible text. They return an `AppMessage` (a key plus arguments); the screen turns it into text through `AppLocalizations`.
+- Literals are allowed only for logs, non-UI exception messages, asset paths, route names, map/JSON keys, barcode protocol tokens (`BEGIN:VCARD`, `WIFI:`), and the CSV/JSON export headers that the import path reads back.
+
+---
+
 ## Code style / naming
 
 - Files `snake_case.dart`; classes `PascalCase`; variables/methods `camelCase`; providers `camelCase` + `Provider` suffix.
@@ -150,6 +163,7 @@ Every change follows plan-before-changing and log-after-changing:
 
 1. **Plan before changing.** Write a full plan to `plans/` named `yyyymmdd_hhMMss_<short-slug>.md` with a `**Status:**` line, the files to change, the issue, and the fix. Then **STOP and get explicit approval** before editing/creating/deleting any project file (other than the plan). A question or ambiguous reply is not approval.
 2. **Log after changing.** After implementing, write a change log to `change_log/` named `yyyymmdd_hhMMss_<short-slug>.md` describing what changed and referencing its plan.
+3. **Relative paths & privacy only.** `plans/` and `change_log/` files are committed and may become public on the internet. They MUST use relative repository paths only (never absolute system paths with a drive letter, and never `file:///` links). They MUST NOT contain any **local system details** — OS user name, computer/host name, home or drive-letter paths, network share names, LAN/internal IP addresses, local server URLs with ports, device serial numbers, personal email addresses — or any secret (API keys, tokens, passwords, keystore passphrases, credentials, PII). Write them as if a stranger will read them; nothing should reveal the machine they came from.
 
 Create `plans/` and `change_log/` if they do not exist.
 
@@ -170,6 +184,7 @@ Create `plans/` and `change_log/` if they do not exist.
 - Keep `main.dart` thin (initialization, Provider setup, routes only).
 
 **Never:**
+- Hard-code user-visible text in a widget — it belongs in `lib/l10n/app_en.arb`.
 - Put business logic or HTTP calls in widgets.
 - Store sensitive keys in `SharedPreferences`.
 - Add blocked dependencies or alternative state management packages.
