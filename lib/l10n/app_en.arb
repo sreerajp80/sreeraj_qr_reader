@@ -1029,5 +1029,192 @@
   "scanCameraPermissionRequired": "Camera permission required",
   "@scanCameraPermissionRequired": {
     "description": "Shown when camera permission is missing on the scanner screen"
+  },
+
+  "copiedLabel": "Copied!",
+  "@copiedLabel": {
+    "description": "Short confirmation shown on a button right after copying"
+  },
+  "hideAction": "Hide",
+  "@hideAction": {
+    "description": "Tooltip on a button that hides secret text"
+  },
+  "revealAction": "Reveal",
+  "@revealAction": {
+    "description": "Tooltip on a button that shows secret text"
+  },
+  "openAnywayButton": "Open Anyway",
+  "@openAnywayButton": {
+    "description": "Button that opens a link despite a safety warning"
+  },
+
+  "resultScreenTitle": "Scan Result",
+  "@resultScreenTitle": {
+    "description": "Title of the screen showing what was scanned"
+  },
+  "resultNoResult": "No result",
+  "@resultNoResult": {
+    "description": "Shown when the screen opens with nothing scanned"
+  },
+  "resultContentLabel": "Content:",
+  "@resultContentLabel": {
+    "description": "Label above the scanned content"
+  },
+  "resultDecoyContentLabel": "Public Decoy Content:",
+  "@resultDecoyContentLabel": {
+    "description": "Label above the visible content of a code that also hides a secret"
+  },
+  "resultDetectedType": "Detected Type:",
+  "@resultDetectedType": {
+    "description": "Label above the kind of code that was scanned"
+  },
+  "resultTypeStego": "STEGO-QR (Encrypted Dual-Layer)",
+  "@resultTypeStego": {
+    "description": "Type name for a code that carries a hidden encrypted layer"
+  },
+  "resultRecheckButton": "Re-check",
+  "@resultRecheckButton": {
+    "description": "Button that runs the link safety checks again"
+  },
+  "resultOpenInBrowser": "Open in Browser",
+  "@resultOpenInBrowser": {
+    "description": "Button that opens the scanned link in a browser"
+  },
+  "resultCopyText": "Copy Text",
+  "@resultCopyText": {
+    "description": "Button that copies the scanned content"
+  },
+  "resultCopyDecoyText": "Copy Decoy Text",
+  "@resultCopyDecoyText": {
+    "description": "Button that copies the visible content of a code hiding a secret"
+  },
+  "resultShareText": "Share Text",
+  "@resultShareText": {
+    "description": "Button that shares the scanned content"
+  },
+  "resultShareDecoyText": "Share Decoy Text",
+  "@resultShareDecoyText": {
+    "description": "Button that shares the visible content of a code hiding a secret"
+  },
+  "resultScanAnother": "Scan Another Code",
+  "@resultScanAnother": {
+    "description": "Button that returns to the camera to scan again"
+  },
+  "resultLaunchFailed": "Could not launch URL",
+  "@resultLaunchFailed": {
+    "description": "Message shown when a link could not be opened"
+  },
+
+  "stegoUnlockedMessage": "The hidden AES-256 encrypted payload has been decrypted successfully.",
+  "@stegoUnlockedMessage": {
+    "description": "Shown after the hidden secret layer has been unlocked"
+  },
+  "stegoLockedMessage": "This QR code contains a hidden, encrypted secret layer. Authenticate to view the hidden payload.",
+  "@stegoLockedMessage": {
+    "description": "Shown when a code hides a secret that is still locked"
+  },
+  "stegoBiometricUnlock": "Biometric Unlock",
+  "@stegoBiometricUnlock": {
+    "description": "Button that unlocks the secret using fingerprint or face"
+  },
+  "stegoPassphrase": "Passphrase",
+  "@stegoPassphrase": {
+    "description": "Button and field label for the secret password"
+  },
+  "stegoSecretPayload": "Secret Payload:",
+  "@stegoSecretPayload": {
+    "description": "Label above the unlocked secret content"
+  },
+  "stegoCopySecret": "Copy Secret",
+  "@stegoCopySecret": {
+    "description": "Button that copies the unlocked secret"
+  },
+  "stegoShareSecret": "Share Secret",
+  "@stegoShareSecret": {
+    "description": "Button that shares the unlocked secret"
+  },
+  "stegoSecretCopied": "Secret copied to clipboard",
+  "@stegoSecretCopied": {
+    "description": "Message shown after the secret is copied"
+  },
+  "stegoDialogTitleBiometric": "Biometric + Passphrase",
+  "@stegoDialogTitleBiometric": {
+    "description": "Title of the unlock dialog when fingerprint or face is also used"
+  },
+  "stegoDialogTitlePassphrase": "Enter Passphrase",
+  "@stegoDialogTitlePassphrase": {
+    "description": "Title of the unlock dialog when only the password is used"
+  },
+  "stegoDialogMessageBiometric": "Confirm passphrase to authenticate with biometrics and decrypt payload.",
+  "@stegoDialogMessageBiometric": {
+    "description": "Explanation in the unlock dialog when fingerprint or face is also used"
+  },
+  "stegoDialogMessagePassphrase": "Enter the passphrase used to encrypt the secret payload.",
+  "@stegoDialogMessagePassphrase": {
+    "description": "Explanation in the unlock dialog when only the password is used"
+  },
+  "stegoUnlockButton": "Unlock",
+  "@stegoUnlockButton": {
+    "description": "Button that confirms the unlock dialog"
+  },
+
+  "safetyCheckInProgress": "Security Check In Progress",
+  "@safetyCheckInProgress": {
+    "description": "Title shown while the link safety checks are running"
+  },
+  "safetyAnalysisTitle": "URL Security Analysis",
+  "@safetyAnalysisTitle": {
+    "description": "Title of the link safety result panel"
+  },
+  "safetyAnalyzing": "Analyzing URL security...",
+  "@safetyAnalyzing": {
+    "description": "Shown under the panel while the checks run"
+  },
+  "safetyIssuesDetected": "{count, plural, =1{1 security issue detected} other{{count} security issues detected}}",
+  "@safetyIssuesDetected": {
+    "description": "How many safety checks failed",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "safetyNoIssues": "No issues detected",
+  "@safetyNoIssues": {
+    "description": "Shown when every safety check passed"
+  },
+  "safetyTrustSourceHint": "Only open this URL if you trust the source",
+  "@safetyTrustSourceHint": {
+    "description": "Advice shown when the link passed the checks but still needs care"
+  },
+  "safetyIssuesWarning": "Security issues detected. Do not enter personal information or download files from this URL",
+  "@safetyIssuesWarning": {
+    "description": "Warning shown when the link failed one or more checks"
+  },
+  "safetyResultsHeading": "Security Analysis Results:",
+  "@safetyResultsHeading": {
+    "description": "Heading above the list of individual safety checks"
+  },
+  "probingBannerActive": "Active online checks are ON: SSL, redirect and shortener checks contacted this site directly, exposing your IP address to it. Turn off \"Active online checks\" in Settings to check links privately.",
+  "@probingBannerActive": {
+    "description": "Banner shown when the app contacted the scanned site directly"
+  },
+  "probingBannerPrivate": "Private mode: this link was analysed using local rules and Google Safe Browsing only — the site itself was never contacted, so your IP and device were not exposed. Enable \"Active online checks\" in Settings for live SSL/redirect verification.",
+  "@probingBannerPrivate": {
+    "description": "Banner shown when the app checked the link without contacting the site"
+  },
+  "warningDialogTitle": "Security Warning",
+  "@warningDialogTitle": {
+    "description": "Title of the dialog shown before opening a risky link"
+  },
+  "warningDialogMessage": "This URL has security issues. Opening it may put your device or data at risk.\n\nAre you sure you want to proceed?",
+  "@warningDialogMessage": {
+    "description": "Warning shown before opening a link that failed the checks"
+  },
+  "cautionDialogTitle": "Caution",
+  "@cautionDialogTitle": {
+    "description": "Title of the dialog shown before opening any scanned link"
+  },
+  "cautionDialogMessage": "Always verify the source before opening URLs from QR codes.\n\nDo you want to open this URL?",
+  "@cautionDialogMessage": {
+    "description": "Advice shown before opening a link that passed the checks"
   }
 }

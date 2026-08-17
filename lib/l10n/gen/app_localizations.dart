@@ -1401,6 +1401,276 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Camera permission required'**
   String get scanCameraPermissionRequired;
+
+  /// Short confirmation shown on a button right after copying
+  ///
+  /// In en, this message translates to:
+  /// **'Copied!'**
+  String get copiedLabel;
+
+  /// Tooltip on a button that hides secret text
+  ///
+  /// In en, this message translates to:
+  /// **'Hide'**
+  String get hideAction;
+
+  /// Tooltip on a button that shows secret text
+  ///
+  /// In en, this message translates to:
+  /// **'Reveal'**
+  String get revealAction;
+
+  /// Button that opens a link despite a safety warning
+  ///
+  /// In en, this message translates to:
+  /// **'Open Anyway'**
+  String get openAnywayButton;
+
+  /// Title of the screen showing what was scanned
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Result'**
+  String get resultScreenTitle;
+
+  /// Shown when the screen opens with nothing scanned
+  ///
+  /// In en, this message translates to:
+  /// **'No result'**
+  String get resultNoResult;
+
+  /// Label above the scanned content
+  ///
+  /// In en, this message translates to:
+  /// **'Content:'**
+  String get resultContentLabel;
+
+  /// Label above the visible content of a code that also hides a secret
+  ///
+  /// In en, this message translates to:
+  /// **'Public Decoy Content:'**
+  String get resultDecoyContentLabel;
+
+  /// Label above the kind of code that was scanned
+  ///
+  /// In en, this message translates to:
+  /// **'Detected Type:'**
+  String get resultDetectedType;
+
+  /// Type name for a code that carries a hidden encrypted layer
+  ///
+  /// In en, this message translates to:
+  /// **'STEGO-QR (Encrypted Dual-Layer)'**
+  String get resultTypeStego;
+
+  /// Button that runs the link safety checks again
+  ///
+  /// In en, this message translates to:
+  /// **'Re-check'**
+  String get resultRecheckButton;
+
+  /// Button that opens the scanned link in a browser
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Browser'**
+  String get resultOpenInBrowser;
+
+  /// Button that copies the scanned content
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Text'**
+  String get resultCopyText;
+
+  /// Button that copies the visible content of a code hiding a secret
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Decoy Text'**
+  String get resultCopyDecoyText;
+
+  /// Button that shares the scanned content
+  ///
+  /// In en, this message translates to:
+  /// **'Share Text'**
+  String get resultShareText;
+
+  /// Button that shares the visible content of a code hiding a secret
+  ///
+  /// In en, this message translates to:
+  /// **'Share Decoy Text'**
+  String get resultShareDecoyText;
+
+  /// Button that returns to the camera to scan again
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Another Code'**
+  String get resultScanAnother;
+
+  /// Message shown when a link could not be opened
+  ///
+  /// In en, this message translates to:
+  /// **'Could not launch URL'**
+  String get resultLaunchFailed;
+
+  /// Shown after the hidden secret layer has been unlocked
+  ///
+  /// In en, this message translates to:
+  /// **'The hidden AES-256 encrypted payload has been decrypted successfully.'**
+  String get stegoUnlockedMessage;
+
+  /// Shown when a code hides a secret that is still locked
+  ///
+  /// In en, this message translates to:
+  /// **'This QR code contains a hidden, encrypted secret layer. Authenticate to view the hidden payload.'**
+  String get stegoLockedMessage;
+
+  /// Button that unlocks the secret using fingerprint or face
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric Unlock'**
+  String get stegoBiometricUnlock;
+
+  /// Button and field label for the secret password
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase'**
+  String get stegoPassphrase;
+
+  /// Label above the unlocked secret content
+  ///
+  /// In en, this message translates to:
+  /// **'Secret Payload:'**
+  String get stegoSecretPayload;
+
+  /// Button that copies the unlocked secret
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Secret'**
+  String get stegoCopySecret;
+
+  /// Button that shares the unlocked secret
+  ///
+  /// In en, this message translates to:
+  /// **'Share Secret'**
+  String get stegoShareSecret;
+
+  /// Message shown after the secret is copied
+  ///
+  /// In en, this message translates to:
+  /// **'Secret copied to clipboard'**
+  String get stegoSecretCopied;
+
+  /// Title of the unlock dialog when fingerprint or face is also used
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric + Passphrase'**
+  String get stegoDialogTitleBiometric;
+
+  /// Title of the unlock dialog when only the password is used
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Passphrase'**
+  String get stegoDialogTitlePassphrase;
+
+  /// Explanation in the unlock dialog when fingerprint or face is also used
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm passphrase to authenticate with biometrics and decrypt payload.'**
+  String get stegoDialogMessageBiometric;
+
+  /// Explanation in the unlock dialog when only the password is used
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the passphrase used to encrypt the secret payload.'**
+  String get stegoDialogMessagePassphrase;
+
+  /// Button that confirms the unlock dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get stegoUnlockButton;
+
+  /// Title shown while the link safety checks are running
+  ///
+  /// In en, this message translates to:
+  /// **'Security Check In Progress'**
+  String get safetyCheckInProgress;
+
+  /// Title of the link safety result panel
+  ///
+  /// In en, this message translates to:
+  /// **'URL Security Analysis'**
+  String get safetyAnalysisTitle;
+
+  /// Shown under the panel while the checks run
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing URL security...'**
+  String get safetyAnalyzing;
+
+  /// How many safety checks failed
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 security issue detected} other{{count} security issues detected}}'**
+  String safetyIssuesDetected(int count);
+
+  /// Shown when every safety check passed
+  ///
+  /// In en, this message translates to:
+  /// **'No issues detected'**
+  String get safetyNoIssues;
+
+  /// Advice shown when the link passed the checks but still needs care
+  ///
+  /// In en, this message translates to:
+  /// **'Only open this URL if you trust the source'**
+  String get safetyTrustSourceHint;
+
+  /// Warning shown when the link failed one or more checks
+  ///
+  /// In en, this message translates to:
+  /// **'Security issues detected. Do not enter personal information or download files from this URL'**
+  String get safetyIssuesWarning;
+
+  /// Heading above the list of individual safety checks
+  ///
+  /// In en, this message translates to:
+  /// **'Security Analysis Results:'**
+  String get safetyResultsHeading;
+
+  /// Banner shown when the app contacted the scanned site directly
+  ///
+  /// In en, this message translates to:
+  /// **'Active online checks are ON: SSL, redirect and shortener checks contacted this site directly, exposing your IP address to it. Turn off \"Active online checks\" in Settings to check links privately.'**
+  String get probingBannerActive;
+
+  /// Banner shown when the app checked the link without contacting the site
+  ///
+  /// In en, this message translates to:
+  /// **'Private mode: this link was analysed using local rules and Google Safe Browsing only — the site itself was never contacted, so your IP and device were not exposed. Enable \"Active online checks\" in Settings for live SSL/redirect verification.'**
+  String get probingBannerPrivate;
+
+  /// Title of the dialog shown before opening a risky link
+  ///
+  /// In en, this message translates to:
+  /// **'Security Warning'**
+  String get warningDialogTitle;
+
+  /// Warning shown before opening a link that failed the checks
+  ///
+  /// In en, this message translates to:
+  /// **'This URL has security issues. Opening it may put your device or data at risk.\n\nAre you sure you want to proceed?'**
+  String get warningDialogMessage;
+
+  /// Title of the dialog shown before opening any scanned link
+  ///
+  /// In en, this message translates to:
+  /// **'Caution'**
+  String get cautionDialogTitle;
+
+  /// Advice shown before opening a link that passed the checks
+  ///
+  /// In en, this message translates to:
+  /// **'Always verify the source before opening URLs from QR codes.\n\nDo you want to open this URL?'**
+  String get cautionDialogMessage;
 }
 
 class _AppLocalizationsDelegate

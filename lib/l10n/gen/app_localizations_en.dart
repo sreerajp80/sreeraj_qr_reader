@@ -757,4 +757,157 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scanCameraPermissionRequired => 'Camera permission required';
+
+  @override
+  String get copiedLabel => 'Copied!';
+
+  @override
+  String get hideAction => 'Hide';
+
+  @override
+  String get revealAction => 'Reveal';
+
+  @override
+  String get openAnywayButton => 'Open Anyway';
+
+  @override
+  String get resultScreenTitle => 'Scan Result';
+
+  @override
+  String get resultNoResult => 'No result';
+
+  @override
+  String get resultContentLabel => 'Content:';
+
+  @override
+  String get resultDecoyContentLabel => 'Public Decoy Content:';
+
+  @override
+  String get resultDetectedType => 'Detected Type:';
+
+  @override
+  String get resultTypeStego => 'STEGO-QR (Encrypted Dual-Layer)';
+
+  @override
+  String get resultRecheckButton => 'Re-check';
+
+  @override
+  String get resultOpenInBrowser => 'Open in Browser';
+
+  @override
+  String get resultCopyText => 'Copy Text';
+
+  @override
+  String get resultCopyDecoyText => 'Copy Decoy Text';
+
+  @override
+  String get resultShareText => 'Share Text';
+
+  @override
+  String get resultShareDecoyText => 'Share Decoy Text';
+
+  @override
+  String get resultScanAnother => 'Scan Another Code';
+
+  @override
+  String get resultLaunchFailed => 'Could not launch URL';
+
+  @override
+  String get stegoUnlockedMessage =>
+      'The hidden AES-256 encrypted payload has been decrypted successfully.';
+
+  @override
+  String get stegoLockedMessage =>
+      'This QR code contains a hidden, encrypted secret layer. Authenticate to view the hidden payload.';
+
+  @override
+  String get stegoBiometricUnlock => 'Biometric Unlock';
+
+  @override
+  String get stegoPassphrase => 'Passphrase';
+
+  @override
+  String get stegoSecretPayload => 'Secret Payload:';
+
+  @override
+  String get stegoCopySecret => 'Copy Secret';
+
+  @override
+  String get stegoShareSecret => 'Share Secret';
+
+  @override
+  String get stegoSecretCopied => 'Secret copied to clipboard';
+
+  @override
+  String get stegoDialogTitleBiometric => 'Biometric + Passphrase';
+
+  @override
+  String get stegoDialogTitlePassphrase => 'Enter Passphrase';
+
+  @override
+  String get stegoDialogMessageBiometric =>
+      'Confirm passphrase to authenticate with biometrics and decrypt payload.';
+
+  @override
+  String get stegoDialogMessagePassphrase =>
+      'Enter the passphrase used to encrypt the secret payload.';
+
+  @override
+  String get stegoUnlockButton => 'Unlock';
+
+  @override
+  String get safetyCheckInProgress => 'Security Check In Progress';
+
+  @override
+  String get safetyAnalysisTitle => 'URL Security Analysis';
+
+  @override
+  String get safetyAnalyzing => 'Analyzing URL security...';
+
+  @override
+  String safetyIssuesDetected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count security issues detected',
+      one: '1 security issue detected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get safetyNoIssues => 'No issues detected';
+
+  @override
+  String get safetyTrustSourceHint =>
+      'Only open this URL if you trust the source';
+
+  @override
+  String get safetyIssuesWarning =>
+      'Security issues detected. Do not enter personal information or download files from this URL';
+
+  @override
+  String get safetyResultsHeading => 'Security Analysis Results:';
+
+  @override
+  String get probingBannerActive =>
+      'Active online checks are ON: SSL, redirect and shortener checks contacted this site directly, exposing your IP address to it. Turn off \"Active online checks\" in Settings to check links privately.';
+
+  @override
+  String get probingBannerPrivate =>
+      'Private mode: this link was analysed using local rules and Google Safe Browsing only — the site itself was never contacted, so your IP and device were not exposed. Enable \"Active online checks\" in Settings for live SSL/redirect verification.';
+
+  @override
+  String get warningDialogTitle => 'Security Warning';
+
+  @override
+  String get warningDialogMessage =>
+      'This URL has security issues. Opening it may put your device or data at risk.\n\nAre you sure you want to proceed?';
+
+  @override
+  String get cautionDialogTitle => 'Caution';
+
+  @override
+  String get cautionDialogMessage =>
+      'Always verify the source before opening URLs from QR codes.\n\nDo you want to open this URL?';
 }

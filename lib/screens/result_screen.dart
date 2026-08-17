@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:sreeraj_qr_reader/models/safety_check_result.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/parsed_payload.dart';
 import 'package:sreeraj_qr_reader/providers/scan_provider.dart';
 import 'package:sreeraj_qr_reader/screens/widgets/wifi_action_card.dart';
@@ -30,17 +31,18 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final scanProvider = Provider.of<ScanProvider>(context);
     final isUrl = scanProvider.isUrl;
     final isStego = scanProvider.isStegoQr;
 
     final displayedContent = isStego
         ? (scanProvider.stegoQrData?.decoyText ?? scanProvider.scanResult ?? '')
-        : (scanProvider.scanResult ?? 'No result');
+        : (scanProvider.scanResult ?? l10n.resultNoResult);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Scan Result'),
+        title: Text(l10n.resultScreenTitle),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -52,7 +54,7 @@ class _ResultScreenState extends State<ResultScreen> {
           IconButton(
             icon: const Icon(Icons.history),
             onPressed: () => Navigator.pushNamed(context, '/history'),
-            tooltip: 'Scan History',
+            tooltip: l10n.historyScreenTitle,
           ),
         ],
       ),
@@ -93,7 +95,9 @@ class _ResultScreenState extends State<ResultScreen> {
             // Content display (Decoy or plain text)
             _buildContentCard(
               displayedContent,
-              title: isStego ? 'Public Decoy Content:' : 'Content:',
+              title: isStego
+                  ? l10n.resultDecoyContentLabel
+                  : l10n.resultContentLabel,
             ),
             const SizedBox(height: 20),
 
@@ -130,11 +134,12 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Widget _buildResultTypeCard(ScanProvider provider) {
+    final l10n = AppLocalizations.of(context);
     final isStego = provider.isStegoQr;
     final payload = provider.parsedPayload;
 
     final typeLabel = isStego
-        ? 'STEGO-QR (Encrypted Dual-Layer)'
+        ? l10n.resultTypeStego
         : (payload != null && payload is! GenericPayload)
         ? payload.type.name.toUpperCase()
         : provider.scanType?.name.toUpperCase() ?? 'TEXT';
@@ -174,7 +179,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Detected Type:',
+                    l10n.resultDetectedType,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   Text(
@@ -194,6 +199,7 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Widget _buildStegoCard(ScanProvider provider) {
+    final l10n = AppLocalizations.of(context);
     final stegoData = provider.stegoQrData;
     if (stegoData == null) return const SizedBox();
 
@@ -242,9 +248,7 @@ class _ResultScreenState extends State<ResultScreen> {
             ),
             const SizedBox(height: 12),
             Text(
-              isUnlocked
-                  ? 'The hidden AES-256 encrypted payload has been decrypted successfully.'
-                  : 'This QR code contains a hidden, encrypted secret layer. Authenticate to view the hidden payload.',
+              isUnlocked ? l10n.stegoUnlockedMessage : l10n.stegoLockedMessage,
               style: TextStyle(
                 fontSize: 13,
                 color: isUnlocked ? Colors.purple[900] : Colors.deepPurple[900],
@@ -280,7 +284,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   Expanded(
                     child: ElevatedButton.icon(
                       icon: const Icon(Icons.fingerprint),
-                      label: const Text('Biometric Unlock'),
+                      label: Text(l10n.stegoBiometricUnlock),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurple,
                         foregroundColor: Colors.white,
@@ -297,7 +301,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   Expanded(
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.key),
-                      label: const Text('Passphrase'),
+                      label: Text(l10n.stegoPassphrase),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: Colors.deepPurple[900],
                         side: const BorderSide(color: Colors.deepPurple),
@@ -330,9 +334,9 @@ class _ResultScreenState extends State<ResultScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Secret Payload:',
-                          style: TextStyle(
+                        Text(
+                          l10n.stegoSecretPayload,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                             color: Colors.purple,
@@ -351,7 +355,9 @@ class _ResultScreenState extends State<ResultScreen> {
                               _showSecretText = !_showSecretText;
                             });
                           },
-                          tooltip: _showSecretText ? 'Hide' : 'Reveal',
+                          tooltip: _showSecretText
+                              ? l10n.hideAction
+                              : l10n.revealAction,
                         ),
                       ],
                     ),
@@ -378,7 +384,11 @@ class _ResultScreenState extends State<ResultScreen> {
                       icon: Icon(
                         _isSecretCopied ? Icons.check : Icons.content_copy,
                       ),
-                      label: Text(_isSecretCopied ? 'Copied!' : 'Copy Secret'),
+                      label: Text(
+                        _isSecretCopied
+                            ? l10n.copiedLabel
+                            : l10n.stegoCopySecret,
+                      ),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: Colors.purple[900],
                         side: BorderSide(color: Colors.purple[300]!),
@@ -392,7 +402,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   Expanded(
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.share),
-                      label: const Text('Share Secret'),
+                      label: Text(l10n.stegoShareSecret),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: Colors.purple[900],
                         side: BorderSide(color: Colors.purple[300]!),
@@ -415,6 +425,7 @@ class _ResultScreenState extends State<ResultScreen> {
     ScanProvider provider, {
     required bool useBiometrics,
   }) async {
+    final l10n = AppLocalizations.of(context);
     final controller = TextEditingController();
     bool obscure = true;
 
@@ -427,7 +438,9 @@ class _ResultScreenState extends State<ResultScreen> {
               const Icon(Icons.key, color: Colors.deepPurple),
               const SizedBox(width: 8),
               Text(
-                useBiometrics ? 'Biometric + Passphrase' : 'Enter Passphrase',
+                useBiometrics
+                    ? l10n.stegoDialogTitleBiometric
+                    : l10n.stegoDialogTitlePassphrase,
               ),
             ],
           ),
@@ -437,8 +450,8 @@ class _ResultScreenState extends State<ResultScreen> {
             children: [
               Text(
                 useBiometrics
-                    ? 'Confirm passphrase to authenticate with biometrics and decrypt payload.'
-                    : 'Enter the passphrase used to encrypt the secret payload.',
+                    ? l10n.stegoDialogMessageBiometric
+                    : l10n.stegoDialogMessagePassphrase,
                 style: const TextStyle(fontSize: 13),
               ),
               const SizedBox(height: 16),
@@ -447,7 +460,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 obscureText: obscure,
                 autofocus: true,
                 decoration: InputDecoration(
-                  labelText: 'Passphrase',
+                  labelText: l10n.stegoPassphrase,
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -467,7 +480,7 @@ class _ResultScreenState extends State<ResultScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: Text(l10n.cancelButton),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -475,7 +488,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 foregroundColor: Colors.white,
               ),
               onPressed: () => Navigator.pop(context, controller.text),
-              child: const Text('Unlock'),
+              child: Text(l10n.stegoUnlockButton),
             ),
           ],
         ),
@@ -492,6 +505,7 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Widget _buildRecheckButton(ScanProvider p) {
+    final l10n = AppLocalizations.of(context);
     if (!p.isUrl || p.isLoading || !p.hasNetworkError) return const SizedBox();
     return Padding(
       padding: const EdgeInsets.only(top: 12),
@@ -499,7 +513,7 @@ class _ResultScreenState extends State<ResultScreen> {
         width: double.infinity,
         child: OutlinedButton.icon(
           icon: const Icon(Icons.refresh),
-          label: const Text('Re-check'),
+          label: Text(l10n.resultRecheckButton),
           style: OutlinedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 16),
           ),
@@ -510,7 +524,9 @@ class _ResultScreenState extends State<ResultScreen> {
     );
   }
 
-  Widget _buildContentCard(String content, {String title = 'Content:'}) {
+  Widget _buildContentCard(String content, {String? title}) {
+    final l10n = AppLocalizations.of(context);
+    final cardTitle = title ?? l10n.resultContentLabel;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -522,7 +538,7 @@ class _ResultScreenState extends State<ResultScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title,
+              cardTitle,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -559,6 +575,7 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Widget _buildSafetyCard(ScanProvider provider) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -607,8 +624,8 @@ class _ResultScreenState extends State<ResultScreen> {
                     children: [
                       Text(
                         provider.isLoading
-                            ? 'Security Check In Progress'
-                            : 'URL Security Analysis',
+                            ? l10n.safetyCheckInProgress
+                            : l10n.safetyAnalysisTitle,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -629,8 +646,8 @@ class _ResultScreenState extends State<ResultScreen> {
                       if (!provider.isLoading)
                         Text(
                           hasIssues
-                              ? '${failedChecks.length} security ${failedChecks.length == 1 ? 'issue' : 'issues'} detected'
-                              : 'No issues detected',
+                              ? l10n.safetyIssuesDetected(failedChecks.length)
+                              : l10n.safetyNoIssues,
                           style: TextStyle(
                             fontSize: 14,
                             color: isDark
@@ -670,7 +687,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Only open this URL if you trust the source',
+                        l10n.safetyTrustSourceHint,
                         style: TextStyle(
                           fontSize: 13,
                           color: isDark
@@ -713,7 +730,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Security issues detected. Do not enter personal information or download files from this URL',
+                        l10n.safetyIssuesWarning,
                         style: TextStyle(
                           fontSize: 13,
                           color: isDark ? Colors.red[200] : Colors.red[700],
@@ -730,7 +747,7 @@ class _ResultScreenState extends State<ResultScreen> {
             if (!provider.isLoading && provider.safetyChecks.isNotEmpty) ...[
               const SizedBox(height: 16),
               Text(
-                'Security Analysis Results:',
+                l10n.safetyResultsHeading,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
@@ -747,7 +764,7 @@ class _ResultScreenState extends State<ResultScreen> {
             if (provider.isLoading) ...[
               const SizedBox(height: 12),
               Text(
-                'Analyzing URL security...',
+                l10n.safetyAnalyzing,
                 style: TextStyle(
                   fontSize: 13,
                   color: isDark ? Colors.blue[300] : Colors.blue[600],
@@ -761,6 +778,7 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Widget _buildProbingModeBanner(bool activeProbing) {
+    final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final color = activeProbing ? Colors.amber : Colors.blue;
     return Container(
@@ -792,15 +810,8 @@ class _ResultScreenState extends State<ResultScreen> {
           Expanded(
             child: Text(
               activeProbing
-                  ? 'Active online checks are ON: SSL, redirect and shortener '
-                        'checks contacted this site directly, exposing your IP '
-                        'address to it. Turn off "Active online checks" in '
-                        'Settings to check links privately.'
-                  : 'Private mode: this link was analysed using local rules and '
-                        'Google Safe Browsing only — the site itself was never '
-                        'contacted, so your IP and device were not exposed. Enable '
-                        '"Active online checks" in Settings for live SSL/redirect '
-                        'verification.',
+                  ? l10n.probingBannerActive
+                  : l10n.probingBannerPrivate,
               style: TextStyle(
                 fontSize: 13,
                 color: isDark
@@ -879,6 +890,7 @@ class _ResultScreenState extends State<ResultScreen> {
     ScanProvider provider,
     String displayedContent,
   ) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       children: [
         if (provider.isUrl) ...[
@@ -886,7 +898,7 @@ class _ResultScreenState extends State<ResultScreen> {
             width: double.infinity,
             child: ElevatedButton.icon(
               icon: const Icon(Icons.open_in_browser),
-              label: const Text('Open in Browser'),
+              label: Text(l10n.resultOpenInBrowser),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 backgroundColor: provider.isSafeUrl
@@ -911,8 +923,10 @@ class _ResultScreenState extends State<ResultScreen> {
                 icon: Icon(_isCopied ? Icons.check : Icons.content_copy),
                 label: Text(
                   _isCopied
-                      ? 'Copied!'
-                      : (provider.isStegoQr ? 'Copy Decoy Text' : 'Copy Text'),
+                      ? l10n.copiedLabel
+                      : (provider.isStegoQr
+                            ? l10n.resultCopyDecoyText
+                            : l10n.resultCopyText),
                 ),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -925,7 +939,9 @@ class _ResultScreenState extends State<ResultScreen> {
               child: OutlinedButton.icon(
                 icon: const Icon(Icons.share),
                 label: Text(
-                  provider.isStegoQr ? 'Share Decoy Text' : 'Share Text',
+                  provider.isStegoQr
+                      ? l10n.resultShareDecoyText
+                      : l10n.resultShareText,
                 ),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -950,7 +966,7 @@ class _ResultScreenState extends State<ResultScreen> {
               provider.clearScan();
               Navigator.pop(context);
             },
-            child: const Text('Scan Another Code'),
+            child: Text(l10n.resultScanAnother),
           ),
         ),
       ],
@@ -958,6 +974,7 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Future<void> _showWarningDialog(BuildContext context, String url) async {
+    final l10n = AppLocalizations.of(context);
     final scanProvider = Provider.of<ScanProvider>(context, listen: false);
     final hasIssues = scanProvider.safetyChecks.any((check) => !check.passed);
 
@@ -971,18 +988,16 @@ class _ResultScreenState extends State<ResultScreen> {
               color: hasIssues ? Colors.red : Colors.orange,
             ),
             const SizedBox(width: 8),
-            Text(hasIssues ? 'Security Warning' : 'Caution'),
+            Text(hasIssues ? l10n.warningDialogTitle : l10n.cautionDialogTitle),
           ],
         ),
         content: Text(
-          hasIssues
-              ? 'This URL has security issues. Opening it may put your device or data at risk.\n\nAre you sure you want to proceed?'
-              : 'Always verify the source before opening URLs from QR codes.\n\nDo you want to open this URL?',
+          hasIssues ? l10n.warningDialogMessage : l10n.cautionDialogMessage,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancelButton),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
@@ -990,7 +1005,7 @@ class _ResultScreenState extends State<ResultScreen> {
               backgroundColor: hasIssues ? Colors.red : Colors.orange,
               foregroundColor: Colors.white,
             ),
-            child: const Text('Open Anyway'),
+            child: Text(l10n.openAnywayButton),
           ),
         ],
       ),
@@ -1007,9 +1022,11 @@ class _ResultScreenState extends State<ResultScreen> {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Could not launch URL')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).resultLaunchFailed),
+        ),
+      );
     }
   }
 
@@ -1021,9 +1038,9 @@ class _ResultScreenState extends State<ResultScreen> {
       _isCopied = true;
     });
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context).copiedToClipboard)),
+    );
 
     Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
@@ -1042,9 +1059,9 @@ class _ResultScreenState extends State<ResultScreen> {
       _isSecretCopied = true;
     });
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Secret copied to clipboard')));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context).stegoSecretCopied)),
+    );
 
     Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
