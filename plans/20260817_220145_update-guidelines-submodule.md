@@ -1,6 +1,6 @@
 # Update `docs/guidelines` submodule
 
-**Status:** in_progress
+**Status:** completed
 
 ## Files to be changed
 
