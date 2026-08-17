@@ -887,5 +887,78 @@
   "airQrPayloadCopied": "Copied payload to clipboard",
   "@airQrPayloadCopied": {
     "description": "Message shown after the received data is copied"
+  },
+
+  "cancelButton": "Cancel",
+  "@cancelButton": {
+    "description": "Button that closes a dialog without acting, used on several screens"
+  },
+
+  "historyScreenTitle": "Scan History",
+  "@historyScreenTitle": {
+    "description": "Title of the saved scans screen"
+  },
+  "historyExportTooltip": "Export / Backup",
+  "@historyExportTooltip": {
+    "description": "Tooltip on the button that opens the export and backup dialog"
+  },
+  "historyClearAll": "Clear All",
+  "@historyClearAll": {
+    "description": "Button and tooltip for deleting every saved scan"
+  },
+  "historyClearTitle": "Clear Scan History?",
+  "@historyClearTitle": {
+    "description": "Title of the dialog asking to confirm deleting all saved scans"
+  },
+  "historyClearMessage": "Are you sure you want to delete all persistent scan history? This action cannot be undone unless you have created a backup.",
+  "@historyClearMessage": {
+    "description": "Warning shown before all saved scans are deleted"
+  },
+  "historySearchHint": "Search history (content, format, notes)...",
+  "@historySearchHint": {
+    "description": "Hint inside the empty search box on the saved scans screen"
+  },
+  "historyFilterAll": "All",
+  "@historyFilterAll": {
+    "description": "Filter chip showing every saved scan"
+  },
+  "historyFilterStarred": "Starred",
+  "@historyFilterStarred": {
+    "description": "Filter chip showing only favourite scans"
+  },
+  "historyFilterUrls": "URLs",
+  "@historyFilterUrls": {
+    "description": "Filter chip showing only saved links"
+  },
+  "historyFilterWifi": "Wi-Fi",
+  "@historyFilterWifi": {
+    "description": "Filter chip showing only saved Wi-Fi codes"
+  },
+  "historyFilterContacts": "Contacts",
+  "@historyFilterContacts": {
+    "description": "Filter chip showing only saved contact cards"
+  },
+  "historyFilterText": "Text",
+  "@historyFilterText": {
+    "description": "Filter chip showing only saved plain text scans"
+  },
+  "historyFilterBarcodes": "Barcodes",
+  "@historyFilterBarcodes": {
+    "description": "Filter chip showing only saved product barcodes"
+  },
+  "historyEmptyTitle": "No Scan Records Found",
+  "@historyEmptyTitle": {
+    "description": "Title shown when the saved scans list is empty"
+  },
+  "historyEmptyMessage": "Scanned barcodes will automatically appear here.",
+  "@historyEmptyMessage": {
+    "description": "Explanation shown when no scans have been saved yet"
+  },
+  "historyNoMatches": "No matches for \"{query}\"",
+  "@historyNoMatches": {
+    "description": "Shown when a search over saved scans finds nothing",
+    "placeholders": {
+      "query": { "type": "String" }
+    }
   }
 }

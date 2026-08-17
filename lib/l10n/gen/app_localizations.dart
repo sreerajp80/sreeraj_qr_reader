@@ -1203,6 +1203,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copied payload to clipboard'**
   String get airQrPayloadCopied;
+
+  /// Button that closes a dialog without acting, used on several screens
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButton;
+
+  /// Title of the saved scans screen
+  ///
+  /// In en, this message translates to:
+  /// **'Scan History'**
+  String get historyScreenTitle;
+
+  /// Tooltip on the button that opens the export and backup dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Export / Backup'**
+  String get historyExportTooltip;
+
+  /// Button and tooltip for deleting every saved scan
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All'**
+  String get historyClearAll;
+
+  /// Title of the dialog asking to confirm deleting all saved scans
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Scan History?'**
+  String get historyClearTitle;
+
+  /// Warning shown before all saved scans are deleted
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete all persistent scan history? This action cannot be undone unless you have created a backup.'**
+  String get historyClearMessage;
+
+  /// Hint inside the empty search box on the saved scans screen
+  ///
+  /// In en, this message translates to:
+  /// **'Search history (content, format, notes)...'**
+  String get historySearchHint;
+
+  /// Filter chip showing every saved scan
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get historyFilterAll;
+
+  /// Filter chip showing only favourite scans
+  ///
+  /// In en, this message translates to:
+  /// **'Starred'**
+  String get historyFilterStarred;
+
+  /// Filter chip showing only saved links
+  ///
+  /// In en, this message translates to:
+  /// **'URLs'**
+  String get historyFilterUrls;
+
+  /// Filter chip showing only saved Wi-Fi codes
+  ///
+  /// In en, this message translates to:
+  /// **'Wi-Fi'**
+  String get historyFilterWifi;
+
+  /// Filter chip showing only saved contact cards
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get historyFilterContacts;
+
+  /// Filter chip showing only saved plain text scans
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get historyFilterText;
+
+  /// Filter chip showing only saved product barcodes
+  ///
+  /// In en, this message translates to:
+  /// **'Barcodes'**
+  String get historyFilterBarcodes;
+
+  /// Title shown when the saved scans list is empty
+  ///
+  /// In en, this message translates to:
+  /// **'No Scan Records Found'**
+  String get historyEmptyTitle;
+
+  /// Explanation shown when no scans have been saved yet
+  ///
+  /// In en, this message translates to:
+  /// **'Scanned barcodes will automatically appear here.'**
+  String get historyEmptyMessage;
+
+  /// Shown when a search over saved scans finds nothing
+  ///
+  /// In en, this message translates to:
+  /// **'No matches for \"{query}\"'**
+  String historyNoMatches(String query);
 }
 
 class _AppLocalizationsDelegate

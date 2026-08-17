@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/scan_record.dart';
 import 'package:sreeraj_qr_reader/providers/history_provider.dart';
 import 'package:sreeraj_qr_reader/screens/widgets/export_import_dialog.dart';
@@ -52,17 +53,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   void _confirmClearAll(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Clear Scan History?'),
-        content: const Text(
-          'Are you sure you want to delete all persistent scan history? This action cannot be undone unless you have created a backup.',
-        ),
+        title: Text(l10n.historyClearTitle),
+        content: Text(l10n.historyClearMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancelButton),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -73,7 +73,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               Provider.of<HistoryProvider>(context, listen: false).clearAll();
               Navigator.of(ctx).pop();
             },
-            child: const Text('Clear All'),
+            child: Text(l10n.historyClearAll),
           ),
         ],
       ),
@@ -82,31 +82,48 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final historyProvider = Provider.of<HistoryProvider>(context);
 
     final categoryChips = [
-      {'key': 'all', 'label': 'All', 'icon': Icons.apps},
-      {'key': 'favorites', 'label': 'Starred', 'icon': Icons.star},
-      {'key': 'url', 'label': 'URLs', 'icon': Icons.link},
-      {'key': 'wifi', 'label': 'Wi-Fi', 'icon': Icons.wifi},
-      {'key': 'contact', 'label': 'Contacts', 'icon': Icons.person},
-      {'key': 'text', 'label': 'Text', 'icon': Icons.text_snippet},
-      {'key': 'barcode', 'label': 'Barcodes', 'icon': Icons.qr_code_2},
+      {'key': 'all', 'label': l10n.historyFilterAll, 'icon': Icons.apps},
+      {
+        'key': 'favorites',
+        'label': l10n.historyFilterStarred,
+        'icon': Icons.star,
+      },
+      {'key': 'url', 'label': l10n.historyFilterUrls, 'icon': Icons.link},
+      {'key': 'wifi', 'label': l10n.historyFilterWifi, 'icon': Icons.wifi},
+      {
+        'key': 'contact',
+        'label': l10n.historyFilterContacts,
+        'icon': Icons.person,
+      },
+      {
+        'key': 'text',
+        'label': l10n.historyFilterText,
+        'icon': Icons.text_snippet,
+      },
+      {
+        'key': 'barcode',
+        'label': l10n.historyFilterBarcodes,
+        'icon': Icons.qr_code_2,
+      },
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Scan History'),
+        title: Text(l10n.historyScreenTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.ios_share),
-            tooltip: 'Export / Backup',
+            tooltip: l10n.historyExportTooltip,
             onPressed: () => _showExportImportDialog(context),
           ),
           IconButton(
             icon: const Icon(Icons.delete_sweep_outlined),
-            tooltip: 'Clear All',
+            tooltip: l10n.historyClearAll,
             onPressed: historyProvider.totalCount > 0
                 ? () => _confirmClearAll(context)
                 : null,
@@ -121,7 +138,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: 'Search history (content, format, notes)...',
+                hintText: l10n.historySearchHint,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(
@@ -225,7 +242,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'No Scan Records Found',
+                          l10n.historyEmptyTitle,
                           style: theme.textTheme.titleMedium?.copyWith(
                             color: Colors.grey.shade700,
                             fontWeight: FontWeight.bold,
@@ -234,8 +251,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         const SizedBox(height: 8),
                         Text(
                           historyProvider.searchQuery.isNotEmpty
-                              ? 'No matches for "${historyProvider.searchQuery}"'
-                              : 'Scanned barcodes will automatically appear here.',
+                              ? l10n.historyNoMatches(
+                                  historyProvider.searchQuery,
+                                )
+                              : l10n.historyEmptyMessage,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: Colors.grey.shade500,
                           ),

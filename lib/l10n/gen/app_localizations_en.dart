@@ -651,4 +651,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get airQrPayloadCopied => 'Copied payload to clipboard';
+
+  @override
+  String get cancelButton => 'Cancel';
+
+  @override
+  String get historyScreenTitle => 'Scan History';
+
+  @override
+  String get historyExportTooltip => 'Export / Backup';
+
+  @override
+  String get historyClearAll => 'Clear All';
+
+  @override
+  String get historyClearTitle => 'Clear Scan History?';
+
+  @override
+  String get historyClearMessage =>
+      'Are you sure you want to delete all persistent scan history? This action cannot be undone unless you have created a backup.';
+
+  @override
+  String get historySearchHint => 'Search history (content, format, notes)...';
+
+  @override
+  String get historyFilterAll => 'All';
+
+  @override
+  String get historyFilterStarred => 'Starred';
+
+  @override
+  String get historyFilterUrls => 'URLs';
+
+  @override
+  String get historyFilterWifi => 'Wi-Fi';
+
+  @override
+  String get historyFilterContacts => 'Contacts';
+
+  @override
+  String get historyFilterText => 'Text';
+
+  @override
+  String get historyFilterBarcodes => 'Barcodes';
+
+  @override
+  String get historyEmptyTitle => 'No Scan Records Found';
+
+  @override
+  String get historyEmptyMessage =>
+      'Scanned barcodes will automatically appear here.';
+
+  @override
+  String historyNoMatches(String query) {
+    return 'No matches for \"$query\"';
+  }
 }
