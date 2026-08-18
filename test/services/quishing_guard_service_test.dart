@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/models/quishing_analysis_result.dart';
 import 'package:sreeraj_qr_reader/services/quishing_guard_service.dart';
 
@@ -17,7 +18,7 @@ void main() {
 
       expect(result.overallRiskScore, lessThan(0.35));
       expect(result.riskLevel, equals(QuishingRiskLevel.authentic));
-      expect(result.statusLabel, contains('Authentic Printed Code'));
+      expect(result.statusLabel.key, AppMessageKey.quishingStatusAuthentic);
       expect(result.detectedSignals, isNotEmpty);
     });
 
@@ -31,8 +32,8 @@ void main() {
             'simulatedEdgeScore': 0.88,
             'simulatedTextureScore': 0.82,
             'simulatedSignals': [
-              'Perimeter double-edge reflection detected around QR matrix',
-              'Micro-shadow depth step line detected along sticker border',
+              AppMessage(AppMessageKey.quishingSignalDoubleEdgeAroundMatrix),
+              AppMessage(AppMessageKey.quishingSignalMicroShadowStickerBorder),
             ],
           },
         );
@@ -43,8 +44,8 @@ void main() {
         expect(warningResult.textureGrainScore, equals(0.82));
         expect(warningResult.detectedSignals, hasLength(2));
         expect(
-          warningResult.statusLabel,
-          contains('High Warning: Physical Overlay Sticker Detected!'),
+          warningResult.statusLabel.key,
+          AppMessageKey.quishingStatusHighWarning,
         );
       },
     );
@@ -60,7 +61,10 @@ void main() {
         expect(wearResult.overallRiskScore, greaterThanOrEqualTo(0.35));
         expect(wearResult.overallRiskScore, lessThan(0.70));
         expect(wearResult.riskLevel, equals(QuishingRiskLevel.wearAndTear));
-        expect(wearResult.statusLabel, contains('Wear & Tear Detected'));
+        expect(
+          wearResult.statusLabel.key,
+          AppMessageKey.quishingStatusWearAndTear,
+        );
       },
     );
 

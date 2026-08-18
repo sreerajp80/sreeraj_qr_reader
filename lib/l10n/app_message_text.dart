@@ -106,24 +106,48 @@ String appMessageText(AppLocalizations l10n, AppMessage message) {
       return l10n.maliciousUnavailable;
 
     // printed-code tamper check
-    case AppMessageKey.quishingAuthentic:
-      return l10n.quishingAuthentic;
-    case AppMessageKey.quishingWearAndTear:
-      return l10n.quishingWearAndTear;
-    case AppMessageKey.quishingHighWarning:
-      return l10n.quishingHighWarning;
-    case AppMessageKey.quishingSignalConsistentDots:
-      return l10n.quishingSignalConsistentDots;
-    case AppMessageKey.quishingSignalConsistentPerimeter:
-      return l10n.quishingSignalConsistentPerimeter;
-    case AppMessageKey.quishingSignalEdgeDoubling:
-      return l10n.quishingSignalEdgeDoubling;
-    case AppMessageKey.quishingSignalOverlaySticker:
-      return l10n.quishingSignalOverlaySticker;
-    case AppMessageKey.quishingSignalPrintMismatch:
-      return l10n.quishingSignalPrintMismatch;
-    case AppMessageKey.quishingSignalGlareShift:
-      return l10n.quishingSignalGlareShift;
+    case AppMessageKey.quishingSummaryAuthentic:
+      return l10n.quishingSummaryAuthentic;
+    case AppMessageKey.quishingSummaryWearAndTear:
+      return l10n.quishingSummaryWearAndTear;
+    case AppMessageKey.quishingSummaryHighWarning:
+      return l10n.quishingSummaryHighWarning;
+    case AppMessageKey.quishingStatusAuthentic:
+      return l10n.quishingStatusAuthentic;
+    case AppMessageKey.quishingStatusWearAndTear:
+      return l10n.quishingStatusWearAndTear;
+    case AppMessageKey.quishingStatusHighWarning:
+      return l10n.quishingStatusHighWarning;
+    case AppMessageKey.quishingSignalPerimeterDoubleEdge:
+      return l10n.quishingSignalPerimeterDoubleEdge(args['zones'] ?? '');
+    case AppMessageKey.quishingSignalMicroShadowPerimeter:
+      return l10n.quishingSignalMicroShadowPerimeter;
+    case AppMessageKey.quishingSignalDotDensityVariance:
+      return l10n.quishingSignalDotDensityVariance(args['variance'] ?? '');
+    case AppMessageKey.quishingSignalGrainAberration:
+      return l10n.quishingSignalGrainAberration;
+    case AppMessageKey.quishingSignalUniformReflection:
+      return l10n.quishingSignalUniformReflection;
+    case AppMessageKey.quishingSignalConsistentDotsQrMatrix:
+      return l10n.quishingSignalConsistentDotsQrMatrix;
+    case AppMessageKey.quishingSignalReflectionVerified:
+      return l10n.quishingSignalReflectionVerified;
+    case AppMessageKey.quishingSignalHalftoneConsistentQrMatrix:
+      return l10n.quishingSignalHalftoneConsistentQrMatrix;
+    case AppMessageKey.quishingSignalHalftoneConsistentMatrix:
+      return l10n.quishingSignalHalftoneConsistentMatrix;
+    case AppMessageKey.quishingSignalDoubleEdgeAroundMatrix:
+      return l10n.quishingSignalDoubleEdgeAroundMatrix;
+    case AppMessageKey.quishingSignalMicroShadowStickerBorder:
+      return l10n.quishingSignalMicroShadowStickerBorder;
+    case AppMessageKey.quishingSignalGrainMismatchBase:
+      return l10n.quishingSignalGrainMismatchBase;
+    case AppMessageKey.quishingSignalMinorScratch:
+      return l10n.quishingSignalMinorScratch;
+    case AppMessageKey.quishingSignalSlightDotIrregularity:
+      return l10n.quishingSignalSlightDotIrregularity;
+    case AppMessageKey.quishingSignalConsistentDotsMatrixPerimeter:
+      return l10n.quishingSignalConsistentDotsMatrixPerimeter;
 
     // sandboxed page preview
     case AppMessageKey.domStatusOk:

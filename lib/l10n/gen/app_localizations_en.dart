@@ -1486,42 +1486,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get maliciousUnavailable => 'Unable to check for malicious content';
 
   @override
-  String get quishingAuthentic =>
-      'Authentic Printed Code. No physical tampering detected.';
-
-  @override
-  String get quishingWearAndTear =>
-      'Minor surface wear detected. Likely normal ageing, not tampering.';
-
-  @override
-  String get quishingHighWarning =>
-      'Warning: signs of a sticker or print overlay. Treat this code with care.';
-
-  @override
-  String get quishingSignalConsistentDots =>
-      'Consistent halftone dot density across QR matrix perimeter';
-
-  @override
-  String get quishingSignalConsistentPerimeter =>
-      'Consistent halftone dot density across matrix perimeter';
-
-  @override
-  String get quishingSignalEdgeDoubling =>
-      'Edge doubling detected along the code boundary';
-
-  @override
-  String get quishingSignalOverlaySticker =>
-      'Possible sticker overlay detected on the printed code';
-
-  @override
-  String get quishingSignalPrintMismatch =>
-      'Print texture does not match the surrounding surface';
-
-  @override
-  String get quishingSignalGlareShift =>
-      'Reflectivity shift suggests a second printed layer';
-
-  @override
   String get domStatusOk => 'Page pre-rendered safely with scripts blocked';
 
   @override
@@ -1619,5 +1583,89 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String maliciousApiError(String status) {
     return 'API error (status: $status)';
+  }
+
+  @override
+  String get quishingSummaryAuthentic =>
+      'Authentic Printed Code. No physical tampering detected.';
+
+  @override
+  String get quishingSummaryWearAndTear =>
+      'Wear & Tear Detected. Slight physical surface noise observed.';
+
+  @override
+  String get quishingSummaryHighWarning =>
+      'High Warning: Physical Overlay Sticker Detected! Verify Before Tapping Links.';
+
+  @override
+  String get quishingStatusAuthentic => '🟢 Authentic Printed Code';
+
+  @override
+  String get quishingStatusWearAndTear => '🟡 Wear & Tear Detected';
+
+  @override
+  String get quishingStatusHighWarning =>
+      '🔴 High Warning: Physical Overlay Sticker Detected!';
+
+  @override
+  String get quishingSignalMicroShadowPerimeter =>
+      'Micro-shadow depth step line detected along matrix perimeter';
+
+  @override
+  String get quishingSignalGrainAberration =>
+      'Mismatching inkjet/thermal grain chromatic aberration detected';
+
+  @override
+  String get quishingSignalUniformReflection =>
+      'Uniform substrate reflection profile verified';
+
+  @override
+  String get quishingSignalConsistentDotsQrMatrix =>
+      'Consistent halftone dot density across QR matrix perimeter';
+
+  @override
+  String get quishingSignalReflectionVerified =>
+      'Substrate reflection profile verified';
+
+  @override
+  String get quishingSignalHalftoneConsistentQrMatrix =>
+      'Halftone dot density consistent across QR matrix perimeter';
+
+  @override
+  String get quishingSignalHalftoneConsistentMatrix =>
+      'Halftone dot density consistent across matrix';
+
+  @override
+  String get quishingSignalDoubleEdgeAroundMatrix =>
+      'Perimeter double-edge reflection detected around QR matrix';
+
+  @override
+  String get quishingSignalMicroShadowStickerBorder =>
+      'Micro-shadow depth step line detected along sticker border';
+
+  @override
+  String get quishingSignalGrainMismatchBase =>
+      'Inkjet/thermal print grain mismatching base substrate';
+
+  @override
+  String get quishingSignalMinorScratch =>
+      'Minor surface scratch or wear pattern observed';
+
+  @override
+  String get quishingSignalSlightDotIrregularity =>
+      'Slight dot density irregularity along edges';
+
+  @override
+  String get quishingSignalConsistentDotsMatrixPerimeter =>
+      'Consistent halftone dot density across matrix perimeter';
+
+  @override
+  String quishingSignalPerimeterDoubleEdge(String zones) {
+    return 'Perimeter double-edge reflection detected ($zones boundary zones)';
+  }
+
+  @override
+  String quishingSignalDotDensityVariance(String variance) {
+    return 'Substrate halftone dot density inconsistency detected ($variance% variance)';
   }
 }

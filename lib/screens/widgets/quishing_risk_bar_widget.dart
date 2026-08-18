@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sreeraj_qr_reader/l10n/app_message_text.dart';
 import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/quishing_analysis_result.dart';
 
@@ -107,7 +108,7 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          res.statusLabel,
+                          appMessageText(l10n, res.statusLabel),
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -116,7 +117,7 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          res.summaryMessage,
+                          appMessageText(l10n, res.summaryMessage),
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.grey.shade800,
@@ -242,7 +243,7 @@ class _QuishingRiskBarWidgetState extends State<QuishingRiskBarWidget> {
                       ),
                       Expanded(
                         child: Text(
-                          signal,
+                          appMessageText(l10n, signal),
                           style: const TextStyle(fontSize: 12),
                         ),
                       ),

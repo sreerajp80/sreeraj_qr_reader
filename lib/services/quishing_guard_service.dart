@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/models/quishing_analysis_result.dart';
 
 /// On-device computer vision engine for detecting physical QR sticker tampering ("QuishingGuard").
@@ -32,7 +33,7 @@ class QuishingGuardService {
                 ? 0.40
                 : 0.10);
         final signals = (metadata['simulatedSignals'] as List<dynamic>?)
-            ?.map((e) => e.toString())
+            ?.whereType<AppMessage>()
             .toList();
 
         return _buildResultFromScores(
@@ -73,32 +74,46 @@ class QuishingGuardService {
       height,
     );
 
-    final List<String> signals = [];
+    final List<AppMessage> signals = [];
 
     if (edgeDiscontinuity.doubleEdgesDetected > 0) {
       signals.add(
-        'Perimeter double-edge reflection detected (${edgeDiscontinuity.doubleEdgesDetected} boundary zones)',
+        AppMessage(
+          AppMessageKey.quishingSignalPerimeterDoubleEdge,
+          args: {'zones': '${edgeDiscontinuity.doubleEdgesDetected}'},
+        ),
       );
     }
     if (edgeDiscontinuity.microShadowLines > 0) {
       signals.add(
-        'Micro-shadow depth step line detected along matrix perimeter',
+        const AppMessage(AppMessageKey.quishingSignalMicroShadowPerimeter),
       );
     }
     if (textureGrain.dotDensityVariance > 0.35) {
       signals.add(
-        'Substrate halftone dot density inconsistency detected (${(textureGrain.dotDensityVariance * 100).toStringAsFixed(1)}% variance)',
+        AppMessage(
+          AppMessageKey.quishingSignalDotDensityVariance,
+          args: {
+            'variance': (textureGrain.dotDensityVariance * 100).toStringAsFixed(
+              1,
+            ),
+          },
+        ),
       );
     }
     if (textureGrain.chromaticAberration > 0.30) {
       signals.add(
-        'Mismatching inkjet/thermal grain chromatic aberration detected',
+        const AppMessage(AppMessageKey.quishingSignalGrainAberration),
       );
     }
 
     if (signals.isEmpty) {
-      signals.add('Uniform substrate reflection profile verified');
-      signals.add('Consistent halftone dot density across QR matrix perimeter');
+      signals.add(
+        const AppMessage(AppMessageKey.quishingSignalUniformReflection),
+      );
+      signals.add(
+        const AppMessage(AppMessageKey.quishingSignalConsistentDotsQrMatrix),
+      );
     }
 
     return _buildResultFromScores(
@@ -251,8 +266,8 @@ class QuishingGuardService {
       edgeScore: edgeScore,
       textureScore: textureScore,
       customSignals: const [
-        'Substrate reflection profile verified',
-        'Halftone dot density consistent across QR matrix perimeter',
+        AppMessage(AppMessageKey.quishingSignalReflectionVerified),
+        AppMessage(AppMessageKey.quishingSignalHalftoneConsistentQrMatrix),
       ],
     );
   }
@@ -261,42 +276,53 @@ class QuishingGuardService {
   QuishingAnalysisResult _buildResultFromScores({
     required double edgeScore,
     required double textureScore,
-    List<String>? customSignals,
+    List<AppMessage>? customSignals,
   }) {
     final overallScore = double.parse(
       ((edgeScore + textureScore) / 2).toStringAsFixed(2),
     );
     final QuishingRiskLevel level;
-    final String summary;
+    final AppMessage summary;
 
     if (overallScore >= 0.70) {
       level = QuishingRiskLevel.highWarning;
-      summary =
-          'High Warning: Physical Overlay Sticker Detected! Verify Before Tapping Links.';
+      summary = const AppMessage(AppMessageKey.quishingSummaryHighWarning);
     } else if (overallScore >= 0.35) {
       level = QuishingRiskLevel.wearAndTear;
-      summary = 'Wear & Tear Detected. Slight physical surface noise observed.';
+      summary = const AppMessage(AppMessageKey.quishingSummaryWearAndTear);
     } else {
       level = QuishingRiskLevel.authentic;
-      summary = 'Authentic Printed Code. No physical tampering detected.';
+      summary = const AppMessage(AppMessageKey.quishingSummaryAuthentic);
     }
 
-    final signals = customSignals ?? <String>[];
+    final signals = customSignals ?? <AppMessage>[];
     if (signals.isEmpty) {
       if (level == QuishingRiskLevel.highWarning) {
         signals.add(
-          'Perimeter double-edge reflection detected around QR matrix',
+          const AppMessage(AppMessageKey.quishingSignalDoubleEdgeAroundMatrix),
         );
         signals.add(
-          'Micro-shadow depth step line detected along sticker border',
+          const AppMessage(
+            AppMessageKey.quishingSignalMicroShadowStickerBorder,
+          ),
         );
-        signals.add('Inkjet/thermal print grain mismatching base substrate');
+        signals.add(
+          const AppMessage(AppMessageKey.quishingSignalGrainMismatchBase),
+        );
       } else if (level == QuishingRiskLevel.wearAndTear) {
-        signals.add('Minor surface scratch or wear pattern observed');
-        signals.add('Slight dot density irregularity along edges');
+        signals.add(const AppMessage(AppMessageKey.quishingSignalMinorScratch));
+        signals.add(
+          const AppMessage(AppMessageKey.quishingSignalSlightDotIrregularity),
+        );
       } else {
-        signals.add('Uniform substrate reflection profile verified');
-        signals.add('Consistent halftone dot density across matrix perimeter');
+        signals.add(
+          const AppMessage(AppMessageKey.quishingSignalUniformReflection),
+        );
+        signals.add(
+          const AppMessage(
+            AppMessageKey.quishingSignalConsistentDotsMatrixPerimeter,
+          ),
+        );
       }
     }
 

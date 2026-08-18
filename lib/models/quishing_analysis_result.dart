@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 
 /// Risk levels determined by the QuishingGuard tamper detection engine.
 enum QuishingRiskLevel {
@@ -27,11 +28,11 @@ class QuishingAnalysisResult {
   /// Texture & Print Grain score (0.0 to 1.0) evaluating dot density variance and chromatic noise.
   final double textureGrainScore;
 
-  /// Human-readable list of forensic computer vision observations.
-  final List<String> detectedSignals;
+  /// Forensic computer vision observations, as message keys.
+  final List<AppMessage> detectedSignals;
 
-  /// Summary description of the physical tampering analysis.
-  final String summaryMessage;
+  /// Summary of the physical tampering analysis, as a message key.
+  final AppMessage summaryMessage;
 
   const QuishingAnalysisResult({
     required this.overallRiskScore,
@@ -46,7 +47,7 @@ class QuishingAnalysisResult {
   factory QuishingAnalysisResult.authentic({
     double edgeScore = 0.1,
     double textureScore = 0.1,
-    List<String>? signals,
+    List<AppMessage>? signals,
   }) {
     return QuishingAnalysisResult(
       overallRiskScore: (edgeScore + textureScore) / 2,
@@ -56,22 +57,22 @@ class QuishingAnalysisResult {
       detectedSignals:
           signals ??
           const [
-            'Uniform substrate reflection profile verified',
-            'Halftone dot density consistent across matrix',
+            AppMessage(AppMessageKey.quishingSignalUniformReflection),
+            AppMessage(AppMessageKey.quishingSignalHalftoneConsistentMatrix),
           ],
-      summaryMessage: 'Authentic Printed Code. No physical tampering detected.',
+      summaryMessage: const AppMessage(AppMessageKey.quishingSummaryAuthentic),
     );
   }
 
-  /// Label string with emoji for UI display.
-  String get statusLabel {
+  /// Status label for the UI, as a message key.
+  AppMessage get statusLabel {
     switch (riskLevel) {
       case QuishingRiskLevel.authentic:
-        return '🟢 Authentic Printed Code';
+        return const AppMessage(AppMessageKey.quishingStatusAuthentic);
       case QuishingRiskLevel.wearAndTear:
-        return '🟡 Wear & Tear Detected';
+        return const AppMessage(AppMessageKey.quishingStatusWearAndTear);
       case QuishingRiskLevel.highWarning:
-        return '🔴 High Warning: Physical Overlay Sticker Detected!';
+        return const AppMessage(AppMessageKey.quishingStatusHighWarning);
     }
   }
 }

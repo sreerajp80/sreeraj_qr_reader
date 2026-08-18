@@ -60,16 +60,30 @@ enum AppMessageKey {
   maliciousApiError,
   maliciousUnavailable,
 
-  // --- printed-code tamper check ---
-  quishingAuthentic,
-  quishingWearAndTear,
-  quishingHighWarning,
-  quishingSignalConsistentDots,
-  quishingSignalConsistentPerimeter,
-  quishingSignalEdgeDoubling,
-  quishingSignalOverlaySticker,
-  quishingSignalPrintMismatch,
-  quishingSignalGlareShift,
+  // --- printed-code tamper check: summaries and status labels ---
+  quishingSummaryAuthentic,
+  quishingSummaryWearAndTear,
+  quishingSummaryHighWarning,
+  quishingStatusAuthentic,
+  quishingStatusWearAndTear,
+  quishingStatusHighWarning,
+
+  // --- printed-code tamper check: individual findings ---
+  quishingSignalPerimeterDoubleEdge,
+  quishingSignalMicroShadowPerimeter,
+  quishingSignalDotDensityVariance,
+  quishingSignalGrainAberration,
+  quishingSignalUniformReflection,
+  quishingSignalConsistentDotsQrMatrix,
+  quishingSignalReflectionVerified,
+  quishingSignalHalftoneConsistentQrMatrix,
+  quishingSignalHalftoneConsistentMatrix,
+  quishingSignalDoubleEdgeAroundMatrix,
+  quishingSignalMicroShadowStickerBorder,
+  quishingSignalGrainMismatchBase,
+  quishingSignalMinorScratch,
+  quishingSignalSlightDotIrregularity,
+  quishingSignalConsistentDotsMatrixPerimeter,
 
   // --- sandboxed page preview ---
   domStatusOk,

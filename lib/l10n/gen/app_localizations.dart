@@ -2680,60 +2680,6 @@ abstract class AppLocalizations {
   /// **'Unable to check for malicious content'**
   String get maliciousUnavailable;
 
-  /// Result when the printed code looks untouched
-  ///
-  /// In en, this message translates to:
-  /// **'Authentic Printed Code. No physical tampering detected.'**
-  String get quishingAuthentic;
-
-  /// Result when marks look like ordinary wear
-  ///
-  /// In en, this message translates to:
-  /// **'Minor surface wear detected. Likely normal ageing, not tampering.'**
-  String get quishingWearAndTear;
-
-  /// Result when the printed code may have been covered
-  ///
-  /// In en, this message translates to:
-  /// **'Warning: signs of a sticker or print overlay. Treat this code with care.'**
-  String get quishingHighWarning;
-
-  /// Tamper finding: the print grain is even
-  ///
-  /// In en, this message translates to:
-  /// **'Consistent halftone dot density across QR matrix perimeter'**
-  String get quishingSignalConsistentDots;
-
-  /// Tamper finding: the print grain around the edge is even
-  ///
-  /// In en, this message translates to:
-  /// **'Consistent halftone dot density across matrix perimeter'**
-  String get quishingSignalConsistentPerimeter;
-
-  /// Tamper finding: two edges where there should be one
-  ///
-  /// In en, this message translates to:
-  /// **'Edge doubling detected along the code boundary'**
-  String get quishingSignalEdgeDoubling;
-
-  /// Tamper finding: a sticker may cover the original code
-  ///
-  /// In en, this message translates to:
-  /// **'Possible sticker overlay detected on the printed code'**
-  String get quishingSignalOverlaySticker;
-
-  /// Tamper finding: the code was printed differently from its background
-  ///
-  /// In en, this message translates to:
-  /// **'Print texture does not match the surrounding surface'**
-  String get quishingSignalPrintMismatch;
-
-  /// Tamper finding: light bounces differently off part of the code
-  ///
-  /// In en, this message translates to:
-  /// **'Reflectivity shift suggests a second printed layer'**
-  String get quishingSignalGlareShift;
-
   /// Preview status when the page loaded safely
   ///
   /// In en, this message translates to:
@@ -2883,6 +2829,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'API error (status: {status})'**
   String maliciousApiError(String status);
+
+  /// Summary when the printed code looks untouched
+  ///
+  /// In en, this message translates to:
+  /// **'Authentic Printed Code. No physical tampering detected.'**
+  String get quishingSummaryAuthentic;
+
+  /// Summary when marks look like ordinary wear
+  ///
+  /// In en, this message translates to:
+  /// **'Wear & Tear Detected. Slight physical surface noise observed.'**
+  String get quishingSummaryWearAndTear;
+
+  /// Summary when a sticker may cover the printed code
+  ///
+  /// In en, this message translates to:
+  /// **'High Warning: Physical Overlay Sticker Detected! Verify Before Tapping Links.'**
+  String get quishingSummaryHighWarning;
+
+  /// Short status label when the printed code looks untouched
+  ///
+  /// In en, this message translates to:
+  /// **'🟢 Authentic Printed Code'**
+  String get quishingStatusAuthentic;
+
+  /// Short status label when marks look like ordinary wear
+  ///
+  /// In en, this message translates to:
+  /// **'🟡 Wear & Tear Detected'**
+  String get quishingStatusWearAndTear;
+
+  /// Short status label when a sticker may cover the printed code
+  ///
+  /// In en, this message translates to:
+  /// **'🔴 High Warning: Physical Overlay Sticker Detected!'**
+  String get quishingStatusHighWarning;
+
+  /// Finding: a shadow line suggests a raised layer around the code
+  ///
+  /// In en, this message translates to:
+  /// **'Micro-shadow depth step line detected along matrix perimeter'**
+  String get quishingSignalMicroShadowPerimeter;
+
+  /// Finding: the print grain colours do not match
+  ///
+  /// In en, this message translates to:
+  /// **'Mismatching inkjet/thermal grain chromatic aberration detected'**
+  String get quishingSignalGrainAberration;
+
+  /// Finding: light bounces evenly off the whole surface
+  ///
+  /// In en, this message translates to:
+  /// **'Uniform substrate reflection profile verified'**
+  String get quishingSignalUniformReflection;
+
+  /// Finding: print grain is even around the code edge
+  ///
+  /// In en, this message translates to:
+  /// **'Consistent halftone dot density across QR matrix perimeter'**
+  String get quishingSignalConsistentDotsQrMatrix;
+
+  /// Finding: the surface reflects light as expected
+  ///
+  /// In en, this message translates to:
+  /// **'Substrate reflection profile verified'**
+  String get quishingSignalReflectionVerified;
+
+  /// Finding: print grain is consistent around the code edge
+  ///
+  /// In en, this message translates to:
+  /// **'Halftone dot density consistent across QR matrix perimeter'**
+  String get quishingSignalHalftoneConsistentQrMatrix;
+
+  /// Finding: print grain is consistent across the code
+  ///
+  /// In en, this message translates to:
+  /// **'Halftone dot density consistent across matrix'**
+  String get quishingSignalHalftoneConsistentMatrix;
+
+  /// Finding: two edges seen where there should be one
+  ///
+  /// In en, this message translates to:
+  /// **'Perimeter double-edge reflection detected around QR matrix'**
+  String get quishingSignalDoubleEdgeAroundMatrix;
+
+  /// Finding: a shadow line suggests a sticker border
+  ///
+  /// In en, this message translates to:
+  /// **'Micro-shadow depth step line detected along sticker border'**
+  String get quishingSignalMicroShadowStickerBorder;
+
+  /// Finding: the code was printed on different material from its background
+  ///
+  /// In en, this message translates to:
+  /// **'Inkjet/thermal print grain mismatching base substrate'**
+  String get quishingSignalGrainMismatchBase;
+
+  /// Finding: ordinary scratches or wear
+  ///
+  /// In en, this message translates to:
+  /// **'Minor surface scratch or wear pattern observed'**
+  String get quishingSignalMinorScratch;
+
+  /// Finding: small print grain differences at the edges
+  ///
+  /// In en, this message translates to:
+  /// **'Slight dot density irregularity along edges'**
+  String get quishingSignalSlightDotIrregularity;
+
+  /// Finding: print grain is even around the code edge
+  ///
+  /// In en, this message translates to:
+  /// **'Consistent halftone dot density across matrix perimeter'**
+  String get quishingSignalConsistentDotsMatrixPerimeter;
+
+  /// Finding naming how many edge zones look doubled
+  ///
+  /// In en, this message translates to:
+  /// **'Perimeter double-edge reflection detected ({zones} boundary zones)'**
+  String quishingSignalPerimeterDoubleEdge(String zones);
+
+  /// Finding naming how uneven the print grain is
+  ///
+  /// In en, this message translates to:
+  /// **'Substrate halftone dot density inconsistency detected ({variance}% variance)'**
+  String quishingSignalDotDensityVariance(String variance);
 }
 
 class _AppLocalizationsDelegate

@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/models/quishing_analysis_result.dart';
 import 'package:sreeraj_qr_reader/providers/scan_provider.dart';
 
@@ -47,8 +48,8 @@ void main() {
         );
         expect(provider.quishingResult!.overallRiskScore, equals(0.88));
         expect(
-          provider.quishingResult!.statusLabel,
-          contains('High Warning: Physical Overlay Sticker Detected!'),
+          provider.quishingResult!.statusLabel.key,
+          AppMessageKey.quishingStatusHighWarning,
         );
       },
     );
