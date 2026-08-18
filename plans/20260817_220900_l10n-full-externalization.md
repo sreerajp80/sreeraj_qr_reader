@@ -1,65 +1,17 @@
 # Full localization: ARB setup and removal of every user-visible string literal
 
-**Status:** in_progress
+**Status:** completed
 
-## Progress so far (updated 2026-08-17)
+## Outcome
 
-Steps 1 and part of step 2 are done and committed. The repository is green at every
-commit: `flutter analyze` reports no issues and all 150 tests pass.
+Completed. All five steps landed. `flutter analyze` is clean and 154 tests pass
+(150 before, plus 4 new). See the change log
+`change_log/20260818_010500_l10n-full-externalization.md` for the full record,
+including the allowed literal exceptions and the small wording changes.
 
-**Done**
-
-- Step 1 infrastructure: `flutter_localizations`, `intl`, `generate: true`, `l10n.yaml`,
-  `lib/l10n/app_en.arb`, generated code in `lib/l10n/gen/` (committed), and `MaterialApp`
-  wired with `localizationsDelegates`, `supportedLocales`, and `onGenerateTitle`.
-- All 16 files in `lib/screens/widgets/` — every user-visible literal moved to ARB.
-  `scan_overlay_widget.dart` and `ar_floating_chip_widget.dart` had none to move.
-- 4 of 8 screens: `about_screen.dart`, `air_qr_transmitter_screen.dart`,
-  `ar_codevision_screen.dart`, `air_qr_screen.dart`.
-- `history_card.dart` now formats dates with `intl` `DateFormat` using the reader's locale,
-  replacing a hard-coded English month list and AM/PM.
-- `test/screens/settings_screen_test.dart` now installs the localization delegates.
-
-**Not started**
-
-- Step 2 remainder — 4 screens: `history_screen.dart` (about 29 literals),
-  `scanner_screen.dart` (43), `result_screen.dart` (71), `settings_screen.dart` (187).
-- Step 3 — `AppMessageKey`, `AppMessage`, `lib/l10n/app_message_text.dart`, the 5 models,
-  the 10 services, and the 5 providers.
-- Step 4 — the biometric prompt and the PDF report label special cases.
-- Step 5 — the remaining test updates and `test/l10n/app_message_text_test.dart`.
-
-**Deviation from the plan, agreed by the tool**
-
-`l10n.yaml` does not set `synthetic-package: false` as the plan said. Flutter 3.44.8 reports
-that option as removed and ignores it. Generated code still lands in `lib/l10n/gen/` through
-`output-dir`, which was the point of the setting, so the outcome is unchanged.
-
-Gap 1 of 3, and by far the largest. Do this last, after the two smaller plans.
-
-## What the issue is
-
-The updated engineering standard makes §8.2 **mandatory for every app, even a single-language
-one**. `docs/guidelines/guideline.md` repeats it as a MUST. This project meets none of it:
-
-| Required | Now |
-|---|---|
-| `l10n.yaml` at project root | missing |
-| `lib/l10n/app_en.arb` | missing |
-| `flutter_localizations` + `intl` in `pubspec.yaml`, `generate: true` | missing |
-| `localizationsDelegates` / `supportedLocales` in `MaterialApp` | missing |
-| No raw user-visible string literal in a widget | about 421 in `lib/screens/` |
-| All user-visible text from `AppLocalizations` | about 218 more come from `lib/services/`, 16 from `lib/providers/` |
-
-There is a second, older problem that the same work must fix. Both `CLAUDE.md` and `AGENTS.md`
-already say: *"Services must not depend on `BuildContext`, UI strings, or navigation routes."*
-Today many services do hold English UI text — for example `lib/services/url_safety_service.dart`
-builds 31 `SafetyCheckResult` objects with English `checkName` and `message` values. So the
-services are already breaking the project's own layer rule. Localizing them fixes both problems
-at once.
-
-The user has chosen the **full one-pass** scope: screens, widgets, providers, services, models
-and tests, all in this plan.
+One deviation: `l10n.yaml` omits `synthetic-package: false`, which Flutter 3.44.8
+has removed. `output-dir` still places generated code in `lib/l10n/gen/`, so the
+result is the same.
 
 ## Design
 
