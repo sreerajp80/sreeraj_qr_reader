@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sreeraj_qr_reader/models/dom_sandbox_result.dart';
 import 'package:sreeraj_qr_reader/models/parsed_payload.dart';
 import 'package:sreeraj_qr_reader/models/quishing_analysis_result.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/models/safety_check_result.dart';
 import 'package:sreeraj_qr_reader/models/scan_record.dart';
 import 'package:sreeraj_qr_reader/models/stego_qr_data.dart';
@@ -111,14 +112,23 @@ class ScanProvider extends ChangeNotifier {
   bool get activeProbingEnabled => _activeProbingEnabled;
   List<SafetyCheckResult> get safetyChecks => List.unmodifiable(_safetyChecks);
 
-  bool get hasNetworkError => _safetyChecks.any(
-    (c) => c.message.contains(
-      RegExp(
-        r'Unable to|Error|network|timeout|certificate check failed',
-        caseSensitive: false,
-      ),
-    ),
-  );
+  /// Message keys that mean a check could not finish because the network or
+  /// the remote server was unavailable. Used to offer a re-check button.
+  static const Set<AppMessageKey> _networkErrorKeys = {
+    AppMessageKey.sslUnverifiable,
+    AppMessageKey.sslCheckFailed,
+    AppMessageKey.redirectUnavailable,
+    AppMessageKey.patternUnavailable,
+    AppMessageKey.shortenerUnavailable,
+    AppMessageKey.shortenerOfflineHeuristics,
+    AppMessageKey.homographUnavailable,
+    AppMessageKey.maliciousUnavailable,
+    AppMessageKey.maliciousApiError,
+    AppMessageKey.maliciousRateLimited,
+  };
+
+  bool get hasNetworkError =>
+      _safetyChecks.any((c) => _networkErrorKeys.contains(c.message.key));
 
   void setScanResult(
     String result,

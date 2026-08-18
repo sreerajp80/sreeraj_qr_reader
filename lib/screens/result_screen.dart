@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:sreeraj_qr_reader/models/safety_check_result.dart';
+import 'package:sreeraj_qr_reader/l10n/app_message_text.dart';
 import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/parsed_payload.dart';
 import 'package:sreeraj_qr_reader/providers/scan_provider.dart';
@@ -827,6 +828,7 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Widget _buildDetailedCheckItem(SafetyCheckResult check) {
+    final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -858,7 +860,7 @@ class _ResultScreenState extends State<ResultScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  check.checkName,
+                  appMessageText(l10n, check.checkName),
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
@@ -869,7 +871,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  check.message,
+                  appMessageText(l10n, check.message),
                   style: TextStyle(
                     fontSize: 12,
                     color: isDark

@@ -2487,6 +2487,402 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TEXT'**
   String get resultTypeTextFallback;
+
+  /// Name of the check that looks for an encrypted connection
+  ///
+  /// In en, this message translates to:
+  /// **'HTTPS Connection'**
+  String get checkNameHttps;
+
+  /// Name of the check that inspects the site certificate
+  ///
+  /// In en, this message translates to:
+  /// **'SSL/TLS Certificate'**
+  String get checkNameSsl;
+
+  /// Name of the check that follows link forwarding
+  ///
+  /// In en, this message translates to:
+  /// **'Redirect Analysis'**
+  String get checkNameRedirect;
+
+  /// Name of the check that looks for suspicious link patterns
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern Detection'**
+  String get checkNamePattern;
+
+  /// Name of the check that spots shortened links
+  ///
+  /// In en, this message translates to:
+  /// **'URL Shortener Check'**
+  String get checkNameShortener;
+
+  /// Name of the check that spots lookalike characters
+  ///
+  /// In en, this message translates to:
+  /// **'Homograph Attack Check'**
+  String get checkNameHomograph;
+
+  /// Name of the Google Safe Browsing lookup
+  ///
+  /// In en, this message translates to:
+  /// **'Malicious Content Check'**
+  String get checkNameMalicious;
+
+  /// Result when the link is not encrypted
+  ///
+  /// In en, this message translates to:
+  /// **'URL uses unencrypted HTTP connection'**
+  String get httpsNotUsed;
+
+  /// Result when only the scheme was checked, to protect privacy
+  ///
+  /// In en, this message translates to:
+  /// **'Uses HTTPS (live certificate not checked in private mode)'**
+  String get sslPrivateModeOk;
+
+  /// Result when the site certificate is good
+  ///
+  /// In en, this message translates to:
+  /// **'Valid SSL certificate'**
+  String get sslValid;
+
+  /// Result when the site certificate has run out
+  ///
+  /// In en, this message translates to:
+  /// **'SSL certificate has expired'**
+  String get sslExpired;
+
+  /// Result when the site certificate starts in the future
+  ///
+  /// In en, this message translates to:
+  /// **'SSL certificate not yet valid'**
+  String get sslNotYetValid;
+
+  /// Result when the certificate could not be read
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to verify certificate'**
+  String get sslUnverifiable;
+
+  /// Result when the certificate check itself failed
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate check failed'**
+  String get sslCheckFailed;
+
+  /// Result when redirects were not followed, to protect privacy
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped in private mode (destination server not contacted)'**
+  String get redirectSkippedPrivate;
+
+  /// Result when the link forwards round in a circle
+  ///
+  /// In en, this message translates to:
+  /// **'Redirect loop detected'**
+  String get redirectLoop;
+
+  /// Result when the link goes straight to its target
+  ///
+  /// In en, this message translates to:
+  /// **'No redirects detected'**
+  String get redirectNone;
+
+  /// Result when link forwarding could not be checked
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to check redirects'**
+  String get redirectUnavailable;
+
+  /// Result when the link looks ordinary
+  ///
+  /// In en, this message translates to:
+  /// **'No suspicious patterns found'**
+  String get patternNone;
+
+  /// Result when the pattern check could not run
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to analyze patterns'**
+  String get patternUnavailable;
+
+  /// Result when only local rules could be used to spot a shortened link
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to perform full check (offline) - heuristics only'**
+  String get shortenerOfflineHeuristics;
+
+  /// Result when the link is not shortened
+  ///
+  /// In en, this message translates to:
+  /// **'No URL shortener detected'**
+  String get shortenerNone;
+
+  /// Result when the shortener check could not run
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to check for shorteners'**
+  String get shortenerUnavailable;
+
+  /// Result when a domain mixes alphabets, a common trick
+  ///
+  /// In en, this message translates to:
+  /// **'Mixed character scripts detected'**
+  String get homographMixedScripts;
+
+  /// Result when the domain uses one alphabet
+  ///
+  /// In en, this message translates to:
+  /// **'No lookalike characters detected'**
+  String get homographNone;
+
+  /// Result when the lookalike check could not run
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to check for homographs'**
+  String get homographUnavailable;
+
+  /// Result when no Safe Browsing key is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped (API key not configured)'**
+  String get maliciousSkippedNoKey;
+
+  /// Result when the free daily lookups are used up
+  ///
+  /// In en, this message translates to:
+  /// **'Daily API limit reached (resets tomorrow)'**
+  String get maliciousDailyLimit;
+
+  /// Result when Safe Browsing reports nothing
+  ///
+  /// In en, this message translates to:
+  /// **'No known threats detected'**
+  String get maliciousNone;
+
+  /// Result when Safe Browsing rejects the key
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid API key or request'**
+  String get maliciousInvalidKey;
+
+  /// Result when Safe Browsing asks us to slow down
+  ///
+  /// In en, this message translates to:
+  /// **'Rate limit exceeded'**
+  String get maliciousRateLimited;
+
+  /// Result when the Safe Browsing lookup could not run
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to check for malicious content'**
+  String get maliciousUnavailable;
+
+  /// Result when the printed code looks untouched
+  ///
+  /// In en, this message translates to:
+  /// **'Authentic Printed Code. No physical tampering detected.'**
+  String get quishingAuthentic;
+
+  /// Result when marks look like ordinary wear
+  ///
+  /// In en, this message translates to:
+  /// **'Minor surface wear detected. Likely normal ageing, not tampering.'**
+  String get quishingWearAndTear;
+
+  /// Result when the printed code may have been covered
+  ///
+  /// In en, this message translates to:
+  /// **'Warning: signs of a sticker or print overlay. Treat this code with care.'**
+  String get quishingHighWarning;
+
+  /// Tamper finding: the print grain is even
+  ///
+  /// In en, this message translates to:
+  /// **'Consistent halftone dot density across QR matrix perimeter'**
+  String get quishingSignalConsistentDots;
+
+  /// Tamper finding: the print grain around the edge is even
+  ///
+  /// In en, this message translates to:
+  /// **'Consistent halftone dot density across matrix perimeter'**
+  String get quishingSignalConsistentPerimeter;
+
+  /// Tamper finding: two edges where there should be one
+  ///
+  /// In en, this message translates to:
+  /// **'Edge doubling detected along the code boundary'**
+  String get quishingSignalEdgeDoubling;
+
+  /// Tamper finding: a sticker may cover the original code
+  ///
+  /// In en, this message translates to:
+  /// **'Possible sticker overlay detected on the printed code'**
+  String get quishingSignalOverlaySticker;
+
+  /// Tamper finding: the code was printed differently from its background
+  ///
+  /// In en, this message translates to:
+  /// **'Print texture does not match the surrounding surface'**
+  String get quishingSignalPrintMismatch;
+
+  /// Tamper finding: light bounces differently off part of the code
+  ///
+  /// In en, this message translates to:
+  /// **'Reflectivity shift suggests a second printed layer'**
+  String get quishingSignalGlareShift;
+
+  /// Preview status when the page loaded safely
+  ///
+  /// In en, this message translates to:
+  /// **'Page pre-rendered safely with scripts blocked'**
+  String get domStatusOk;
+
+  /// Preview status when the page could not be shown
+  ///
+  /// In en, this message translates to:
+  /// **'Preview blocked for this page'**
+  String get domStatusBlocked;
+
+  /// Preview status when the site did not answer
+  ///
+  /// In en, this message translates to:
+  /// **'Page could not be reached'**
+  String get domStatusUnreachable;
+
+  /// Preview badge when the site certificate is good
+  ///
+  /// In en, this message translates to:
+  /// **'Valid HTTPS certificate'**
+  String get domSslValid;
+
+  /// Preview badge when the site certificate is bad
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate problem detected'**
+  String get domSslInvalid;
+
+  /// Preview badge when the certificate was not inspected
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate not checked'**
+  String get domSslUnknown;
+
+  /// Shown when the secret could not be unlocked
+  ///
+  /// In en, this message translates to:
+  /// **'Decryption failed. Invalid passphrase or corrupted data.'**
+  String get stegoWrongPassphrase;
+
+  /// Shown when the hidden data is broken
+  ///
+  /// In en, this message translates to:
+  /// **'The hidden payload is damaged and cannot be read.'**
+  String get stegoCorruptData;
+
+  /// Shown when the hidden data fails its integrity check
+  ///
+  /// In en, this message translates to:
+  /// **'Integrity check failed on the hidden payload.'**
+  String get stegoChecksumFailed;
+
+  /// Shown when fingerprint or face unlock did not succeed
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication failed or was cancelled.'**
+  String get stegoBiometricFailed;
+
+  /// Shown when a received stream did not rebuild correctly
+  ///
+  /// In en, this message translates to:
+  /// **'Checksum verification failed during reassembly.'**
+  String get airQrChecksumFailed;
+
+  /// Shown when parts of the stream are still missing
+  ///
+  /// In en, this message translates to:
+  /// **'Stream is incomplete. Keep the camera pointed at the sender.'**
+  String get airQrIncompleteStream;
+
+  /// Shown when a picture or PDF holds no code
+  ///
+  /// In en, this message translates to:
+  /// **'No barcode or QR code found in this file.'**
+  String get mediaNoCodeFound;
+
+  /// Shown when a chosen file could not be opened
+  ///
+  /// In en, this message translates to:
+  /// **'This file could not be read.'**
+  String get mediaUnreadableFile;
+
+  /// Shown when a chosen PDF is empty
+  ///
+  /// In en, this message translates to:
+  /// **'This PDF has no pages to scan.'**
+  String get mediaPdfNoPages;
+
+  /// Shown when the app may not open the chosen file
+  ///
+  /// In en, this message translates to:
+  /// **'Permission denied. Allow access to read this file.'**
+  String get mediaPermissionDenied;
+
+  /// Result when a link forwards many times
+  ///
+  /// In en, this message translates to:
+  /// **'Suspicious redirect chain ({count} redirects)'**
+  String redirectSuspiciousChain(String count);
+
+  /// Result when a link forwards an ordinary number of times
+  ///
+  /// In en, this message translates to:
+  /// **'{count} redirect(s) - within normal range'**
+  String redirectWithinRange(String count);
+
+  /// Result listing the suspicious patterns found in a link
+  ///
+  /// In en, this message translates to:
+  /// **'Detected: {patterns}'**
+  String patternDetected(String patterns);
+
+  /// Result naming the shortening service used by a link
+  ///
+  /// In en, this message translates to:
+  /// **'Known URL shortener detected ({shortener})'**
+  String shortenerKnown(String shortener);
+
+  /// Result naming where a shortened link actually goes
+  ///
+  /// In en, this message translates to:
+  /// **'Detected URL shortener (redirects to {host})'**
+  String shortenerRedirect(String host);
+
+  /// Result explaining why a link looks shortened
+  ///
+  /// In en, this message translates to:
+  /// **'Possible URL shortener: {reason}'**
+  String shortenerPossible(String reason);
+
+  /// Result listing the lookalike characters found in a domain
+  ///
+  /// In en, this message translates to:
+  /// **'Lookalike characters detected: {characters}'**
+  String homographLookalikes(String characters);
+
+  /// Result listing the threat types Safe Browsing reported
+  ///
+  /// In en, this message translates to:
+  /// **'Threats detected: {threats}'**
+  String maliciousThreats(String threats);
+
+  /// Result when Safe Browsing returned an unexpected status
+  ///
+  /// In en, this message translates to:
+  /// **'API error (status: {status})'**
+  String maliciousApiError(String status);
 }
 
 class _AppLocalizationsDelegate

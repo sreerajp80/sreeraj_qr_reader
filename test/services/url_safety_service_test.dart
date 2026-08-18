@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/services/url_safety_service.dart';
 
 void main() {
@@ -19,7 +20,7 @@ void main() {
         'https://example.com',
       );
       expect(result.passed, true);
-      expect(result.checkName, 'Pattern Detection');
+      expect(result.checkName.key, AppMessageKey.checkNamePattern);
     });
 
     test('fails for an IP address in the domain', () async {
@@ -27,7 +28,7 @@ void main() {
         'https://192.168.1.1/login',
       );
       expect(result.passed, false);
-      expect(result.message, contains('IP Address'));
+      expect(result.message.args['patterns'], contains('IP Address'));
     });
 
     test('fails for a long number sequence in the domain', () async {
@@ -35,7 +36,7 @@ void main() {
         'https://example12345678.com',
       );
       expect(result.passed, false);
-      expect(result.message, contains('Long Number Sequence'));
+      expect(result.message.args['patterns'], contains('Long Number Sequence'));
     });
 
     test('fails when phishing keyword is combined with numbers', () async {
@@ -43,7 +44,7 @@ void main() {
         'https://login-verify123.com',
       );
       expect(result.passed, false);
-      expect(result.message, contains('Phishing Keywords'));
+      expect(result.message.args['patterns'], contains('Phishing Keywords'));
     });
 
     test('fails for excessive subdomains', () async {
@@ -51,7 +52,7 @@ void main() {
         'https://a.b.c.d.example.com',
       );
       expect(result.passed, false);
-      expect(result.message, contains('Multiple Subdomains'));
+      expect(result.message.args['patterns'], contains('Multiple Subdomains'));
     });
 
     test('fails for four or more consecutive dashes', () async {
@@ -59,7 +60,7 @@ void main() {
         'https://my----domain.com',
       );
       expect(result.passed, false);
-      expect(result.message, contains('Multiple Dashes'));
+      expect(result.message.args['patterns'], contains('Multiple Dashes'));
     });
 
     test(
@@ -83,8 +84,8 @@ void main() {
     test('passes for a normal ASCII domain', () async {
       final result = await service.checkHomographAttacks('https://example.com');
       expect(result.passed, true);
-      expect(result.checkName, 'Homograph Attack Check');
-      expect(result.message, 'No lookalike characters detected');
+      expect(result.checkName.key, AppMessageKey.checkNameHomograph);
+      expect(result.message.key, AppMessageKey.homographNone);
     });
 
     test('passes for a legitimate subdomain', () async {
@@ -102,7 +103,7 @@ void main() {
           'https://ex\u0430mple.com',
         );
         expect(result.passed, false);
-        expect(result.message, contains('Lookalike characters'));
+        expect(result.message.key, AppMessageKey.homographLookalikes);
       },
     );
 
@@ -134,7 +135,7 @@ void main() {
         activeProbing: true,
       );
       expect(result.passed, true);
-      expect(result.message, 'No redirects detected');
+      expect(result.message.key, AppMessageKey.redirectNone);
     });
 
     test('passes for one redirect (within normal range)', () async {
@@ -156,7 +157,8 @@ void main() {
         activeProbing: true,
       );
       expect(result.passed, true);
-      expect(result.message, contains('1 redirect'));
+      expect(result.message.key, AppMessageKey.redirectWithinRange);
+      expect(result.message.args['count'], '1');
     });
 
     test('fails for three or more redirects (suspicious chain)', () async {
@@ -178,7 +180,7 @@ void main() {
         activeProbing: true,
       );
       expect(result.passed, false);
-      expect(result.message, contains('Suspicious redirect chain'));
+      expect(result.message.key, AppMessageKey.redirectSuspiciousChain);
     });
 
     test('fails when a redirect loop is detected', () async {
@@ -196,7 +198,7 @@ void main() {
         activeProbing: true,
       );
       expect(result.passed, false);
-      expect(result.message, 'Redirect loop detected');
+      expect(result.message.key, AppMessageKey.redirectLoop);
     });
 
     test(
@@ -216,7 +218,7 @@ void main() {
           reason: 'no request should be made in private mode',
         );
         expect(result.passed, true);
-        expect(result.message, contains('private mode'));
+        expect(result.message.key, AppMessageKey.redirectSkippedPrivate);
       },
     );
   });
@@ -228,7 +230,7 @@ void main() {
         final service = UrlSafetyService();
         final result = await service.checkSslCertificate('https://example.com');
         expect(result.passed, true);
-        expect(result.message, contains('HTTPS'));
+        expect(result.message.key, AppMessageKey.sslPrivateModeOk);
       },
     );
 
@@ -255,7 +257,7 @@ void main() {
           false,
           reason: 'no request should be made in private mode',
         );
-        expect(result.checkName, 'URL Shortener Check');
+        expect(result.checkName.key, AppMessageKey.checkNameShortener);
       },
     );
 
@@ -263,7 +265,7 @@ void main() {
       final service = UrlSafetyService();
       final result = await service.checkUrlShorteners('https://bit.ly/abc');
       expect(result.passed, false);
-      expect(result.message, contains('shortener'));
+      expect(result.message.key, AppMessageKey.shortenerKnown);
     });
   });
 
@@ -280,7 +282,7 @@ void main() {
       );
       // Either "Skipped" (null key) or "Unable to check" (platform channel threw).
       // Both are acceptable without a real device keystore.
-      expect(result.checkName, 'Malicious Content Check');
+      expect(result.checkName.key, AppMessageKey.checkNameMalicious);
     });
   });
 }

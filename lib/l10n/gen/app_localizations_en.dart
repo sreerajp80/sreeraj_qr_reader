@@ -1385,4 +1385,239 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resultTypeTextFallback => 'TEXT';
+
+  @override
+  String get checkNameHttps => 'HTTPS Connection';
+
+  @override
+  String get checkNameSsl => 'SSL/TLS Certificate';
+
+  @override
+  String get checkNameRedirect => 'Redirect Analysis';
+
+  @override
+  String get checkNamePattern => 'Pattern Detection';
+
+  @override
+  String get checkNameShortener => 'URL Shortener Check';
+
+  @override
+  String get checkNameHomograph => 'Homograph Attack Check';
+
+  @override
+  String get checkNameMalicious => 'Malicious Content Check';
+
+  @override
+  String get httpsNotUsed => 'URL uses unencrypted HTTP connection';
+
+  @override
+  String get sslPrivateModeOk =>
+      'Uses HTTPS (live certificate not checked in private mode)';
+
+  @override
+  String get sslValid => 'Valid SSL certificate';
+
+  @override
+  String get sslExpired => 'SSL certificate has expired';
+
+  @override
+  String get sslNotYetValid => 'SSL certificate not yet valid';
+
+  @override
+  String get sslUnverifiable => 'Unable to verify certificate';
+
+  @override
+  String get sslCheckFailed => 'Certificate check failed';
+
+  @override
+  String get redirectSkippedPrivate =>
+      'Skipped in private mode (destination server not contacted)';
+
+  @override
+  String get redirectLoop => 'Redirect loop detected';
+
+  @override
+  String get redirectNone => 'No redirects detected';
+
+  @override
+  String get redirectUnavailable => 'Unable to check redirects';
+
+  @override
+  String get patternNone => 'No suspicious patterns found';
+
+  @override
+  String get patternUnavailable => 'Unable to analyze patterns';
+
+  @override
+  String get shortenerOfflineHeuristics =>
+      'Unable to perform full check (offline) - heuristics only';
+
+  @override
+  String get shortenerNone => 'No URL shortener detected';
+
+  @override
+  String get shortenerUnavailable => 'Unable to check for shorteners';
+
+  @override
+  String get homographMixedScripts => 'Mixed character scripts detected';
+
+  @override
+  String get homographNone => 'No lookalike characters detected';
+
+  @override
+  String get homographUnavailable => 'Unable to check for homographs';
+
+  @override
+  String get maliciousSkippedNoKey => 'Skipped (API key not configured)';
+
+  @override
+  String get maliciousDailyLimit => 'Daily API limit reached (resets tomorrow)';
+
+  @override
+  String get maliciousNone => 'No known threats detected';
+
+  @override
+  String get maliciousInvalidKey => 'Invalid API key or request';
+
+  @override
+  String get maliciousRateLimited => 'Rate limit exceeded';
+
+  @override
+  String get maliciousUnavailable => 'Unable to check for malicious content';
+
+  @override
+  String get quishingAuthentic =>
+      'Authentic Printed Code. No physical tampering detected.';
+
+  @override
+  String get quishingWearAndTear =>
+      'Minor surface wear detected. Likely normal ageing, not tampering.';
+
+  @override
+  String get quishingHighWarning =>
+      'Warning: signs of a sticker or print overlay. Treat this code with care.';
+
+  @override
+  String get quishingSignalConsistentDots =>
+      'Consistent halftone dot density across QR matrix perimeter';
+
+  @override
+  String get quishingSignalConsistentPerimeter =>
+      'Consistent halftone dot density across matrix perimeter';
+
+  @override
+  String get quishingSignalEdgeDoubling =>
+      'Edge doubling detected along the code boundary';
+
+  @override
+  String get quishingSignalOverlaySticker =>
+      'Possible sticker overlay detected on the printed code';
+
+  @override
+  String get quishingSignalPrintMismatch =>
+      'Print texture does not match the surrounding surface';
+
+  @override
+  String get quishingSignalGlareShift =>
+      'Reflectivity shift suggests a second printed layer';
+
+  @override
+  String get domStatusOk => 'Page pre-rendered safely with scripts blocked';
+
+  @override
+  String get domStatusBlocked => 'Preview blocked for this page';
+
+  @override
+  String get domStatusUnreachable => 'Page could not be reached';
+
+  @override
+  String get domSslValid => 'Valid HTTPS certificate';
+
+  @override
+  String get domSslInvalid => 'Certificate problem detected';
+
+  @override
+  String get domSslUnknown => 'Certificate not checked';
+
+  @override
+  String get stegoWrongPassphrase =>
+      'Decryption failed. Invalid passphrase or corrupted data.';
+
+  @override
+  String get stegoCorruptData =>
+      'The hidden payload is damaged and cannot be read.';
+
+  @override
+  String get stegoChecksumFailed =>
+      'Integrity check failed on the hidden payload.';
+
+  @override
+  String get stegoBiometricFailed =>
+      'Biometric authentication failed or was cancelled.';
+
+  @override
+  String get airQrChecksumFailed =>
+      'Checksum verification failed during reassembly.';
+
+  @override
+  String get airQrIncompleteStream =>
+      'Stream is incomplete. Keep the camera pointed at the sender.';
+
+  @override
+  String get mediaNoCodeFound => 'No barcode or QR code found in this file.';
+
+  @override
+  String get mediaUnreadableFile => 'This file could not be read.';
+
+  @override
+  String get mediaPdfNoPages => 'This PDF has no pages to scan.';
+
+  @override
+  String get mediaPermissionDenied =>
+      'Permission denied. Allow access to read this file.';
+
+  @override
+  String redirectSuspiciousChain(String count) {
+    return 'Suspicious redirect chain ($count redirects)';
+  }
+
+  @override
+  String redirectWithinRange(String count) {
+    return '$count redirect(s) - within normal range';
+  }
+
+  @override
+  String patternDetected(String patterns) {
+    return 'Detected: $patterns';
+  }
+
+  @override
+  String shortenerKnown(String shortener) {
+    return 'Known URL shortener detected ($shortener)';
+  }
+
+  @override
+  String shortenerRedirect(String host) {
+    return 'Detected URL shortener (redirects to $host)';
+  }
+
+  @override
+  String shortenerPossible(String reason) {
+    return 'Possible URL shortener: $reason';
+  }
+
+  @override
+  String homographLookalikes(String characters) {
+    return 'Lookalike characters detected: $characters';
+  }
+
+  @override
+  String maliciousThreats(String threats) {
+    return 'Threats detected: $threats';
+  }
+
+  @override
+  String maliciousApiError(String status) {
+    return 'API error (status: $status)';
+  }
 }

@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/models/safety_check_result.dart';
 
 class UrlSafetyService {
@@ -63,9 +64,9 @@ class UrlSafetyService {
 
       if (uri.scheme != 'https') {
         return const SafetyCheckResult(
-          checkName: 'HTTPS Connection',
+          checkName: AppMessage(AppMessageKey.checkNameHttps),
           passed: false,
-          message: 'URL uses unencrypted HTTP connection',
+          message: AppMessage(AppMessageKey.httpsNotUsed),
         );
       }
 
@@ -74,9 +75,9 @@ class UrlSafetyService {
       // confirm the URL uses an encrypted (https) scheme.
       if (!activeProbing) {
         return const SafetyCheckResult(
-          checkName: 'SSL/TLS Certificate',
+          checkName: AppMessage(AppMessageKey.checkNameSsl),
           passed: true,
-          message: 'Uses HTTPS (live certificate not checked in private mode)',
+          message: AppMessage(AppMessageKey.sslPrivateModeOk),
         );
       }
 
@@ -84,18 +85,18 @@ class UrlSafetyService {
       // Don't leak the default `Dart/<version> (dart:io)` fingerprint.
       client.userAgent = null;
       var certificateValid = true;
-      var certMessage = 'Valid SSL certificate';
+      var certMessage = const AppMessage(AppMessageKey.sslValid);
 
       client.badCertificateCallback = (cert, host, port) {
         final now = DateTime.now();
         if (cert.endValidity.isBefore(now)) {
           certificateValid = false;
-          certMessage = 'SSL certificate has expired';
+          certMessage = const AppMessage(AppMessageKey.sslExpired);
           return false;
         }
         if (cert.startValidity.isAfter(now)) {
           certificateValid = false;
-          certMessage = 'SSL certificate not yet valid';
+          certMessage = const AppMessage(AppMessageKey.sslNotYetValid);
           return false;
         }
         return true;
@@ -109,24 +110,24 @@ class UrlSafetyService {
         final response = await request.close();
         await response.drain<void>();
         return SafetyCheckResult(
-          checkName: 'SSL/TLS Certificate',
+          checkName: const AppMessage(AppMessageKey.checkNameSsl),
           passed: certificateValid,
           message: certMessage,
         );
       } catch (e) {
         return const SafetyCheckResult(
-          checkName: 'SSL/TLS Certificate',
+          checkName: AppMessage(AppMessageKey.checkNameSsl),
           passed: false,
-          message: 'Unable to verify certificate',
+          message: AppMessage(AppMessageKey.sslUnverifiable),
         );
       } finally {
         client.close();
       }
     } catch (e) {
       return const SafetyCheckResult(
-        checkName: 'SSL/TLS Certificate',
+        checkName: AppMessage(AppMessageKey.checkNameSsl),
         passed: false,
-        message: 'Certificate check failed',
+        message: AppMessage(AppMessageKey.sslCheckFailed),
       );
     }
   }
@@ -140,9 +141,9 @@ class UrlSafetyService {
     // explicitly opted into active online checks.
     if (!activeProbing) {
       return const SafetyCheckResult(
-        checkName: 'Redirect Analysis',
+        checkName: AppMessage(AppMessageKey.checkNameRedirect),
         passed: true,
-        message: 'Skipped in private mode (destination server not contacted)',
+        message: AppMessage(AppMessageKey.redirectSkippedPrivate),
       );
     }
     try {
@@ -153,9 +154,9 @@ class UrlSafetyService {
       while (redirectCount < 5) {
         if (visitedUrls.contains(currentUrl)) {
           return const SafetyCheckResult(
-            checkName: 'Redirect Analysis',
+            checkName: AppMessage(AppMessageKey.checkNameRedirect),
             passed: false,
-            message: 'Redirect loop detected',
+            message: AppMessage(AppMessageKey.redirectLoop),
           );
         }
 
@@ -185,28 +186,34 @@ class UrlSafetyService {
 
       if (redirectCount == 0) {
         return const SafetyCheckResult(
-          checkName: 'Redirect Analysis',
+          checkName: AppMessage(AppMessageKey.checkNameRedirect),
           passed: true,
-          message: 'No redirects detected',
+          message: AppMessage(AppMessageKey.redirectNone),
         );
       } else if (redirectCount >= 3) {
         return SafetyCheckResult(
-          checkName: 'Redirect Analysis',
+          checkName: const AppMessage(AppMessageKey.checkNameRedirect),
           passed: false,
-          message: 'Suspicious redirect chain ($redirectCount redirects)',
+          message: AppMessage(
+            AppMessageKey.redirectSuspiciousChain,
+            args: {'count': '$redirectCount'},
+          ),
         );
       } else {
         return SafetyCheckResult(
-          checkName: 'Redirect Analysis',
+          checkName: const AppMessage(AppMessageKey.checkNameRedirect),
           passed: true,
-          message: '$redirectCount redirect(s) - within normal range',
+          message: AppMessage(
+            AppMessageKey.redirectWithinRange,
+            args: {'count': '$redirectCount'},
+          ),
         );
       }
     } catch (e) {
       return const SafetyCheckResult(
-        checkName: 'Redirect Analysis',
+        checkName: AppMessage(AppMessageKey.checkNameRedirect),
         passed: false,
-        message: 'Unable to check redirects',
+        message: AppMessage(AppMessageKey.redirectUnavailable),
       );
     }
   }
@@ -236,21 +243,24 @@ class UrlSafetyService {
 
       if (detectedPatterns.isEmpty) {
         return const SafetyCheckResult(
-          checkName: 'Pattern Detection',
+          checkName: AppMessage(AppMessageKey.checkNamePattern),
           passed: true,
-          message: 'No suspicious patterns found',
+          message: AppMessage(AppMessageKey.patternNone),
         );
       }
       return SafetyCheckResult(
-        checkName: 'Pattern Detection',
+        checkName: const AppMessage(AppMessageKey.checkNamePattern),
         passed: false,
-        message: 'Detected: ${detectedPatterns.join(', ')}',
+        message: AppMessage(
+          AppMessageKey.patternDetected,
+          args: {'patterns': detectedPatterns.join(', ')},
+        ),
       );
     } catch (e) {
       return const SafetyCheckResult(
-        checkName: 'Pattern Detection',
+        checkName: AppMessage(AppMessageKey.checkNamePattern),
         passed: false,
-        message: 'Unable to analyze patterns',
+        message: AppMessage(AppMessageKey.patternUnavailable),
       );
     }
   }
@@ -289,9 +299,12 @@ class UrlSafetyService {
       for (final shortener in knownShorteners) {
         if (domain.contains(shortener)) {
           return SafetyCheckResult(
-            checkName: 'URL Shortener Check',
+            checkName: const AppMessage(AppMessageKey.checkNameShortener),
             passed: false,
-            message: 'Known URL shortener detected ($shortener)',
+            message: AppMessage(
+              AppMessageKey.shortenerKnown,
+              args: {'shortener': shortener},
+            ),
           );
         }
       }
@@ -348,10 +361,12 @@ class UrlSafetyService {
               );
               if (redirectUri.host != uri.host) {
                 return SafetyCheckResult(
-                  checkName: 'URL Shortener Check',
+                  checkName: const AppMessage(AppMessageKey.checkNameShortener),
                   passed: false,
-                  message:
-                      'Detected URL shortener (redirects to ${redirectUri.host})',
+                  message: AppMessage(
+                    AppMessageKey.shortenerRedirect,
+                    args: {'host': redirectUri.host},
+                  ),
                 );
               }
             }
@@ -365,28 +380,31 @@ class UrlSafetyService {
 
       if (isSuspiciousShortener) {
         return SafetyCheckResult(
-          checkName: 'URL Shortener Check',
+          checkName: const AppMessage(AppMessageKey.checkNameShortener),
           passed: false,
-          message: 'Possible URL shortener: $reason',
+          message: AppMessage(
+            AppMessageKey.shortenerPossible,
+            args: {'reason': reason},
+          ),
         );
       } else if (activeProbing && !networkCheckCompleted) {
         return const SafetyCheckResult(
-          checkName: 'URL Shortener Check',
+          checkName: AppMessage(AppMessageKey.checkNameShortener),
           passed: false,
-          message: 'Unable to perform full check (offline) - heuristics only',
+          message: AppMessage(AppMessageKey.shortenerOfflineHeuristics),
         );
       } else {
         return const SafetyCheckResult(
-          checkName: 'URL Shortener Check',
+          checkName: AppMessage(AppMessageKey.checkNameShortener),
           passed: true,
-          message: 'No URL shortener detected',
+          message: AppMessage(AppMessageKey.shortenerNone),
         );
       }
     } catch (e) {
       return const SafetyCheckResult(
-        checkName: 'URL Shortener Check',
+        checkName: AppMessage(AppMessageKey.checkNameShortener),
         passed: false,
-        message: 'Unable to check for shorteners',
+        message: AppMessage(AppMessageKey.shortenerUnavailable),
       );
     }
   }
@@ -441,23 +459,26 @@ class UrlSafetyService {
 
       if (foundChars.isNotEmpty || scriptCount > 1) {
         return SafetyCheckResult(
-          checkName: 'Homograph Attack Check',
+          checkName: const AppMessage(AppMessageKey.checkNameHomograph),
           passed: false,
           message: foundChars.isNotEmpty
-              ? 'Lookalike characters detected: ${foundChars.join(', ')}'
-              : 'Mixed character scripts detected',
+              ? AppMessage(
+                  AppMessageKey.homographLookalikes,
+                  args: {'characters': foundChars.join(', ')},
+                )
+              : const AppMessage(AppMessageKey.homographMixedScripts),
         );
       }
       return const SafetyCheckResult(
-        checkName: 'Homograph Attack Check',
+        checkName: AppMessage(AppMessageKey.checkNameHomograph),
         passed: true,
-        message: 'No lookalike characters detected',
+        message: AppMessage(AppMessageKey.homographNone),
       );
     } catch (e) {
       return const SafetyCheckResult(
-        checkName: 'Homograph Attack Check',
+        checkName: AppMessage(AppMessageKey.checkNameHomograph),
         passed: false,
-        message: 'Unable to check for homographs',
+        message: AppMessage(AppMessageKey.homographUnavailable),
       );
     }
   }
@@ -470,9 +491,9 @@ class UrlSafetyService {
 
       if (apiKey == null || apiKey.isEmpty) {
         return const SafetyCheckResult(
-          checkName: 'Malicious Content Check',
+          checkName: AppMessage(AppMessageKey.checkNameMalicious),
           passed: true,
-          message: 'Skipped (API key not configured)',
+          message: AppMessage(AppMessageKey.maliciousSkippedNoKey),
         );
       }
 
@@ -490,9 +511,9 @@ class UrlSafetyService {
 
       if (requestCount >= maxRequests) {
         return const SafetyCheckResult(
-          checkName: 'Malicious Content Check',
+          checkName: AppMessage(AppMessageKey.checkNameMalicious),
           passed: true,
-          message: 'Daily API limit reached (resets tomorrow)',
+          message: AppMessage(AppMessageKey.maliciousDailyLimit),
         );
       }
 
@@ -538,33 +559,39 @@ class UrlSafetyService {
               .toSet()
               .join(', ');
           return SafetyCheckResult(
-            checkName: 'Malicious Content Check',
+            checkName: const AppMessage(AppMessageKey.checkNameMalicious),
             passed: false,
-            message: 'Threats detected: $threatTypes',
+            message: AppMessage(
+              AppMessageKey.maliciousThreats,
+              args: {'threats': threatTypes},
+            ),
           );
         }
         return const SafetyCheckResult(
-          checkName: 'Malicious Content Check',
+          checkName: AppMessage(AppMessageKey.checkNameMalicious),
           passed: true,
-          message: 'No known threats detected',
+          message: AppMessage(AppMessageKey.maliciousNone),
         );
       } else if (response.statusCode == 400) {
         return const SafetyCheckResult(
-          checkName: 'Malicious Content Check',
+          checkName: AppMessage(AppMessageKey.checkNameMalicious),
           passed: false,
-          message: 'Invalid API key or request',
+          message: AppMessage(AppMessageKey.maliciousInvalidKey),
         );
       } else if (response.statusCode == 429) {
         return const SafetyCheckResult(
-          checkName: 'Malicious Content Check',
+          checkName: AppMessage(AppMessageKey.checkNameMalicious),
           passed: true,
-          message: 'Rate limit exceeded',
+          message: AppMessage(AppMessageKey.maliciousRateLimited),
         );
       } else {
         return SafetyCheckResult(
-          checkName: 'Malicious Content Check',
+          checkName: const AppMessage(AppMessageKey.checkNameMalicious),
           passed: false,
-          message: 'API error (status: ${response.statusCode})',
+          message: AppMessage(
+            AppMessageKey.maliciousApiError,
+            args: {'status': '${response.statusCode}'},
+          ),
         );
       }
     } catch (e) {
@@ -572,9 +599,9 @@ class UrlSafetyService {
         debugPrint('Google Safe Browsing check error: ${e.runtimeType}');
       }
       return const SafetyCheckResult(
-        checkName: 'Malicious Content Check',
+        checkName: AppMessage(AppMessageKey.checkNameMalicious),
         passed: false,
-        message: 'Unable to check for malicious content',
+        message: AppMessage(AppMessageKey.maliciousUnavailable),
       );
     }
   }

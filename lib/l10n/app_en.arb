@@ -1863,5 +1863,314 @@
   "resultTypeTextFallback": "TEXT",
   "@resultTypeTextFallback": {
     "description": "Type label shown when the scanned code is plain text"
+  },
+  "checkNameHttps": "HTTPS Connection",
+  "@checkNameHttps": {
+    "description": "Name of the check that looks for an encrypted connection"
+  },
+  "checkNameSsl": "SSL/TLS Certificate",
+  "@checkNameSsl": {
+    "description": "Name of the check that inspects the site certificate"
+  },
+  "checkNameRedirect": "Redirect Analysis",
+  "@checkNameRedirect": {
+    "description": "Name of the check that follows link forwarding"
+  },
+  "checkNamePattern": "Pattern Detection",
+  "@checkNamePattern": {
+    "description": "Name of the check that looks for suspicious link patterns"
+  },
+  "checkNameShortener": "URL Shortener Check",
+  "@checkNameShortener": {
+    "description": "Name of the check that spots shortened links"
+  },
+  "checkNameHomograph": "Homograph Attack Check",
+  "@checkNameHomograph": {
+    "description": "Name of the check that spots lookalike characters"
+  },
+  "checkNameMalicious": "Malicious Content Check",
+  "@checkNameMalicious": {
+    "description": "Name of the Google Safe Browsing lookup"
+  },
+  "httpsNotUsed": "URL uses unencrypted HTTP connection",
+  "@httpsNotUsed": {
+    "description": "Result when the link is not encrypted"
+  },
+  "sslPrivateModeOk": "Uses HTTPS (live certificate not checked in private mode)",
+  "@sslPrivateModeOk": {
+    "description": "Result when only the scheme was checked, to protect privacy"
+  },
+  "sslValid": "Valid SSL certificate",
+  "@sslValid": {
+    "description": "Result when the site certificate is good"
+  },
+  "sslExpired": "SSL certificate has expired",
+  "@sslExpired": {
+    "description": "Result when the site certificate has run out"
+  },
+  "sslNotYetValid": "SSL certificate not yet valid",
+  "@sslNotYetValid": {
+    "description": "Result when the site certificate starts in the future"
+  },
+  "sslUnverifiable": "Unable to verify certificate",
+  "@sslUnverifiable": {
+    "description": "Result when the certificate could not be read"
+  },
+  "sslCheckFailed": "Certificate check failed",
+  "@sslCheckFailed": {
+    "description": "Result when the certificate check itself failed"
+  },
+  "redirectSkippedPrivate": "Skipped in private mode (destination server not contacted)",
+  "@redirectSkippedPrivate": {
+    "description": "Result when redirects were not followed, to protect privacy"
+  },
+  "redirectLoop": "Redirect loop detected",
+  "@redirectLoop": {
+    "description": "Result when the link forwards round in a circle"
+  },
+  "redirectNone": "No redirects detected",
+  "@redirectNone": {
+    "description": "Result when the link goes straight to its target"
+  },
+  "redirectUnavailable": "Unable to check redirects",
+  "@redirectUnavailable": {
+    "description": "Result when link forwarding could not be checked"
+  },
+  "patternNone": "No suspicious patterns found",
+  "@patternNone": {
+    "description": "Result when the link looks ordinary"
+  },
+  "patternUnavailable": "Unable to analyze patterns",
+  "@patternUnavailable": {
+    "description": "Result when the pattern check could not run"
+  },
+  "shortenerOfflineHeuristics": "Unable to perform full check (offline) - heuristics only",
+  "@shortenerOfflineHeuristics": {
+    "description": "Result when only local rules could be used to spot a shortened link"
+  },
+  "shortenerNone": "No URL shortener detected",
+  "@shortenerNone": {
+    "description": "Result when the link is not shortened"
+  },
+  "shortenerUnavailable": "Unable to check for shorteners",
+  "@shortenerUnavailable": {
+    "description": "Result when the shortener check could not run"
+  },
+  "homographMixedScripts": "Mixed character scripts detected",
+  "@homographMixedScripts": {
+    "description": "Result when a domain mixes alphabets, a common trick"
+  },
+  "homographNone": "No lookalike characters detected",
+  "@homographNone": {
+    "description": "Result when the domain uses one alphabet"
+  },
+  "homographUnavailable": "Unable to check for homographs",
+  "@homographUnavailable": {
+    "description": "Result when the lookalike check could not run"
+  },
+  "maliciousSkippedNoKey": "Skipped (API key not configured)",
+  "@maliciousSkippedNoKey": {
+    "description": "Result when no Safe Browsing key is saved"
+  },
+  "maliciousDailyLimit": "Daily API limit reached (resets tomorrow)",
+  "@maliciousDailyLimit": {
+    "description": "Result when the free daily lookups are used up"
+  },
+  "maliciousNone": "No known threats detected",
+  "@maliciousNone": {
+    "description": "Result when Safe Browsing reports nothing"
+  },
+  "maliciousInvalidKey": "Invalid API key or request",
+  "@maliciousInvalidKey": {
+    "description": "Result when Safe Browsing rejects the key"
+  },
+  "maliciousRateLimited": "Rate limit exceeded",
+  "@maliciousRateLimited": {
+    "description": "Result when Safe Browsing asks us to slow down"
+  },
+  "maliciousUnavailable": "Unable to check for malicious content",
+  "@maliciousUnavailable": {
+    "description": "Result when the Safe Browsing lookup could not run"
+  },
+  "quishingAuthentic": "Authentic Printed Code. No physical tampering detected.",
+  "@quishingAuthentic": {
+    "description": "Result when the printed code looks untouched"
+  },
+  "quishingWearAndTear": "Minor surface wear detected. Likely normal ageing, not tampering.",
+  "@quishingWearAndTear": {
+    "description": "Result when marks look like ordinary wear"
+  },
+  "quishingHighWarning": "Warning: signs of a sticker or print overlay. Treat this code with care.",
+  "@quishingHighWarning": {
+    "description": "Result when the printed code may have been covered"
+  },
+  "quishingSignalConsistentDots": "Consistent halftone dot density across QR matrix perimeter",
+  "@quishingSignalConsistentDots": {
+    "description": "Tamper finding: the print grain is even"
+  },
+  "quishingSignalConsistentPerimeter": "Consistent halftone dot density across matrix perimeter",
+  "@quishingSignalConsistentPerimeter": {
+    "description": "Tamper finding: the print grain around the edge is even"
+  },
+  "quishingSignalEdgeDoubling": "Edge doubling detected along the code boundary",
+  "@quishingSignalEdgeDoubling": {
+    "description": "Tamper finding: two edges where there should be one"
+  },
+  "quishingSignalOverlaySticker": "Possible sticker overlay detected on the printed code",
+  "@quishingSignalOverlaySticker": {
+    "description": "Tamper finding: a sticker may cover the original code"
+  },
+  "quishingSignalPrintMismatch": "Print texture does not match the surrounding surface",
+  "@quishingSignalPrintMismatch": {
+    "description": "Tamper finding: the code was printed differently from its background"
+  },
+  "quishingSignalGlareShift": "Reflectivity shift suggests a second printed layer",
+  "@quishingSignalGlareShift": {
+    "description": "Tamper finding: light bounces differently off part of the code"
+  },
+  "domStatusOk": "Page pre-rendered safely with scripts blocked",
+  "@domStatusOk": {
+    "description": "Preview status when the page loaded safely"
+  },
+  "domStatusBlocked": "Preview blocked for this page",
+  "@domStatusBlocked": {
+    "description": "Preview status when the page could not be shown"
+  },
+  "domStatusUnreachable": "Page could not be reached",
+  "@domStatusUnreachable": {
+    "description": "Preview status when the site did not answer"
+  },
+  "domSslValid": "Valid HTTPS certificate",
+  "@domSslValid": {
+    "description": "Preview badge when the site certificate is good"
+  },
+  "domSslInvalid": "Certificate problem detected",
+  "@domSslInvalid": {
+    "description": "Preview badge when the site certificate is bad"
+  },
+  "domSslUnknown": "Certificate not checked",
+  "@domSslUnknown": {
+    "description": "Preview badge when the certificate was not inspected"
+  },
+  "stegoWrongPassphrase": "Decryption failed. Invalid passphrase or corrupted data.",
+  "@stegoWrongPassphrase": {
+    "description": "Shown when the secret could not be unlocked"
+  },
+  "stegoCorruptData": "The hidden payload is damaged and cannot be read.",
+  "@stegoCorruptData": {
+    "description": "Shown when the hidden data is broken"
+  },
+  "stegoChecksumFailed": "Integrity check failed on the hidden payload.",
+  "@stegoChecksumFailed": {
+    "description": "Shown when the hidden data fails its integrity check"
+  },
+  "stegoBiometricFailed": "Biometric authentication failed or was cancelled.",
+  "@stegoBiometricFailed": {
+    "description": "Shown when fingerprint or face unlock did not succeed"
+  },
+  "airQrChecksumFailed": "Checksum verification failed during reassembly.",
+  "@airQrChecksumFailed": {
+    "description": "Shown when a received stream did not rebuild correctly"
+  },
+  "airQrIncompleteStream": "Stream is incomplete. Keep the camera pointed at the sender.",
+  "@airQrIncompleteStream": {
+    "description": "Shown when parts of the stream are still missing"
+  },
+  "mediaNoCodeFound": "No barcode or QR code found in this file.",
+  "@mediaNoCodeFound": {
+    "description": "Shown when a picture or PDF holds no code"
+  },
+  "mediaUnreadableFile": "This file could not be read.",
+  "@mediaUnreadableFile": {
+    "description": "Shown when a chosen file could not be opened"
+  },
+  "mediaPdfNoPages": "This PDF has no pages to scan.",
+  "@mediaPdfNoPages": {
+    "description": "Shown when a chosen PDF is empty"
+  },
+  "mediaPermissionDenied": "Permission denied. Allow access to read this file.",
+  "@mediaPermissionDenied": {
+    "description": "Shown when the app may not open the chosen file"
+  },
+  "redirectSuspiciousChain": "Suspicious redirect chain ({count} redirects)",
+  "@redirectSuspiciousChain": {
+    "description": "Result when a link forwards many times",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "redirectWithinRange": "{count} redirect(s) - within normal range",
+  "@redirectWithinRange": {
+    "description": "Result when a link forwards an ordinary number of times",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "patternDetected": "Detected: {patterns}",
+  "@patternDetected": {
+    "description": "Result listing the suspicious patterns found in a link",
+    "placeholders": {
+      "patterns": {
+        "type": "String"
+      }
+    }
+  },
+  "shortenerKnown": "Known URL shortener detected ({shortener})",
+  "@shortenerKnown": {
+    "description": "Result naming the shortening service used by a link",
+    "placeholders": {
+      "shortener": {
+        "type": "String"
+      }
+    }
+  },
+  "shortenerRedirect": "Detected URL shortener (redirects to {host})",
+  "@shortenerRedirect": {
+    "description": "Result naming where a shortened link actually goes",
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "shortenerPossible": "Possible URL shortener: {reason}",
+  "@shortenerPossible": {
+    "description": "Result explaining why a link looks shortened",
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "homographLookalikes": "Lookalike characters detected: {characters}",
+  "@homographLookalikes": {
+    "description": "Result listing the lookalike characters found in a domain",
+    "placeholders": {
+      "characters": {
+        "type": "String"
+      }
+    }
+  },
+  "maliciousThreats": "Threats detected: {threats}",
+  "@maliciousThreats": {
+    "description": "Result listing the threat types Safe Browsing reported",
+    "placeholders": {
+      "threats": {
+        "type": "String"
+      }
+    }
+  },
+  "maliciousApiError": "API error (status: {status})",
+  "@maliciousApiError": {
+    "description": "Result when Safe Browsing returned an unexpected status",
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
   }
 }
