@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:sreeraj_qr_reader/models/air_qr_frame.dart';
 import 'package:sreeraj_qr_reader/models/air_qr_progress.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 
 /// High-performance offline Optical Fountain & Systematic Stream Decoder & Encoder Engine.
 class AirQrService {
@@ -82,7 +83,7 @@ class AirQrService {
           capturedIndices: capturedIndices,
           fps: _currentFps,
           status: AirQrStatus.error,
-          errorMessage: 'Checksum verification failed during reassembly.',
+          errorMessage: const AppMessage(AppMessageKey.airQrChecksumFailed),
         );
       }
     }

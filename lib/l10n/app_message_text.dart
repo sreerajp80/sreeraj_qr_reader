@@ -150,43 +150,47 @@ String appMessageText(AppLocalizations l10n, AppMessage message) {
       return l10n.quishingSignalConsistentDotsMatrixPerimeter;
 
     // sandboxed page preview
-    case AppMessageKey.domStatusOk:
-      return l10n.domStatusOk;
-    case AppMessageKey.domStatusBlocked:
-      return l10n.domStatusBlocked;
-    case AppMessageKey.domStatusUnreachable:
-      return l10n.domStatusUnreachable;
-    case AppMessageKey.domSslValid:
-      return l10n.domSslValid;
-    case AppMessageKey.domSslInvalid:
-      return l10n.domSslInvalid;
-    case AppMessageKey.domSslUnknown:
-      return l10n.domSslUnknown;
+    case AppMessageKey.domSslInvalidScheme:
+      return l10n.domSslInvalidScheme;
+    case AppMessageKey.domSslHttps:
+      return l10n.domSslHttps;
+    case AppMessageKey.domSslHttp:
+      return l10n.domSslHttp;
+    case AppMessageKey.domStatusInvalidUrl:
+      return l10n.domStatusInvalidUrl;
+    case AppMessageKey.domStatusOpenRedirect:
+      return l10n.domStatusOpenRedirect(args['target'] ?? '');
+    case AppMessageKey.domStatusHttpCaution:
+      return l10n.domStatusHttpCaution;
+    case AppMessageKey.domStatusNewDomain:
+      return l10n.domStatusNewDomain(args['days'] ?? '');
+    case AppMessageKey.domStatusSafe:
+      return l10n.domStatusSafe;
 
     // hidden encrypted payload
+    case AppMessageKey.stegoPassphraseEmpty:
+      return l10n.stegoPassphraseEmpty;
     case AppMessageKey.stegoWrongPassphrase:
       return l10n.stegoWrongPassphrase;
-    case AppMessageKey.stegoCorruptData:
-      return l10n.stegoCorruptData;
-    case AppMessageKey.stegoChecksumFailed:
-      return l10n.stegoChecksumFailed;
-    case AppMessageKey.stegoBiometricFailed:
-      return l10n.stegoBiometricFailed;
+    case AppMessageKey.stegoBiometricCanceled:
+      return l10n.stegoBiometricCanceled;
 
     // optical stream transfer
     case AppMessageKey.airQrChecksumFailed:
       return l10n.airQrChecksumFailed;
-    case AppMessageKey.airQrIncompleteStream:
-      return l10n.airQrIncompleteStream;
 
     // reading codes from pictures and PDFs
-    case AppMessageKey.mediaNoCodeFound:
-      return l10n.mediaNoCodeFound;
-    case AppMessageKey.mediaUnreadableFile:
-      return l10n.mediaUnreadableFile;
-    case AppMessageKey.mediaPdfNoPages:
-      return l10n.mediaPdfNoPages;
-    case AppMessageKey.mediaPermissionDenied:
-      return l10n.mediaPermissionDenied;
+    case AppMessageKey.mediaImagePickFailed:
+      return l10n.mediaImagePickFailed(args['error'] ?? '');
+    case AppMessageKey.mediaNoCodeInImage:
+      return l10n.mediaNoCodeInImage;
+    case AppMessageKey.mediaImageAnalyzeFailed:
+      return l10n.mediaImageAnalyzeFailed(args['error'] ?? '');
+    case AppMessageKey.mediaPdfPickFailed:
+      return l10n.mediaPdfPickFailed(args['error'] ?? '');
+    case AppMessageKey.mediaNoCodeInPdf:
+      return l10n.mediaNoCodeInPdf;
+    case AppMessageKey.mediaPdfScanFailed:
+      return l10n.mediaPdfScanFailed(args['error'] ?? '');
   }
 }

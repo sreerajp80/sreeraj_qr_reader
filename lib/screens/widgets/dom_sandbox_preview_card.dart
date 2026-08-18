@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sreeraj_qr_reader/l10n/app_message_text.dart';
 import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/dom_sandbox_result.dart';
 
@@ -257,7 +258,7 @@ class DomSandboxPreviewCard extends StatelessWidget {
                       icon: result.sslValid
                           ? Icons.verified
                           : Icons.warning_amber,
-                      label: result.sslDetails,
+                      label: appMessageText(l10n, result.sslDetails),
                       color: result.sslValid
                           ? Colors.green.shade800
                           : Colors.orange.shade900,
@@ -328,7 +329,7 @@ class DomSandboxPreviewCard extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          result.statusMessage,
+                          appMessageText(l10n, result.statusMessage),
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,

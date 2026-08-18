@@ -6,6 +6,7 @@ import 'package:pointycastle/digests/sha256.dart';
 import 'package:pointycastle/key_derivators/api.dart';
 import 'package:pointycastle/key_derivators/pbkdf2.dart';
 import 'package:pointycastle/macs/hmac.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/models/stego_qr_data.dart';
 
 /// StegoQR Service - Tier 1 Service Layer
@@ -94,7 +95,9 @@ class StegoQrService {
   /// Decrypts the steganographic payload using AES-256 with key derived from [passphrase].
   StegoQrData decryptPayload(StegoQrData data, String passphrase) {
     if (passphrase.isEmpty) {
-      return data.copyWith(error: 'Passphrase cannot be empty');
+      return data.copyWith(
+        error: const AppMessage(AppMessageKey.stegoPassphraseEmpty),
+      );
     }
 
     try {
@@ -114,7 +117,7 @@ class StegoQrService {
       return data.copyWith(isUnlocked: true, decryptedPayload: decryptedText);
     } catch (e) {
       return data.copyWith(
-        error: 'Decryption failed. Invalid passphrase or corrupted data.',
+        error: const AppMessage(AppMessageKey.stegoWrongPassphrase),
       );
     }
   }

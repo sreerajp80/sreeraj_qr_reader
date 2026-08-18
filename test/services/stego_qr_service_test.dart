@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/services/stego_qr_service.dart';
 
 void main() {
@@ -80,7 +81,7 @@ void main() {
 
       expect(decrypted.isUnlocked, isFalse);
       expect(decrypted.decryptedPayload, isNull);
-      expect(decrypted.error, contains('Decryption failed'));
+      expect(decrypted.error?.key, AppMessageKey.stegoWrongPassphrase);
     });
   });
 }

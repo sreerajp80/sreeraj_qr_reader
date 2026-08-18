@@ -17,7 +17,7 @@ void main() {
         expect(result.isSanitized, isTrue);
         expect(result.sslValid, isTrue);
         expect(result.pageTitle, equals('example.com'));
-        expect(result.headings, contains('Host: example.com'));
+        expect(result.headings, contains('example.com'));
       },
     );
 

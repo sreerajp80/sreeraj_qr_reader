@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdfx/pdfx.dart';
 
@@ -23,7 +24,7 @@ class PdfPageBarcode {
 class MediaScanResult {
   final List<Barcode> barcodes;
   final List<PdfPageBarcode> pdfBarcodes;
-  final String? errorMessage;
+  final AppMessage? errorMessage;
   final bool isPdf;
 
   const MediaScanResult({
@@ -57,7 +58,12 @@ class MediaScanService {
       return await scanImageFile(controller, image.path);
     } catch (e) {
       if (kDebugMode) debugPrint('Error picking image: $e');
-      return MediaScanResult(errorMessage: 'Failed to pick or scan image: $e');
+      return MediaScanResult(
+        errorMessage: AppMessage(
+          AppMessageKey.mediaImagePickFailed,
+          args: {'error': '$e'},
+        ),
+      );
     }
   }
 
@@ -70,13 +76,18 @@ class MediaScanService {
       final capture = await controller.analyzeImage(filePath);
       if (capture == null || capture.barcodes.isEmpty) {
         return const MediaScanResult(
-          errorMessage: 'No barcodes or QR codes detected in image.',
+          errorMessage: AppMessage(AppMessageKey.mediaNoCodeInImage),
         );
       }
       return MediaScanResult(barcodes: capture.barcodes);
     } catch (e) {
       if (kDebugMode) debugPrint('Error scanning image file: $e');
-      return MediaScanResult(errorMessage: 'Error analyzing image: $e');
+      return MediaScanResult(
+        errorMessage: AppMessage(
+          AppMessageKey.mediaImageAnalyzeFailed,
+          args: {'error': '$e'},
+        ),
+      );
     }
   }
 
@@ -104,7 +115,10 @@ class MediaScanService {
       if (kDebugMode) debugPrint('Error picking PDF: $e');
       return MediaScanResult(
         isPdf: true,
-        errorMessage: 'Failed to pick or parse PDF: $e',
+        errorMessage: AppMessage(
+          AppMessageKey.mediaPdfPickFailed,
+          args: {'error': '$e'},
+        ),
       );
     }
   }
@@ -170,7 +184,7 @@ class MediaScanService {
       if (pdfBarcodes.isEmpty) {
         return const MediaScanResult(
           isPdf: true,
-          errorMessage: 'No barcodes or QR codes found in PDF document.',
+          errorMessage: AppMessage(AppMessageKey.mediaNoCodeInPdf),
         );
       }
 
@@ -179,7 +193,10 @@ class MediaScanService {
       if (kDebugMode) debugPrint('Error scanning PDF file: $e');
       return MediaScanResult(
         isPdf: true,
-        errorMessage: 'Failed to scan PDF document: $e',
+        errorMessage: AppMessage(
+          AppMessageKey.mediaPdfScanFailed,
+          args: {'error': '$e'},
+        ),
       );
     }
   }

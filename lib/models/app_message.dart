@@ -86,28 +86,30 @@ enum AppMessageKey {
   quishingSignalConsistentDotsMatrixPerimeter,
 
   // --- sandboxed page preview ---
-  domStatusOk,
-  domStatusBlocked,
-  domStatusUnreachable,
-  domSslValid,
-  domSslInvalid,
-  domSslUnknown,
+  domSslInvalidScheme,
+  domSslHttps,
+  domSslHttp,
+  domStatusInvalidUrl,
+  domStatusOpenRedirect,
+  domStatusHttpCaution,
+  domStatusNewDomain,
+  domStatusSafe,
 
   // --- hidden encrypted payload ---
+  stegoPassphraseEmpty,
   stegoWrongPassphrase,
-  stegoCorruptData,
-  stegoChecksumFailed,
-  stegoBiometricFailed,
+  stegoBiometricCanceled,
 
   // --- optical stream transfer ---
   airQrChecksumFailed,
-  airQrIncompleteStream,
 
   // --- reading codes from pictures and PDFs ---
-  mediaNoCodeFound,
-  mediaUnreadableFile,
-  mediaPdfNoPages,
-  mediaPermissionDenied,
+  mediaImagePickFailed,
+  mediaNoCodeInImage,
+  mediaImageAnalyzeFailed,
+  mediaPdfPickFailed,
+  mediaNoCodeInPdf,
+  mediaPdfScanFailed,
 }
 
 /// One user-visible message, named by [key], plus any values it carries.

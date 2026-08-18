@@ -20,10 +20,12 @@ class BiometricService {
     }
   }
 
-  /// Prompts the user for biometric authentication (or device passcode fallback).
-  Future<bool> authenticate({
-    String localizedReason = 'Authenticate to unlock StegoQR secret payload',
-  }) async {
+  /// Prompts the user for biometric authentication (or device passcode
+  /// fallback).
+  ///
+  /// [localizedReason] is shown by the system dialog, so the caller must pass
+  /// text it has already localized. The service holds no UI strings itself.
+  Future<bool> authenticate({required String localizedReason}) async {
     try {
       return await _auth.authenticate(
         localizedReason: localizedReason,

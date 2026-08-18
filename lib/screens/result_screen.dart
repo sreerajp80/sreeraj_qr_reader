@@ -270,7 +270,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        stegoData.error!,
+                        appMessageText(l10n, stegoData.error!),
                         style: TextStyle(fontSize: 12, color: Colors.red[800]),
                       ),
                     ),
@@ -498,7 +498,10 @@ class _ResultScreenState extends State<ResultScreen> {
 
     if (passphrase != null && passphrase.isNotEmpty && mounted) {
       if (useBiometrics) {
-        await provider.unlockStegoWithBiometrics(passphrase: passphrase);
+        await provider.unlockStegoWithBiometrics(
+          passphrase: passphrase,
+          biometricReason: l10n.stegoBiometricReason,
+        );
       } else {
         provider.unlockStegoWithPassphrase(passphrase);
       }

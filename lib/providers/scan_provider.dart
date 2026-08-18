@@ -215,11 +215,16 @@ class ScanProvider extends ChangeNotifier {
   }
 
   /// Unlocks the StegoQR payload using biometric authentication and a passphrase.
-  Future<bool> unlockStegoWithBiometrics({required String passphrase}) async {
+  /// [biometricReason] is the text the system dialog shows. The screen passes
+  /// it in already localized, so this layer holds no UI strings.
+  Future<bool> unlockStegoWithBiometrics({
+    required String passphrase,
+    required String biometricReason,
+  }) async {
     if (_stegoQrData == null) return false;
 
     final authenticated = await _biometricService.authenticate(
-      localizedReason: 'Authenticate to view StegoQR secret payload',
+      localizedReason: biometricReason,
     );
 
     if (authenticated) {
@@ -233,7 +238,7 @@ class ScanProvider extends ChangeNotifier {
       return _stegoQrData!.isUnlocked;
     } else {
       _stegoQrData = _stegoQrData!.copyWith(
-        error: 'Biometric authentication canceled or failed.',
+        error: const AppMessage(AppMessageKey.stegoBiometricCanceled),
       );
       notifyListeners();
       return false;

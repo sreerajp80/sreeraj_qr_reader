@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sreeraj_qr_reader/l10n/app_message_text.dart';
 import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -399,7 +400,12 @@ class _ScannerScreenState extends State<ScannerScreen>
       if (result.errorMessage != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result.errorMessage!),
+            content: Text(
+              appMessageText(
+                AppLocalizations.of(context),
+                result.errorMessage!,
+              ),
+            ),
             behavior: SnackBarBehavior.floating,
           ),
         );

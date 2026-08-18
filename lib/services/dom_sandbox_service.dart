@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/models/dom_sandbox_result.dart';
 
 /// Service providing Zero-Trust Sandboxed HTML Pre-Rendering & Analysis.
@@ -36,17 +37,17 @@ class DomSandboxService {
         blockedIframesCount: 0,
         hasOpenRedirect: false,
         sslValid: false,
-        sslDetails: 'Invalid URL scheme',
+        sslDetails: const AppMessage(AppMessageKey.domSslInvalidScheme),
         isSanitized: true,
-        statusMessage: 'Invalid or unsupported web URL format.',
+        statusMessage: const AppMessage(AppMessageKey.domStatusInvalidUrl),
       );
     }
 
     // 1. SSL Certificate & Scheme Check
     final isHttps = uri.scheme == 'https';
     final sslDetails = isHttps
-        ? 'Uses encrypted HTTPS protocol'
-        : 'Unencrypted HTTP connection (High Risk)';
+        ? const AppMessage(AppMessageKey.domSslHttps)
+        : const AppMessage(AppMessageKey.domSslHttp);
 
     // 2. Open Redirect Trap Heuristics Check (URL parameters)
     final openRedirectTarget = _detectQueryOpenRedirect(uri);
@@ -125,23 +126,29 @@ class DomSandboxService {
       }
     } else {
       // Offline / Private Mode Heuristic DOM Preview
+      // Private mode: nothing was fetched, so there is no page text to show.
+      // Only facts taken from the URL itself are carried over; the screen
+      // supplies its own wording for the empty fields.
       pageTitle = uri.host;
-      metaDescription =
-          'Sanitized preview generated locally without contacting target server.';
-      headings = ['Host: ${uri.host}', 'Path: ${uri.path}'];
-      paragraphs = [
-        'Private mode active. Direct server connection and User-Agent fingerprinting blocked.',
-      ];
+      metaDescription = null;
+      headings = [uri.host, uri.path];
+      paragraphs = const [];
       links = [url];
     }
 
     final statusMessage = hasOpenRedirect
-        ? '⚠️ Warning: Open Redirect Trap detected pointing to $redirectTarget'
+        ? AppMessage(
+            AppMessageKey.domStatusOpenRedirect,
+            args: {'target': '$redirectTarget'},
+          )
         : (!isHttps
-              ? '⚠️ Caution: Unencrypted HTTP site'
+              ? const AppMessage(AppMessageKey.domStatusHttpCaution)
               : (domainAgeDays != null && domainAgeDays < 30
-                    ? '⚠️ Warning: Newly registered domain ($domainAgeDays days old)'
-                    : '✅ Zero-Trust DOM Sandbox: HTML preview sanitized safely.'));
+                    ? AppMessage(
+                        AppMessageKey.domStatusNewDomain,
+                        args: {'days': '$domainAgeDays'},
+                      )
+                    : const AppMessage(AppMessageKey.domStatusSafe)));
 
     return DomSandboxResult(
       url: url,

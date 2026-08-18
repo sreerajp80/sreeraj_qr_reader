@@ -1,3 +1,5 @@
+import 'package:sreeraj_qr_reader/models/app_message.dart';
+
 class StegoQrData {
   final String decoyText;
   final String version;
@@ -6,7 +8,7 @@ class StegoQrData {
   final String ciphertext;
   final bool isUnlocked;
   final String? decryptedPayload;
-  final String? error;
+  final AppMessage? error;
 
   const StegoQrData({
     required this.decoyText,
@@ -27,7 +29,7 @@ class StegoQrData {
     String? ciphertext,
     bool? isUnlocked,
     String? decryptedPayload,
-    String? error,
+    AppMessage? error,
   }) {
     return StegoQrData(
       decoyText: decoyText ?? this.decoyText,

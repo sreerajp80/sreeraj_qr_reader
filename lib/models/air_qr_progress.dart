@@ -1,3 +1,4 @@
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:flutter/foundation.dart';
 
 enum AirQrStatus { idle, receiving, assembling, completed, error }
@@ -12,7 +13,7 @@ class AirQrProgress {
   final double fps;
   final AirQrStatus status;
   final String? reassembledContent;
-  final String? errorMessage;
+  final AppMessage? errorMessage;
 
   const AirQrProgress({
     this.streamId,
@@ -43,7 +44,7 @@ class AirQrProgress {
     double? fps,
     AirQrStatus? status,
     String? reassembledContent,
-    String? errorMessage,
+    AppMessage? errorMessage,
   }) {
     return AirQrProgress(
       streamId: streamId ?? this.streamId,

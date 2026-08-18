@@ -1486,59 +1486,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get maliciousUnavailable => 'Unable to check for malicious content';
 
   @override
-  String get domStatusOk => 'Page pre-rendered safely with scripts blocked';
-
-  @override
-  String get domStatusBlocked => 'Preview blocked for this page';
-
-  @override
-  String get domStatusUnreachable => 'Page could not be reached';
-
-  @override
-  String get domSslValid => 'Valid HTTPS certificate';
-
-  @override
-  String get domSslInvalid => 'Certificate problem detected';
-
-  @override
-  String get domSslUnknown => 'Certificate not checked';
-
-  @override
   String get stegoWrongPassphrase =>
       'Decryption failed. Invalid passphrase or corrupted data.';
 
   @override
-  String get stegoCorruptData =>
-      'The hidden payload is damaged and cannot be read.';
-
-  @override
-  String get stegoChecksumFailed =>
-      'Integrity check failed on the hidden payload.';
-
-  @override
-  String get stegoBiometricFailed =>
-      'Biometric authentication failed or was cancelled.';
-
-  @override
   String get airQrChecksumFailed =>
       'Checksum verification failed during reassembly.';
-
-  @override
-  String get airQrIncompleteStream =>
-      'Stream is incomplete. Keep the camera pointed at the sender.';
-
-  @override
-  String get mediaNoCodeFound => 'No barcode or QR code found in this file.';
-
-  @override
-  String get mediaUnreadableFile => 'This file could not be read.';
-
-  @override
-  String get mediaPdfNoPages => 'This PDF has no pages to scan.';
-
-  @override
-  String get mediaPermissionDenied =>
-      'Permission denied. Allow access to read this file.';
 
   @override
   String redirectSuspiciousChain(String count) {
@@ -1668,4 +1621,71 @@ class AppLocalizationsEn extends AppLocalizations {
   String quishingSignalDotDensityVariance(String variance) {
     return 'Substrate halftone dot density inconsistency detected ($variance% variance)';
   }
+
+  @override
+  String get domSslInvalidScheme => 'Invalid URL scheme';
+
+  @override
+  String get domSslHttps => 'Uses encrypted HTTPS protocol';
+
+  @override
+  String get domSslHttp => 'Unencrypted HTTP connection (High Risk)';
+
+  @override
+  String get domStatusInvalidUrl => 'Invalid or unsupported web URL format.';
+
+  @override
+  String get domStatusHttpCaution => '⚠️ Caution: Unencrypted HTTP site';
+
+  @override
+  String get domStatusSafe =>
+      '✅ Zero-Trust DOM Sandbox: HTML preview sanitized safely.';
+
+  @override
+  String domStatusOpenRedirect(String target) {
+    return '⚠️ Warning: Open Redirect Trap detected pointing to $target';
+  }
+
+  @override
+  String domStatusNewDomain(String days) {
+    return '⚠️ Warning: Newly registered domain ($days days old)';
+  }
+
+  @override
+  String get stegoPassphraseEmpty => 'Passphrase cannot be empty';
+
+  @override
+  String get stegoBiometricReason =>
+      'Authenticate to view StegoQR secret payload';
+
+  @override
+  String get mediaNoCodeInImage => 'No barcodes or QR codes detected in image.';
+
+  @override
+  String get mediaNoCodeInPdf =>
+      'No barcodes or QR codes found in PDF document.';
+
+  @override
+  String mediaImagePickFailed(String error) {
+    return 'Failed to pick or scan image: $error';
+  }
+
+  @override
+  String mediaImageAnalyzeFailed(String error) {
+    return 'Error analyzing image: $error';
+  }
+
+  @override
+  String mediaPdfPickFailed(String error) {
+    return 'Failed to pick or parse PDF: $error';
+  }
+
+  @override
+  String mediaPdfScanFailed(String error) {
+    return 'Failed to scan PDF document: $error';
+  }
+
+  @override
+  String get stegoBiometricCanceled =>
+      'Biometric authentication canceled or failed.';
 }

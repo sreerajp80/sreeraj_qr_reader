@@ -2680,101 +2680,17 @@ abstract class AppLocalizations {
   /// **'Unable to check for malicious content'**
   String get maliciousUnavailable;
 
-  /// Preview status when the page loaded safely
-  ///
-  /// In en, this message translates to:
-  /// **'Page pre-rendered safely with scripts blocked'**
-  String get domStatusOk;
-
-  /// Preview status when the page could not be shown
-  ///
-  /// In en, this message translates to:
-  /// **'Preview blocked for this page'**
-  String get domStatusBlocked;
-
-  /// Preview status when the site did not answer
-  ///
-  /// In en, this message translates to:
-  /// **'Page could not be reached'**
-  String get domStatusUnreachable;
-
-  /// Preview badge when the site certificate is good
-  ///
-  /// In en, this message translates to:
-  /// **'Valid HTTPS certificate'**
-  String get domSslValid;
-
-  /// Preview badge when the site certificate is bad
-  ///
-  /// In en, this message translates to:
-  /// **'Certificate problem detected'**
-  String get domSslInvalid;
-
-  /// Preview badge when the certificate was not inspected
-  ///
-  /// In en, this message translates to:
-  /// **'Certificate not checked'**
-  String get domSslUnknown;
-
   /// Shown when the secret could not be unlocked
   ///
   /// In en, this message translates to:
   /// **'Decryption failed. Invalid passphrase or corrupted data.'**
   String get stegoWrongPassphrase;
 
-  /// Shown when the hidden data is broken
-  ///
-  /// In en, this message translates to:
-  /// **'The hidden payload is damaged and cannot be read.'**
-  String get stegoCorruptData;
-
-  /// Shown when the hidden data fails its integrity check
-  ///
-  /// In en, this message translates to:
-  /// **'Integrity check failed on the hidden payload.'**
-  String get stegoChecksumFailed;
-
-  /// Shown when fingerprint or face unlock did not succeed
-  ///
-  /// In en, this message translates to:
-  /// **'Biometric authentication failed or was cancelled.'**
-  String get stegoBiometricFailed;
-
   /// Shown when a received stream did not rebuild correctly
   ///
   /// In en, this message translates to:
   /// **'Checksum verification failed during reassembly.'**
   String get airQrChecksumFailed;
-
-  /// Shown when parts of the stream are still missing
-  ///
-  /// In en, this message translates to:
-  /// **'Stream is incomplete. Keep the camera pointed at the sender.'**
-  String get airQrIncompleteStream;
-
-  /// Shown when a picture or PDF holds no code
-  ///
-  /// In en, this message translates to:
-  /// **'No barcode or QR code found in this file.'**
-  String get mediaNoCodeFound;
-
-  /// Shown when a chosen file could not be opened
-  ///
-  /// In en, this message translates to:
-  /// **'This file could not be read.'**
-  String get mediaUnreadableFile;
-
-  /// Shown when a chosen PDF is empty
-  ///
-  /// In en, this message translates to:
-  /// **'This PDF has no pages to scan.'**
-  String get mediaPdfNoPages;
-
-  /// Shown when the app may not open the chosen file
-  ///
-  /// In en, this message translates to:
-  /// **'Permission denied. Allow access to read this file.'**
-  String get mediaPermissionDenied;
 
   /// Result when a link forwards many times
   ///
@@ -2955,6 +2871,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Substrate halftone dot density inconsistency detected ({variance}% variance)'**
   String quishingSignalDotDensityVariance(String variance);
+
+  /// Badge when the link is not a normal web address
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid URL scheme'**
+  String get domSslInvalidScheme;
+
+  /// Badge when the site uses an encrypted connection
+  ///
+  /// In en, this message translates to:
+  /// **'Uses encrypted HTTPS protocol'**
+  String get domSslHttps;
+
+  /// Badge when the site connection is not encrypted
+  ///
+  /// In en, this message translates to:
+  /// **'Unencrypted HTTP connection (High Risk)'**
+  String get domSslHttp;
+
+  /// Status when the link cannot be understood
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid or unsupported web URL format.'**
+  String get domStatusInvalidUrl;
+
+  /// Status when the site connection is not encrypted
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ Caution: Unencrypted HTTP site'**
+  String get domStatusHttpCaution;
+
+  /// Status when the preview was built with nothing risky left in
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Zero-Trust DOM Sandbox: HTML preview sanitized safely.'**
+  String get domStatusSafe;
+
+  /// Status naming where a hidden forward would send the user
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ Warning: Open Redirect Trap detected pointing to {target}'**
+  String domStatusOpenRedirect(String target);
+
+  /// Status naming how new the site domain is
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ Warning: Newly registered domain ({days} days old)'**
+  String domStatusNewDomain(String days);
+
+  /// Shown when the unlock box was left blank
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase cannot be empty'**
+  String get stegoPassphraseEmpty;
+
+  /// Text shown in the system fingerprint or face unlock dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticate to view StegoQR secret payload'**
+  String get stegoBiometricReason;
+
+  /// Shown when a chosen picture holds no code
+  ///
+  /// In en, this message translates to:
+  /// **'No barcodes or QR codes detected in image.'**
+  String get mediaNoCodeInImage;
+
+  /// Shown when a chosen PDF holds no code
+  ///
+  /// In en, this message translates to:
+  /// **'No barcodes or QR codes found in PDF document.'**
+  String get mediaNoCodeInPdf;
+
+  /// Shown when a picture could not be opened or read
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to pick or scan image: {error}'**
+  String mediaImagePickFailed(String error);
+
+  /// Shown when a picture could not be analysed
+  ///
+  /// In en, this message translates to:
+  /// **'Error analyzing image: {error}'**
+  String mediaImageAnalyzeFailed(String error);
+
+  /// Shown when a PDF could not be opened or read
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to pick or parse PDF: {error}'**
+  String mediaPdfPickFailed(String error);
+
+  /// Shown when a PDF could not be scanned
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to scan PDF document: {error}'**
+  String mediaPdfScanFailed(String error);
+
+  /// Shown when fingerprint or face unlock was cancelled or did not work
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication canceled or failed.'**
+  String get stegoBiometricCanceled;
 }
 
 class _AppLocalizationsDelegate

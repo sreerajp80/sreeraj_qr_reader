@@ -1,3 +1,4 @@
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:flutter/material.dart';
 
 /// Model representing the results of the Zero-Trust Sandboxed HTML Pre-Render Previewer.
@@ -17,11 +18,11 @@ class DomSandboxResult {
   final DateTime? domainCreationDate;
   final int? domainAgeDays;
   final bool sslValid;
-  final String sslDetails;
+  final AppMessage sslDetails;
   final bool isSanitized;
   final String? sanitizedBodyHtml;
   final Color? pageThemeColor;
-  final String statusMessage;
+  final AppMessage statusMessage;
 
   const DomSandboxResult({
     required this.url,

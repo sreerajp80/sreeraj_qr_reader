@@ -1992,69 +1992,13 @@
   "@maliciousUnavailable": {
     "description": "Result when the Safe Browsing lookup could not run"
   },
-  "domStatusOk": "Page pre-rendered safely with scripts blocked",
-  "@domStatusOk": {
-    "description": "Preview status when the page loaded safely"
-  },
-  "domStatusBlocked": "Preview blocked for this page",
-  "@domStatusBlocked": {
-    "description": "Preview status when the page could not be shown"
-  },
-  "domStatusUnreachable": "Page could not be reached",
-  "@domStatusUnreachable": {
-    "description": "Preview status when the site did not answer"
-  },
-  "domSslValid": "Valid HTTPS certificate",
-  "@domSslValid": {
-    "description": "Preview badge when the site certificate is good"
-  },
-  "domSslInvalid": "Certificate problem detected",
-  "@domSslInvalid": {
-    "description": "Preview badge when the site certificate is bad"
-  },
-  "domSslUnknown": "Certificate not checked",
-  "@domSslUnknown": {
-    "description": "Preview badge when the certificate was not inspected"
-  },
   "stegoWrongPassphrase": "Decryption failed. Invalid passphrase or corrupted data.",
   "@stegoWrongPassphrase": {
     "description": "Shown when the secret could not be unlocked"
   },
-  "stegoCorruptData": "The hidden payload is damaged and cannot be read.",
-  "@stegoCorruptData": {
-    "description": "Shown when the hidden data is broken"
-  },
-  "stegoChecksumFailed": "Integrity check failed on the hidden payload.",
-  "@stegoChecksumFailed": {
-    "description": "Shown when the hidden data fails its integrity check"
-  },
-  "stegoBiometricFailed": "Biometric authentication failed or was cancelled.",
-  "@stegoBiometricFailed": {
-    "description": "Shown when fingerprint or face unlock did not succeed"
-  },
   "airQrChecksumFailed": "Checksum verification failed during reassembly.",
   "@airQrChecksumFailed": {
     "description": "Shown when a received stream did not rebuild correctly"
-  },
-  "airQrIncompleteStream": "Stream is incomplete. Keep the camera pointed at the sender.",
-  "@airQrIncompleteStream": {
-    "description": "Shown when parts of the stream are still missing"
-  },
-  "mediaNoCodeFound": "No barcode or QR code found in this file.",
-  "@mediaNoCodeFound": {
-    "description": "Shown when a picture or PDF holds no code"
-  },
-  "mediaUnreadableFile": "This file could not be read.",
-  "@mediaUnreadableFile": {
-    "description": "Shown when a chosen file could not be opened"
-  },
-  "mediaPdfNoPages": "This PDF has no pages to scan.",
-  "@mediaPdfNoPages": {
-    "description": "Shown when a chosen PDF is empty"
-  },
-  "mediaPermissionDenied": "Permission denied. Allow access to read this file.",
-  "@mediaPermissionDenied": {
-    "description": "Shown when the app may not open the chosen file"
   },
   "redirectSuspiciousChain": "Suspicious redirect chain ({count} redirects)",
   "@redirectSuspiciousChain": {
@@ -2230,5 +2174,103 @@
         "type": "String"
       }
     }
+  },
+  "domSslInvalidScheme": "Invalid URL scheme",
+  "@domSslInvalidScheme": {
+    "description": "Badge when the link is not a normal web address"
+  },
+  "domSslHttps": "Uses encrypted HTTPS protocol",
+  "@domSslHttps": {
+    "description": "Badge when the site uses an encrypted connection"
+  },
+  "domSslHttp": "Unencrypted HTTP connection (High Risk)",
+  "@domSslHttp": {
+    "description": "Badge when the site connection is not encrypted"
+  },
+  "domStatusInvalidUrl": "Invalid or unsupported web URL format.",
+  "@domStatusInvalidUrl": {
+    "description": "Status when the link cannot be understood"
+  },
+  "domStatusHttpCaution": "⚠️ Caution: Unencrypted HTTP site",
+  "@domStatusHttpCaution": {
+    "description": "Status when the site connection is not encrypted"
+  },
+  "domStatusSafe": "✅ Zero-Trust DOM Sandbox: HTML preview sanitized safely.",
+  "@domStatusSafe": {
+    "description": "Status when the preview was built with nothing risky left in"
+  },
+  "domStatusOpenRedirect": "⚠️ Warning: Open Redirect Trap detected pointing to {target}",
+  "@domStatusOpenRedirect": {
+    "description": "Status naming where a hidden forward would send the user",
+    "placeholders": {
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "domStatusNewDomain": "⚠️ Warning: Newly registered domain ({days} days old)",
+  "@domStatusNewDomain": {
+    "description": "Status naming how new the site domain is",
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "stegoPassphraseEmpty": "Passphrase cannot be empty",
+  "@stegoPassphraseEmpty": {
+    "description": "Shown when the unlock box was left blank"
+  },
+  "stegoBiometricReason": "Authenticate to view StegoQR secret payload",
+  "@stegoBiometricReason": {
+    "description": "Text shown in the system fingerprint or face unlock dialog"
+  },
+  "mediaNoCodeInImage": "No barcodes or QR codes detected in image.",
+  "@mediaNoCodeInImage": {
+    "description": "Shown when a chosen picture holds no code"
+  },
+  "mediaNoCodeInPdf": "No barcodes or QR codes found in PDF document.",
+  "@mediaNoCodeInPdf": {
+    "description": "Shown when a chosen PDF holds no code"
+  },
+  "mediaImagePickFailed": "Failed to pick or scan image: {error}",
+  "@mediaImagePickFailed": {
+    "description": "Shown when a picture could not be opened or read",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "mediaImageAnalyzeFailed": "Error analyzing image: {error}",
+  "@mediaImageAnalyzeFailed": {
+    "description": "Shown when a picture could not be analysed",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "mediaPdfPickFailed": "Failed to pick or parse PDF: {error}",
+  "@mediaPdfPickFailed": {
+    "description": "Shown when a PDF could not be opened or read",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "mediaPdfScanFailed": "Failed to scan PDF document: {error}",
+  "@mediaPdfScanFailed": {
+    "description": "Shown when a PDF could not be scanned",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "stegoBiometricCanceled": "Biometric authentication canceled or failed.",
+  "@stegoBiometricCanceled": {
+    "description": "Shown when fingerprint or face unlock was cancelled or did not work"
   }
 }

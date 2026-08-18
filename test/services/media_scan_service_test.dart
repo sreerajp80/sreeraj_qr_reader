@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/services/media_scan_service.dart';
 
 void main() {
@@ -45,11 +46,18 @@ void main() {
     test('carries error message when parsing fails', () {
       const result = MediaScanResult(
         isPdf: true,
-        errorMessage: 'Failed to parse PDF file.',
+        errorMessage: AppMessage(
+          AppMessageKey.mediaPdfPickFailed,
+          args: {'error': 'Failed to parse PDF file.'},
+        ),
       );
 
       expect(result.hasBarcodes, isFalse);
-      expect(result.errorMessage, equals('Failed to parse PDF file.'));
+      expect(result.errorMessage?.key, AppMessageKey.mediaPdfPickFailed);
+      expect(
+        result.errorMessage?.args['error'],
+        equals('Failed to parse PDF file.'),
+      );
     });
   });
 }
