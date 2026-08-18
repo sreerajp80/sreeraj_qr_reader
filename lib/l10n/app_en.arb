@@ -2328,5 +2328,105 @@
   "totpDefaultAccount": "Account",
   "@totpDefaultAccount": {
     "description": "Shown in place of the account name when a 2FA code has none"
+  },
+  "backupInvalidFormat": "Invalid backup file format.",
+  "@backupInvalidFormat": {
+    "description": "Shown when a backup file cannot be read at all"
+  },
+  "backupBadHeader": "Unrecognized or corrupted backup file header.",
+  "@backupBadHeader": {
+    "description": "Shown when a backup file is not one this app wrote"
+  },
+  "backupWrongPassphrase": "Incorrect passphrase or corrupted backup payload.",
+  "@backupWrongPassphrase": {
+    "description": "Shown when a backup could not be unlocked"
+  },
+  "reportHeading": "SREERAJ P QR READER - SCAN HISTORY",
+  "@reportHeading": {
+    "description": "Heading at the top of the exported history report"
+  },
+  "reportTitle": "Scan History Export",
+  "@reportTitle": {
+    "description": "Title inside the exported PDF report"
+  },
+  "reportExportDate": "Export Date",
+  "@reportExportDate": {
+    "description": "Label before the date the report was made"
+  },
+  "reportTotalScans": "Total Scans",
+  "@reportTotalScans": {
+    "description": "Label before how many scans the report covers"
+  },
+  "reportScanNumber": "Scan #",
+  "@reportScanNumber": {
+    "description": "Label before the number of each scan in the text report"
+  },
+  "reportId": "ID           ",
+  "@reportId": {
+    "description": "Row label for the scan id, padded to line up"
+  },
+  "reportTimestamp": "Timestamp    ",
+  "@reportTimestamp": {
+    "description": "Row label for the scan time, padded to line up"
+  },
+  "reportFormat": "Format       ",
+  "@reportFormat": {
+    "description": "Row label for the code format, padded to line up"
+  },
+  "reportCategory": "Category     ",
+  "@reportCategory": {
+    "description": "Row label for the scan category, padded to line up"
+  },
+  "reportSafetyScore": "Safety Score ",
+  "@reportSafetyScore": {
+    "description": "Row label for the safety score, padded to line up"
+  },
+  "reportStarred": "Starred      ",
+  "@reportStarred": {
+    "description": "Row label for whether the scan is a favourite, padded to line up"
+  },
+  "reportStarredYes": "⭐ Yes",
+  "@reportStarredYes": {
+    "description": "Shown when a scan is a favourite"
+  },
+  "reportStarredNo": "No",
+  "@reportStarredNo": {
+    "description": "Shown when a scan is not a favourite"
+  },
+  "reportLocation": "Location     ",
+  "@reportLocation": {
+    "description": "Row label for the place of the scan, padded to line up"
+  },
+  "reportNotes": "Notes        ",
+  "@reportNotes": {
+    "description": "Row label for the user note, padded to line up"
+  },
+  "reportContent": "Content      ",
+  "@reportContent": {
+    "description": "Row label for the scanned content, padded to line up"
+  },
+  "reportColumnDateTime": "Date & Time",
+  "@reportColumnDateTime": {
+    "description": "PDF table column for the scan time"
+  },
+  "reportColumnFormat": "Format",
+  "@reportColumnFormat": {
+    "description": "PDF table column for the code format"
+  },
+  "reportColumnCategory": "Category",
+  "@reportColumnCategory": {
+    "description": "PDF table column for the scan category"
+  },
+  "reportColumnSafety": "Safety",
+  "@reportColumnSafety": {
+    "description": "PDF table column for the safety score"
+  },
+  "reportColumnContent": "Content Snippet",
+  "@reportColumnContent": {
+    "description": "PDF table column for a short piece of the content"
+  },
+  "reportColumnNotes": "Notes",
+  "@reportColumnNotes": {
+    "description": "PDF table column for the user note"
   }
 }

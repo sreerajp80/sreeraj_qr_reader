@@ -1,9 +1,36 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sreeraj_qr_reader/models/scan_record.dart';
+import 'package:sreeraj_qr_reader/models/backup_exception.dart';
+import 'package:sreeraj_qr_reader/models/history_report_labels.dart';
 import 'package:sreeraj_qr_reader/services/history_export_service.dart';
 
 void main() {
+  const testLabels = HistoryReportLabels(
+    reportHeading: 'SREERAJ P QR READER - SCAN HISTORY',
+    reportTitle: 'Scan History Export',
+    exportDateLabel: 'Export Date',
+    totalScansLabel: 'Total Scans',
+    scanNumberLabel: 'Scan #',
+    idLabel: 'ID           ',
+    timestampLabel: 'Timestamp    ',
+    formatLabel: 'Format       ',
+    categoryLabel: 'Category     ',
+    safetyScoreLabel: 'Safety Score ',
+    starredLabel: 'Starred      ',
+    starredYes: '⭐ Yes',
+    starredNo: 'No',
+    locationLabel: 'Location     ',
+    notesLabel: 'Notes        ',
+    contentLabel: 'Content      ',
+    columnDateTime: 'Date & Time',
+    columnFormat: 'Format',
+    columnCategory: 'Category',
+    columnSafety: 'Safety',
+    columnContent: 'Content Snippet',
+    columnNotes: 'Notes',
+  );
+
   group('HistoryExportService Tests', () {
     late HistoryExportService service;
     late List<ScanRecord> records;
@@ -49,7 +76,7 @@ void main() {
     });
 
     test('exportToFormattedTxt generates readable report', () {
-      final txt = service.exportToFormattedTxt(records);
+      final txt = service.exportToFormattedTxt(records, testLabels);
       expect(txt, contains('SREERAJ P QR READER - SCAN HISTORY'));
       expect(txt, contains('Total Scans: 2'));
       expect(txt, contains('Category     : URL'));
@@ -57,7 +84,7 @@ void main() {
     });
 
     test('exportToPdf generates non-empty PDF byte array', () async {
-      final pdfBytes = await service.exportToPdf(records);
+      final pdfBytes = await service.exportToPdf(records, testLabels);
       expect(pdfBytes, isNotNull);
       expect(pdfBytes.length, greaterThan(100));
     });
@@ -76,7 +103,7 @@ void main() {
     });
 
     test(
-      'restoreEncryptedBackup throws FormatException with incorrect passphrase',
+      'restoreEncryptedBackup throws BackupException with incorrect passphrase',
       () {
         const passphrase = 'RightPassword';
         const wrongPassphrase = 'WrongPassword';
@@ -84,7 +111,7 @@ void main() {
 
         expect(
           () => service.restoreEncryptedBackup(backupStr, wrongPassphrase),
-          throwsFormatException,
+          throwsA(isA<BackupException>()),
         );
       },
     );

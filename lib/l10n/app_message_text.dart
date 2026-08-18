@@ -179,6 +179,14 @@ String appMessageText(AppLocalizations l10n, AppMessage message) {
     case AppMessageKey.airQrChecksumFailed:
       return l10n.airQrChecksumFailed;
 
+    // encrypted backup files
+    case AppMessageKey.backupInvalidFormat:
+      return l10n.backupInvalidFormat;
+    case AppMessageKey.backupBadHeader:
+      return l10n.backupBadHeader;
+    case AppMessageKey.backupWrongPassphrase:
+      return l10n.backupWrongPassphrase;
+
     // names for the kind of code seen in the AR view
     case AppMessageKey.formatQrUrl:
       return l10n.formatQrUrl;

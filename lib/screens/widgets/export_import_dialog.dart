@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:sreeraj_qr_reader/l10n/app_message_text.dart';
+import 'package:sreeraj_qr_reader/models/backup_exception.dart';
+import 'package:sreeraj_qr_reader/models/history_report_labels.dart';
 import 'package:sreeraj_qr_reader/providers/history_provider.dart';
 
 /// Modal dialog for choosing export format (CSV, JSON, TXT, PDF) or performing password-encrypted local backup/restore.
@@ -29,7 +32,7 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
   Future<void> _handleExport(BuildContext context, ExportFormat format) async {
     final l10n = AppLocalizations.of(context);
     final provider = Provider.of<HistoryProvider>(context, listen: false);
-    final result = await provider.exportData(format);
+    final result = await provider.exportData(format, _reportLabels(l10n));
 
     if (!mounted) return;
 
@@ -119,19 +122,49 @@ class _ExportImportDialogState extends State<ExportImportDialog> {
         );
         navigator.pop();
       }
-    } catch (e) {
+    } on BackupException catch (e) {
       if (mounted) {
         messenger.showSnackBar(
           SnackBar(
-            content: Text(
-              l10n.restoreFailed(
-                e.toString().replaceAll('FormatException: ', ''),
-              ),
-            ),
+            content: Text(l10n.restoreFailed(appMessageText(l10n, e.message))),
           ),
         );
       }
+    } catch (e) {
+      if (mounted) {
+        messenger.showSnackBar(
+          SnackBar(content: Text(l10n.restoreFailed(e.toString()))),
+        );
+      }
     }
+  }
+
+  /// Collects the localized wording the report builders need.
+  HistoryReportLabels _reportLabels(AppLocalizations l10n) {
+    return HistoryReportLabels(
+      reportHeading: l10n.reportHeading,
+      reportTitle: l10n.reportTitle,
+      exportDateLabel: l10n.reportExportDate,
+      totalScansLabel: l10n.reportTotalScans,
+      scanNumberLabel: l10n.reportScanNumber,
+      idLabel: l10n.reportId,
+      timestampLabel: l10n.reportTimestamp,
+      formatLabel: l10n.reportFormat,
+      categoryLabel: l10n.reportCategory,
+      safetyScoreLabel: l10n.reportSafetyScore,
+      starredLabel: l10n.reportStarred,
+      starredYes: l10n.reportStarredYes,
+      starredNo: l10n.reportStarredNo,
+      locationLabel: l10n.reportLocation,
+      notesLabel: l10n.reportNotes,
+      contentLabel: l10n.reportContent,
+      columnDateTime: l10n.reportColumnDateTime,
+      columnFormat: l10n.reportColumnFormat,
+      columnCategory: l10n.reportColumnCategory,
+      columnSafety: l10n.reportColumnSafety,
+      columnContent: l10n.reportColumnContent,
+      columnNotes: l10n.reportColumnNotes,
+    );
   }
 
   @override

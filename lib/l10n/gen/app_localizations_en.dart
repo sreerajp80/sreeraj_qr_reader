@@ -1730,4 +1730,80 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totpDefaultAccount => 'Account';
+
+  @override
+  String get backupInvalidFormat => 'Invalid backup file format.';
+
+  @override
+  String get backupBadHeader => 'Unrecognized or corrupted backup file header.';
+
+  @override
+  String get backupWrongPassphrase =>
+      'Incorrect passphrase or corrupted backup payload.';
+
+  @override
+  String get reportHeading => 'SREERAJ P QR READER - SCAN HISTORY';
+
+  @override
+  String get reportTitle => 'Scan History Export';
+
+  @override
+  String get reportExportDate => 'Export Date';
+
+  @override
+  String get reportTotalScans => 'Total Scans';
+
+  @override
+  String get reportScanNumber => 'Scan #';
+
+  @override
+  String get reportId => 'ID           ';
+
+  @override
+  String get reportTimestamp => 'Timestamp    ';
+
+  @override
+  String get reportFormat => 'Format       ';
+
+  @override
+  String get reportCategory => 'Category     ';
+
+  @override
+  String get reportSafetyScore => 'Safety Score ';
+
+  @override
+  String get reportStarred => 'Starred      ';
+
+  @override
+  String get reportStarredYes => '⭐ Yes';
+
+  @override
+  String get reportStarredNo => 'No';
+
+  @override
+  String get reportLocation => 'Location     ';
+
+  @override
+  String get reportNotes => 'Notes        ';
+
+  @override
+  String get reportContent => 'Content      ';
+
+  @override
+  String get reportColumnDateTime => 'Date & Time';
+
+  @override
+  String get reportColumnFormat => 'Format';
+
+  @override
+  String get reportColumnCategory => 'Category';
+
+  @override
+  String get reportColumnSafety => 'Safety';
+
+  @override
+  String get reportColumnContent => 'Content Snippet';
+
+  @override
+  String get reportColumnNotes => 'Notes';
 }

@@ -103,6 +103,11 @@ enum AppMessageKey {
   // --- optical stream transfer ---
   airQrChecksumFailed,
 
+  // --- encrypted backup files ---
+  backupInvalidFormat,
+  backupBadHeader,
+  backupWrongPassphrase,
+
   // --- names for the kind of code seen in the AR view ---
   formatQrUrl,
   formatQrEmail,

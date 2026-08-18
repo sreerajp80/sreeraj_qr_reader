@@ -3057,6 +3057,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Account'**
   String get totpDefaultAccount;
+
+  /// Shown when a backup file cannot be read at all
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid backup file format.'**
+  String get backupInvalidFormat;
+
+  /// Shown when a backup file is not one this app wrote
+  ///
+  /// In en, this message translates to:
+  /// **'Unrecognized or corrupted backup file header.'**
+  String get backupBadHeader;
+
+  /// Shown when a backup could not be unlocked
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect passphrase or corrupted backup payload.'**
+  String get backupWrongPassphrase;
+
+  /// Heading at the top of the exported history report
+  ///
+  /// In en, this message translates to:
+  /// **'SREERAJ P QR READER - SCAN HISTORY'**
+  String get reportHeading;
+
+  /// Title inside the exported PDF report
+  ///
+  /// In en, this message translates to:
+  /// **'Scan History Export'**
+  String get reportTitle;
+
+  /// Label before the date the report was made
+  ///
+  /// In en, this message translates to:
+  /// **'Export Date'**
+  String get reportExportDate;
+
+  /// Label before how many scans the report covers
+  ///
+  /// In en, this message translates to:
+  /// **'Total Scans'**
+  String get reportTotalScans;
+
+  /// Label before the number of each scan in the text report
+  ///
+  /// In en, this message translates to:
+  /// **'Scan #'**
+  String get reportScanNumber;
+
+  /// Row label for the scan id, padded to line up
+  ///
+  /// In en, this message translates to:
+  /// **'ID           '**
+  String get reportId;
+
+  /// Row label for the scan time, padded to line up
+  ///
+  /// In en, this message translates to:
+  /// **'Timestamp    '**
+  String get reportTimestamp;
+
+  /// Row label for the code format, padded to line up
+  ///
+  /// In en, this message translates to:
+  /// **'Format       '**
+  String get reportFormat;
+
+  /// Row label for the scan category, padded to line up
+  ///
+  /// In en, this message translates to:
+  /// **'Category     '**
+  String get reportCategory;
+
+  /// Row label for the safety score, padded to line up
+  ///
+  /// In en, this message translates to:
+  /// **'Safety Score '**
+  String get reportSafetyScore;
+
+  /// Row label for whether the scan is a favourite, padded to line up
+  ///
+  /// In en, this message translates to:
+  /// **'Starred      '**
+  String get reportStarred;
+
+  /// Shown when a scan is a favourite
+  ///
+  /// In en, this message translates to:
+  /// **'⭐ Yes'**
+  String get reportStarredYes;
+
+  /// Shown when a scan is not a favourite
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get reportStarredNo;
+
+  /// Row label for the place of the scan, padded to line up
+  ///
+  /// In en, this message translates to:
+  /// **'Location     '**
+  String get reportLocation;
+
+  /// Row label for the user note, padded to line up
+  ///
+  /// In en, this message translates to:
+  /// **'Notes        '**
+  String get reportNotes;
+
+  /// Row label for the scanned content, padded to line up
+  ///
+  /// In en, this message translates to:
+  /// **'Content      '**
+  String get reportContent;
+
+  /// PDF table column for the scan time
+  ///
+  /// In en, this message translates to:
+  /// **'Date & Time'**
+  String get reportColumnDateTime;
+
+  /// PDF table column for the code format
+  ///
+  /// In en, this message translates to:
+  /// **'Format'**
+  String get reportColumnFormat;
+
+  /// PDF table column for the scan category
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get reportColumnCategory;
+
+  /// PDF table column for the safety score
+  ///
+  /// In en, this message translates to:
+  /// **'Safety'**
+  String get reportColumnSafety;
+
+  /// PDF table column for a short piece of the content
+  ///
+  /// In en, this message translates to:
+  /// **'Content Snippet'**
+  String get reportColumnContent;
+
+  /// PDF table column for the user note
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get reportColumnNotes;
 }
 
 class _AppLocalizationsDelegate

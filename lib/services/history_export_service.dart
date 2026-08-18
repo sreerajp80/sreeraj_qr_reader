@@ -4,6 +4,9 @@ import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:sreeraj_qr_reader/models/app_message.dart';
+import 'package:sreeraj_qr_reader/models/backup_exception.dart';
+import 'package:sreeraj_qr_reader/models/history_report_labels.dart';
 import 'package:sreeraj_qr_reader/models/scan_record.dart';
 
 /// Service providing export capabilities (CSV, JSON, TXT, PDF) and encrypted backup/restore.
@@ -57,31 +60,41 @@ class HistoryExportService {
   }
 
   /// Converts scan records into a human-readable text report.
-  String exportToFormattedTxt(List<ScanRecord> records) {
+  ///
+  /// [labels] carries the wording, already localized by the caller.
+  String exportToFormattedTxt(
+    List<ScanRecord> records,
+    HistoryReportLabels labels,
+  ) {
+    const rule = '====================================================';
     final buffer = StringBuffer();
-    buffer.writeln('====================================================');
-    buffer.writeln('          SREERAJ P QR READER - SCAN HISTORY        ');
-    buffer.writeln('====================================================');
-    buffer.writeln('Export Date: ${DateTime.now()}');
-    buffer.writeln('Total Scans: ${records.length}');
-    buffer.writeln('====================================================\n');
+    buffer.writeln(rule);
+    buffer.writeln('          ${labels.reportHeading}        ');
+    buffer.writeln(rule);
+    buffer.writeln('${labels.exportDateLabel}: ${DateTime.now()}');
+    buffer.writeln('${labels.totalScansLabel}: ${records.length}');
+    buffer.writeln(rule);
+    buffer.writeln();
 
     for (var i = 0; i < records.length; i++) {
       final r = records[i];
-      buffer.writeln('Scan #${i + 1}');
-      buffer.writeln('ID           : ${r.id}');
-      buffer.writeln('Timestamp    : ${r.timestamp}');
-      buffer.writeln('Format       : ${r.barcodeFormat}');
-      buffer.writeln('Category     : ${r.category.toUpperCase()}');
-      buffer.writeln('Safety Score : ${r.safetyScore}%');
-      buffer.writeln('Starred      : ${r.isFavorite ? "⭐ Yes" : "No"}');
+      buffer.writeln('${labels.scanNumberLabel}${i + 1}');
+      buffer.writeln('${labels.idLabel}: ${r.id}');
+      buffer.writeln('${labels.timestampLabel}: ${r.timestamp}');
+      buffer.writeln('${labels.formatLabel}: ${r.barcodeFormat}');
+      buffer.writeln('${labels.categoryLabel}: ${r.category.toUpperCase()}');
+      buffer.writeln('${labels.safetyScoreLabel}: ${r.safetyScore}%');
+      buffer.writeln(
+        '${labels.starredLabel}: '
+        '${r.isFavorite ? labels.starredYes : labels.starredNo}',
+      );
       if (r.locationTag != null && r.locationTag!.isNotEmpty) {
-        buffer.writeln('Location     : ${r.locationTag}');
+        buffer.writeln('${labels.locationLabel}: ${r.locationTag}');
       }
       if (r.notes != null && r.notes!.isNotEmpty) {
-        buffer.writeln('Notes        : ${r.notes}');
+        buffer.writeln('${labels.notesLabel}: ${r.notes}');
       }
-      buffer.writeln('Content      : ${r.rawContent}');
+      buffer.writeln('${labels.contentLabel}: ${r.rawContent}');
       buffer.writeln('----------------------------------------------------');
     }
 
@@ -89,7 +102,10 @@ class HistoryExportService {
   }
 
   /// Renders scan records into a formatted PDF document byte buffer.
-  Future<Uint8List> exportToPdf(List<ScanRecord> records) async {
+  Future<Uint8List> exportToPdf(
+    List<ScanRecord> records,
+    HistoryReportLabels labels,
+  ) async {
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -110,14 +126,14 @@ class HistoryExportService {
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
                 pw.Text(
-                  'Sreeraj P QR Reader - History Report',
+                  labels.reportHeading,
                   style: const pw.TextStyle(
                     fontWeight: pw.FontWeight.bold,
                     color: PdfColors.blue900,
                   ),
                 ),
                 pw.Text(
-                  'Page ${context.pageNumber} of ${context.pagesCount}',
+                  '${context.pageNumber} / ${context.pagesCount}',
                   style: const pw.TextStyle(
                     color: PdfColors.grey600,
                     fontSize: 10,
@@ -134,7 +150,7 @@ class HistoryExportService {
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
                 pw.Text(
-                  'Scan History Export',
+                  labels.reportTitle,
                   style: const pw.TextStyle(
                     fontSize: 22,
                     fontWeight: pw.FontWeight.bold,
@@ -142,7 +158,7 @@ class HistoryExportService {
                   ),
                 ),
                 pw.Text(
-                  'Total Scans: ${records.length}',
+                  '${labels.totalScansLabel}: ${records.length}',
                   style: const pw.TextStyle(
                     fontSize: 12,
                     fontWeight: pw.FontWeight.bold,
@@ -155,12 +171,12 @@ class HistoryExportService {
           pw.TableHelper.fromTextArray(
             headers: [
               '#',
-              'Date & Time',
-              'Format',
-              'Category',
-              'Safety',
-              'Content Snippet',
-              'Notes',
+              labels.columnDateTime,
+              labels.columnFormat,
+              labels.columnCategory,
+              labels.columnSafety,
+              labels.columnContent,
+              labels.columnNotes,
             ],
             data: List<List<String>>.generate(records.length, (index) {
               final r = records[index];
@@ -239,14 +255,14 @@ class HistoryExportService {
     try {
       container = jsonDecode(backupContent) as Map<String, dynamic>;
     } catch (_) {
-      throw const FormatException('Invalid backup file format.');
+      throw const BackupException(
+        AppMessage(AppMessageKey.backupInvalidFormat),
+      );
     }
 
     if (container['header'] != 'SREERAJ_QR_BACKUP_V1' ||
         container['encryptedData'] == null) {
-      throw const FormatException(
-        'Unrecognized or corrupted backup file header.',
-      );
+      throw const BackupException(AppMessage(AppMessageKey.backupBadHeader));
     }
 
     final encryptedB64 = container['encryptedData'] as String;
@@ -261,8 +277,8 @@ class HistoryExportService {
     try {
       decryptedJson = encrypter.decrypt64(encryptedB64, iv: iv);
     } catch (_) {
-      throw const FormatException(
-        'Incorrect passphrase or corrupted backup payload.',
+      throw const BackupException(
+        AppMessage(AppMessageKey.backupWrongPassphrase),
       );
     }
 

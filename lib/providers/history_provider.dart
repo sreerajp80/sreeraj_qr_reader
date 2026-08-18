@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:sreeraj_qr_reader/models/history_report_labels.dart';
 import 'package:sreeraj_qr_reader/models/scan_record.dart';
 import 'package:sreeraj_qr_reader/services/history_database_service.dart';
 import 'package:sreeraj_qr_reader/services/history_export_service.dart';
@@ -139,16 +140,20 @@ class HistoryProvider extends ChangeNotifier {
   }
 
   /// Exports history dataset to string or PDF bytes based on format.
-  dynamic exportData(ExportFormat format) {
+  ///
+  /// [labels] carries the report wording, already localized by the screen.
+  /// CSV and JSON ignore it: their headers are a fixed interchange format that
+  /// the import path reads back, so they stay in English on purpose.
+  dynamic exportData(ExportFormat format, HistoryReportLabels labels) {
     switch (format) {
       case ExportFormat.csv:
         return _exportService.exportToCsv(_records);
       case ExportFormat.json:
         return _exportService.exportToJson(_records);
       case ExportFormat.txt:
-        return _exportService.exportToFormattedTxt(_records);
+        return _exportService.exportToFormattedTxt(_records, labels);
       case ExportFormat.pdf:
-        return _exportService.exportToPdf(_records);
+        return _exportService.exportToPdf(_records, labels);
     }
   }
 
