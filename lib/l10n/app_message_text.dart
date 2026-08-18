@@ -179,6 +179,32 @@ String appMessageText(AppLocalizations l10n, AppMessage message) {
     case AppMessageKey.airQrChecksumFailed:
       return l10n.airQrChecksumFailed;
 
+    // names for the kind of code seen in the AR view
+    case AppMessageKey.formatQrUrl:
+      return l10n.formatQrUrl;
+    case AppMessageKey.formatQrEmail:
+      return l10n.formatQrEmail;
+    case AppMessageKey.formatQrPhone:
+      return l10n.formatQrPhone;
+    case AppMessageKey.formatQrSms:
+      return l10n.formatQrSms;
+    case AppMessageKey.formatQrWifi:
+      return l10n.formatQrWifi;
+    case AppMessageKey.formatQrLocation:
+      return l10n.formatQrLocation;
+    case AppMessageKey.formatQrContact:
+      return l10n.formatQrContact;
+    case AppMessageKey.formatIsbn:
+      return l10n.formatIsbn;
+    case AppMessageKey.formatEanUpc:
+      return l10n.formatEanUpc;
+    case AppMessageKey.formatQrCode:
+      return l10n.formatQrCode;
+    case AppMessageKey.formatEanUpcProduct:
+      return l10n.formatEanUpcProduct;
+    case AppMessageKey.formatBarcode:
+      return l10n.formatBarcode;
+
     // reading codes from pictures and PDFs
     case AppMessageKey.mediaImagePickFailed:
       return l10n.mediaImagePickFailed(args['error'] ?? '');

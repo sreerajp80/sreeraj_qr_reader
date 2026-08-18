@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sreeraj_qr_reader/l10n/app_message_text.dart';
 import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/ar_code_target.dart';
 import 'package:sreeraj_qr_reader/providers/ar_codevision_provider.dart';
@@ -48,7 +49,7 @@ class ArActionSheet extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        target.formatName,
+                        appMessageText(l10n, target.formatName),
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),

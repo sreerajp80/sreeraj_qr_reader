@@ -1,3 +1,4 @@
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -15,7 +16,7 @@ class ArCodeTarget {
   final bool isUrl;
   final TargetSafetyStatus safetyStatus;
   final String priceTag;
-  final String formatName;
+  final AppMessage formatName;
   final bool isSelected;
   final DateTime lastSeen;
 
@@ -42,7 +43,7 @@ class ArCodeTarget {
     bool? isUrl,
     TargetSafetyStatus? safetyStatus,
     String? priceTag,
-    String? formatName,
+    AppMessage? formatName,
     bool? isSelected,
     DateTime? lastSeen,
   }) {

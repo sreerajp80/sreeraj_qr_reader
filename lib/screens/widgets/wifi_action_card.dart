@@ -65,7 +65,7 @@ class _WifiActionCardState extends State<WifiActionCard> {
                         ),
                       ),
                       Text(
-                        wifi.ssid,
+                        wifi.ssid.isEmpty ? l10n.wifiHiddenNetwork : wifi.ssid,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/models/ar_code_target.dart';
 
 /// Pure service handling coordinate transformations, target decay,
@@ -46,36 +47,36 @@ class ArSpatialService {
     }).toList();
   }
 
-  /// Generates human-readable format names for barcode types.
-  String getFormatDisplayName(BarcodeType type, String rawValue) {
+  /// Names the kind of code that was seen, as a message key.
+  AppMessage getFormatDisplayName(BarcodeType type, String rawValue) {
     switch (type) {
       case BarcodeType.url:
-        return 'QR (URL)';
+        return const AppMessage(AppMessageKey.formatQrUrl);
       case BarcodeType.email:
-        return 'QR (Email)';
+        return const AppMessage(AppMessageKey.formatQrEmail);
       case BarcodeType.phone:
-        return 'QR (Phone)';
+        return const AppMessage(AppMessageKey.formatQrPhone);
       case BarcodeType.sms:
-        return 'QR (SMS)';
+        return const AppMessage(AppMessageKey.formatQrSms);
       case BarcodeType.wifi:
-        return 'QR (Wi-Fi)';
+        return const AppMessage(AppMessageKey.formatQrWifi);
       case BarcodeType.geo:
-        return 'QR (Location)';
+        return const AppMessage(AppMessageKey.formatQrLocation);
       case BarcodeType.contactInfo:
-        return 'QR (Contact)';
+        return const AppMessage(AppMessageKey.formatQrContact);
       case BarcodeType.isbn:
-        return 'ISBN';
+        return const AppMessage(AppMessageKey.formatIsbn);
       case BarcodeType.product:
-        return 'EAN/UPC';
+        return const AppMessage(AppMessageKey.formatEanUpc);
       case BarcodeType.text:
       default:
         if (rawValue.startsWith('http://') || rawValue.startsWith('https://')) {
-          return 'QR Code';
+          return const AppMessage(AppMessageKey.formatQrCode);
         }
         if (RegExp(r'^\d{8}$|^\d{12,13}$').hasMatch(rawValue)) {
-          return 'EAN/UPC Product';
+          return const AppMessage(AppMessageKey.formatEanUpcProduct);
         }
-        return 'Barcode';
+        return const AppMessage(AppMessageKey.formatBarcode);
     }
   }
 

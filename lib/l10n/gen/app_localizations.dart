@@ -2973,6 +2973,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Biometric authentication canceled or failed.'**
   String get stegoBiometricCanceled;
+
+  /// Label for a QR code holding a web link
+  ///
+  /// In en, this message translates to:
+  /// **'QR (URL)'**
+  String get formatQrUrl;
+
+  /// Label for a QR code holding an email address
+  ///
+  /// In en, this message translates to:
+  /// **'QR (Email)'**
+  String get formatQrEmail;
+
+  /// Label for a QR code holding a phone number
+  ///
+  /// In en, this message translates to:
+  /// **'QR (Phone)'**
+  String get formatQrPhone;
+
+  /// Label for a QR code holding a text message
+  ///
+  /// In en, this message translates to:
+  /// **'QR (SMS)'**
+  String get formatQrSms;
+
+  /// Label for a QR code holding Wi-Fi details
+  ///
+  /// In en, this message translates to:
+  /// **'QR (Wi-Fi)'**
+  String get formatQrWifi;
+
+  /// Label for a QR code holding a place
+  ///
+  /// In en, this message translates to:
+  /// **'QR (Location)'**
+  String get formatQrLocation;
+
+  /// Label for a QR code holding a contact card
+  ///
+  /// In en, this message translates to:
+  /// **'QR (Contact)'**
+  String get formatQrContact;
+
+  /// Label for a book barcode
+  ///
+  /// In en, this message translates to:
+  /// **'ISBN'**
+  String get formatIsbn;
+
+  /// Label for a product barcode
+  ///
+  /// In en, this message translates to:
+  /// **'EAN/UPC'**
+  String get formatEanUpc;
+
+  /// Label for a plain QR code
+  ///
+  /// In en, this message translates to:
+  /// **'QR Code'**
+  String get formatQrCode;
+
+  /// Label for a shop product barcode
+  ///
+  /// In en, this message translates to:
+  /// **'EAN/UPC Product'**
+  String get formatEanUpcProduct;
+
+  /// Label for any other barcode
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode'**
+  String get formatBarcode;
+
+  /// Shown in place of the network name when a Wi-Fi code hides it
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden Network'**
+  String get wifiHiddenNetwork;
+
+  /// Shown in place of the account name when a 2FA code has none
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get totpDefaultAccount;
 }
 
 class _AppLocalizationsDelegate

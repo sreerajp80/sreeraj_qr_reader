@@ -1688,4 +1688,46 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get stegoBiometricCanceled =>
       'Biometric authentication canceled or failed.';
+
+  @override
+  String get formatQrUrl => 'QR (URL)';
+
+  @override
+  String get formatQrEmail => 'QR (Email)';
+
+  @override
+  String get formatQrPhone => 'QR (Phone)';
+
+  @override
+  String get formatQrSms => 'QR (SMS)';
+
+  @override
+  String get formatQrWifi => 'QR (Wi-Fi)';
+
+  @override
+  String get formatQrLocation => 'QR (Location)';
+
+  @override
+  String get formatQrContact => 'QR (Contact)';
+
+  @override
+  String get formatIsbn => 'ISBN';
+
+  @override
+  String get formatEanUpc => 'EAN/UPC';
+
+  @override
+  String get formatQrCode => 'QR Code';
+
+  @override
+  String get formatEanUpcProduct => 'EAN/UPC Product';
+
+  @override
+  String get formatBarcode => 'Barcode';
+
+  @override
+  String get wifiHiddenNetwork => 'Hidden Network';
+
+  @override
+  String get totpDefaultAccount => 'Account';
 }

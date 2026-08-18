@@ -2272,5 +2272,61 @@
   "stegoBiometricCanceled": "Biometric authentication canceled or failed.",
   "@stegoBiometricCanceled": {
     "description": "Shown when fingerprint or face unlock was cancelled or did not work"
+  },
+  "formatQrUrl": "QR (URL)",
+  "@formatQrUrl": {
+    "description": "Label for a QR code holding a web link"
+  },
+  "formatQrEmail": "QR (Email)",
+  "@formatQrEmail": {
+    "description": "Label for a QR code holding an email address"
+  },
+  "formatQrPhone": "QR (Phone)",
+  "@formatQrPhone": {
+    "description": "Label for a QR code holding a phone number"
+  },
+  "formatQrSms": "QR (SMS)",
+  "@formatQrSms": {
+    "description": "Label for a QR code holding a text message"
+  },
+  "formatQrWifi": "QR (Wi-Fi)",
+  "@formatQrWifi": {
+    "description": "Label for a QR code holding Wi-Fi details"
+  },
+  "formatQrLocation": "QR (Location)",
+  "@formatQrLocation": {
+    "description": "Label for a QR code holding a place"
+  },
+  "formatQrContact": "QR (Contact)",
+  "@formatQrContact": {
+    "description": "Label for a QR code holding a contact card"
+  },
+  "formatIsbn": "ISBN",
+  "@formatIsbn": {
+    "description": "Label for a book barcode"
+  },
+  "formatEanUpc": "EAN/UPC",
+  "@formatEanUpc": {
+    "description": "Label for a product barcode"
+  },
+  "formatQrCode": "QR Code",
+  "@formatQrCode": {
+    "description": "Label for a plain QR code"
+  },
+  "formatEanUpcProduct": "EAN/UPC Product",
+  "@formatEanUpcProduct": {
+    "description": "Label for a shop product barcode"
+  },
+  "formatBarcode": "Barcode",
+  "@formatBarcode": {
+    "description": "Label for any other barcode"
+  },
+  "wifiHiddenNetwork": "Hidden Network",
+  "@wifiHiddenNetwork": {
+    "description": "Shown in place of the network name when a Wi-Fi code hides it"
+  },
+  "totpDefaultAccount": "Account",
+  "@totpDefaultAccount": {
+    "description": "Shown in place of the account name when a 2FA code has none"
   }
 }

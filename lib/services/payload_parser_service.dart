@@ -83,7 +83,7 @@ class PayloadParserService {
     if (ssid.isEmpty && password.isEmpty) return null;
     return WifiPayload(
       rawContent: raw,
-      ssid: ssid.isEmpty ? 'Hidden Network' : ssid,
+      ssid: ssid,
       securityType: securityType.isEmpty ? 'WPA' : securityType,
       password: password,
       isHidden: isHidden,
@@ -119,7 +119,7 @@ class PayloadParserService {
 
     return TotpPayload(
       rawContent: raw,
-      accountName: accountName.isEmpty ? 'Account' : accountName,
+      accountName: accountName,
       issuer: issuer,
       secret: secret,
       algorithm: algorithm,
@@ -170,7 +170,7 @@ class PayloadParserService {
         return PaymentPayload(
           rawContent: raw,
           scheme: PaymentScheme.upi,
-          payeeName: qp['pn'] ?? qp['pa'] ?? 'UPI Payee',
+          payeeName: qp['pn'] ?? qp['pa'] ?? '',
           payeeAddress: qp['pa'] ?? '',
           amount: qp['am'] ?? '',
           currency: qp['cu'] ?? 'INR',
@@ -212,7 +212,7 @@ class PayloadParserService {
     if (raw.toUpperCase().startsWith('BCD\n') ||
         raw.toLowerCase().startsWith('sepa:')) {
       final lines = raw.split('\n');
-      String payee = 'SEPA Recipient';
+      String payee = '';
       String iban = '';
 
       for (final line in lines) {
@@ -220,7 +220,7 @@ class PayloadParserService {
             line.startsWith('DE') ||
             line.startsWith('FR')) {
           iban = line.replaceFirst('IBAN:', '').trim();
-        } else if (line.length > 5 && payee == 'SEPA Recipient') {
+        } else if (line.length > 5 && payee.isEmpty) {
           payee = line.trim();
         }
       }
@@ -269,7 +269,7 @@ class PayloadParserService {
 
     return CalendarPayload(
       rawContent: raw,
-      summary: summary.isEmpty ? 'Calendar Event' : summary,
+      summary: summary,
       description: description,
       location: location,
       dtStart: dtStart,
@@ -309,7 +309,7 @@ class PayloadParserService {
 
       return ContactPayload(
         rawContent: raw,
-        name: name.isEmpty ? 'Contact' : name,
+        name: name,
         phones: phones,
         emails: emails,
         addresses: addresses,

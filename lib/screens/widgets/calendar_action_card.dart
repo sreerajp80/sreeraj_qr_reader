@@ -72,7 +72,9 @@ class CalendarActionCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        event.summary,
+                        event.summary.isEmpty
+                            ? l10n.calendarCardTitle
+                            : event.summary,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

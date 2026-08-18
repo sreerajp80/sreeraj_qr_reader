@@ -102,7 +102,9 @@ class _TotpActionCardState extends State<TotpActionCard> {
                         ),
                       ),
                       Text(
-                        totp.accountName,
+                        totp.accountName.isEmpty
+                            ? l10n.totpDefaultAccount
+                            : totp.accountName,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

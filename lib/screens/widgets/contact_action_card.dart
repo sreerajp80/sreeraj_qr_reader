@@ -62,7 +62,9 @@ class ContactActionCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        contact.name,
+                        contact.name.isEmpty
+                            ? l10n.contactCardTitle
+                            : contact.name,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

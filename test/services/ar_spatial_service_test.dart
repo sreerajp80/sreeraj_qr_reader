@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sreeraj_qr_reader/models/app_message.dart';
 import 'package:sreeraj_qr_reader/models/ar_code_target.dart';
 import 'package:sreeraj_qr_reader/services/ar_spatial_service.dart';
 
@@ -51,7 +52,7 @@ void main() {
           isUrl: true,
           safetyStatus: TargetSafetyStatus.safe,
           priceTag: '\$10.00',
-          formatName: 'QR Code',
+          formatName: const AppMessage(AppMessageKey.formatQrCode),
           isSelected: false,
           lastSeen: now,
         ),
@@ -64,7 +65,7 @@ void main() {
           isUrl: false,
           safetyStatus: TargetSafetyStatus.safe,
           priceTag: '\$5.00',
-          formatName: 'EAN',
+          formatName: const AppMessage(AppMessageKey.formatEanUpc),
           isSelected: false,
           lastSeen: now.subtract(const Duration(seconds: 3)),
         ),

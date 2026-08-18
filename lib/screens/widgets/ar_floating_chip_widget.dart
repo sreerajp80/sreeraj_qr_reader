@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sreeraj_qr_reader/l10n/app_message_text.dart';
+import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/models/ar_code_target.dart';
 import 'package:sreeraj_qr_reader/providers/ar_codevision_provider.dart';
 
@@ -21,6 +23,7 @@ class ArFloatingChipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     return Positioned(
@@ -81,7 +84,7 @@ class ArFloatingChipWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      target.formatName,
+                      appMessageText(l10n, target.formatName),
                       style: TextStyle(
                         color: theme.colorScheme.onPrimaryContainer,
                         fontSize: 10,
@@ -106,7 +109,7 @@ class ArFloatingChipWidget extends StatelessWidget {
                     child: Text(
                       target.isUrl
                           ? _truncateUrl(target.rawValue)
-                          : target.formatName,
+                          : appMessageText(l10n, target.formatName),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(

@@ -103,6 +103,20 @@ enum AppMessageKey {
   // --- optical stream transfer ---
   airQrChecksumFailed,
 
+  // --- names for the kind of code seen in the AR view ---
+  formatQrUrl,
+  formatQrEmail,
+  formatQrPhone,
+  formatQrSms,
+  formatQrWifi,
+  formatQrLocation,
+  formatQrContact,
+  formatIsbn,
+  formatEanUpc,
+  formatQrCode,
+  formatEanUpcProduct,
+  formatBarcode,
+
   // --- reading codes from pictures and PDFs ---
   mediaImagePickFailed,
   mediaNoCodeInImage,
