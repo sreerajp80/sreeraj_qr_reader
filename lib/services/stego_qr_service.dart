@@ -68,10 +68,6 @@ class StegoQrService {
       }
     }
 
-    if (decoyText.isEmpty) {
-      decoyText = 'Innocent Public Content';
-    }
-
     return StegoQrData(
       decoyText: decoyText,
       version: 'v1',

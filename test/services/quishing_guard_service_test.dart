@@ -32,8 +32,12 @@ void main() {
             'simulatedEdgeScore': 0.88,
             'simulatedTextureScore': 0.82,
             'simulatedSignals': [
-              AppMessage(AppMessageKey.quishingSignalDoubleEdgeAroundMatrix),
-              AppMessage(AppMessageKey.quishingSignalMicroShadowStickerBorder),
+              const AppMessage(
+                AppMessageKey.quishingSignalDoubleEdgeAroundMatrix,
+              ),
+              const AppMessage(
+                AppMessageKey.quishingSignalMicroShadowStickerBorder,
+              ),
             ],
           },
         );

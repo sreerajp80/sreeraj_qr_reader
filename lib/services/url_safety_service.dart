@@ -224,20 +224,22 @@ class UrlSafetyService {
       final domain = uri.host.toLowerCase();
 
       final suspiciousPatterns = {
-        'IP Address': RegExp(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'),
-        'Long Number Sequence': RegExp(r'[0-9]{8,}'),
-        'Multiple Dashes/Underscores': RegExp(r'[-_]{4,}'),
-        'Phishing Keywords': RegExp(
+        AppMessageKey.patternIpAddress: RegExp(
+          r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',
+        ),
+        AppMessageKey.patternLongNumbers: RegExp(r'[0-9]{8,}'),
+        AppMessageKey.patternManyDashes: RegExp(r'[-_]{4,}'),
+        AppMessageKey.patternPhishingKeywords: RegExp(
           r'(login|signin|verify|secure|update|confirm|account|suspend|locked).*[0-9]+',
         ),
-        'Data URI': RegExp(r'data:'),
-        'Multiple Subdomains': RegExp(r'([\w-]+\.){4,}'),
+        AppMessageKey.patternDataUri: RegExp(r'data:'),
+        AppMessageKey.patternManySubdomains: RegExp(r'([\w-]+\.){4,}'),
       };
 
       final detectedPatterns = <String>[];
       for (final entry in suspiciousPatterns.entries) {
         if (entry.value.hasMatch(domain) || entry.value.hasMatch(uri.path)) {
-          detectedPatterns.add(entry.key);
+          detectedPatterns.add(entry.key.name);
         }
       }
 
@@ -253,7 +255,7 @@ class UrlSafetyService {
         passed: false,
         message: AppMessage(
           AppMessageKey.patternDetected,
-          args: {'patterns': detectedPatterns.join(', ')},
+          args: {'patterns': detectedPatterns.join(',')},
         ),
       );
     } catch (e) {
@@ -310,18 +312,21 @@ class UrlSafetyService {
       }
 
       var isSuspiciousShortener = false;
-      var reason = '';
+      AppMessage? reason;
 
       if (domain.length <= 8 && path.length <= 10 && path.length > 1) {
         isSuspiciousShortener = true;
-        reason = 'Short domain with minimal path (typical shortener pattern)';
+        reason = const AppMessage(AppMessageKey.shortenerPossibleShortDomain);
       }
 
       const shortenerTLDs = ['.ly', '.gl', '.me', '.co', '.link', '.to', '.id'];
       for (final tld in shortenerTLDs) {
         if (domain.endsWith(tld) && domain.length <= 10) {
           isSuspiciousShortener = true;
-          reason = 'Short domain with common shortener TLD ($tld)';
+          reason = AppMessage(
+            AppMessageKey.shortenerPossibleTld,
+            args: {'tld': tld},
+          );
           break;
         }
       }
@@ -336,7 +341,7 @@ class UrlSafetyService {
             RegExp(r'[A-Z]').hasMatch(pathWithoutSlash);
         if (hasOnlyAlphanumeric && hasUpperAndLower && domain.length <= 12) {
           isSuspiciousShortener = true;
-          reason = 'Random character pattern in short path';
+          reason = const AppMessage(AppMessageKey.shortenerPossibleRandomPath);
         }
       }
 
@@ -382,10 +387,7 @@ class UrlSafetyService {
         return SafetyCheckResult(
           checkName: const AppMessage(AppMessageKey.checkNameShortener),
           passed: false,
-          message: AppMessage(
-            AppMessageKey.shortenerPossible,
-            args: {'reason': reason},
-          ),
+          message: reason!,
         );
       } else if (activeProbing && !networkCheckCompleted) {
         return const SafetyCheckResult(

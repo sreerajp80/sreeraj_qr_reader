@@ -2045,15 +2045,6 @@
       }
     }
   },
-  "shortenerPossible": "Possible URL shortener: {reason}",
-  "@shortenerPossible": {
-    "description": "Result explaining why a link looks shortened",
-    "placeholders": {
-      "reason": {
-        "type": "String"
-      }
-    }
-  },
   "homographLookalikes": "Lookalike characters detected: {characters}",
   "@homographLookalikes": {
     "description": "Result listing the lookalike characters found in a domain",
@@ -2428,5 +2419,46 @@
   "reportColumnNotes": "Notes",
   "@reportColumnNotes": {
     "description": "PDF table column for the user note"
+  },
+  "patternIpAddress": "IP Address",
+  "@patternIpAddress": {
+    "description": "Suspicious pattern: the link uses a raw IP address"
+  },
+  "patternLongNumbers": "Long Number Sequence",
+  "@patternLongNumbers": {
+    "description": "Suspicious pattern: a long run of digits"
+  },
+  "patternManyDashes": "Multiple Dashes/Underscores",
+  "@patternManyDashes": {
+    "description": "Suspicious pattern: many dashes or underscores"
+  },
+  "patternPhishingKeywords": "Phishing Keywords",
+  "@patternPhishingKeywords": {
+    "description": "Suspicious pattern: words often used in phishing links"
+  },
+  "patternDataUri": "Data URI",
+  "@patternDataUri": {
+    "description": "Suspicious pattern: the link embeds data directly"
+  },
+  "patternManySubdomains": "Multiple Subdomains",
+  "@patternManySubdomains": {
+    "description": "Suspicious pattern: unusually many subdomains"
+  },
+  "shortenerPossibleShortDomain": "Possible URL shortener: short domain with minimal path",
+  "@shortenerPossibleShortDomain": {
+    "description": "Result when a link looks shortened by its shape"
+  },
+  "shortenerPossibleRandomPath": "Possible URL shortener: random character pattern in short path",
+  "@shortenerPossibleRandomPath": {
+    "description": "Result when a link path looks machine-generated"
+  },
+  "shortenerPossibleTld": "Possible URL shortener: short domain with common shortener ending ({tld})",
+  "@shortenerPossibleTld": {
+    "description": "Result naming the domain ending that suggests a shortened link",
+    "placeholders": {
+      "tld": {
+        "type": "String"
+      }
+    }
   }
 }

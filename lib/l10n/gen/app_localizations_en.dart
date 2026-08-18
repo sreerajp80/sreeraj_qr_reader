@@ -1519,11 +1519,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String shortenerPossible(String reason) {
-    return 'Possible URL shortener: $reason';
-  }
-
-  @override
   String homographLookalikes(String characters) {
     return 'Lookalike characters detected: $characters';
   }
@@ -1806,4 +1801,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reportColumnNotes => 'Notes';
+
+  @override
+  String get patternIpAddress => 'IP Address';
+
+  @override
+  String get patternLongNumbers => 'Long Number Sequence';
+
+  @override
+  String get patternManyDashes => 'Multiple Dashes/Underscores';
+
+  @override
+  String get patternPhishingKeywords => 'Phishing Keywords';
+
+  @override
+  String get patternDataUri => 'Data URI';
+
+  @override
+  String get patternManySubdomains => 'Multiple Subdomains';
+
+  @override
+  String get shortenerPossibleShortDomain =>
+      'Possible URL shortener: short domain with minimal path';
+
+  @override
+  String get shortenerPossibleRandomPath =>
+      'Possible URL shortener: random character pattern in short path';
+
+  @override
+  String shortenerPossibleTld(String tld) {
+    return 'Possible URL shortener: short domain with common shortener ending ($tld)';
+  }
 }

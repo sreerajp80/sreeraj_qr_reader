@@ -28,7 +28,10 @@ void main() {
         'https://192.168.1.1/login',
       );
       expect(result.passed, false);
-      expect(result.message.args['patterns'], contains('IP Address'));
+      expect(
+        result.message.args['patterns'],
+        contains(AppMessageKey.patternIpAddress.name),
+      );
     });
 
     test('fails for a long number sequence in the domain', () async {
@@ -36,7 +39,10 @@ void main() {
         'https://example12345678.com',
       );
       expect(result.passed, false);
-      expect(result.message.args['patterns'], contains('Long Number Sequence'));
+      expect(
+        result.message.args['patterns'],
+        contains(AppMessageKey.patternLongNumbers.name),
+      );
     });
 
     test('fails when phishing keyword is combined with numbers', () async {
@@ -44,7 +50,10 @@ void main() {
         'https://login-verify123.com',
       );
       expect(result.passed, false);
-      expect(result.message.args['patterns'], contains('Phishing Keywords'));
+      expect(
+        result.message.args['patterns'],
+        contains(AppMessageKey.patternPhishingKeywords.name),
+      );
     });
 
     test('fails for excessive subdomains', () async {
@@ -52,7 +61,10 @@ void main() {
         'https://a.b.c.d.example.com',
       );
       expect(result.passed, false);
-      expect(result.message.args['patterns'], contains('Multiple Subdomains'));
+      expect(
+        result.message.args['patterns'],
+        contains(AppMessageKey.patternManySubdomains.name),
+      );
     });
 
     test('fails for four or more consecutive dashes', () async {
@@ -60,7 +72,10 @@ void main() {
         'https://my----domain.com',
       );
       expect(result.passed, false);
-      expect(result.message.args['patterns'], contains('Multiple Dashes'));
+      expect(
+        result.message.args['patterns'],
+        contains(AppMessageKey.patternManyDashes.name),
+      );
     });
 
     test(

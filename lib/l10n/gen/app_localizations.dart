@@ -2722,12 +2722,6 @@ abstract class AppLocalizations {
   /// **'Detected URL shortener (redirects to {host})'**
   String shortenerRedirect(String host);
 
-  /// Result explaining why a link looks shortened
-  ///
-  /// In en, this message translates to:
-  /// **'Possible URL shortener: {reason}'**
-  String shortenerPossible(String reason);
-
   /// Result listing the lookalike characters found in a domain
   ///
   /// In en, this message translates to:
@@ -3207,6 +3201,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notes'**
   String get reportColumnNotes;
+
+  /// Suspicious pattern: the link uses a raw IP address
+  ///
+  /// In en, this message translates to:
+  /// **'IP Address'**
+  String get patternIpAddress;
+
+  /// Suspicious pattern: a long run of digits
+  ///
+  /// In en, this message translates to:
+  /// **'Long Number Sequence'**
+  String get patternLongNumbers;
+
+  /// Suspicious pattern: many dashes or underscores
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple Dashes/Underscores'**
+  String get patternManyDashes;
+
+  /// Suspicious pattern: words often used in phishing links
+  ///
+  /// In en, this message translates to:
+  /// **'Phishing Keywords'**
+  String get patternPhishingKeywords;
+
+  /// Suspicious pattern: the link embeds data directly
+  ///
+  /// In en, this message translates to:
+  /// **'Data URI'**
+  String get patternDataUri;
+
+  /// Suspicious pattern: unusually many subdomains
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple Subdomains'**
+  String get patternManySubdomains;
+
+  /// Result when a link looks shortened by its shape
+  ///
+  /// In en, this message translates to:
+  /// **'Possible URL shortener: short domain with minimal path'**
+  String get shortenerPossibleShortDomain;
+
+  /// Result when a link path looks machine-generated
+  ///
+  /// In en, this message translates to:
+  /// **'Possible URL shortener: random character pattern in short path'**
+  String get shortenerPossibleRandomPath;
+
+  /// Result naming the domain ending that suggests a shortened link
+  ///
+  /// In en, this message translates to:
+  /// **'Possible URL shortener: short domain with common shortener ending ({tld})'**
+  String shortenerPossibleTld(String tld);
 }
 
 class _AppLocalizationsDelegate

@@ -59,7 +59,19 @@ String appMessageText(AppLocalizations l10n, AppMessage message) {
     case AppMessageKey.patternNone:
       return l10n.patternNone;
     case AppMessageKey.patternDetected:
-      return l10n.patternDetected(args['patterns'] ?? '');
+      return l10n.patternDetected(_patternList(l10n, args['patterns'] ?? ''));
+    case AppMessageKey.patternIpAddress:
+      return l10n.patternIpAddress;
+    case AppMessageKey.patternLongNumbers:
+      return l10n.patternLongNumbers;
+    case AppMessageKey.patternManyDashes:
+      return l10n.patternManyDashes;
+    case AppMessageKey.patternPhishingKeywords:
+      return l10n.patternPhishingKeywords;
+    case AppMessageKey.patternDataUri:
+      return l10n.patternDataUri;
+    case AppMessageKey.patternManySubdomains:
+      return l10n.patternManySubdomains;
     case AppMessageKey.patternUnavailable:
       return l10n.patternUnavailable;
 
@@ -68,8 +80,12 @@ String appMessageText(AppLocalizations l10n, AppMessage message) {
       return l10n.shortenerKnown(args['shortener'] ?? '');
     case AppMessageKey.shortenerRedirect:
       return l10n.shortenerRedirect(args['host'] ?? '');
-    case AppMessageKey.shortenerPossible:
-      return l10n.shortenerPossible(args['reason'] ?? '');
+    case AppMessageKey.shortenerPossibleShortDomain:
+      return l10n.shortenerPossibleShortDomain;
+    case AppMessageKey.shortenerPossibleTld:
+      return l10n.shortenerPossibleTld(args['tld'] ?? '');
+    case AppMessageKey.shortenerPossibleRandomPath:
+      return l10n.shortenerPossibleRandomPath;
     case AppMessageKey.shortenerOfflineHeuristics:
       return l10n.shortenerOfflineHeuristics;
     case AppMessageKey.shortenerNone:
@@ -227,4 +243,21 @@ String appMessageText(AppLocalizations l10n, AppMessage message) {
     case AppMessageKey.mediaPdfScanFailed:
       return l10n.mediaPdfScanFailed(args['error'] ?? '');
   }
+}
+
+/// Turns the comma-separated enum names carried by
+/// [AppMessageKey.patternDetected] into a readable list, for example
+/// "IP Address, Data URI".
+String _patternList(AppLocalizations l10n, String names) {
+  if (names.isEmpty) return '';
+  return names
+      .split(',')
+      .map((name) {
+        final key = AppMessageKey.values.firstWhere(
+          (candidate) => candidate.name == name,
+          orElse: () => AppMessageKey.patternDetected,
+        );
+        return appMessageText(l10n, AppMessage(key));
+      })
+      .join(', ');
 }

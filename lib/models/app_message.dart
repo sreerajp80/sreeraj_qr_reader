@@ -36,10 +36,21 @@ enum AppMessageKey {
   patternDetected,
   patternUnavailable,
 
+  // Individual pattern names. `patternDetected` lists these by enum name in
+  // its `patterns` argument; the resolver turns each one into words.
+  patternIpAddress,
+  patternLongNumbers,
+  patternManyDashes,
+  patternPhishingKeywords,
+  patternDataUri,
+  patternManySubdomains,
+
   // --- URL shorteners ---
   shortenerKnown,
   shortenerRedirect,
-  shortenerPossible,
+  shortenerPossibleShortDomain,
+  shortenerPossibleTld,
+  shortenerPossibleRandomPath,
   shortenerOfflineHeuristics,
   shortenerNone,
   shortenerUnavailable,
