@@ -1,11 +1,11 @@
 # Comprehensive Feature Analysis, Enhancements & Novel Innovation Roadmap
-**Sreeraj P QR Reader (Android / Flutter)**
+**SreerajP QR Reader (Android / Flutter)**
 
 ---
 
 ## Executive Summary
 
-**Sreeraj P QR Reader** is a high-performance Android QR and Barcode scanner application built with Flutter, focused on real-time scanning, URL safety inspection, clipboard integration, and clean Material 3 UI design.
+**SreerajP QR Reader** is a high-performance Android QR and Barcode scanner application built with Flutter, focused on real-time scanning, URL safety inspection, clipboard integration, and clean Material 3 UI design.
 
 While the current version (v1.4.3+1) provides solid foundation scanning with **10 supported barcode formats** and a multi-heuristic **UrlSafetyService**, the modern mobile utilities landscape demands richer utility, enhanced safety against physical/digital attacks, offline data sovereignty, and advanced productivity features.
 
@@ -195,7 +195,7 @@ Prevents drive-by downloads, IP logger grabs, and zero-click mobile web exploits
 
 ## 4. Comprehensive Feature Comparison Table
 
-| Feature Dimension | Standard Android QR Apps | Sreeraj P QR Reader (Planned V2) |
+| Feature Dimension | Standard Android QR Apps | SreerajP QR Reader (Planned V2) |
 | :--- | :--- | :--- |
 | **Basic QR & Barcode Scanning** | ✅ Yes | ✅ Enhanced with 10 Formats |
 | **Camera Controls (Torch/Zoom)** | ⚠️ Basic or None | ✅ Full Control Bar & Multi-Touch Zoom |
@@ -244,6 +244,6 @@ Prevents drive-by downloads, IP logger grabs, and zero-click mobile web exploits
 
 ## 6. Conclusion & Strategic Value
 
-By combining essential core scanner improvements (persistent storage, camera suite, smart action parsers, gallery scanning) with **groundbreaking innovations like StegoQR, QuishingGuard, AirQR, AR CodeVision, and Sandboxed HTML Pre-rendering**, Sreeraj P QR Reader will transcend standard scanning tools.
+By combining essential core scanner improvements (persistent storage, camera suite, smart action parsers, gallery scanning) with **groundbreaking innovations like StegoQR, QuishingGuard, AirQR, AR CodeVision, and Sandboxed HTML Pre-rendering**, SreerajP QR Reader will transcend standard scanning tools.
 
 It positions the application as a **next-generation security, privacy, and spatial productivity platform** for Android, setting a new benchmark for mobile QR scanning applications worldwide.

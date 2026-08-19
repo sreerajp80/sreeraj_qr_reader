@@ -51,7 +51,7 @@ class HistoryExportService {
     final list = records.map((r) => r.toJson()).toList();
     const encoder = JsonEncoder.withIndent('  ');
     return encoder.convert({
-      'app': 'Sreeraj P QR Reader',
+      'app': 'SreerajP QR Reader',
       'version': '2.4.3',
       'exportedAt': DateTime.now().toIso8601String(),
       'totalRecords': records.length,

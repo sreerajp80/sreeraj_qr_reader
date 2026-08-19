@@ -1,6 +1,6 @@
-# Architecture — Sreeraj P QR Reader
+# Architecture — SreerajP QR Reader
 
-This document defines the technical architecture, data flow, state management, and component boundaries for Sreeraj P QR Reader. Read this before modifying application structure, providers, services, models, or screens.
+This document defines the technical architecture, data flow, state management, and component boundaries for SreerajP QR Reader. Read this before modifying application structure, providers, services, models, or screens.
 
 **Read first:**
 - [CLAUDE.md](../CLAUDE.md)
@@ -13,7 +13,7 @@ This document defines the technical architecture, data flow, state management, a
 
 ## 1. Scope
 
-- Product: Sreeraj P QR Reader
+- Product: SreerajP QR Reader
 - Repository type: application
 - Engineering standard profiles in force:
   - `Core Baseline`

@@ -1,6 +1,6 @@
-# Workflow Rules — Sreeraj P QR Reader
+# Workflow Rules — SreerajP QR Reader
 
-This document defines the mandatory workflow rules for developing, modifying, and maintaining the Sreeraj P QR Reader application. Read this before making any code or configuration changes.
+This document defines the mandatory workflow rules for developing, modifying, and maintaining the SreerajP QR Reader application. Read this before making any code or configuration changes.
 
 **Read first:**
 - [CLAUDE.md](../CLAUDE.md)

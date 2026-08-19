@@ -18,7 +18,7 @@ class AppConfig {
   /// Safe built-in value used when the config file is missing or malformed,
   /// so the app never crashes on a bad config.
   static const AppConfig fallback = AppConfig(
-    appName: 'Sreeraj P QR Reader',
+    appName: 'SreerajP QR Reader',
     description:
         'A comprehensive QR and Barcode scanner application with 6-layer URL safety analysis.',
     version: '1.4.3',

@@ -97,7 +97,7 @@ abstract class AppLocalizations {
   /// The application name, shown as the task title and in the About screen
   ///
   /// In en, this message translates to:
-  /// **'Sreeraj P QR Reader'**
+  /// **'SreerajP QR Reader'**
   String get appTitle;
 
   /// Label above the network name on the Wi-Fi action card

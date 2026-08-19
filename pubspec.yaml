@@ -1,6 +1,6 @@
 name: sreeraj_qr_reader
 description: A privacy-first QR/barcode scanner with link safety checks, tamper detection, StegoQR, AR CodeVision, and offline smart tools
-version: 2.6.11+18
+version: 2.7.0+19
 
 environment:
   sdk: '>=3.12.2 <4.0.0'

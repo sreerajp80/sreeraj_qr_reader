@@ -1,4 +1,4 @@
-# Implementation Progress — Sreeraj P QR Reader
+# Implementation Progress — SreerajP QR Reader
 
 This document tracks the live implementation status of application features and standards compliance.
 

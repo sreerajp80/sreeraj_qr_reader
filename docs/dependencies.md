@@ -1,6 +1,6 @@
-# Dependencies — Sreeraj P QR Reader
+# Dependencies — SreerajP QR Reader
 
-This document records approved packages, dependency categories, and prohibited packages for Sreeraj P QR Reader. Read this before adding or updating any dependency in `pubspec.yaml`.
+This document records approved packages, dependency categories, and prohibited packages for SreerajP QR Reader. Read this before adding or updating any dependency in `pubspec.yaml`.
 
 **Read first:**
 - [CLAUDE.md](../CLAUDE.md)

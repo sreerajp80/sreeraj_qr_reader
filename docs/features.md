@@ -1,4 +1,4 @@
-# Sreeraj P QR Reader — Features
+# SreerajP QR Reader — Features
 
 This file lists everything this app does today. It is meant to be shared with
 another AI assistant (or a human) working on a different app, so they can
@@ -15,7 +15,7 @@ source here — they have not been updated to match the current code.
 
 ## What this app is
 
-Sreeraj P QR Reader is an Android-only, offline-first Flutter app for
+SreerajP QR Reader is an Android-only, offline-first Flutter app for
 scanning QR codes and barcodes. It is primarily a privacy-first **reader** and
 barcode security analyzer. While it does not generate standard standalone contact
 or URL QR images, it includes a built-in AirQR Optical Data Stream Transmitter
@@ -27,8 +27,9 @@ opening it. Every scanned code can also be checked for physical tampering
 (like a sticker glued over a real code). It also understands "smart" QR
 content (Wi-Fi logins, contact cards, locations, calendar invites, payment
 links, 2FA codes) and turns them into one-tap actions, supports a
-hidden/encrypted QR format unlocked by fingerprint or password, keeps a
-searchable local scan history with export and encrypted backup/restore, and
+hidden/encrypted QR format unlocked by a passphrase (with an optional
+fingerprint check), keeps a searchable local scan history with export and
+encrypted backup/restore, and
 includes two extra tools: an optical "air-gapped" data transfer mode (transmitter &
 receiver; no network or Bluetooth needed) and a live camera view that can track and label
 many codes at once. Scanning also works beyond the live camera — codes can
@@ -47,8 +48,8 @@ the user turns them on.
 - Torch (flashlight) on/off toggle.
 - Front/rear camera switch.
 - Pinch-to-zoom and an on-screen zoom slider (1.0x–8.0x).
-- Sound (beep) and vibration feedback on a successful scan, each can be
-  turned on/off separately in Settings.
+- Sound (the system click tone) and vibration feedback on a successful
+  scan, each can be turned on/off separately in Settings.
 - Animated scan overlay with 4 styles to choose from: Laser Line, Pulsing
   Corners, Cybernetic Grid, Subtle Dot Matrix — the overlay box also tracks
   and glows around the real detected code.
@@ -137,10 +138,11 @@ normal-looking QR code.
 
 - The visible ("decoy") content shows right away, and is itself checked for
   link safety like any other scan.
-- The hidden content is locked behind the phone's fingerprint/face unlock,
-  or a password if biometrics aren't available.
-- The hidden content is encrypted (AES-256) and only decrypted after the
-  user unlocks it.
+- The hidden content is encrypted (AES-256) with a key derived from a
+  passphrase (PBKDF2-HMAC-SHA256). The passphrase is always required to
+  decrypt it.
+- The user can add the phone's fingerprint/face unlock as an extra check
+  before the passphrase is used. Biometrics never replace the passphrase.
 - The unlocked hidden content has its own copy/share buttons, separate from
   the decoy content.
 
@@ -152,12 +154,15 @@ The app recognizes common QR content types and turns them into ready-to-use
 action cards instead of plain text:
 
 - **Wi-Fi** — shows network name and password (hidden by default, tap to
-  reveal/copy), with a "Connect to Wi-Fi" button.
+  reveal/copy). The "Connect to Wi-Fi" button copies the password and opens
+  the Android Wi-Fi settings screen so the user can join the network; the
+  app does not join it directly.
 - **Contact card** — supports both vCard (`BEGIN:VCARD`) and MeCard (`MECARD:`) formats;
   shows name, organization, title, phone numbers (tap to call), emails (tap to email),
   addresses, and website URL, with a "Save to Contacts" button.
-- **Location** — parses `geo:lat,lng` coordinates with optional labels/queries; shows a
-  map preview and an "Open in Google Maps" button.
+- **Location** — parses `geo:lat,lng` coordinates with optional labels/queries; shows
+  the coordinates on a location banner and an "Open in Google Maps" button. The banner
+  is drawn on the device — no map tiles are downloaded.
 - **Calendar event** — parses iCalendar (`BEGIN:VEVENT`); shows event summary, description,
   location, start/end date and time, and an "Add to Calendar" button.
 - **Payment links** — supports UPI (`upi://pay`), SEPA bank transfer (EPC QR / `BCD\n` / `sepa:`),
@@ -210,8 +215,9 @@ screen at the same time, instead of scanning one at a time.
 - Two modes: **Warehouse mode** (shows price/batch info, lets you check off
   items) and **Safety mode** (shows a green/red safety badge per code, using
   the same link-safety checks as normal scanning).
-- Supports selecting several codes at once for batch actions (e.g. "Save Selected to History",
-  "Copy All Scanned Barcodes").
+- In Warehouse mode, several codes can be selected at once and copied to the
+  clipboard together with a single "Batch Copy" action. This is the only batch
+  action; the AR view does not save to history.
 
 ---
 
@@ -246,8 +252,8 @@ screen at the same time, instead of scanning one at a time.
 - No network contact with a scanned link's server unless the user turns on
   active probing; when active probing is used, identifying request
   information is stripped.
-- Unlocking hidden StegoQR content requires the phone's fingerprint/face
-  unlock (or a password fallback).
+- Unlocking hidden StegoQR content always requires the passphrase, with the
+  phone's fingerprint/face unlock available as an optional extra check.
 - Scan history and StegoQR hidden content are both encrypted (AES-256) at
   rest.
 - The app never logs API keys, passwords, or decrypted hidden content, even
@@ -263,18 +269,18 @@ screen at the same time, instead of scanning one at a time.
 |------|-------|
 | Platform | Android only (no iOS, web, or desktop) |
 | Framework | Flutter (>=3.44.8), Dart (>=3.12.2 <4.0.0) |
-| App package | `in.sreerajp.qr_reader` |
-| Min SDK / Compile SDK / Target SDK | minSdk 24 / compileSdk 37 / targetSdk 35 |
+| App package | `in.sreeraj.qr_reader` |
+| Min SDK / Compile SDK / Target SDK | minSdk 24 / compileSdk 37 / targetSdk follows the Flutter default (`flutter.targetSdkVersion`) |
 | State management | `provider` package (`ChangeNotifier`) — no Riverpod/Redux/BLoC |
 | Network behaviour | Offline-first; core scanning, payload parsing, Quishing Guard, StegoQR, AirQR transmitter/receiver, and history all work fully offline. Online checks (active URL probing, Safe Browsing, DOM sandbox preview, WHOIS) are opt-in or triggered only by a link scan |
 | Cloud sync / accounts | None — no user accounts, no server, no cloud backup |
 | Local storage | `sqflite` (encrypted scan history database), `flutter_secure_storage` (API key, secrets), `shared_preferences` (simple settings/counters) |
-| Build flavors | `dev` (`in.sreerajp.qr_reader.dev`, debug keystore) and `prod` (`in.sreerajp.qr_reader`, release keystore) |
+| Build flavors | `dev` (`in.sreeraj.qr_reader.dev`, debug keystore) and `prod` (`in.sreeraj.qr_reader`, release keystore) |
 | Navigation | Named routes (Navigator 1.0), no deep links |
 | Notable packages | `mobile_scanner`, `local_auth`, `encrypt`, `pointycastle`, `sqflite`, `image_picker`, `file_picker`, `pdfx`, `pdf`, `receive_sharing_intent`, `dynamic_color`, `url_launcher`, `share_plus`, `permission_handler`, `crypto`, `package_info_plus` |
 
 ---
 
-*Last generated: 2026-08-12. Keep this file in sync by updating it whenever
+*Last generated: 2026-08-18. Keep this file in sync by updating it whenever
 a new feature is added — the `change_log/` folder is the most reliable place
 to check for anything added after this date.*

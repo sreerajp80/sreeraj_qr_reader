@@ -37,7 +37,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "in.sreeraj.qr_reader"
-    compileSdk = 37
+    compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

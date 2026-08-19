@@ -1,6 +1,6 @@
-# Implementation Plan — Sreeraj P QR Reader
+# Implementation Plan — SreerajP QR Reader
 
-This document outlines the phase-by-phase build roadmap and implementation targets for Sreeraj P QR Reader. Read this to understand current development objectives.
+This document outlines the phase-by-phase build roadmap and implementation targets for SreerajP QR Reader. Read this to understand current development objectives.
 
 **Date:** 2026-07-31
 

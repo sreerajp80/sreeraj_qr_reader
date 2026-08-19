@@ -1,6 +1,6 @@
-# Security — Sreeraj P QR Reader
+# Security — SreerajP QR Reader
 
-This document defines the security rules, threat model, sensitive data handling, and permissions for Sreeraj P QR Reader. Read this before touching permissions, logging, storage, cryptography, or the Android manifest.
+This document defines the security rules, threat model, sensitive data handling, and permissions for SreerajP QR Reader. Read this before touching permissions, logging, storage, cryptography, or the Android manifest.
 
 **Read first:**
 - [CLAUDE.md](../CLAUDE.md)
@@ -11,7 +11,7 @@ This document defines the security rules, threat model, sensitive data handling,
 
 ## 1. Security Scope
 
-- App: Sreeraj P QR Reader
+- App: SreerajP QR Reader
 - Data sensitivity level: low
 - Engineering standard profiles in force:
   - `Core Baseline`

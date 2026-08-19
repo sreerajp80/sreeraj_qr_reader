@@ -1,4 +1,4 @@
-# Sreeraj P QR Reader
+# SreerajP QR Reader
 
 A comprehensive Flutter application for scanning QR codes and barcodes with advanced features including URL safety verification, clipboard integration, and content sharing.
 

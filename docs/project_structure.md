@@ -1,6 +1,6 @@
-# Project Structure — Sreeraj P QR Reader
+# Project Structure — SreerajP QR Reader
 
-This document describes the directory tree layout and responsibility mapping of the Sreeraj P QR Reader repository. Read this for quick orientation on file locations.
+This document describes the directory tree layout and responsibility mapping of the SreerajP QR Reader repository. Read this for quick orientation on file locations.
 
 **Read first:**
 - [CLAUDE.md](../CLAUDE.md)

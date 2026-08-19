@@ -1,4 +1,4 @@
-# CLAUDE.md — Sreeraj P QR Reader
+# CLAUDE.md — SreerajP QR Reader
 
 This file is read by Claude Code at the start of every session in this repository.
 Read it before making any change. See the docs table below for full detail.
@@ -9,7 +9,7 @@ Read it before making any change. See the docs table below for full detail.
 
 | Field | Value |
 |-------|-------|
-| App name | Sreeraj P QR Reader |
+| App name | SreerajP QR Reader |
 | Type | Flutter Android application for scanning QR codes & barcodes with 6-layer URL safety analysis |
 | Platform(s) | Android only (minSdk 24, targetSdk 35) |
 | Package / org id | `in.sreeraj.qr_reader` |
@@ -86,7 +86,7 @@ flutter build apk --flavor prod --release \
 | Flavor | App ID | Display name | Signing |
 |--------|--------|--------------|---------|
 | `dev` | `in.sreeraj.qr_reader.dev` | QR Reader Dev | Debug keystore (automatic) |
-| `prod` | `in.sreeraj.qr_reader` | Sreeraj P QR Reader | Release keystore (`android/key.properties`) |
+| `prod` | `in.sreeraj.qr_reader` | SreerajP QR Reader | Release keystore (`android/key.properties`) |
 
 > Flutter sets `FLUTTER_APP_FLAVOR` automatically. Read it with `String.fromEnvironment('FLUTTER_APP_FLAVOR')`.
 

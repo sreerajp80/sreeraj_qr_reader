@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Sreeraj P QR Reader';
+  String get appTitle => 'SreerajP QR Reader';
 
   @override
   String get wifiCardTitle => 'Wi-Fi Network';

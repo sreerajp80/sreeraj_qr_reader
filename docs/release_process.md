@@ -1,6 +1,6 @@
-# Release Process — Sreeraj P QR Reader
+# Release Process — SreerajP QR Reader
 
-This document provides the step-by-step release runbook, signing instructions, versioning rules, build commands, and release checklist for Sreeraj P QR Reader. Read this before building or distributing a release artifact.
+This document provides the step-by-step release runbook, signing instructions, versioning rules, build commands, and release checklist for SreerajP QR Reader. Read this before building or distributing a release artifact.
 
 **Read first:**
 - [CLAUDE.md](../CLAUDE.md)
@@ -18,7 +18,7 @@ This document provides the step-by-step release runbook, signing instructions, v
 
 ## 2. Release Scope
 
-- App: Sreeraj P QR Reader
+- App: SreerajP QR Reader
 - Release profiles: Personal / Production distribution
 - Supported platforms: Android (minSdk 24, targetSdk 35)
 - Current version: `1.4.3+1`
