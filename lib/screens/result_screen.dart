@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sreeraj_qr_reader/models/encrypted_payload_data.dart';
 import 'package:sreeraj_qr_reader/models/safety_check_result.dart';
 import 'package:sreeraj_qr_reader/l10n/app_message_text.dart';
 import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
@@ -201,10 +202,42 @@ class _ResultScreenState extends State<ResultScreen> {
 
   Widget _buildStegoCard(ScanProvider provider) {
     final l10n = AppLocalizations.of(context);
+    final encryptedData = provider.encryptedPayloadData;
     final stegoData = provider.stegoQrData;
-    if (stegoData == null) return const SizedBox();
+    if (encryptedData == null && stegoData == null) return const SizedBox();
 
-    final isUnlocked = stegoData.isUnlocked;
+    final isUnlocked =
+        encryptedData?.isUnlocked ?? stegoData?.isUnlocked ?? false;
+    final decryptedPayload =
+        encryptedData?.decryptedPayload ?? stegoData?.decryptedPayload ?? '';
+    final error = encryptedData?.error ?? stegoData?.error;
+
+    String cardTitle;
+    String cardSubtitle;
+
+    if (encryptedData?.containerType == EncryptedContainerType.airQr) {
+      cardTitle = isUnlocked
+          ? '🔓 AirQR Payload Unlocked'
+          : '🔒 ${l10n.airQrDetectedTitle}';
+      cardSubtitle = isUnlocked
+          ? l10n.stegoUnlockedMessage
+          : l10n.airQrDetectedSubtitle;
+    } else if (encryptedData?.containerType ==
+        EncryptedContainerType.jsonEnvelope) {
+      cardTitle = isUnlocked
+          ? '🔓 JSON Payload Unlocked'
+          : '🔒 ${l10n.jsonEnvelopeDetectedTitle}';
+      cardSubtitle = isUnlocked
+          ? l10n.stegoUnlockedMessage
+          : l10n.jsonEnvelopeDetectedSubtitle;
+    } else {
+      cardTitle = isUnlocked
+          ? '🔓 StegoQR Payload Unlocked'
+          : '🔒 StegoQR Encrypted Payload Detected';
+      cardSubtitle = isUnlocked
+          ? l10n.stegoUnlockedMessage
+          : l10n.stegoLockedMessage;
+    }
 
     return Card(
       elevation: 4,
@@ -233,9 +266,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    isUnlocked
-                        ? '🔓 StegoQR Payload Unlocked'
-                        : '🔒 StegoQR Encrypted Payload Detected',
+                    cardTitle,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -249,13 +280,42 @@ class _ResultScreenState extends State<ResultScreen> {
             ),
             const SizedBox(height: 12),
             Text(
-              isUnlocked ? l10n.stegoUnlockedMessage : l10n.stegoLockedMessage,
+              cardSubtitle,
               style: TextStyle(
                 fontSize: 13,
                 color: isUnlocked ? Colors.purple[900] : Colors.deepPurple[900],
               ),
             ),
-            if (stegoData.error != null) ...[
+            if (encryptedData?.fileName != null) ...[
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.deepPurple[100],
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.description,
+                      size: 14,
+                      color: Colors.deepPurple,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${encryptedData!.fileName} (${encryptedData.mimeType ?? 'text/plain'})',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+            if (error != null) ...[
               const SizedBox(height: 12),
               Container(
                 padding: const EdgeInsets.all(10),
@@ -270,7 +330,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        appMessageText(l10n, stegoData.error!),
+                        appMessageText(l10n, error),
                         style: TextStyle(fontSize: 12, color: Colors.red[800]),
                       ),
                     ),
@@ -302,7 +362,12 @@ class _ResultScreenState extends State<ResultScreen> {
                   Expanded(
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.key),
-                      label: Text(l10n.stegoPassphrase),
+                      label: Text(
+                        encryptedData?.containerType ==
+                                EncryptedContainerType.airQr
+                            ? l10n.airQrCodeLabel
+                            : l10n.stegoPassphrase,
+                      ),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: Colors.deepPurple[900],
                         side: const BorderSide(color: Colors.deepPurple),
@@ -365,7 +430,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     const SizedBox(height: 4),
                     SelectableText(
                       _showSecretText
-                          ? (stegoData.decryptedPayload ?? '')
+                          ? decryptedPayload
                           : '••••••••••••••••••••••••••••',
                       style: TextStyle(
                         fontSize: 16,
@@ -394,9 +459,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         foregroundColor: Colors.purple[900],
                         side: BorderSide(color: Colors.purple[300]!),
                       ),
-                      onPressed: () => _copySecretToClipboard(
-                        stegoData.decryptedPayload ?? '',
-                      ),
+                      onPressed: () => _copySecretToClipboard(decryptedPayload),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -408,8 +471,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         foregroundColor: Colors.purple[900],
                         side: BorderSide(color: Colors.purple[300]!),
                       ),
-                      onPressed: () =>
-                          _shareContent(stegoData.decryptedPayload ?? ''),
+                      onPressed: () => _shareContent(decryptedPayload),
                     ),
                   ),
                 ],
@@ -429,6 +491,9 @@ class _ResultScreenState extends State<ResultScreen> {
     final l10n = AppLocalizations.of(context);
     final controller = TextEditingController();
     bool obscure = true;
+    final isAirQr =
+        provider.encryptedPayloadData?.containerType ==
+        EncryptedContainerType.airQr;
 
     final passphrase = await showDialog<String>(
       context: context,
@@ -441,7 +506,9 @@ class _ResultScreenState extends State<ResultScreen> {
               Text(
                 useBiometrics
                     ? l10n.stegoDialogTitleBiometric
-                    : l10n.stegoDialogTitlePassphrase,
+                    : (isAirQr
+                          ? l10n.airQrCodeLabel
+                          : l10n.stegoDialogTitlePassphrase),
               ),
             ],
           ),
@@ -452,7 +519,9 @@ class _ResultScreenState extends State<ResultScreen> {
               Text(
                 useBiometrics
                     ? l10n.stegoDialogMessageBiometric
-                    : l10n.stegoDialogMessagePassphrase,
+                    : (isAirQr
+                          ? l10n.airQrDetectedSubtitle
+                          : l10n.stegoDialogMessagePassphrase),
                 style: const TextStyle(fontSize: 13),
               ),
               const SizedBox(height: 16),
@@ -460,8 +529,14 @@ class _ResultScreenState extends State<ResultScreen> {
                 controller: controller,
                 obscureText: obscure,
                 autofocus: true,
+                textCapitalization: isAirQr
+                    ? TextCapitalization.characters
+                    : TextCapitalization.none,
                 decoration: InputDecoration(
-                  labelText: l10n.stegoPassphrase,
+                  labelText: isAirQr
+                      ? l10n.airQrCodeLabel
+                      : l10n.stegoPassphrase,
+                  hintText: isAirQr ? l10n.airQrCodeHint : null,
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -957,6 +1032,31 @@ class _ResultScreenState extends State<ResultScreen> {
           ],
         ),
 
+        if (!provider.isStegoQr ||
+            !(provider.encryptedPayloadData?.isUnlocked ??
+                provider.stegoQrData?.isUnlocked ??
+                false)) ...[
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              icon: const Icon(
+                Icons.vpn_key_outlined,
+                color: Colors.deepPurple,
+              ),
+              label: Text(
+                l10n.decryptPayloadAction,
+                style: const TextStyle(color: Colors.deepPurple),
+              ),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                side: const BorderSide(color: Colors.deepPurple),
+              ),
+              onPressed: () => _showManualDecryptionDialog(context, provider),
+            ),
+          ),
+        ],
+
         const SizedBox(height: 20),
 
         SizedBox(
@@ -975,6 +1075,231 @@ class _ResultScreenState extends State<ResultScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Future<void> _showManualDecryptionDialog(
+    BuildContext context,
+    ScanProvider provider,
+  ) async {
+    final l10n = AppLocalizations.of(context);
+    final keyController = TextEditingController();
+    final saltController = TextEditingController();
+    final ivController = TextEditingController();
+    String selectedMode = 'auto';
+    bool showAdvanced = false;
+    String? decryptedResult;
+    String? errorText;
+
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => StatefulBuilder(
+        builder: (context, setSheetState) {
+          return Padding(
+            padding: EdgeInsets.only(
+              left: 20,
+              right: 20,
+              top: 20,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.lock_open, color: Colors.deepPurple),
+                      const SizedBox(width: 8),
+                      Text(
+                        l10n.decryptPayloadTitle,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.decryptPayloadDescription,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Mode selector
+                  DropdownButtonFormField<String>(
+                    initialValue: selectedMode,
+                    decoration: InputDecoration(
+                      labelText: l10n.cipherModeLabel,
+                      border: const OutlineInputBorder(),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
+                    ),
+                    items: [
+                      DropdownMenuItem(
+                        value: 'auto',
+                        child: Text(l10n.cipherModeAuto),
+                      ),
+                      DropdownMenuItem(
+                        value: 'gcm',
+                        child: Text(l10n.cipherModeAesGcm),
+                      ),
+                      DropdownMenuItem(
+                        value: 'cbc',
+                        child: Text(l10n.cipherModeAesCbc),
+                      ),
+                    ],
+                    onChanged: (val) {
+                      if (val != null) {
+                        setSheetState(() => selectedMode = val);
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Passphrase field
+                  TextField(
+                    controller: keyController,
+                    decoration: InputDecoration(
+                      labelText: l10n.stegoPassphrase,
+                      border: const OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Advanced toggle
+                  TextButton.icon(
+                    icon: Icon(
+                      showAdvanced
+                          ? Icons.arrow_drop_up
+                          : Icons.arrow_drop_down,
+                    ),
+                    label: Text(
+                      showAdvanced
+                          ? 'Hide Advanced'
+                          : 'Show Advanced (Salt / IV)',
+                    ),
+                    onPressed: () {
+                      setSheetState(() => showAdvanced = !showAdvanced);
+                    },
+                  ),
+
+                  if (showAdvanced) ...[
+                    TextField(
+                      controller: saltController,
+                      decoration: const InputDecoration(
+                        labelText: 'Salt (Base64 / Optional)',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: ivController,
+                      decoration: const InputDecoration(
+                        labelText: 'IV / Nonce (Base64 / Optional)',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+
+                  if (errorText != null) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      errorText!,
+                      style: const TextStyle(color: Colors.red, fontSize: 13),
+                    ),
+                  ],
+
+                  if (decryptedResult != null) ...[
+                    const SizedBox(height: 12),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.green[50],
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.green[300]!),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n.decryptedContentLabel,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green[900],
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          SelectableText(
+                            decryptedResult!,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepPurple,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      onPressed: () {
+                        final key = keyController.text.trim();
+                        if (key.isEmpty) return;
+
+                        final salt = saltController.text.trim().isNotEmpty
+                            ? saltController.text.trim()
+                            : null;
+                        final iv = ivController.text.trim().isNotEmpty
+                            ? ivController.text.trim()
+                            : null;
+
+                        final res = provider.decryptManualCipher(
+                          passphrase: key,
+                          mode: selectedMode == 'auto' ? null : selectedMode,
+                          salt: salt,
+                          iv: iv,
+                        );
+
+                        setSheetState(() {
+                          if (res != null) {
+                            decryptedResult = res;
+                            errorText = null;
+                          } else {
+                            decryptedResult = null;
+                            errorText = l10n.manualDecryptionFailed;
+                          }
+                        });
+                      },
+                      child: Text(l10n.stegoUnlockButton),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 

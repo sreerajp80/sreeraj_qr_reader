@@ -1832,4 +1832,105 @@ class AppLocalizationsEn extends AppLocalizations {
   String shortenerPossibleTld(String tld) {
     return 'Possible URL shortener: short domain with common shortener ending ($tld)';
   }
+
+  @override
+  String get settingsFeaturesTitle => 'Features';
+
+  @override
+  String get settingsFeaturesSubtitle =>
+      'Explore all features of SreerajP QR Reader';
+
+  @override
+  String get appearanceHubTitle => 'Appearance';
+
+  @override
+  String get appearanceThemeModeCardTitle => 'Theme Mode';
+
+  @override
+  String get appearanceThemeModeCardSubtitle =>
+      'Choose between System, Light, Dark, or OLED mode';
+
+  @override
+  String get appearanceOverlayCardTitle => 'Scan Overlay Style';
+
+  @override
+  String get appearanceOverlayCardSubtitle =>
+      'Laser line, pulsing corners, cybernetic grid, or dot matrix';
+
+  @override
+  String get appearanceAccentCardTitle => 'Accent Color & Dynamic Colors';
+
+  @override
+  String get appearanceAccentCardSubtitle =>
+      'Material You dynamic color and custom accent palettes';
+
+  @override
+  String get appearanceTypographyCardTitle => 'Typography & Text Size';
+
+  @override
+  String get appearanceTypographyCardSubtitle =>
+      'App font family and text scale preferences';
+
+  @override
+  String get featuresHeaderTitle => 'SreerajP QR Reader Features';
+
+  @override
+  String get featuresHeaderSubtitle =>
+      'Explore every intelligent scanning tool, 6-layer URL safety engine, AR CodeVision, and offline feature designed for you.';
+
+  @override
+  String get helpCenterHeaderTitle => 'Help Center & User Guides';
+
+  @override
+  String get helpCenterHeaderSubtitle =>
+      'Browse in-depth guides, step-by-step instructions, and solutions for all features of SreerajP QR Reader.';
+
+  @override
+  String get decryptPayloadAction => 'Decrypt Payload';
+
+  @override
+  String get decryptPayloadTitle => 'Decrypt Scanned Content';
+
+  @override
+  String get decryptPayloadDescription =>
+      'Enter the passphrase or session code to decrypt this ciphertext payload.';
+
+  @override
+  String get cipherModeLabel => 'Cipher Mode';
+
+  @override
+  String get cipherModeAuto => 'Auto-detect / Standard';
+
+  @override
+  String get cipherModeAesGcm => 'AES-256-GCM (PBKDF2 SHA-256)';
+
+  @override
+  String get cipherModeAesCbc => 'AES-256-CBC';
+
+  @override
+  String get airQrCodeLabel => 'Session Code / Key';
+
+  @override
+  String get airQrCodeHint => 'e.g. ABC-DEF';
+
+  @override
+  String get airQrDetectedTitle => 'AirQR Encrypted Transfer';
+
+  @override
+  String get airQrDetectedSubtitle =>
+      'This QR code carries an encrypted optical transfer. Enter the session code shown on the sending device to unlock.';
+
+  @override
+  String get jsonEnvelopeDetectedTitle => 'Encrypted JSON Container';
+
+  @override
+  String get jsonEnvelopeDetectedSubtitle =>
+      'This QR code contains an encrypted JSON container. Enter the passphrase to decrypt.';
+
+  @override
+  String get decryptedContentLabel => 'Decrypted Content:';
+
+  @override
+  String get manualDecryptionFailed =>
+      'Decryption failed. Please verify the passphrase or cipher settings.';
 }

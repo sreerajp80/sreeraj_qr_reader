@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sreeraj_qr_reader/models/dom_sandbox_result.dart';
+import 'package:sreeraj_qr_reader/models/encrypted_payload_data.dart';
 import 'package:sreeraj_qr_reader/models/parsed_payload.dart';
 import 'package:sreeraj_qr_reader/models/quishing_analysis_result.dart';
 import 'package:sreeraj_qr_reader/models/app_message.dart';
@@ -10,12 +11,13 @@ import 'package:sreeraj_qr_reader/models/scan_record.dart';
 import 'package:sreeraj_qr_reader/models/stego_qr_data.dart';
 import 'package:sreeraj_qr_reader/services/biometric_service.dart';
 import 'package:sreeraj_qr_reader/services/dom_sandbox_service.dart';
+import 'package:sreeraj_qr_reader/services/encrypted_payload_service.dart';
 import 'package:sreeraj_qr_reader/services/payload_parser_service.dart';
 import 'package:sreeraj_qr_reader/services/quishing_guard_service.dart';
 import 'package:sreeraj_qr_reader/services/stego_qr_service.dart';
 import 'package:sreeraj_qr_reader/services/url_safety_service.dart';
 
-/// Provider managing scan results, URL safety checks, StegoQR state, Smart Payload parsing, QuishingGuard tamper detection, Zero-Trust DOM Sandboxing, and Scan Feedback preferences.
+/// Provider managing scan results, URL safety checks, StegoQR & AirQR state, Smart Payload parsing, QuishingGuard tamper detection, Zero-Trust DOM Sandboxing, and Scan Feedback preferences.
 class ScanProvider extends ChangeNotifier {
   static const String vibrationPrefKey = 'scan_feedback_vibration';
   static const String soundPrefKey = 'scan_feedback_sound';
@@ -30,12 +32,14 @@ class ScanProvider extends ChangeNotifier {
   bool _isSoundEnabled = true;
   List<SafetyCheckResult> _safetyChecks = [];
   StegoQrData? _stegoQrData;
+  EncryptedPayloadData? _encryptedPayloadData;
   ParsedPayload? _parsedPayload;
   QuishingAnalysisResult? _quishingResult;
   DomSandboxResult? _domSandboxResult;
 
   final UrlSafetyService _urlSafetyService;
   final StegoQrService _stegoQrService;
+  final EncryptedPayloadService _encryptedPayloadService;
   final BiometricService _biometricService;
   final PayloadParserService _payloadParserService;
   final QuishingGuardService _quishingGuardService;
@@ -44,12 +48,18 @@ class ScanProvider extends ChangeNotifier {
   ScanProvider({
     UrlSafetyService? urlSafetyService,
     StegoQrService? stegoQrService,
+    EncryptedPayloadService? encryptedPayloadService,
     BiometricService? biometricService,
     PayloadParserService? payloadParserService,
     QuishingGuardService? quishingGuardService,
     DomSandboxService? domSandboxService,
   }) : _urlSafetyService = urlSafetyService ?? UrlSafetyService(),
        _stegoQrService = stegoQrService ?? StegoQrService(),
+       _encryptedPayloadService =
+           encryptedPayloadService ??
+           EncryptedPayloadService(
+             stegoQrService: stegoQrService ?? StegoQrService(),
+           ),
        _biometricService = biometricService ?? BiometricService(),
        _payloadParserService = payloadParserService ?? PayloadParserService(),
        _quishingGuardService =
@@ -102,11 +112,14 @@ class ScanProvider extends ChangeNotifier {
     }
   }
 
-  /// Whether the scanned code contains a StegoQR hidden payload.
-  bool get isStegoQr => _stegoQrData != null;
+  /// Whether the scanned code contains an encrypted or StegoQR payload.
+  bool get isStegoQr => _stegoQrData != null || _encryptedPayloadData != null;
 
   /// The StegoQR data model if current scan is StegoQR.
   StegoQrData? get stegoQrData => _stegoQrData;
+
+  /// The universal encrypted payload data model if detected.
+  EncryptedPayloadData? get encryptedPayloadData => _encryptedPayloadData;
 
   /// Whether the last safety run used active online probing.
   bool get activeProbingEnabled => _activeProbingEnabled;
@@ -141,10 +154,21 @@ class ScanProvider extends ChangeNotifier {
     _scanResult = result;
     _scanType = type;
 
+    // 1. Detect universal encrypted container (AirQR, StegoQR, JSON container, PGP)
+    _encryptedPayloadData = _encryptedPayloadService.detectEncryptedPayload(
+      result,
+    );
+
     if (_stegoQrService.isStegoQr(result)) {
       _stegoQrData = _stegoQrService.parseStegoQr(result);
       _parsedPayload = _payloadParserService.parse(_stegoQrData!.decoyText);
       _isUrl = _checkIfUrl(_stegoQrData!.decoyText);
+    } else if (_encryptedPayloadData != null) {
+      _stegoQrData = null;
+      _parsedPayload = _payloadParserService.parse(
+        _encryptedPayloadData!.publicDisplay,
+      );
+      _isUrl = _checkIfUrl(_encryptedPayloadData!.publicDisplay);
     } else {
       _stegoQrData = null;
       _parsedPayload = _payloadParserService.parse(result);
@@ -214,49 +238,78 @@ class ScanProvider extends ChangeNotifier {
     }
   }
 
-  /// Unlocks the StegoQR payload using biometric authentication and a passphrase.
-  /// [biometricReason] is the text the system dialog shows. The screen passes
-  /// it in already localized, so this layer holds no UI strings.
+  /// Unlocks the encrypted / StegoQR payload using biometric authentication and a passphrase/code.
   Future<bool> unlockStegoWithBiometrics({
     required String passphrase,
     required String biometricReason,
   }) async {
-    if (_stegoQrData == null) return false;
+    if (_stegoQrData == null && _encryptedPayloadData == null) return false;
 
     final authenticated = await _biometricService.authenticate(
       localizedReason: biometricReason,
     );
 
     if (authenticated) {
+      return unlockStegoWithPassphrase(passphrase);
+    } else {
+      if (_stegoQrData != null) {
+        _stegoQrData = _stegoQrData!.copyWith(
+          error: const AppMessage(AppMessageKey.stegoBiometricCanceled),
+        );
+      }
+      if (_encryptedPayloadData != null) {
+        _encryptedPayloadData = _encryptedPayloadData!.copyWith(
+          error: const AppMessage(AppMessageKey.stegoBiometricCanceled),
+        );
+      }
+      notifyListeners();
+      return false;
+    }
+  }
+
+  /// Unlocks the StegoQR or universal encrypted payload directly using a passphrase or session code.
+  bool unlockStegoWithPassphrase(String passphrase) {
+    if (_encryptedPayloadData != null) {
+      _encryptedPayloadData = _encryptedPayloadService.decrypt(
+        _encryptedPayloadData!,
+        passphrase,
+      );
+      if (_encryptedPayloadData!.decryptedPayload != null) {
+        _parsedPayload = _payloadParserService.parse(
+          _encryptedPayloadData!.decryptedPayload!,
+        );
+      }
+    }
+
+    if (_stegoQrData != null) {
       _stegoQrData = _stegoQrService.decryptPayload(_stegoQrData!, passphrase);
       if (_stegoQrData!.decryptedPayload != null) {
         _parsedPayload = _payloadParserService.parse(
           _stegoQrData!.decryptedPayload!,
         );
       }
-      notifyListeners();
-      return _stegoQrData!.isUnlocked;
-    } else {
-      _stegoQrData = _stegoQrData!.copyWith(
-        error: const AppMessage(AppMessageKey.stegoBiometricCanceled),
-      );
-      notifyListeners();
-      return false;
     }
+
+    notifyListeners();
+    return (_encryptedPayloadData?.isUnlocked ?? false) ||
+        (_stegoQrData?.isUnlocked ?? false);
   }
 
-  /// Unlocks the StegoQR payload directly using a passphrase.
-  bool unlockStegoWithPassphrase(String passphrase) {
-    if (_stegoQrData == null) return false;
-
-    _stegoQrData = _stegoQrService.decryptPayload(_stegoQrData!, passphrase);
-    if (_stegoQrData!.decryptedPayload != null) {
-      _parsedPayload = _payloadParserService.parse(
-        _stegoQrData!.decryptedPayload!,
-      );
-    }
-    notifyListeners();
-    return _stegoQrData!.isUnlocked;
+  /// Decrypts raw or custom ciphertext on-demand.
+  String? decryptManualCipher({
+    required String passphrase,
+    String? mode,
+    String? salt,
+    String? iv,
+  }) {
+    if (_scanResult == null) return null;
+    return _encryptedPayloadService.decryptRaw(
+      rawCipher: _scanResult!,
+      passphrase: passphrase,
+      mode: mode,
+      salt: salt,
+      iv: iv,
+    );
   }
 
   /// Creates a ScanRecord representation of the current scan state.
@@ -308,6 +361,7 @@ class ScanProvider extends ChangeNotifier {
     _isLoading = false;
     _safetyChecks = [];
     _stegoQrData = null;
+    _encryptedPayloadData = null;
     _parsedPayload = null;
     _quishingResult = null;
     _domSandboxResult = null;

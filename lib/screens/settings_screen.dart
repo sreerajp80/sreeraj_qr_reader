@@ -7,6 +7,9 @@ import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/providers/scan_provider.dart';
 import 'package:sreeraj_qr_reader/providers/theme_provider.dart';
 import 'package:sreeraj_qr_reader/screens/about_screen.dart';
+import 'package:sreeraj_qr_reader/screens/appearance_screen.dart';
+import 'package:sreeraj_qr_reader/screens/features_screen.dart';
+import 'package:sreeraj_qr_reader/screens/help/help_home_screen.dart';
 import 'package:sreeraj_qr_reader/services/url_safety_service.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -55,13 +58,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final scanProvider = Provider.of<ScanProvider>(context);
 
-    final overlayStyleName = switch (themeProvider.scanOverlayStyle) {
-      ScanOverlayStyle.laserLine => l10n.overlayLaserLine,
-      ScanOverlayStyle.pulsingCorners => l10n.overlayPulsingCorners,
-      ScanOverlayStyle.cyberneticGrid => l10n.overlayCyberneticGrid,
-      ScanOverlayStyle.subtleDotMatrix => l10n.overlaySubtleDotMatrix,
-    };
-
     final themeModeName = switch (themeProvider.themeMode) {
       AppThemeMode.system => l10n.themeSystemDefault,
       AppThemeMode.light => l10n.themeLight,
@@ -87,20 +83,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
               child: Column(
                 children: [
                   _buildSettingsCard(
                     context: context,
                     icon: Icons.palette_outlined,
-                    title: l10n.settingsAppearanceTitle,
+                    title: l10n.appearanceHubTitle,
                     subtitle: '$themeModeName • Dynamic colors',
                     onTap: () async {
                       await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const AppearanceSettingsScreen(),
+                          builder: (context) => const AppearanceScreen(),
                         ),
                       );
                       _loadSummary();
@@ -108,18 +103,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   _buildSettingsCard(
                     context: context,
-                    icon: Icons.layers_outlined,
-                    title: l10n.settingsOverlayTitle,
-                    subtitle: overlayStyleName,
-                    onTap: () async {
-                      await Navigator.push(
+                    icon: Icons.stars_outlined,
+                    title: l10n.settingsFeaturesTitle,
+                    subtitle: l10n.settingsFeaturesSubtitle,
+                    onTap: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const ScanOverlaySettingsScreen(),
+                          builder: (context) => const FeaturesScreen(),
                         ),
                       );
-                      _loadSummary();
                     },
                   ),
                   _buildSettingsCard(
@@ -193,7 +186,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const HelpSettingsScreen(),
+                          builder: (context) => const HelpHomeScreen(),
                         ),
                       );
                     },
@@ -225,26 +218,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
     required String subtitle,
     required VoidCallback onTap,
   }) {
+    final theme = Theme.of(context);
+    final accent = theme.colorScheme.primary;
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(20),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                width: 48,
+                height: 48,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
+                  color: accent.withValues(alpha: 0.14),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                child: Icon(
-                  icon,
-                  color: Theme.of(context).primaryColor,
-                  size: 24,
-                ),
+                child: Icon(icon, color: accent, size: 24),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -254,19 +248,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Text(
                       title,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                         fontSize: 16,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 3),
                     Text(
                       subtitle,
-                      style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_right, color: Colors.grey),
+              Icon(
+                Icons.chevron_right,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ],
           ),
         ),

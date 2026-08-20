@@ -3255,6 +3255,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Possible URL shortener: short domain with common shortener ending ({tld})'**
   String shortenerPossibleTld(String tld);
+
+  /// Title of the Features settings card
+  ///
+  /// In en, this message translates to:
+  /// **'Features'**
+  String get settingsFeaturesTitle;
+
+  /// Subtitle of the Features settings card
+  ///
+  /// In en, this message translates to:
+  /// **'Explore all features of SreerajP QR Reader'**
+  String get settingsFeaturesSubtitle;
+
+  /// Title of the Appearance preferences hub screen
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearanceHubTitle;
+
+  /// Title of the Theme Mode card in Appearance hub
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Mode'**
+  String get appearanceThemeModeCardTitle;
+
+  /// Subtitle of the Theme Mode card in Appearance hub
+  ///
+  /// In en, this message translates to:
+  /// **'Choose between System, Light, Dark, or OLED mode'**
+  String get appearanceThemeModeCardSubtitle;
+
+  /// Title of the Scan Overlay Style card in Appearance hub
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Overlay Style'**
+  String get appearanceOverlayCardTitle;
+
+  /// Subtitle of the Scan Overlay Style card in Appearance hub
+  ///
+  /// In en, this message translates to:
+  /// **'Laser line, pulsing corners, cybernetic grid, or dot matrix'**
+  String get appearanceOverlayCardSubtitle;
+
+  /// Title of the Accent Color card in Appearance hub
+  ///
+  /// In en, this message translates to:
+  /// **'Accent Color & Dynamic Colors'**
+  String get appearanceAccentCardTitle;
+
+  /// Subtitle of the Accent Color card in Appearance hub
+  ///
+  /// In en, this message translates to:
+  /// **'Material You dynamic color and custom accent palettes'**
+  String get appearanceAccentCardSubtitle;
+
+  /// Title of the Typography & Text Size card in Appearance hub
+  ///
+  /// In en, this message translates to:
+  /// **'Typography & Text Size'**
+  String get appearanceTypographyCardTitle;
+
+  /// Subtitle of the Typography & Text Size card in Appearance hub
+  ///
+  /// In en, this message translates to:
+  /// **'App font family and text scale preferences'**
+  String get appearanceTypographyCardSubtitle;
+
+  /// Hero header title on the Features screen
+  ///
+  /// In en, this message translates to:
+  /// **'SreerajP QR Reader Features'**
+  String get featuresHeaderTitle;
+
+  /// Hero header subtitle on the Features screen
+  ///
+  /// In en, this message translates to:
+  /// **'Explore every intelligent scanning tool, 6-layer URL safety engine, AR CodeVision, and offline feature designed for you.'**
+  String get featuresHeaderSubtitle;
+
+  /// Hero header title on the Help Home screen
+  ///
+  /// In en, this message translates to:
+  /// **'Help Center & User Guides'**
+  String get helpCenterHeaderTitle;
+
+  /// Hero header subtitle on the Help Home screen
+  ///
+  /// In en, this message translates to:
+  /// **'Browse in-depth guides, step-by-step instructions, and solutions for all features of SreerajP QR Reader.'**
+  String get helpCenterHeaderSubtitle;
+
+  /// Button to open the manual decryption tool
+  ///
+  /// In en, this message translates to:
+  /// **'Decrypt Payload'**
+  String get decryptPayloadAction;
+
+  /// Title of manual decryption dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Decrypt Scanned Content'**
+  String get decryptPayloadTitle;
+
+  /// Description in the manual decryption dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the passphrase or session code to decrypt this ciphertext payload.'**
+  String get decryptPayloadDescription;
+
+  /// Label for cipher mode selector
+  ///
+  /// In en, this message translates to:
+  /// **'Cipher Mode'**
+  String get cipherModeLabel;
+
+  /// Cipher mode auto-detection option
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-detect / Standard'**
+  String get cipherModeAuto;
+
+  /// Cipher mode AES-GCM option
+  ///
+  /// In en, this message translates to:
+  /// **'AES-256-GCM (PBKDF2 SHA-256)'**
+  String get cipherModeAesGcm;
+
+  /// Cipher mode AES-CBC option
+  ///
+  /// In en, this message translates to:
+  /// **'AES-256-CBC'**
+  String get cipherModeAesCbc;
+
+  /// Label for AirQR session code input
+  ///
+  /// In en, this message translates to:
+  /// **'Session Code / Key'**
+  String get airQrCodeLabel;
+
+  /// Hint for AirQR session code input
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. ABC-DEF'**
+  String get airQrCodeHint;
+
+  /// Title when an AirQR optical payload is detected
+  ///
+  /// In en, this message translates to:
+  /// **'AirQR Encrypted Transfer'**
+  String get airQrDetectedTitle;
+
+  /// Subtitle when an AirQR optical payload is detected
+  ///
+  /// In en, this message translates to:
+  /// **'This QR code carries an encrypted optical transfer. Enter the session code shown on the sending device to unlock.'**
+  String get airQrDetectedSubtitle;
+
+  /// Title when an encrypted JSON container is detected
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypted JSON Container'**
+  String get jsonEnvelopeDetectedTitle;
+
+  /// Subtitle when an encrypted JSON container is detected
+  ///
+  /// In en, this message translates to:
+  /// **'This QR code contains an encrypted JSON container. Enter the passphrase to decrypt.'**
+  String get jsonEnvelopeDetectedSubtitle;
+
+  /// Label above decrypted content
+  ///
+  /// In en, this message translates to:
+  /// **'Decrypted Content:'**
+  String get decryptedContentLabel;
+
+  /// Error message when manual decryption fails
+  ///
+  /// In en, this message translates to:
+  /// **'Decryption failed. Please verify the passphrase or cipher settings.'**
+  String get manualDecryptionFailed;
 }
 
 class _AppLocalizationsDelegate

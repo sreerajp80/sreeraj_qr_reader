@@ -7,6 +7,9 @@ import 'package:sreeraj_qr_reader/l10n/gen/app_localizations.dart';
 import 'package:sreeraj_qr_reader/providers/scan_provider.dart';
 import 'package:sreeraj_qr_reader/providers/theme_provider.dart';
 import 'package:sreeraj_qr_reader/screens/about_screen.dart';
+import 'package:sreeraj_qr_reader/screens/appearance_screen.dart';
+import 'package:sreeraj_qr_reader/screens/features_screen.dart';
+import 'package:sreeraj_qr_reader/screens/help/help_home_screen.dart';
 import 'package:sreeraj_qr_reader/screens/settings_screen.dart';
 
 void main() {
@@ -37,8 +40,8 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
 
-      expect(find.text('Appearance & Theme'), findsOneWidget);
-      expect(find.text('Customizable Scan Overlay'), findsOneWidget);
+      expect(find.text('Appearance'), findsOneWidget);
+      expect(find.text('Features'), findsOneWidget);
       expect(find.text('Scan Feedback & Alerts'), findsOneWidget);
       expect(find.text('Privacy & Online Probing'), findsOneWidget);
       expect(find.text('Google Safe Browsing API'), findsOneWidget);
@@ -47,19 +50,34 @@ void main() {
       expect(find.text('About'), findsOneWidget);
     });
 
-    testWidgets('Navigates to Appearance & Theme page on card tap', (
-      tester,
-    ) async {
+    testWidgets('Navigates to Appearance page on card tap', (tester) async {
       await tester.pumpWidget(buildTestableWidget());
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
 
-      await tester.tap(find.text('Appearance & Theme'));
+      await tester.tap(find.text('Appearance'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
 
-      expect(find.byType(AppearanceSettingsScreen), findsOneWidget);
-      expect(find.text('Material You Dynamic Colors'), findsOneWidget);
+      expect(find.byType(AppearanceScreen), findsOneWidget);
+      expect(find.text('Theme Mode'), findsOneWidget);
+      expect(find.text('Scan Overlay Style'), findsOneWidget);
+      expect(find.text('Accent Color & Dynamic Colors'), findsOneWidget);
+      expect(find.text('Typography & Text Size'), findsOneWidget);
+    });
+
+    testWidgets('Navigates to Features page on card tap', (tester) async {
+      await tester.pumpWidget(buildTestableWidget());
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      await tester.tap(find.text('Features'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      expect(find.byType(FeaturesScreen), findsOneWidget);
+      expect(find.text('SreerajP QR Reader Features'), findsOneWidget);
+      expect(find.text('CORE SCANNING & INGESTION'), findsOneWidget);
     });
 
     testWidgets('Navigates to Scan Feedback page on card tap', (tester) async {
@@ -96,9 +114,7 @@ void main() {
       );
     });
 
-    testWidgets('Navigates to Help & Feature Guides page on card tap', (
-      tester,
-    ) async {
+    testWidgets('Navigates to Help Center page on card tap', (tester) async {
       await tester.pumpWidget(buildTestableWidget());
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
@@ -110,15 +126,11 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
 
-      expect(find.byType(HelpSettingsScreen), findsOneWidget);
-      expect(find.text('Help & Feature Guides'), findsWidgets);
-      expect(find.text('AR CodeVision HUD'), findsOneWidget);
-      expect(find.text('AirQR Stream Receiver'), findsOneWidget);
-      expect(
-        find.text('Quishing Guard (Physical QR Sticker Tamper Check)'),
-        findsOneWidget,
-      );
-      expect(find.text('URL Safety & Link Tamper Engine'), findsOneWidget);
+      expect(find.byType(HelpHomeScreen), findsOneWidget);
+      expect(find.text('Help Center & User Guides'), findsOneWidget);
+      expect(find.text('Barcode & Media Scanning'), findsOneWidget);
+      expect(find.text('AR CodeVision™ Spatial HUD'), findsOneWidget);
+      expect(find.text('AirQR™ Optical Air-Gap Stream'), findsOneWidget);
     });
 
     testWidgets('Navigates to About screen on card tap', (tester) async {

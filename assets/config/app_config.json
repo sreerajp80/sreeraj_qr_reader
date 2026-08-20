@@ -1,12 +1,12 @@
 {
   "appName": "SreerajP QR Reader",
   "description": "A privacy-first QR and barcode scanner with 6-layer link safety checks, sandboxed page preview, physical tamper (quishing) detection, hidden StegoQR content, smart actions for Wi-Fi/contacts/payments/2FA, encrypted scan history, AR CodeVision multi-code tracking, and offline AirQR data transfer.",
-  "version": "2.7.0",
-  "build": "19",
+  "version": "2.8.0",
+  "build": "20",
   "details": {
     "Author": "Sreeraj P",
     "Email": "sreerajp@zohomail.in",
-    "Last build": "2026-08-01",
+    "Last build": "2026-08-20",
     "License": "All libraries used are open source.",
     "AI used": "Anthropic Claude, Gemini 3.6, ChatGPT 5.4",
     "IDE used": "VS Code / Gemini Antigravity IDE"
